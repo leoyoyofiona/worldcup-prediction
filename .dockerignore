@@ -1,0 +1,9 @@
+.git
+.venv
+.venv_runtime
+.pytest_cache
+.playwright-mcp
+__pycache__
+*.pyc
+data
+.DS_Store

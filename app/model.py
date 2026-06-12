@@ -11,7 +11,7 @@ from io import StringIO
 from typing import Any, Deque, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from .cache import now_iso
-from .config import MODEL_VERSION
+from .config import MODEL_VERSION, TOURNAMENT_SIMULATIONS
 
 
 HOST_TEAMS = {"United States", "Mexico", "Canada"}
@@ -124,7 +124,6 @@ BETTING_SOURCE_IDS = [
 ]
 
 GROUP_LETTERS = list("ABCDEFGHIJKL")
-TOURNAMENT_SIMULATIONS = 50000
 TOURNAMENT_RANDOM_SEED = 20260603
 
 TEAM_CONFEDERATIONS = {

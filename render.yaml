@@ -5,3 +5,6 @@ services:
     plan: free
     autoDeploy: true
     healthCheckPath: /api/status
+    envVars:
+      - key: TOURNAMENT_SIMULATIONS
+        value: "15000"

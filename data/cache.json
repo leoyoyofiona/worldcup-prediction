@@ -1,6 +1,6 @@
 {
   "model_version": "0.1.1",
-  "generated_at": "2026-06-12T03:47:10+00:00",
+  "generated_at": "2026-06-12T03:53:11+00:00",
   "sources": [
     {
       "id": "schedule_openfootball",
@@ -9,10 +9,10 @@
       "required": true,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 19957,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:11+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 19229,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:35+00:00"
     },
     {
       "id": "results_history",
@@ -21,10 +21,10 @@
       "required": true,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
+      "message": "已读取本地缓存",
       "bytes": 3724399,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:12+00:00"
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:36+00:00"
     },
     {
       "id": "fifa_ranking",
@@ -33,10 +33,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
+      "message": "已读取本地缓存",
       "bytes": 217395,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:11+00:00"
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:37+00:00"
     },
     {
       "id": "yiwu_index",
@@ -45,10 +45,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
+      "message": "已读取本地缓存",
       "bytes": 209247,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:10+00:00"
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:39+00:00"
     },
     {
       "id": "mofcom_forecast",
@@ -57,10 +57,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 1415,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:10+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 1375,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:40+00:00"
     },
     {
       "id": "chinagoods",
@@ -69,10 +69,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
+      "message": "已读取本地缓存",
       "bytes": 643950,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:10+00:00"
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:41+00:00"
     },
     {
       "id": "yiwu_worldcup_search",
@@ -81,10 +81,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
+      "message": "已读取本地缓存",
       "bytes": 34825,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:14+00:00"
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:42+00:00"
     },
     {
       "id": "oddsjet_europe",
@@ -93,10 +93,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 993444,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:14+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 983683,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:44+00:00"
     },
     {
       "id": "oddsjet_asia",
@@ -105,10 +105,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 606804,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:12+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 602632,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:45+00:00"
     },
     {
       "id": "oddsjet_oceania",
@@ -117,10 +117,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 944825,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:14+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 935167,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:46+00:00"
     },
     {
       "id": "oddsjet_africa",
@@ -129,10 +129,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 932822,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:12+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 923361,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:47+00:00"
     },
     {
       "id": "oddsjet_north_america",
@@ -141,10 +141,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 1010090,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:13+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 1000048,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:49+00:00"
     },
     {
       "id": "oddsjet_south_america",
@@ -153,10 +153,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已抓取",
-      "bytes": 928200,
-      "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:14+00:00"
+      "message": "已读取本地缓存",
+      "bytes": 918818,
+      "using_cache": true,
+      "fetched_at": "2026-06-12T03:52:50+00:00"
     },
     {
       "id": "comparebet_uk",
@@ -165,10 +165,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "在线抓取失败，已使用本地缓存",
+      "message": "已读取本地缓存",
       "bytes": 683415,
       "using_cache": true,
-      "fetched_at": "2026-06-12T03:46:44+00:00"
+      "fetched_at": "2026-06-12T03:52:51+00:00"
     },
     {
       "id": "worldcup_matches_local",
@@ -180,7 +180,7 @@
       "message": "已读取本地 CSV",
       "bytes": 156079,
       "using_cache": false,
-      "fetched_at": "2026-06-12T03:46:46+00:00"
+      "fetched_at": "2026-06-12T03:52:53+00:00"
     }
   ],
   "matches": [
@@ -16994,120 +16994,120 @@
     }
   ],
   "tournament": {
-    "simulations": 50000,
+    "simulations": 15000,
     "stage_probabilities": [
       {
         "team": "Spain",
         "round_of_32": 99.9,
-        "round_of_16": 80.4,
-        "quarter_final": 62.9,
+        "round_of_16": 80.2,
+        "quarter_final": 62.8,
         "semi_final": 50.1,
-        "final": 36.9,
-        "champion": 25.4
+        "final": 36.7,
+        "champion": 25.2
       },
       {
         "team": "Argentina",
-        "round_of_32": 97.2,
-        "round_of_16": 72.6,
-        "quarter_final": 59.9,
+        "round_of_32": 97.3,
+        "round_of_16": 72.7,
+        "quarter_final": 60.0,
         "semi_final": 45.1,
-        "final": 31.9,
-        "champion": 19.6
+        "final": 31.7,
+        "champion": 19.4
       },
       {
         "team": "France",
-        "round_of_32": 95.5,
+        "round_of_32": 95.6,
         "round_of_16": 77.0,
-        "quarter_final": 54.9,
-        "semi_final": 37.9,
-        "final": 21.8,
-        "champion": 12.7
-      },
-      {
-        "team": "England",
-        "round_of_32": 97.9,
-        "round_of_16": 68.2,
-        "quarter_final": 40.8,
-        "semi_final": 23.7,
-        "final": 12.2,
-        "champion": 5.5
+        "quarter_final": 55.0,
+        "semi_final": 38.0,
+        "final": 21.9,
+        "champion": 12.6
       },
       {
         "team": "Germany",
         "round_of_32": 97.6,
-        "round_of_16": 76.0,
-        "quarter_final": 43.9,
+        "round_of_16": 75.9,
+        "quarter_final": 43.8,
         "semi_final": 26.2,
-        "final": 11.6,
-        "champion": 5.4
+        "final": 12.1,
+        "champion": 5.7
       },
       {
-        "team": "Netherlands",
-        "round_of_32": 98.2,
-        "round_of_16": 60.5,
-        "quarter_final": 39.5,
-        "semi_final": 20.6,
-        "final": 8.9,
-        "champion": 3.8
+        "team": "England",
+        "round_of_32": 98.0,
+        "round_of_16": 68.2,
+        "quarter_final": 40.9,
+        "semi_final": 23.6,
+        "final": 12.3,
+        "champion": 5.5
       },
       {
         "team": "Brazil",
-        "round_of_32": 93.8,
-        "round_of_16": 53.8,
-        "quarter_final": 34.1,
-        "semi_final": 18.5,
-        "final": 8.3,
-        "champion": 3.6
+        "round_of_32": 93.6,
+        "round_of_16": 53.4,
+        "quarter_final": 33.8,
+        "semi_final": 18.2,
+        "final": 8.5,
+        "champion": 4.1
       },
       {
-        "team": "Mexico",
-        "round_of_32": 92.9,
-        "round_of_16": 68.9,
-        "quarter_final": 36.3,
-        "semi_final": 18.4,
-        "final": 8.1,
-        "champion": 3.3
-      },
-      {
-        "team": "Colombia",
-        "round_of_32": 85.7,
-        "round_of_16": 48.6,
-        "quarter_final": 26.7,
-        "semi_final": 14.3,
-        "final": 7.5,
-        "champion": 3.3
+        "team": "Netherlands",
+        "round_of_32": 98.3,
+        "round_of_16": 60.1,
+        "quarter_final": 39.1,
+        "semi_final": 20.6,
+        "final": 8.9,
+        "champion": 4.0
       },
       {
         "team": "Portugal",
-        "round_of_32": 91.5,
+        "round_of_32": 91.3,
         "round_of_16": 54.9,
-        "quarter_final": 31.4,
-        "semi_final": 15.7,
+        "quarter_final": 31.3,
+        "semi_final": 15.6,
         "final": 7.8,
         "champion": 3.2
       },
       {
+        "team": "Mexico",
+        "round_of_32": 93.0,
+        "round_of_16": 68.9,
+        "quarter_final": 35.9,
+        "semi_final": 18.2,
+        "final": 7.9,
+        "champion": 3.1
+      },
+      {
+        "team": "Colombia",
+        "round_of_32": 85.8,
+        "round_of_16": 48.4,
+        "quarter_final": 26.7,
+        "semi_final": 14.2,
+        "final": 7.3,
+        "champion": 3.0
+      },
+      {
         "team": "Turkey",
-        "round_of_32": 92.9,
-        "round_of_16": 68.6,
+        "round_of_32": 92.8,
+        "round_of_16": 68.5,
         "quarter_final": 37.6,
         "semi_final": 14.4,
-        "final": 6.6,
-        "champion": 2.5
+        "final": 6.5,
+        "champion": 2.4
       },
       {
         "team": "Belgium",
-        "round_of_32": 97.8,
-        "round_of_16": 65.9,
-        "quarter_final": 36.5,
-        "semi_final": 12.9,
-        "final": 5.8,
-        "champion": 2.2
+        "round_of_32": 97.7,
+        "round_of_16": 66.0,
+        "quarter_final": 36.7,
+        "semi_final": 13.0,
+        "final": 5.6,
+        "champion": 2.1
       },
       {
         "team": "Croatia",
-        "round_of_32": 91.8,
-        "round_of_16": 50.9,
+        "round_of_32": 91.6,
+        "round_of_16": 50.8,
         "quarter_final": 21.9,
         "semi_final": 10.6,
         "final": 4.6,
@@ -17115,206 +17115,206 @@
       },
       {
         "team": "Japan",
-        "round_of_32": 95.8,
-        "round_of_16": 49.8,
-        "quarter_final": 27.2,
-        "semi_final": 12.0,
+        "round_of_32": 95.7,
+        "round_of_16": 49.6,
+        "quarter_final": 27.0,
+        "semi_final": 12.3,
         "final": 4.4,
         "champion": 1.5
       },
       {
         "team": "Morocco",
-        "round_of_32": 95.4,
-        "round_of_16": 46.3,
-        "quarter_final": 24.8,
-        "semi_final": 11.1,
-        "final": 3.9,
-        "champion": 1.3
+        "round_of_32": 95.6,
+        "round_of_16": 47.0,
+        "quarter_final": 24.9,
+        "semi_final": 11.5,
+        "final": 4.2,
+        "champion": 1.5
       },
       {
         "team": "Switzerland",
-        "round_of_32": 98.0,
-        "round_of_16": 65.0,
-        "quarter_final": 28.1,
-        "semi_final": 10.5,
-        "final": 3.6,
-        "champion": 1.1
+        "round_of_32": 98.1,
+        "round_of_16": 65.1,
+        "quarter_final": 28.0,
+        "semi_final": 10.3,
+        "final": 3.5,
+        "champion": 1.2
       },
       {
         "team": "Ecuador",
-        "round_of_32": 78.0,
-        "round_of_16": 47.8,
-        "quarter_final": 20.6,
-        "semi_final": 8.5,
+        "round_of_32": 77.7,
+        "round_of_16": 47.7,
+        "quarter_final": 21.0,
+        "semi_final": 8.6,
         "final": 2.9,
         "champion": 0.9
       },
       {
         "team": "Uruguay",
-        "round_of_32": 77.2,
-        "round_of_16": 27.1,
-        "quarter_final": 14.5,
-        "semi_final": 6.3,
-        "final": 2.3,
-        "champion": 0.6
+        "round_of_32": 77.7,
+        "round_of_16": 27.2,
+        "quarter_final": 14.6,
+        "semi_final": 6.4,
+        "final": 2.5,
+        "champion": 0.7
       },
       {
         "team": "Norway",
-        "round_of_32": 91.6,
-        "round_of_16": 48.8,
-        "quarter_final": 20.4,
-        "semi_final": 7.5,
-        "final": 2.2,
-        "champion": 0.6
+        "round_of_32": 91.8,
+        "round_of_16": 48.5,
+        "quarter_final": 20.2,
+        "semi_final": 7.3,
+        "final": 2.1,
+        "champion": 0.5
+      },
+      {
+        "team": "Senegal",
+        "round_of_32": 81.7,
+        "round_of_16": 38.9,
+        "quarter_final": 15.7,
+        "semi_final": 5.0,
+        "final": 1.4,
+        "champion": 0.4
       },
       {
         "team": "Canada",
         "round_of_32": 97.1,
-        "round_of_16": 55.9,
-        "quarter_final": 19.1,
-        "semi_final": 5.6,
-        "final": 1.5,
-        "champion": 0.4
-      },
-      {
-        "team": "Senegal",
-        "round_of_32": 81.6,
-        "round_of_16": 39.5,
-        "quarter_final": 15.9,
-        "semi_final": 5.2,
-        "final": 1.5,
-        "champion": 0.4
-      },
-      {
-        "team": "Austria",
-        "round_of_32": 78.8,
-        "round_of_16": 25.9,
-        "quarter_final": 11.8,
-        "semi_final": 3.8,
-        "final": 1.1,
+        "round_of_16": 56.2,
+        "quarter_final": 19.5,
+        "semi_final": 5.7,
+        "final": 1.6,
         "champion": 0.3
       },
       {
+        "team": "Austria",
+        "round_of_32": 78.7,
+        "round_of_16": 26.0,
+        "quarter_final": 12.0,
+        "semi_final": 4.1,
+        "final": 1.2,
+        "champion": 0.3
+      },
+      {
+        "team": "Algeria",
+        "round_of_32": 72.2,
+        "round_of_16": 21.4,
+        "quarter_final": 8.5,
+        "semi_final": 2.4,
+        "final": 0.7,
+        "champion": 0.1
+      },
+      {
         "team": "United States",
-        "round_of_32": 52.1,
-        "round_of_16": 25.8,
-        "quarter_final": 9.0,
+        "round_of_32": 52.2,
+        "round_of_16": 26.0,
+        "quarter_final": 9.1,
         "semi_final": 2.6,
         "final": 0.6,
         "champion": 0.1
       },
       {
-        "team": "Algeria",
-        "round_of_32": 72.5,
-        "round_of_16": 21.0,
-        "quarter_final": 8.4,
-        "semi_final": 2.3,
-        "final": 0.6,
-        "champion": 0.1
-      },
-      {
         "team": "Iran",
-        "round_of_32": 80.1,
-        "round_of_16": 33.2,
-        "quarter_final": 9.1,
+        "round_of_32": 79.7,
+        "round_of_16": 33.1,
+        "quarter_final": 9.0,
         "semi_final": 2.3,
         "final": 0.6,
         "champion": 0.1
       },
       {
-        "team": "South Korea",
-        "round_of_32": 77.7,
-        "round_of_16": 37.1,
-        "quarter_final": 10.5,
-        "semi_final": 2.7,
+        "team": "Australia",
+        "round_of_32": 67.9,
+        "round_of_16": 31.8,
+        "quarter_final": 9.3,
+        "semi_final": 2.2,
         "final": 0.5,
         "champion": 0.1
       },
       {
         "team": "Paraguay",
         "round_of_32": 61.0,
-        "round_of_16": 28.7,
+        "round_of_16": 29.1,
         "quarter_final": 8.8,
-        "semi_final": 2.2,
-        "final": 0.5,
-        "champion": 0.1
-      },
-      {
-        "team": "Australia",
-        "round_of_32": 67.5,
-        "round_of_16": 31.7,
-        "quarter_final": 9.2,
         "semi_final": 2.1,
         "final": 0.5,
         "champion": 0.1
       },
       {
+        "team": "South Korea",
+        "round_of_32": 78.1,
+        "round_of_16": 37.2,
+        "quarter_final": 10.3,
+        "semi_final": 2.6,
+        "final": 0.4,
+        "champion": 0.1
+      },
+      {
         "team": "Ivory Coast",
-        "round_of_32": 74.4,
-        "round_of_16": 30.2,
-        "quarter_final": 7.8,
-        "semi_final": 1.7,
+        "round_of_32": 74.6,
+        "round_of_16": 30.0,
+        "quarter_final": 7.7,
+        "semi_final": 1.8,
         "final": 0.3,
         "champion": 0.0
       },
       {
         "team": "Czech Republic",
-        "round_of_32": 68.4,
-        "round_of_16": 28.1,
+        "round_of_32": 68.3,
+        "round_of_16": 27.6,
         "quarter_final": 6.8,
-        "semi_final": 1.4,
-        "final": 0.2,
-        "champion": 0.0
-      },
-      {
-        "team": "Panama",
-        "round_of_32": 55.6,
-        "round_of_16": 13.0,
-        "quarter_final": 3.2,
-        "semi_final": 0.8,
+        "semi_final": 1.2,
         "final": 0.2,
         "champion": 0.0
       },
       {
         "team": "Scotland",
-        "round_of_32": 54.9,
-        "round_of_16": 12.8,
-        "quarter_final": 3.9,
+        "round_of_32": 54.8,
+        "round_of_16": 13.1,
+        "quarter_final": 3.8,
         "semi_final": 0.9,
-        "final": 0.1,
+        "final": 0.2,
         "champion": 0.0
       },
       {
-        "team": "Egypt",
-        "round_of_32": 52.8,
-        "round_of_16": 15.1,
-        "quarter_final": 2.8,
-        "semi_final": 0.5,
+        "team": "Panama",
+        "round_of_32": 55.5,
+        "round_of_16": 13.1,
+        "quarter_final": 3.1,
+        "semi_final": 0.7,
         "final": 0.1,
         "champion": 0.0
       },
       {
         "team": "Uzbekistan",
-        "round_of_32": 52.0,
-        "round_of_16": 9.6,
-        "quarter_final": 2.1,
+        "round_of_32": 51.9,
+        "round_of_16": 9.9,
+        "quarter_final": 2.2,
         "semi_final": 0.5,
         "final": 0.1,
         "champion": 0.0
       },
       {
+        "team": "Egypt",
+        "round_of_32": 53.1,
+        "round_of_16": 15.0,
+        "quarter_final": 3.0,
+        "semi_final": 0.4,
+        "final": 0.1,
+        "champion": 0.0
+      },
+      {
         "team": "Sweden",
-        "round_of_32": 32.0,
-        "round_of_16": 8.0,
-        "quarter_final": 1.7,
+        "round_of_32": 32.2,
+        "round_of_16": 8.3,
+        "quarter_final": 1.9,
         "semi_final": 0.3,
         "final": 0.1,
         "champion": 0.0
       },
       {
         "team": "Jordan",
-        "round_of_32": 23.9,
-        "round_of_16": 4.7,
+        "round_of_32": 24.2,
+        "round_of_16": 4.6,
         "quarter_final": 1.3,
         "semi_final": 0.2,
         "final": 0.0,
@@ -17322,8 +17322,8 @@
       },
       {
         "team": "Cape Verde",
-        "round_of_32": 43.1,
-        "round_of_16": 4.9,
+        "round_of_32": 42.9,
+        "round_of_16": 4.8,
         "quarter_final": 0.9,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17332,16 +17332,7 @@
       {
         "team": "DR Congo",
         "round_of_32": 40.9,
-        "round_of_16": 4.9,
-        "quarter_final": 0.7,
-        "semi_final": 0.1,
-        "final": 0.0,
-        "champion": 0.0
-      },
-      {
-        "team": "New Zealand",
-        "round_of_32": 35.8,
-        "round_of_16": 5.9,
+        "round_of_16": 4.8,
         "quarter_final": 0.7,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17349,8 +17340,8 @@
       },
       {
         "team": "Saudi Arabia",
-        "round_of_32": 26.0,
-        "round_of_16": 2.8,
+        "round_of_32": 25.8,
+        "round_of_16": 2.6,
         "quarter_final": 0.5,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17358,17 +17349,17 @@
       },
       {
         "team": "South Africa",
-        "round_of_32": 36.0,
-        "round_of_16": 8.2,
-        "quarter_final": 1.1,
+        "round_of_32": 35.6,
+        "round_of_16": 8.1,
+        "quarter_final": 1.0,
         "semi_final": 0.1,
         "final": 0.0,
         "champion": 0.0
       },
       {
         "team": "Tunisia",
-        "round_of_32": 31.6,
-        "round_of_16": 5.9,
+        "round_of_32": 31.3,
+        "round_of_16": 6.0,
         "quarter_final": 0.9,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17376,7 +17367,7 @@
       },
       {
         "team": "Bosnia & Herzegovina",
-        "round_of_32": 32.1,
+        "round_of_32": 31.8,
         "round_of_16": 3.2,
         "quarter_final": 0.3,
         "semi_final": 0.0,
@@ -17385,8 +17376,8 @@
       },
       {
         "team": "Curacao",
-        "round_of_32": 20.6,
-        "round_of_16": 3.4,
+        "round_of_32": 20.7,
+        "round_of_16": 3.5,
         "quarter_final": 0.3,
         "semi_final": 0.0,
         "final": 0.0,
@@ -17394,7 +17385,7 @@
       },
       {
         "team": "Ghana",
-        "round_of_32": 20.1,
+        "round_of_32": 20.4,
         "round_of_16": 1.9,
         "quarter_final": 0.2,
         "semi_final": 0.0,
@@ -17403,8 +17394,8 @@
       },
       {
         "team": "Haiti",
-        "round_of_32": 25.2,
-        "round_of_16": 2.6,
+        "round_of_32": 25.0,
+        "round_of_16": 2.7,
         "quarter_final": 0.4,
         "semi_final": 0.0,
         "final": 0.0,
@@ -17412,16 +17403,25 @@
       },
       {
         "team": "Iraq",
-        "round_of_32": 10.3,
-        "round_of_16": 2.1,
+        "round_of_32": 9.9,
+        "round_of_16": 1.9,
         "quarter_final": 0.4,
         "semi_final": 0.0,
         "final": 0.0,
         "champion": 0.0
       },
       {
+        "team": "New Zealand",
+        "round_of_32": 36.0,
+        "round_of_16": 6.1,
+        "quarter_final": 0.7,
+        "semi_final": 0.0,
+        "final": 0.0,
+        "champion": 0.0
+      },
+      {
         "team": "Qatar",
-        "round_of_32": 27.2,
+        "round_of_32": 27.1,
         "round_of_16": 2.9,
         "quarter_final": 0.3,
         "semi_final": 0.0,
@@ -20551,7 +20551,7 @@
     "world_cup_local_signal_available": true,
     "market_signal_available": true,
     "betting_signal_available": true,
-    "tournament_simulations": 50000,
+    "tournament_simulations": 15000,
     "fifa_rankings_used": 0
   },
   "error": null

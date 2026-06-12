@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 
@@ -9,6 +10,7 @@ CACHE_FILE = DATA_DIR / "cache.json"
 
 MODEL_VERSION = "0.1.1"
 REQUEST_TIMEOUT_SECONDS = 22.0
+TOURNAMENT_SIMULATIONS = int(os.getenv("TOURNAMENT_SIMULATIONS", "50000"))
 LOCAL_WORLDCUP_MATCHES_PATHS = [
     ROOT_DIR / "WorldCupMatches.csv",
     ROOT_DIR / "data" / "WorldCupMatches.csv",

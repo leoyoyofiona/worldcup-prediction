@@ -132,12 +132,73 @@ button.primary:hover {
   font-size: 22px;
 }
 
+.performance-panel,
 .tournament-panel {
   margin-bottom: 14px;
   padding: 14px;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+
+.performance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.comparison-table {
+  display: grid;
+  gap: 8px;
+}
+
+.comparison-note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.comparison-head,
+.comparison-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.5fr) minmax(90px, 0.7fr) minmax(90px, 0.7fr) minmax(110px, 0.7fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.comparison-head {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.comparison-row {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.comparison-row span,
+.comparison-row strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comparison-row .hit {
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
+.comparison-row .partial-hit {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.comparison-row .miss {
+  color: var(--red);
+  font-weight: 700;
 }
 
 .panel-head {
@@ -613,6 +674,7 @@ button.primary:hover {
   }
 
   .summary-grid,
+  .performance-grid,
   .champion-strip,
   .stage-grid,
   .bracket-grid {
@@ -652,6 +714,14 @@ button.primary:hover {
     grid-template-columns: 1fr;
   }
 
+  .comparison-head {
+    display: none;
+  }
+
+  .comparison-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .prediction-cell {
     text-align: left;
   }
@@ -659,6 +729,7 @@ button.primary:hover {
 
 @media (max-width: 480px) {
   .summary-grid,
+  .performance-grid,
   .champion-strip,
   .stage-grid,
   .bracket-grid,

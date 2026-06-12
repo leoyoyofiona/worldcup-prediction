@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">2026 世界杯预测模型封面</title>
+  <desc id="desc">小红书风格的世界杯预测模型宣传图，展示比分预测、赔率信号、义乌热度和淘汰赛推演。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffaf3"/>
+      <stop offset="0.58" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#eef6ef"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" x2="1">
+      <stop offset="0" stop-color="#e23b3b"/>
+      <stop offset="1" stop-color="#b70f1a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#6b221e" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <circle cx="996" cy="180" r="160" fill="#f7d4cf" opacity="0.58"/>
+  <circle cx="164" cy="1290" r="220" fill="#d9ead8" opacity="0.68"/>
+  <path d="M80 1060 C260 950, 390 980, 548 880 C746 755, 900 735, 1120 620" fill="none" stroke="#dcd7ca" stroke-width="4" stroke-dasharray="14 20"/>
+  <g transform="translate(80 76)">
+    <rect x="0" y="0" width="176" height="50" rx="25" fill="url(#red)"/>
+    <text x="88" y="33" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22" font-weight="700" fill="#fff">Live Demo</text>
+  </g>
+  <g transform="translate(80 178)">
+    <text x="0" y="0" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="84" font-weight="900" fill="#161d18">2026 世界杯</text>
+    <text x="0" y="102" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="84" font-weight="900" fill="#161d18">预测模型</text>
+    <rect x="0" y="142" width="410" height="16" rx="8" fill="url(#red)"/>
+    <text x="0" y="218" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="30" font-weight="600" fill="#526057">赛程 · 赔率 · 义乌热度 · Elo · 淘汰赛推演</text>
+  </g>
+  <g transform="translate(90 506)" filter="url(#shadow)">
+    <rect x="0" y="0" width="1020" height="530" rx="28" fill="#ffffff"/>
+    <g transform="translate(46 42)">
+      <rect x="0" y="0" width="928" height="438" rx="22" fill="#f5f8f3" stroke="#d9ded7"/>
+      <path d="M464 0 V438" stroke="#d9ded7" stroke-width="3"/>
+      <circle cx="464" cy="219" r="74" fill="none" stroke="#d9ded7" stroke-width="3"/>
+      <rect x="24" y="42" width="174" height="354" rx="24" fill="none" stroke="#d9ded7" stroke-width="3"/>
+      <rect x="730" y="42" width="174" height="354" rx="24" fill="none" stroke="#d9ded7" stroke-width="3"/>
+    </g>
+    <g transform="translate(92 92)">
+      <text x="0" y="0" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="26" font-weight="800" fill="#17201b">Mexico vs South Africa</text>
+      <text x="0" y="52" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="72" font-weight="900" fill="#17201b">2-0</text>
+      <text x="0" y="98" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="22" font-weight="700" fill="#1f7a4c">精确比分命中</text>
+    </g>
+    <g transform="translate(648 86)">
+      <rect x="0" y="0" width="300" height="86" rx="18" fill="#fff8e8" stroke="#ead4a1"/>
+      <text x="24" y="36" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#6f4c12">胜 / 平 / 负概率</text>
+      <text x="24" y="65" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="900" fill="#17201b">67.5% · 21.3% · 11.2%</text>
+    </g>
+    <g transform="translate(648 196)">
+      <rect x="0" y="0" width="300" height="86" rx="18" fill="#eef6ef" stroke="#c9dbc9"/>
+      <text x="24" y="36" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#155d3a">淘汰赛路径</text>
+      <text x="24" y="65" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="900" fill="#17201b">32强 → 决赛 → 冠军</text>
+    </g>
+    <g transform="translate(648 306)">
+      <rect x="0" y="0" width="300" height="86" rx="18" fill="#f8efef" stroke="#e6c4c4"/>
+      <text x="24" y="36" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#8b2727">多信号融合</text>
+      <text x="24" y="65" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="900" fill="#17201b">49k+ 历史比赛</text>
+    </g>
+  </g>
+  <g transform="translate(90 1126)">
+    <text x="0" y="0" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="32" font-weight="900" fill="#17201b">AI 预测 · 可解释模型 · 赛后自动验算</text>
+    <text x="0" y="56" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="600" fill="#526057">公开数据源自动更新，真实赛果与预测结果逐场对比。</text>
+  </g>
+  <g transform="translate(90 1278)">
+    <rect x="0" y="0" width="316" height="72" rx="18" fill="#17201b"/>
+    <text x="158" y="46" text-anchor="middle" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="24" font-weight="800" fill="#ffffff">worldcup-prediction</text>
+  </g>
+</svg>

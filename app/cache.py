@@ -30,6 +30,16 @@ def empty_cache() -> Dict[str, Any]:
             "group_tables": [],
             "notes": [],
         },
+        "performance": {
+            "sample_size": 0,
+            "outcome_hits": 0,
+            "exact_score_hits": 0,
+            "outcome_accuracy": None,
+            "exact_score_accuracy": None,
+            "average_goal_error": None,
+            "completed_matches": [],
+            "note": "暂无已接入真实赛果；有官方赛果后会自动生成模型预测能力对比。",
+        },
         "filters": {"rounds": [], "teams": [], "statuses": [], "confidence_levels": []},
         "teams": {},
         "summary": {
@@ -40,6 +50,9 @@ def empty_cache() -> Dict[str, Any]:
             "world_cup_local_signal_available": False,
             "market_signal_available": False,
             "betting_signal_available": False,
+            "actual_result_count": 0,
+            "outcome_accuracy": None,
+            "exact_score_accuracy": None,
         },
         "error": None,
     }

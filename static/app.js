@@ -2,16 +2,23 @@ const state = {
   matches: [],
   filters: {},
   tournament: {},
+  performance: {},
   selectedId: null,
   loading: false,
+  lang: localStorage.getItem("wc-lang") || "zh",
+  lastStatus: null,
 };
 
 const els = {
   statusLine: document.querySelector("#statusLine"),
+  langToggleBtn: document.querySelector("#langToggleBtn"),
   updateBtn: document.querySelector("#updateBtn"),
   recalcBtn: document.querySelector("#recalcBtn"),
   sourcesBtn: document.querySelector("#sourcesBtn"),
   summaryGrid: document.querySelector("#summaryGrid"),
+  performanceTag: document.querySelector("#performanceTag"),
+  performanceGrid: document.querySelector("#performanceGrid"),
+  resultComparison: document.querySelector("#resultComparison"),
   simulationCount: document.querySelector("#simulationCount"),
   championStrip: document.querySelector("#championStrip"),
   stageGrid: document.querySelector("#stageGrid"),
@@ -29,10 +36,206 @@ const els = {
   sourceList: document.querySelector("#sourceList"),
 };
 
+const translations = {
+  zh: {
+    appTitle: "2026 男足世界杯预测",
+    loadingStatus: "正在读取模型状态...",
+    updateData: "更新数据",
+    recalculate: "重新计算模型",
+    sourceStatus: "来源状态",
+    performanceTitle: "真实赛果对比",
+    tournamentTitle: "淘汰赛推演",
+    round: "阶段",
+    team: "球队",
+    confidence: "置信度",
+    search: "搜索",
+    searchPlaceholder: "球队 / 场地",
+    all: "全部",
+    high: "高",
+    medium: "中",
+    low: "低",
+    pending: "待定",
+    close: "关闭",
+    noMatchSelected: "未选择比赛",
+    matches: "比赛",
+    teams: "球队",
+    historyRows: "历史样本",
+    worldCupRows: "世界杯正赛",
+    marketSignal: "市场热度",
+    bettingSignal: "盘口信号",
+    simulations: "模拟次数",
+    enabled: "已启用",
+    disabled: "未启用",
+    actualSamples: "真实样本",
+    outcomeAccuracy: "方向命中",
+    exactScoreAccuracy: "比分命中",
+    averageGoalError: "平均进球误差",
+    completedComparison: "已完赛对比",
+    prediction: "模型预测",
+    actual: "真实赛果",
+    result: "结果",
+    source: "来源",
+    exactHit: "比分命中",
+    outcomeHit: "方向命中",
+    miss: "未命中",
+    noActualResults: "暂无已接入真实赛果；有官方赛果后会自动生成模型预测能力对比。",
+    earlySampleNote: "早期样本较小，命中率会随更多真实赛果持续更新。",
+    modelUpdated: "模型 {version}，更新于 {time}",
+    noData: "尚未生成预测数据",
+    updating: "正在联网抓取数据并重建模型...",
+    recalculating: "正在使用本地缓存重新计算模型...",
+    stillRunning: "后台任务仍在运行，稍后会继续更新；你可以过一会儿刷新页面查看结果。",
+    updateFailed: "更新失败：{message}",
+    recalcFailed: "重新计算失败：{message}",
+    initFailed: "初始化失败：{message}",
+    noFilteredMatches: "没有符合筛选条件的比赛。",
+    allRounds: "全部阶段",
+    allTeams: "全部球队",
+    championSimulations: "{count} 次模拟",
+    noTournament: "暂无淘汰赛推演",
+    roundOf32: "32强",
+    roundOf16: "16强",
+    quarterFinal: "8强",
+    semiFinal: "4强 / 半决赛",
+    final: "决赛",
+    draw: "平局",
+    homeWin: "主胜",
+    awayWin: "客胜",
+    representativeScore: "代表比分",
+    modalScore: "精确众数比分",
+    favorite: "预测倾向",
+    expectedGoals: "预计进球",
+    expectedTotalGoals: "总进球期望",
+    over25: "大于 2.5 球",
+    bothScore: "双方进球",
+    knockoutAdvance: "淘汰赛晋级倾向",
+    modelExplanation: "模型解释",
+    contributors: "贡献项",
+    scoreDistribution: "比分分布",
+    teamMetrics: "球队指标",
+    loading: "正在加载...",
+    unavailablePrediction: "暂不计算预测",
+    detailFailed: "读取比赛详情失败：{message}",
+    sourceLoading: "正在读取...",
+    noSources: "尚无来源记录。",
+    sourceFailed: "读取失败：{message}",
+    available: "可用",
+    failed: "失败",
+    usingCache: "使用缓存",
+    languageButton: "English",
+  },
+  en: {
+    appTitle: "2026 Men's World Cup Predictor",
+    loadingStatus: "Loading model status...",
+    updateData: "Update Data",
+    recalculate: "Recalculate",
+    sourceStatus: "Sources",
+    performanceTitle: "Prediction vs Actual Results",
+    tournamentTitle: "Knockout Projection",
+    round: "Round",
+    team: "Team",
+    confidence: "Confidence",
+    search: "Search",
+    searchPlaceholder: "Team / venue",
+    all: "All",
+    high: "High",
+    medium: "Medium",
+    low: "Low",
+    pending: "Pending",
+    close: "Close",
+    noMatchSelected: "No match selected",
+    matches: "Matches",
+    teams: "Teams",
+    historyRows: "History rows",
+    worldCupRows: "World Cup rows",
+    marketSignal: "Market signal",
+    bettingSignal: "Odds signal",
+    simulations: "Simulations",
+    enabled: "Enabled",
+    disabled: "Disabled",
+    actualSamples: "Actual samples",
+    outcomeAccuracy: "Outcome hit",
+    exactScoreAccuracy: "Exact score hit",
+    averageGoalError: "Avg goal error",
+    completedComparison: "Completed matches",
+    prediction: "Model pick",
+    actual: "Actual result",
+    result: "Result",
+    source: "Source",
+    exactHit: "Exact score",
+    outcomeHit: "Outcome",
+    miss: "Miss",
+    noActualResults: "No official final scores are connected yet. The comparison table will update automatically.",
+    earlySampleNote: "Early sample size is small; accuracy will keep updating as more final scores arrive.",
+    modelUpdated: "Model {version}, updated at {time}",
+    noData: "No prediction data yet",
+    updating: "Fetching public data and rebuilding the model...",
+    recalculating: "Recalculating from cached data...",
+    stillRunning: "The background task is still running. Refresh later to view the latest results.",
+    updateFailed: "Update failed: {message}",
+    recalcFailed: "Recalculate failed: {message}",
+    initFailed: "Initialization failed: {message}",
+    noFilteredMatches: "No matches match the current filters.",
+    allRounds: "All rounds",
+    allTeams: "All teams",
+    championSimulations: "{count} simulations",
+    noTournament: "No knockout projection yet",
+    roundOf32: "Round of 32",
+    roundOf16: "Round of 16",
+    quarterFinal: "Quarter-finals",
+    semiFinal: "Semi-finals / Final four",
+    final: "Final",
+    draw: "Draw",
+    homeWin: "Home win",
+    awayWin: "Away win",
+    representativeScore: "Representative score",
+    modalScore: "Most likely exact score",
+    favorite: "Prediction lean",
+    expectedGoals: "Expected goals",
+    expectedTotalGoals: "Expected total goals",
+    over25: "Over 2.5 goals",
+    bothScore: "Both teams score",
+    knockoutAdvance: "Knockout advancement",
+    modelExplanation: "Model explanation",
+    contributors: "Feature contributions",
+    scoreDistribution: "Score distribution",
+    teamMetrics: "Team metrics",
+    loading: "Loading...",
+    unavailablePrediction: "Prediction unavailable",
+    detailFailed: "Failed to load match detail: {message}",
+    sourceLoading: "Loading...",
+    noSources: "No source records yet.",
+    sourceFailed: "Failed to load: {message}",
+    available: "Available",
+    failed: "Failed",
+    usingCache: "Using cache",
+    languageButton: "中文",
+  },
+};
+
+function t(key, replacements = {}) {
+  let text = (translations[state.lang] && translations[state.lang][key]) || translations.zh[key] || key;
+  Object.entries(replacements).forEach(([name, value]) => {
+    text = text.replaceAll(`{${name}}`, value);
+  });
+  return text;
+}
+
+function applyLanguage() {
+  document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.textContent = t(node.dataset.i18n);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    node.setAttribute("placeholder", t(node.dataset.i18nPlaceholder));
+  });
+  els.langToggleBtn.textContent = t("languageButton");
+}
+
 function formatDateTime(match) {
   if (!match.starts_at) return `${match.date || ""} ${match.time || ""}`.trim();
   const date = new Date(match.starts_at);
-  return new Intl.DateTimeFormat("zh-CN", {
+  return new Intl.DateTimeFormat(state.lang === "zh" ? "zh-CN" : "en-US", {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -40,7 +243,7 @@ function formatDateTime(match) {
   }).format(date);
 }
 
-function setBusy(isBusy, label = "正在处理...") {
+function setBusy(isBusy, label = t("loading")) {
   state.loading = isBusy;
   els.updateBtn.disabled = isBusy;
   els.recalcBtn.disabled = isBusy;
@@ -68,6 +271,14 @@ function confidenceClass(label) {
   return "";
 }
 
+function confidenceText(label) {
+  if (state.lang === "zh") return label || t("pending");
+  if (label === "高") return t("high");
+  if (label === "中") return t("medium");
+  if (label === "低") return t("low");
+  return t("pending");
+}
+
 async function api(path, options = {}) {
   const response = await fetch(path, {
     headers: { "Content-Type": "application/json" },
@@ -88,31 +299,70 @@ function taskRunning(payload = {}) {
   return Boolean(payload.task && payload.task.running);
 }
 
-function taskMessage(payload = {}, fallback = "后台任务正在运行...") {
+function taskMessage(payload = {}, fallback = t("loading")) {
   return (payload.task && payload.task.message) || payload.message || fallback;
 }
 
 function renderSummary(summary = {}) {
   const items = [
-    ["比赛", summary.match_count ?? "--"],
-    ["球队", summary.team_count ?? "--"],
-    ["历史样本", summary.result_rows ?? "--"],
-    ["世界杯正赛", summary.world_cup_rows ?? "--"],
-    ["市场热度", summary.market_signal_available ? "已启用" : "未启用"],
-    ["盘口信号", summary.betting_signal_available ? "已启用" : "未启用"],
-    ["模拟次数", summary.tournament_simulations ?? "--"],
+    [t("matches"), summary.match_count ?? "--"],
+    [t("teams"), summary.team_count ?? "--"],
+    [t("historyRows"), summary.result_rows ?? "--"],
+    [t("worldCupRows"), summary.world_cup_rows ?? "--"],
+    [t("marketSignal"), summary.market_signal_available ? t("enabled") : t("disabled")],
+    [t("bettingSignal"), summary.betting_signal_available ? t("enabled") : t("disabled")],
+    [t("simulations"), summary.tournament_simulations ?? "--"],
   ];
   els.summaryGrid.innerHTML = items
     .map(([label, value]) => `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`)
     .join("");
 }
 
+function renderPerformance(performance = {}) {
+  const sampleSize = performance.sample_size || 0;
+  els.performanceTag.textContent = sampleSize ? `${sampleSize} / ${sampleSize}` : "--";
+  const metrics = [
+    [t("actualSamples"), sampleSize],
+    [t("outcomeAccuracy"), performance.outcome_accuracy ?? "--"],
+    [t("exactScoreAccuracy"), performance.exact_score_accuracy ?? "--"],
+    [t("averageGoalError"), performance.average_goal_error ?? "--"],
+  ];
+  els.performanceGrid.innerHTML = metrics
+    .map(([label, value]) => `<div class="metric"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`)
+    .join("");
+
+  const rows = performance.completed_matches || [];
+  if (!rows.length) {
+    els.resultComparison.innerHTML = `<div class="empty-line">${escapeHtml(t("noActualResults"))}</div>`;
+    return;
+  }
+  els.resultComparison.innerHTML = `
+    <div class="comparison-note">${escapeHtml(performance.note || t("earlySampleNote"))}</div>
+    <div class="comparison-head">
+      <span>${escapeHtml(t("completedComparison"))}</span>
+      <span>${escapeHtml(t("prediction"))}</span>
+      <span>${escapeHtml(t("actual"))}</span>
+      <span>${escapeHtml(t("result"))}</span>
+    </div>
+    ${rows.map((row) => `
+      <div class="comparison-row">
+        <span>${escapeHtml(row.team1)} vs ${escapeHtml(row.team2)}</span>
+        <strong>${escapeHtml(row.predicted_score || "--")}</strong>
+        <strong>${escapeHtml(row.actual_score || "--")}</strong>
+        <span class="${row.exact_score_hit ? "hit" : row.outcome_hit ? "partial-hit" : "miss"}">
+          ${escapeHtml(row.exact_score_hit ? t("exactHit") : row.outcome_hit ? t("outcomeHit") : t("miss"))}
+        </span>
+      </div>
+    `).join("")}
+  `;
+}
+
 function renderTournament(tournament = {}) {
   const probabilities = tournament.stage_probabilities || [];
   const topChampions = probabilities.slice(0, 6);
-  els.simulationCount.textContent = tournament.simulations ? `${tournament.simulations} 次模拟` : "--";
+  els.simulationCount.textContent = tournament.simulations ? t("championSimulations", { count: tournament.simulations }) : "--";
   if (!topChampions.length) {
-    els.championStrip.innerHTML = `<div class="empty-line">暂无淘汰赛推演</div>`;
+    els.championStrip.innerHTML = `<div class="empty-line">${escapeHtml(t("noTournament"))}</div>`;
     els.stageGrid.innerHTML = "";
     els.bracketGrid.innerHTML = "";
     return;
@@ -126,11 +376,11 @@ function renderTournament(tournament = {}) {
   `).join("");
 
   const stageDefs = [
-    ["round_of_32", "32强"],
-    ["round_of_16", "16强"],
-    ["quarter_final", "8强"],
-    ["semi_final", "4强 / 半决赛"],
-    ["final", "决赛"],
+    ["round_of_32", t("roundOf32")],
+    ["round_of_16", t("roundOf16")],
+    ["quarter_final", t("quarterFinal")],
+    ["semi_final", t("semiFinal")],
+    ["final", t("final")],
   ];
   els.stageGrid.innerHTML = stageDefs.map(([key, label]) => {
     const teams = [...probabilities]
@@ -211,8 +461,8 @@ function fillSelect(select, values, allLabel) {
 }
 
 function renderFilters(filters = {}) {
-  fillSelect(els.roundFilter, filters.rounds || [], "全部阶段");
-  fillSelect(els.teamFilter, filters.teams || [], "全部球队");
+  fillSelect(els.roundFilter, filters.rounds || [], t("allRounds"));
+  fillSelect(els.teamFilter, filters.teams || [], t("allTeams"));
 }
 
 function filteredMatches() {
@@ -235,7 +485,7 @@ function filteredMatches() {
 function renderMatches() {
   const matches = filteredMatches();
   if (!matches.length) {
-    els.matchList.innerHTML = `<div class="notice">没有符合筛选条件的比赛。</div>`;
+    els.matchList.innerHTML = `<div class="notice">${escapeHtml(t("noFilteredMatches"))}</div>`;
     return;
   }
   els.matchList.innerHTML = matches.map(renderMatchRow).join("");
@@ -268,13 +518,13 @@ function renderMatchRow(match) {
         <div class="match-meta">${escapeHtml(match.ground || "")}</div>
       </div>
       <div class="prob-strip">
-        ${bar("主胜", team1Prob, "")}
-        ${bar("平局", drawProb, "draw")}
-        ${bar("客胜", team2Prob, "away")}
+        ${bar(t("homeWin"), team1Prob, "")}
+        ${bar(t("draw"), drawProb, "draw")}
+        ${bar(t("awayWin"), team2Prob, "away")}
       </div>
       <div class="prediction-cell">
         <span class="score">${escapeHtml(match.predicted_score || "待定")}</span>
-        <span class="badge ${confidenceClass(match.confidence_label)}">${escapeHtml(match.confidence_label || "待定")}</span>
+        <span class="badge ${confidenceClass(match.confidence_label)}">${escapeHtml(confidenceText(match.confidence_label))}</span>
       </div>
     </button>
   `;
@@ -292,13 +542,17 @@ function bar(label, value, className) {
 
 async function loadStatus() {
   const status = await api("/api/status");
+  state.lastStatus = status;
   renderSummary(status.summary);
   if (taskRunning(status)) {
     els.statusLine.textContent = taskMessage(status);
   } else if (status.generated_at) {
-    els.statusLine.textContent = `模型 ${status.model_version}，更新于 ${new Date(status.generated_at).toLocaleString("zh-CN")}`;
+    els.statusLine.textContent = t("modelUpdated", {
+      version: status.model_version,
+      time: new Date(status.generated_at).toLocaleString(state.lang === "zh" ? "zh-CN" : "en-US"),
+    });
   } else {
-    els.statusLine.textContent = "尚未生成预测数据";
+    els.statusLine.textContent = t("noData");
   }
   showNotice(status.error);
   return status;
@@ -309,7 +563,9 @@ async function loadMatches() {
   state.matches = payload.matches || [];
   state.filters = payload.filters || {};
   state.tournament = payload.tournament || {};
+  state.performance = payload.performance || {};
   renderSummary(payload.summary);
+  renderPerformance(state.performance);
   renderFilters(state.filters);
   renderTournament(state.tournament);
   renderMatches();
@@ -327,12 +583,12 @@ async function waitForBackgroundTask(label) {
     }
     setBusy(true, taskMessage(status, label));
   }
-  showNotice("后台任务仍在运行，稍后会继续更新；你可以过一会儿刷新页面查看结果。");
+  showNotice(t("stillRunning"));
   await loadMatches();
 }
 
 async function updateData() {
-  const label = "正在联网抓取数据并重建模型...";
+  const label = t("updating");
   setBusy(true, label);
   try {
     const payload = await api("/api/update", { method: "POST" });
@@ -343,14 +599,14 @@ async function updateData() {
       await loadMatches();
     }
   } catch (error) {
-    showNotice(`更新失败：${error.message}`);
+    showNotice(t("updateFailed", { message: error.message }));
   } finally {
     setBusy(false);
   }
 }
 
 async function recalculateModel() {
-  const label = "正在使用本地缓存重新计算模型...";
+  const label = t("recalculating");
   setBusy(true, label);
   try {
     const payload = await api("/api/recalculate", { method: "POST" });
@@ -361,7 +617,7 @@ async function recalculateModel() {
       await loadMatches();
     }
   } catch (error) {
-    showNotice(`重新计算失败：${error.message}`);
+    showNotice(t("recalcFailed", { message: error.message }));
   } finally {
     setBusy(false);
   }
@@ -370,12 +626,12 @@ async function recalculateModel() {
 async function loadMatchDetail(matchId) {
   state.selectedId = matchId;
   renderMatches();
-  els.detailPanel.innerHTML = `<div class="empty-detail"><h2>正在加载...</h2></div>`;
+  els.detailPanel.innerHTML = `<div class="empty-detail"><h2>${escapeHtml(t("loading"))}</h2></div>`;
   try {
     const match = await api(`/api/matches/${encodeURIComponent(matchId)}`);
     renderDetail(match);
   } catch (error) {
-    els.detailPanel.innerHTML = `<div class="notice">读取比赛详情失败：${escapeHtml(error.message)}</div>`;
+    els.detailPanel.innerHTML = `<div class="notice">${escapeHtml(t("detailFailed", { message: error.message }))}</div>`;
   }
 }
 
@@ -384,7 +640,7 @@ function renderDetail(match) {
     els.detailPanel.innerHTML = `
       <h2>${escapeHtml(match.team1 || "待定")} vs ${escapeHtml(match.team2 || "待定")}</h2>
       <p class="detail-sub">${escapeHtml(match.round || "")} · ${escapeHtml(match.ground || "")}</p>
-      <div class="notice">${escapeHtml((match.explanation || ["暂不计算预测"])[0])}</div>
+      <div class="notice">${escapeHtml((match.explanation || [t("unavailablePrediction")])[0])}</div>
     `;
     return;
   }
@@ -400,29 +656,29 @@ function renderDetail(match) {
       ${probBox(match.team2, probs.team2_win)}
     </div>
     <div class="kv-list">
-      <div class="kv"><span>代表比分</span><strong>${escapeHtml(match.predicted_score)}</strong></div>
-      <div class="kv"><span>精确众数比分</span><strong>${escapeHtml((match.score_summary || {}).modal_score || match.predicted_score)}</strong></div>
-      <div class="kv"><span>预测倾向</span><strong>${escapeHtml(match.favorite)}</strong></div>
-      <div class="kv"><span>置信度</span><strong>${escapeHtml(match.confidence_label)}</strong></div>
-      <div class="kv"><span>预计进球</span><strong>${match.expected_goals.team1} : ${match.expected_goals.team2}</strong></div>
-      <div class="kv"><span>总进球期望</span><strong>${(match.score_summary || {}).expected_total_goals ?? "--"}</strong></div>
-      <div class="kv"><span>大于 2.5 球</span><strong>${percent((match.score_summary || {}).over_2_5)}</strong></div>
-      <div class="kv"><span>双方进球</span><strong>${percent((match.score_summary || {}).both_teams_score)}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("representativeScore"))}</span><strong>${escapeHtml(match.predicted_score)}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("modalScore"))}</span><strong>${escapeHtml((match.score_summary || {}).modal_score || match.predicted_score)}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("favorite"))}</span><strong>${escapeHtml(match.favorite)}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("confidence"))}</span><strong>${escapeHtml(confidenceText(match.confidence_label))}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("expectedGoals"))}</span><strong>${match.expected_goals.team1} : ${match.expected_goals.team2}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("expectedTotalGoals"))}</span><strong>${(match.score_summary || {}).expected_total_goals ?? "--"}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("over25"))}</span><strong>${percent((match.score_summary || {}).over_2_5)}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("bothScore"))}</span><strong>${percent((match.score_summary || {}).both_teams_score)}</strong></div>
     </div>
     ${renderAdvance(match)}
-    <h3 class="section-title">模型解释</h3>
+    <h3 class="section-title">${escapeHtml(t("modelExplanation"))}</h3>
     <div class="kv-list">
       ${(match.explanation || []).map((item) => `<div class="kv"><span>${escapeHtml(item)}</span></div>`).join("")}
     </div>
-    <h3 class="section-title">贡献项</h3>
+    <h3 class="section-title">${escapeHtml(t("contributors"))}</h3>
     <div class="kv-list">
       ${(match.contributors || []).map(renderContributor).join("")}
     </div>
-    <h3 class="section-title">比分分布</h3>
+    <h3 class="section-title">${escapeHtml(t("scoreDistribution"))}</h3>
     <div class="score-list">
       ${(match.scoreline_distribution || []).map((item) => `<div class="score-pill"><strong>${escapeHtml(item.score)}</strong><span>${percent(item.probability)}</span></div>`).join("")}
     </div>
-    <h3 class="section-title">球队指标</h3>
+    <h3 class="section-title">${escapeHtml(t("teamMetrics"))}</h3>
     <div class="kv-list">
       ${renderTeamMetric(match.team1, match.team_metrics[match.team1], tradeMarket.team1, bettingMarket.team1)}
       ${renderTeamMetric(match.team2, match.team_metrics[match.team2], tradeMarket.team2, bettingMarket.team2)}
@@ -459,7 +715,7 @@ function renderTeamMetric(team, metric = {}, market = {}, betting = {}) {
 function renderAdvance(match) {
   if (!match.advance_probabilities) return "";
   return `
-    <h3 class="section-title">淘汰赛晋级倾向</h3>
+    <h3 class="section-title">${escapeHtml(t("knockoutAdvance"))}</h3>
     <div class="kv-list">
       <div class="kv"><span>${escapeHtml(match.team1)}</span><strong>${percent(match.advance_probabilities.team1)}</strong></div>
       <div class="kv"><span>${escapeHtml(match.team2)}</span><strong>${percent(match.advance_probabilities.team2)}</strong></div>
@@ -470,24 +726,24 @@ function renderAdvance(match) {
 
 async function openSources() {
   els.sourceDrawer.classList.remove("hidden");
-  els.sourceList.innerHTML = `<div class="source-item">正在读取...</div>`;
+  els.sourceList.innerHTML = `<div class="source-item">${escapeHtml(t("sourceLoading"))}</div>`;
   try {
     const sources = await api("/api/sources");
     if (!sources.length) {
-      els.sourceList.innerHTML = `<div class="source-item">尚无来源记录。</div>`;
+      els.sourceList.innerHTML = `<div class="source-item">${escapeHtml(t("noSources"))}</div>`;
       return;
     }
     els.sourceList.innerHTML = sources.map(renderSource).join("");
   } catch (error) {
-    els.sourceList.innerHTML = `<div class="source-item bad">读取失败：${escapeHtml(error.message)}</div>`;
+    els.sourceList.innerHTML = `<div class="source-item bad">${escapeHtml(t("sourceFailed", { message: error.message }))}</div>`;
   }
 }
 
 function renderSource(source) {
   return `
     <div class="source-item">
-      <strong class="${source.ok ? "ok" : "bad"}">${escapeHtml(source.name)} · ${source.ok ? "可用" : "失败"}</strong>
-      <p>${escapeHtml(source.message || "")}${source.using_cache ? " · 使用缓存" : ""}</p>
+      <strong class="${source.ok ? "ok" : "bad"}">${escapeHtml(source.name)} · ${source.ok ? t("available") : t("failed")}</strong>
+      <p>${escapeHtml(source.message || "")}${source.using_cache ? ` · ${t("usingCache")}` : ""}</p>
       <p>${escapeHtml(source.url || "")}</p>
     </div>
   `;
@@ -507,6 +763,23 @@ function escapeHtml(value) {
 }
 
 function bindEvents() {
+  els.langToggleBtn.addEventListener("click", () => {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    localStorage.setItem("wc-lang", state.lang);
+    applyLanguage();
+    renderSummary((state.lastStatus || {}).summary || {});
+    renderPerformance(state.performance);
+    renderFilters(state.filters);
+    renderTournament(state.tournament);
+    renderMatches();
+    if (state.selectedId) loadMatchDetail(state.selectedId);
+    if ((state.lastStatus || {}).generated_at) {
+      els.statusLine.textContent = t("modelUpdated", {
+        version: state.lastStatus.model_version,
+        time: new Date(state.lastStatus.generated_at).toLocaleString(state.lang === "zh" ? "zh-CN" : "en-US"),
+      });
+    }
+  });
   els.updateBtn.addEventListener("click", updateData);
   els.recalcBtn.addEventListener("click", recalculateModel);
   els.sourcesBtn.addEventListener("click", openSources);
@@ -517,6 +790,7 @@ function bindEvents() {
 }
 
 async function init() {
+  applyLanguage();
   bindEvents();
   try {
     const status = await loadStatus();
@@ -525,7 +799,7 @@ async function init() {
       await updateData();
     }
   } catch (error) {
-    showNotice(`初始化失败：${error.message}`);
+    showNotice(t("initFailed", { message: error.message }));
   }
 }
 

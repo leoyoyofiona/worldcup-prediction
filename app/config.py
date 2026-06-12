@@ -7,6 +7,7 @@ STATIC_DIR = ROOT_DIR / "static"
 DATA_DIR = ROOT_DIR / "data"
 RAW_DIR = DATA_DIR / "raw"
 CACHE_FILE = DATA_DIR / "cache.json"
+ACTUAL_RESULTS_FILE = DATA_DIR / "actual_results.json"
 
 MODEL_VERSION = "0.1.1"
 REQUEST_TIMEOUT_SECONDS = 22.0

@@ -8,10 +8,11 @@ import unicodedata
 from collections import Counter, defaultdict, deque
 from datetime import date, datetime, timedelta, timezone
 from io import StringIO
+from pathlib import Path
 from typing import Any, Deque, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from .cache import now_iso
-from .config import MODEL_VERSION, TOURNAMENT_SIMULATIONS
+from .config import ACTUAL_RESULTS_FILE, MODEL_VERSION, TOURNAMENT_SIMULATIONS
 
 
 HOST_TEAMS = {"United States", "Mexico", "Canada"}
@@ -248,6 +249,41 @@ def match_status(starts_at: Optional[str]) -> str:
     return "已结束"
 
 
+def score_from_schedule_item(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    score_pairs = [
+        ("score1", "score2"),
+        ("team1_score", "team2_score"),
+        ("home_score", "away_score"),
+        ("goals1", "goals2"),
+        ("home_goals", "away_goals"),
+    ]
+    for key1, key2 in score_pairs:
+        if key1 in item and key2 in item:
+            goals1 = safe_int(item.get(key1, ""))
+            goals2 = safe_int(item.get(key2, ""))
+            if goals1 is not None and goals2 is not None:
+                return {"team1": goals1, "team2": goals2, "score": f"{goals1}-{goals2}"}
+
+    raw_score = item.get("score") or item.get("result") or item.get("final_score")
+    if isinstance(raw_score, str):
+        match = re.search(r"(\d+)\s*[-:]\s*(\d+)", raw_score)
+        if match:
+            goals1 = int(match.group(1))
+            goals2 = int(match.group(2))
+            return {"team1": goals1, "team2": goals2, "score": f"{goals1}-{goals2}"}
+
+    return None
+
+
+def safe_int_value(value: Any) -> Optional[int]:
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return safe_int(str(value))
+
+
 def parse_schedule(raw_json: str) -> List[Dict[str, Any]]:
     parsed = json.loads(raw_json)
     matches = parsed.get("matches", [])
@@ -258,6 +294,7 @@ def parse_schedule(raw_json: str) -> List[Dict[str, Any]]:
         starts_at = parse_match_datetime(item.get("date", ""), item.get("time", ""))
         round_name = item.get("round") or "赛程"
         group_name = item.get("group") or ""
+        actual_score = score_from_schedule_item(item)
         is_knockout = not group_name and bool(
             re.search(r"round of|quarter|semi|final|third", round_name, re.IGNORECASE)
         )
@@ -276,6 +313,7 @@ def parse_schedule(raw_json: str) -> List[Dict[str, Any]]:
                 "ground": item.get("ground") or "",
                 "status": match_status(starts_at),
                 "is_knockout": is_knockout,
+                "actual_score": actual_score,
             }
         )
     return normalized
@@ -1243,8 +1281,161 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "confidence_label",
         "expected_goals",
         "advance_probabilities",
+        "actual_score",
+        "prediction_result",
     ]
     return {key: match.get(key) for key in fields}
+
+
+def load_actual_results(path: Path = ACTUAL_RESULTS_FILE) -> Dict[str, Dict[str, Any]]:
+    if not path.exists():
+        return {}
+    try:
+        parsed = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+    results: Dict[str, Dict[str, Any]] = {}
+    for item in parsed.get("results", []):
+        match_id = item.get("match_id")
+        if not match_id:
+            continue
+        goals1 = safe_int_value(item.get("team1_goals"))
+        goals2 = safe_int_value(item.get("team2_goals"))
+        if goals1 is None or goals2 is None:
+            score = score_from_schedule_item(item)
+            if not score:
+                continue
+            goals1 = score["team1"]
+            goals2 = score["team2"]
+        results[str(match_id)] = {
+            "team1_name": item.get("team1"),
+            "team2_name": item.get("team2"),
+            "team1": goals1,
+            "team2": goals2,
+            "score": f"{goals1}-{goals2}",
+            "source_name": item.get("source_name") or "公开赛果",
+            "source_url": item.get("source_url") or "",
+            "verified_at": item.get("verified_at") or parsed.get("updated_at"),
+        }
+    return results
+
+
+def score_outcome(goals1: int, goals2: int) -> str:
+    if goals1 > goals2:
+        return "team1_win"
+    if goals2 > goals1:
+        return "team2_win"
+    return "draw"
+
+
+def predicted_outcome(match: Dict[str, Any]) -> Optional[str]:
+    probabilities = match.get("probabilities") or {}
+    if not probabilities:
+        return None
+    return max(("team1_win", "draw", "team2_win"), key=lambda key: float(probabilities.get(key) or 0.0))
+
+
+def parse_scoreline(score: str) -> Optional[Tuple[int, int]]:
+    match = re.search(r"(\d+)\s*-\s*(\d+)", score or "")
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2))
+
+
+def apply_actual_results(matches: List[Dict[str, Any]], actual_results: Dict[str, Dict[str, Any]]) -> None:
+    for match in matches:
+        actual = match.get("actual_score") or actual_results.get(match.get("id"))
+        if not actual:
+            continue
+        expected_team1 = actual.get("team1_name")
+        expected_team2 = actual.get("team2_name")
+        if expected_team1 and canonicalize_team(expected_team1) != canonicalize_team(match.get("team1", "")):
+            continue
+        if expected_team2 and canonicalize_team(expected_team2) != canonicalize_team(match.get("team2", "")):
+            continue
+        goals1 = safe_int_value(actual.get("team1"))
+        goals2 = safe_int_value(actual.get("team2"))
+        if goals1 is None or goals2 is None:
+            continue
+
+        actual_score = {
+            "team1": goals1,
+            "team2": goals2,
+            "score": f"{goals1}-{goals2}",
+            "source_name": actual.get("source_name") or "公开赛果",
+            "source_url": actual.get("source_url") or "",
+            "verified_at": actual.get("verified_at"),
+        }
+        actual_outcome = score_outcome(goals1, goals2)
+        predicted = predicted_outcome(match)
+        predicted_score = parse_scoreline(match.get("predicted_score", ""))
+        exact_score_hit = bool(predicted_score and predicted_score == (goals1, goals2))
+        goal_error = None
+        if predicted_score:
+            goal_error = abs(predicted_score[0] - goals1) + abs(predicted_score[1] - goals2)
+
+        match["actual_score"] = actual_score
+        match["prediction_result"] = {
+            "actual_outcome": actual_outcome,
+            "predicted_outcome": predicted,
+            "outcome_hit": predicted == actual_outcome,
+            "exact_score_hit": exact_score_hit,
+            "goal_error": goal_error,
+        }
+
+
+def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    completed = [match for match in matches if match.get("actual_score") and match.get("prediction_result")]
+    sample_size = len(completed)
+    if not sample_size:
+        return {
+            "sample_size": 0,
+            "outcome_hits": 0,
+            "exact_score_hits": 0,
+            "outcome_accuracy": None,
+            "exact_score_accuracy": None,
+            "average_goal_error": None,
+            "completed_matches": [],
+            "note": "暂无已接入真实赛果；有官方赛果后会自动生成模型预测能力对比。",
+        }
+
+    outcome_hits = sum(1 for match in completed if match["prediction_result"].get("outcome_hit"))
+    exact_score_hits = sum(1 for match in completed if match["prediction_result"].get("exact_score_hit"))
+    goal_errors = [
+        float(match["prediction_result"]["goal_error"])
+        for match in completed
+        if match["prediction_result"].get("goal_error") is not None
+    ]
+    rows = []
+    for match in completed:
+        actual = match["actual_score"]
+        result = match["prediction_result"]
+        rows.append(
+            {
+                "id": match.get("id"),
+                "date": match.get("date"),
+                "team1": match.get("team1"),
+                "team2": match.get("team2"),
+                "predicted_score": match.get("predicted_score"),
+                "actual_score": actual.get("score"),
+                "outcome_hit": result.get("outcome_hit"),
+                "exact_score_hit": result.get("exact_score_hit"),
+                "goal_error": result.get("goal_error"),
+                "source_name": actual.get("source_name"),
+                "source_url": actual.get("source_url"),
+            }
+        )
+    return {
+        "sample_size": sample_size,
+        "outcome_hits": outcome_hits,
+        "exact_score_hits": exact_score_hits,
+        "outcome_accuracy": pct(outcome_hits / sample_size),
+        "exact_score_accuracy": pct(exact_score_hits / sample_size),
+        "average_goal_error": round(sum(goal_errors) / len(goal_errors), 2) if goal_errors else None,
+        "completed_matches": rows,
+        "note": "早期样本较小，命中率会随更多真实赛果持续更新。",
+    }
 
 
 def group_letter(group_name: str) -> Optional[str]:
@@ -1790,6 +1981,8 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
     rankings = parse_fifa_rankings(raw_payloads.get("fifa_ranking", ""), schedule_teams)
 
     matches = [predict_match(match, team_stats, market_scores, rankings, betting_scores) for match in schedule]
+    apply_actual_results(matches, load_actual_results())
+    performance = build_prediction_performance(matches)
     tournament = build_tournament_projection(matches, schedule_teams, team_stats, market_scores, betting_scores, rankings)
     filters = {
         "rounds": sorted({match["round"] for match in matches if match.get("round")}),
@@ -1805,6 +1998,7 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
         "sources": source_statuses,
         "matches": matches,
         "tournament": tournament,
+        "performance": performance,
         "filters": filters,
         "teams": {team: team_stats.get(team, fallback_team_stat(team)) for team in schedule_teams},
         "summary": {
@@ -1817,6 +2011,9 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
             "betting_signal_available": betting_available,
             "tournament_simulations": tournament["simulations"],
             "fifa_rankings_used": len(rankings),
+            "actual_result_count": performance["sample_size"],
+            "outcome_accuracy": performance["outcome_accuracy"],
+            "exact_score_accuracy": performance["exact_score_accuracy"],
         },
         "error": None,
     }

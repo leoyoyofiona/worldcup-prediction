@@ -2,6 +2,7 @@ from app.model import (
     build_betting_scores,
     build_market_scores,
     build_predictions,
+    build_prediction_performance,
     build_team_stats,
     build_world_cup_profiles,
     is_placeholder_team,
@@ -135,3 +136,28 @@ def test_build_predictions_payload_shape():
     assert "matchup_rounds" in payload["tournament"]
     assert "betting_signal_available" in payload["summary"]
     assert payload["summary"]["world_cup_rows"] == 2
+
+
+def test_prediction_performance_counts_hits():
+    matches = [
+        {
+            "id": "m1",
+            "team1": "Mexico",
+            "team2": "South Africa",
+            "predicted_score": "2-0",
+            "actual_score": {"team1": 2, "team2": 0, "score": "2-0"},
+            "prediction_result": {"outcome_hit": True, "exact_score_hit": True, "goal_error": 0},
+        },
+        {
+            "id": "m2",
+            "team1": "South Korea",
+            "team2": "Czech Republic",
+            "predicted_score": "2-1",
+            "actual_score": {"team1": 2, "team2": 1, "score": "2-1"},
+            "prediction_result": {"outcome_hit": True, "exact_score_hit": True, "goal_error": 0},
+        },
+    ]
+    performance = build_prediction_performance(matches)
+    assert performance["sample_size"] == 2
+    assert performance["outcome_accuracy"] == 100.0
+    assert performance["exact_score_accuracy"] == 100.0

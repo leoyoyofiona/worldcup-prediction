@@ -1,0 +1,27 @@
+{
+  "updated_at": "2026-06-12T05:55:00+00:00",
+  "results": [
+    {
+      "match_id": "wc2026-001",
+      "team1": "Mexico",
+      "team2": "South Africa",
+      "score": "2-0",
+      "team1_goals": 2,
+      "team2_goals": 0,
+      "source_name": "AP / ESPN",
+      "source_url": "https://apnews.com/live/world-cup-mexico-south-africa-2026-updates",
+      "verified_at": "2026-06-12"
+    },
+    {
+      "match_id": "wc2026-002",
+      "team1": "South Korea",
+      "team2": "Czech Republic",
+      "score": "2-1",
+      "team1_goals": 2,
+      "team2_goals": 1,
+      "source_name": "Al Jazeera / ESPN",
+      "source_url": "https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom",
+      "verified_at": "2026-06-12"
+    }
+  ]
+}

@@ -107,6 +107,7 @@ class PredictionService:
             "filters": cache.get("filters", {}),
             "matches": [match_summary(match) for match in cache.get("matches", [])],
             "tournament": cache.get("tournament", {}),
+            "performance": cache.get("performance", {}),
             "error": cache.get("error"),
             "task": self._task_snapshot(),
         }

@@ -1,6 +1,6 @@
 {
   "model_version": "0.1.1",
-  "generated_at": "2026-06-12T05:55:25+00:00",
+  "generated_at": "2026-06-12T10:21:34+00:00",
   "sources": [
     {
       "id": "schedule_openfootball",
@@ -12,7 +12,7 @@
       "message": "已读取本地缓存",
       "bytes": 19229,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:01+00:00"
     },
     {
       "id": "results_history",
@@ -24,7 +24,7 @@
       "message": "已读取本地缓存",
       "bytes": 3724399,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:03+00:00"
     },
     {
       "id": "fifa_ranking",
@@ -36,7 +36,7 @@
       "message": "已读取本地缓存",
       "bytes": 217395,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:04+00:00"
     },
     {
       "id": "yiwu_index",
@@ -48,7 +48,7 @@
       "message": "已读取本地缓存",
       "bytes": 209247,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:04+00:00"
     },
     {
       "id": "mofcom_forecast",
@@ -60,7 +60,7 @@
       "message": "已读取本地缓存",
       "bytes": 1375,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:05+00:00"
     },
     {
       "id": "chinagoods",
@@ -72,7 +72,7 @@
       "message": "已读取本地缓存",
       "bytes": 643862,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:07+00:00"
     },
     {
       "id": "yiwu_worldcup_search",
@@ -84,7 +84,7 @@
       "message": "已读取本地缓存",
       "bytes": 14306,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:08+00:00"
     },
     {
       "id": "oddsjet_europe",
@@ -96,7 +96,7 @@
       "message": "已读取本地缓存",
       "bytes": 979391,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:09+00:00"
     },
     {
       "id": "oddsjet_asia",
@@ -108,7 +108,7 @@
       "message": "已读取本地缓存",
       "bytes": 602632,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:10+00:00"
     },
     {
       "id": "oddsjet_oceania",
@@ -120,7 +120,7 @@
       "message": "已读取本地缓存",
       "bytes": 935167,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:11+00:00"
     },
     {
       "id": "oddsjet_africa",
@@ -132,7 +132,7 @@
       "message": "已读取本地缓存",
       "bytes": 600577,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:12+00:00"
     },
     {
       "id": "oddsjet_north_america",
@@ -144,7 +144,7 @@
       "message": "已读取本地缓存",
       "bytes": 988096,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:14+00:00"
     },
     {
       "id": "oddsjet_south_america",
@@ -156,7 +156,7 @@
       "message": "已读取本地缓存",
       "bytes": 932886,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:15+00:00"
     },
     {
       "id": "comparebet_uk",
@@ -168,7 +168,7 @@
       "message": "已读取本地缓存",
       "bytes": 683415,
       "using_cache": true,
-      "fetched_at": "2026-06-12T05:55:08+00:00"
+      "fetched_at": "2026-06-12T10:21:16+00:00"
     },
     {
       "id": "worldcup_matches_local",
@@ -180,7 +180,7 @@
       "message": "已读取本地 CSV",
       "bytes": 156079,
       "using_cache": false,
-      "fetched_at": "2026-06-12T05:55:09+00:00"
+      "fetched_at": "2026-06-12T10:21:18+00:00"
     }
   ],
   "matches": [
@@ -198,6 +198,14 @@
       "ground": "Mexico City",
       "status": "已结束",
       "is_knockout": false,
+      "actual_score": {
+        "team1": 2,
+        "team2": 0,
+        "score": "2-0",
+        "source_name": "AP / ESPN",
+        "source_url": "https://apnews.com/live/world-cup-mexico-south-africa-2026-updates",
+        "verified_at": "2026-06-12"
+      },
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 67.5,
@@ -403,7 +411,14 @@
           "probability": 8.8
         }
       ],
-      "advance_probabilities": null
+      "advance_probabilities": null,
+      "prediction_result": {
+        "actual_outcome": "team1_win",
+        "predicted_outcome": "team1_win",
+        "outcome_hit": true,
+        "exact_score_hit": true,
+        "goal_error": 0
+      }
     },
     {
       "id": "wc2026-002",
@@ -419,6 +434,14 @@
       "ground": "Guadalajara (Zapopan)",
       "status": "已结束",
       "is_knockout": false,
+      "actual_score": {
+        "team1": 2,
+        "team2": 1,
+        "score": "2-1",
+        "source_name": "Al Jazeera / ESPN",
+        "source_url": "https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom",
+        "verified_at": "2026-06-12"
+      },
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 43.7,
@@ -624,7 +647,14 @@
           "probability": 7.3
         }
       ],
-      "advance_probabilities": null
+      "advance_probabilities": null,
+      "prediction_result": {
+        "actual_outcome": "team1_win",
+        "predicted_outcome": "team1_win",
+        "outcome_hit": true,
+        "exact_score_hit": true,
+        "goal_error": 0
+      }
     },
     {
       "id": "wc2026-003",
@@ -640,6 +670,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 52.3,
@@ -861,6 +892,7 @@
       "ground": "Guadalajara (Zapopan)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 48.5,
@@ -1082,6 +1114,7 @@
       "ground": "Mexico City",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 19.1,
@@ -1303,6 +1336,7 @@
       "ground": "Monterrey (Guadalupe)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 18.9,
@@ -1524,6 +1558,7 @@
       "ground": "Toronto",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 76.2,
@@ -1745,6 +1780,7 @@
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 5.7,
@@ -1966,6 +2002,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 81.4,
@@ -2187,6 +2224,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 76.9,
@@ -2408,6 +2446,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 37.3,
@@ -2629,6 +2668,7 @@
       "ground": "Seattle",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 39.9,
@@ -2850,6 +2890,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 31.3,
@@ -3071,6 +3112,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 25.7,
@@ -3292,6 +3334,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 13.2,
@@ -3513,6 +3556,7 @@
       "ground": "Philadelphia",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 75.8,
@@ -3734,6 +3778,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 15.7,
@@ -3955,6 +4000,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 77.7,
@@ -4176,6 +4222,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 33.0,
@@ -4397,6 +4444,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 20.3,
@@ -4618,6 +4666,7 @@
       "ground": "Seattle",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 31.4,
@@ -4839,6 +4888,7 @@
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 56.3,
@@ -5060,6 +5110,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 64.9,
@@ -5281,6 +5332,7 @@
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 32.6,
@@ -5502,6 +5554,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 86.2,
@@ -5723,6 +5776,7 @@
       "ground": "Philadelphia",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 30.6,
@@ -5944,6 +5998,7 @@
       "ground": "Toronto",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 63.0,
@@ -6165,6 +6220,7 @@
       "ground": "Kansas City",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 59.1,
@@ -6386,6 +6442,7 @@
       "ground": "Philadelphia",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 16.5,
@@ -6607,6 +6664,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 18.5,
@@ -6828,6 +6886,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 43.0,
@@ -7049,6 +7108,7 @@
       "ground": "Monterrey (Guadalupe)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 39.4,
@@ -7270,6 +7330,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 83.1,
@@ -7491,6 +7552,7 @@
       "ground": "Monterrey (Guadalupe)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 9.5,
@@ -7712,6 +7774,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 76.5,
@@ -7933,6 +7996,7 @@
       "ground": "Kansas City",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 6.7,
@@ -8154,6 +8218,7 @@
       "ground": "Seattle",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 69.8,
@@ -8375,6 +8440,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 59.5,
@@ -8596,6 +8662,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 57.7,
@@ -8817,6 +8884,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 32.5,
@@ -9038,6 +9106,7 @@
       "ground": "Seattle",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 22.8,
@@ -9259,6 +9328,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 6.7,
@@ -9480,6 +9550,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 91.3,
@@ -9701,6 +9772,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 15.3,
@@ -9922,6 +9994,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 93.5,
@@ -10143,6 +10216,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 49.6,
@@ -10364,6 +10438,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 43.9,
@@ -10585,6 +10660,7 @@
       "ground": "Guadalajara (Zapopan)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 7.9,
@@ -10806,6 +10882,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 53.3,
@@ -11027,6 +11104,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 6.9,
@@ -11248,6 +11326,7 @@
       "ground": "Philadelphia",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 82.4,
@@ -11469,6 +11548,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 47.2,
@@ -11690,6 +11770,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 31.8,
@@ -11911,6 +11992,7 @@
       "ground": "Toronto",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 69.5,
@@ -12132,6 +12214,7 @@
       "ground": "Kansas City",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 60.7,
@@ -12353,6 +12436,7 @@
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 62.9,
@@ -12574,6 +12658,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 59.2,
@@ -12795,6 +12880,7 @@
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 18.4,
@@ -13016,6 +13102,7 @@
       "ground": "Kansas City",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 33.3,
@@ -13237,6 +13324,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 5.6,
@@ -13458,6 +13546,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 64.9,
@@ -13679,6 +13768,7 @@
       "ground": "Mexico City",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 20.7,
@@ -13900,6 +13990,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 60.0,
@@ -14121,6 +14212,7 @@
       "ground": "Guadalajara (Zapopan)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 58.2,
@@ -14342,6 +14434,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 33.4,
@@ -14563,6 +14656,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 28.9,
@@ -14784,6 +14878,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 52.4,
@@ -15005,6 +15100,7 @@
       "ground": "Toronto",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 21.5,
@@ -15226,6 +15322,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 84.3,
@@ -15447,6 +15544,7 @@
       "ground": "Toronto",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 19.1,
@@ -15668,6 +15766,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 10.3,
@@ -15889,6 +15988,7 @@
       "ground": "Philadelphia",
       "status": "未开赛",
       "is_knockout": false,
+      "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 74.6,
@@ -16110,6 +16210,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16138,6 +16239,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16166,6 +16268,7 @@
       "ground": "Monterrey (Guadalupe)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16194,6 +16297,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16222,6 +16326,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16250,6 +16355,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16278,6 +16384,7 @@
       "ground": "Mexico City",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16306,6 +16413,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16334,6 +16442,7 @@
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16362,6 +16471,7 @@
       "ground": "Seattle",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16390,6 +16500,7 @@
       "ground": "Toronto",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16418,6 +16529,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16446,6 +16558,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16474,6 +16587,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16502,6 +16616,7 @@
       "ground": "Kansas City",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16530,6 +16645,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16558,6 +16674,7 @@
       "ground": "Philadelphia",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16586,6 +16703,7 @@
       "ground": "Houston",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16614,6 +16732,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16642,6 +16761,7 @@
       "ground": "Mexico City",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16670,6 +16790,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16698,6 +16819,7 @@
       "ground": "Seattle",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16726,6 +16848,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16754,6 +16877,7 @@
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16782,6 +16906,7 @@
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16810,6 +16935,7 @@
       "ground": "Los Angeles (Inglewood)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16838,6 +16964,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16866,6 +16993,7 @@
       "ground": "Kansas City",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16894,6 +17022,7 @@
       "ground": "Dallas (Arlington)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16922,6 +17051,7 @@
       "ground": "Atlanta",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16950,6 +17080,7 @@
       "ground": "Miami (Miami Gardens)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -16978,6 +17109,7 @@
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": true,
+      "actual_score": null,
       "teams_confirmed": false,
       "probabilities": null,
       "favorite": "待定",
@@ -19013,6 +19145,43 @@
       "冠军赔率只作为市场盘口辅助信号，不构成投注建议。"
     ]
   },
+  "performance": {
+    "sample_size": 2,
+    "outcome_hits": 2,
+    "exact_score_hits": 2,
+    "outcome_accuracy": 100.0,
+    "exact_score_accuracy": 100.0,
+    "average_goal_error": 0.0,
+    "completed_matches": [
+      {
+        "id": "wc2026-001",
+        "date": "2026-06-11",
+        "team1": "Mexico",
+        "team2": "South Africa",
+        "predicted_score": "2-0",
+        "actual_score": "2-0",
+        "outcome_hit": true,
+        "exact_score_hit": true,
+        "goal_error": 0,
+        "source_name": "AP / ESPN",
+        "source_url": "https://apnews.com/live/world-cup-mexico-south-africa-2026-updates"
+      },
+      {
+        "id": "wc2026-002",
+        "date": "2026-06-11",
+        "team1": "South Korea",
+        "team2": "Czech Republic",
+        "predicted_score": "2-1",
+        "actual_score": "2-1",
+        "outcome_hit": true,
+        "exact_score_hit": true,
+        "goal_error": 0,
+        "source_name": "Al Jazeera / ESPN",
+        "source_url": "https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom"
+      }
+    ],
+    "note": "早期样本较小，命中率会随更多真实赛果持续更新。"
+  },
   "filters": {
     "rounds": [
       "Final",
@@ -20551,7 +20720,10 @@
     "market_signal_available": true,
     "betting_signal_available": true,
     "tournament_simulations": 1000,
-    "fifa_rankings_used": 0
+    "fifa_rankings_used": 0,
+    "actual_result_count": 2,
+    "outcome_accuracy": 100.0,
+    "exact_score_accuracy": 100.0
   },
   "error": null
 }

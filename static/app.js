@@ -80,6 +80,18 @@ async function api(path, options = {}) {
   return response.json();
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function taskRunning(payload = {}) {
+  return Boolean(payload.task && payload.task.running);
+}
+
+function taskMessage(payload = {}, fallback = "后台任务正在运行...") {
+  return (payload.task && payload.task.message) || payload.message || fallback;
+}
+
 function renderSummary(summary = {}) {
   const items = [
     ["比赛", summary.match_count ?? "--"],
@@ -281,7 +293,9 @@ function bar(label, value, className) {
 async function loadStatus() {
   const status = await api("/api/status");
   renderSummary(status.summary);
-  if (status.generated_at) {
+  if (taskRunning(status)) {
+    els.statusLine.textContent = taskMessage(status);
+  } else if (status.generated_at) {
     els.statusLine.textContent = `模型 ${status.model_version}，更新于 ${new Date(status.generated_at).toLocaleString("zh-CN")}`;
   } else {
     els.statusLine.textContent = "尚未生成预测数据";
@@ -303,21 +317,31 @@ async function loadMatches() {
   return payload;
 }
 
+async function waitForBackgroundTask(label) {
+  for (let attempt = 0; attempt < 120; attempt += 1) {
+    await sleep(3000);
+    const status = await loadStatus();
+    if (!taskRunning(status)) {
+      await loadMatches();
+      return;
+    }
+    setBusy(true, taskMessage(status, label));
+  }
+  showNotice("后台任务仍在运行，稍后会继续更新；你可以过一会儿刷新页面查看结果。");
+  await loadMatches();
+}
+
 async function updateData() {
-  setBusy(true, "正在联网抓取数据并重建模型...");
+  const label = "正在联网抓取数据并重建模型...";
+  setBusy(true, label);
   try {
     const payload = await api("/api/update", { method: "POST" });
-    state.matches = payload.matches || [];
-    state.filters = payload.filters || {};
-    state.tournament = payload.tournament || {};
-    renderSummary(payload.summary);
-    renderFilters(state.filters);
-    renderTournament(state.tournament);
-    renderMatches();
-    showNotice(payload.error);
-    els.statusLine.textContent = payload.generated_at
-      ? `模型 ${payload.model_version}，更新于 ${new Date(payload.generated_at).toLocaleString("zh-CN")}`
-      : "更新未生成预测数据";
+    showNotice(payload.error || payload.message);
+    if (taskRunning(payload)) {
+      await waitForBackgroundTask(label);
+    } else {
+      await loadMatches();
+    }
   } catch (error) {
     showNotice(`更新失败：${error.message}`);
   } finally {
@@ -326,20 +350,16 @@ async function updateData() {
 }
 
 async function recalculateModel() {
-  setBusy(true, "正在使用本地缓存重新计算模型...");
+  const label = "正在使用本地缓存重新计算模型...";
+  setBusy(true, label);
   try {
     const payload = await api("/api/recalculate", { method: "POST" });
-    state.matches = payload.matches || [];
-    state.filters = payload.filters || {};
-    state.tournament = payload.tournament || {};
-    renderSummary(payload.summary);
-    renderFilters(state.filters);
-    renderTournament(state.tournament);
-    renderMatches();
-    showNotice(payload.error);
-    els.statusLine.textContent = payload.generated_at
-      ? `模型 ${payload.model_version}，更新于 ${new Date(payload.generated_at).toLocaleString("zh-CN")}`
-      : "没有可用缓存";
+    showNotice(payload.error || payload.message);
+    if (taskRunning(payload)) {
+      await waitForBackgroundTask(label);
+    } else {
+      await loadMatches();
+    }
   } catch (error) {
     showNotice(`重新计算失败：${error.message}`);
   } finally {

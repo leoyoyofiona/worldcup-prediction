@@ -4,7 +4,8 @@ __pycache__/
 .venv/
 .venv_runtime/
 venv/
-data/
+data/*.tmp
+data/raw/*.tmp
 .playwright-mcp/
 worldcup-*.png
 .DS_Store

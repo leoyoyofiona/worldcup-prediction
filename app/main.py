@@ -26,13 +26,13 @@ def get_status():
 
 
 @app.post("/api/update")
-async def update_data():
-    return await service.update()
+def update_data():
+    return service.start_update()
 
 
 @app.post("/api/recalculate")
 def recalculate_model():
-    return service.recalculate()
+    return service.start_recalculate()
 
 
 @app.get("/api/matches")

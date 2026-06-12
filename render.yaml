@@ -7,4 +7,4 @@ services:
     healthCheckPath: /api/status
     envVars:
       - key: TOURNAMENT_SIMULATIONS
-        value: "5000"
+        value: "1000"

@@ -1,6 +1,6 @@
 {
   "model_version": "0.1.1",
-  "generated_at": "2026-06-12T03:37:39+00:00",
+  "generated_at": "2026-06-12T03:47:10+00:00",
   "sources": [
     {
       "id": "schedule_openfootball",
@@ -9,10 +9,10 @@
       "required": true,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 19229,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 19957,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:11+00:00"
     },
     {
       "id": "results_history",
@@ -21,10 +21,10 @@
       "required": true,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
+      "message": "已抓取",
       "bytes": 3724399,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:12+00:00"
     },
     {
       "id": "fifa_ranking",
@@ -33,10 +33,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
+      "message": "已抓取",
       "bytes": 217395,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:11+00:00"
     },
     {
       "id": "yiwu_index",
@@ -45,10 +45,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
+      "message": "已抓取",
       "bytes": 209247,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:10+00:00"
     },
     {
       "id": "mofcom_forecast",
@@ -57,10 +57,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 1375,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 1415,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:10+00:00"
     },
     {
       "id": "chinagoods",
@@ -69,10 +69,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 640982,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 643950,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:10+00:00"
     },
     {
       "id": "yiwu_worldcup_search",
@@ -81,10 +81,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 34903,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 34825,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:14+00:00"
     },
     {
       "id": "oddsjet_europe",
@@ -93,10 +93,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 983683,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 993444,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:14+00:00"
     },
     {
       "id": "oddsjet_asia",
@@ -105,10 +105,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 602632,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 606804,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:12+00:00"
     },
     {
       "id": "oddsjet_oceania",
@@ -117,10 +117,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 935167,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 944825,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:14+00:00"
     },
     {
       "id": "oddsjet_africa",
@@ -129,10 +129,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 923361,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 932822,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:12+00:00"
     },
     {
       "id": "oddsjet_north_america",
@@ -141,10 +141,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 1000048,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 1010090,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:13+00:00"
     },
     {
       "id": "oddsjet_south_america",
@@ -153,10 +153,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
-      "bytes": 918818,
-      "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "message": "已抓取",
+      "bytes": 928200,
+      "using_cache": false,
+      "fetched_at": "2026-06-12T03:46:14+00:00"
     },
     {
       "id": "comparebet_uk",
@@ -165,10 +165,10 @@
       "required": false,
       "ok": true,
       "status": "ok",
-      "message": "已读取本地缓存",
+      "message": "在线抓取失败，已使用本地缓存",
       "bytes": 683415,
       "using_cache": true,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "fetched_at": "2026-06-12T03:46:44+00:00"
     },
     {
       "id": "worldcup_matches_local",
@@ -180,7 +180,7 @@
       "message": "已读取本地 CSV",
       "bytes": 156079,
       "using_cache": false,
-      "fetched_at": "2026-06-12T03:37:15+00:00"
+      "fetched_at": "2026-06-12T03:46:46+00:00"
     }
   ],
   "matches": [
@@ -230,14 +230,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -451,14 +451,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -672,14 +672,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -893,14 +893,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -1114,14 +1114,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -1335,14 +1335,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -1556,14 +1556,14 @@
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -1777,14 +1777,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 2,
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -1998,14 +1998,14 @@
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -2219,14 +2219,14 @@
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -2440,14 +2440,14 @@
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 2,
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -2661,14 +2661,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -2882,14 +2882,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -3103,14 +3103,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -3324,14 +3324,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -3545,14 +3545,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -3766,14 +3766,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -3987,14 +3987,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -4208,14 +4208,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -4429,14 +4429,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -4650,14 +4650,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -4871,14 +4871,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -5092,14 +5092,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -5313,14 +5313,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -5534,14 +5534,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -5755,14 +5755,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -5976,14 +5976,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -6197,14 +6197,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -6418,14 +6418,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -6639,14 +6639,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -6860,14 +6860,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -7081,14 +7081,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -7302,14 +7302,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -7523,14 +7523,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -7744,14 +7744,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -7965,14 +7965,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -8186,14 +8186,14 @@
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -8407,14 +8407,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -8628,14 +8628,14 @@
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -8849,14 +8849,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -9070,14 +9070,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -9291,14 +9291,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 2,
           "index": 0.667,
           "adjustment": 16.7,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -9512,14 +9512,14 @@
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -9733,14 +9733,14 @@
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -9954,14 +9954,14 @@
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 3,
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -10175,14 +10175,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -10396,14 +10396,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 3,
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -10617,14 +10617,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 3,
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -10808,44 +10808,44 @@
       "is_knockout": false,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 53.1,
-        "draw": 23.2,
-        "team2_win": 23.7
+        "team1_win": 52.5,
+        "draw": 23.3,
+        "team2_win": 24.2
       },
       "favorite": "France",
       "predicted_score": "2-1",
-      "confidence": 0.294,
+      "confidence": 0.283,
       "confidence_label": "高",
       "expected_goals": {
-        "team1": 1.8,
-        "team2": 1.12
+        "team1": 1.78,
+        "team2": 1.13
       },
       "score_summary": {
         "representative_score": "2-1",
         "modal_score": "1-1",
         "expected_total_goals": 2.92,
-        "over_2_5": 55.9,
-        "over_3_5": 33.5,
-        "both_teams_score": 56.3
+        "over_2_5": 55.8,
+        "over_3_5": 33.4,
+        "both_teams_score": 56.4
       },
       "effective_ratings": {
-        "team1": 2189.6,
+        "team1": 2181.2,
         "team2": 1930.7
       },
       "market": {
         "team1": {
-          "mentions": 2,
-          "index": 0.667,
-          "adjustment": 16.7,
+          "mentions": 1,
+          "index": 0.333,
+          "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -10904,7 +10904,7 @@
         },
         {
           "name": "市场热度修正",
-          "value": 16.7,
+          "value": 8.3,
           "description": "义乌外贸、世界杯周边订单和公开页面提及度的辅助信号。"
         },
         {
@@ -10919,8 +10919,8 @@
         }
       ],
       "explanation": [
-        "France 有效评分 2190，Senegal 有效评分 1931。",
-        "模型预计进球均值为 France 1.80，Senegal 1.12。",
+        "France 有效评分 2181，Senegal 有效评分 1931。",
+        "模型预计进球均值为 France 1.78，Senegal 1.13。",
         "代表比分为 2-1，精确众数比分为 1-1，预测置信度为高。"
       ],
       "team_metrics": {
@@ -10996,15 +10996,15 @@
         },
         {
           "score": "1-0",
-          "probability": 9.7
+          "probability": 9.6
         },
         {
           "score": "2-0",
-          "probability": 8.7
+          "probability": 8.6
         },
         {
           "score": "1-2",
-          "probability": 6.1
+          "probability": 6.2
         },
         {
           "score": "0-1",
@@ -11059,14 +11059,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -11250,44 +11250,44 @@
       "is_knockout": false,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 84.0,
-        "draw": 11.4,
-        "team2_win": 4.5
+        "team1_win": 83.6,
+        "draw": 11.7,
+        "team2_win": 4.7
       },
       "favorite": "France",
       "predicted_score": "3-0",
-      "confidence": 0.726,
+      "confidence": 0.72,
       "confidence_label": "高",
       "expected_goals": {
-        "team1": 2.75,
-        "team2": 0.5
+        "team1": 2.72,
+        "team2": 0.51
       },
       "score_summary": {
         "representative_score": "3-0",
         "modal_score": "2-0",
-        "expected_total_goals": 3.25,
-        "over_2_5": 62.8,
-        "over_3_5": 40.4,
-        "both_teams_score": 36.8
+        "expected_total_goals": 3.23,
+        "over_2_5": 62.3,
+        "over_3_5": 40.0,
+        "both_teams_score": 37.0
       },
       "effective_ratings": {
-        "team1": 2189.6,
+        "team1": 2181.2,
         "team2": 1698.6
       },
       "market": {
         "team1": {
-          "mentions": 2,
-          "index": 0.667,
-          "adjustment": 16.7,
+          "mentions": 1,
+          "index": 0.333,
+          "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -11346,7 +11346,7 @@
         },
         {
           "name": "市场热度修正",
-          "value": 16.7,
+          "value": 8.3,
           "description": "义乌外贸、世界杯周边订单和公开页面提及度的辅助信号。"
         },
         {
@@ -11361,8 +11361,8 @@
         }
       ],
       "explanation": [
-        "France 有效评分 2190，Iraq 有效评分 1699。",
-        "模型预计进球均值为 France 2.75，Iraq 0.50。",
+        "France 有效评分 2181，Iraq 有效评分 1699。",
+        "模型预计进球均值为 France 2.72，Iraq 0.51。",
         "代表比分为 3-0，精确众数比分为 2-0，预测置信度为高。"
       ],
       "team_metrics": {
@@ -11434,19 +11434,19 @@
         },
         {
           "score": "3-0",
-          "probability": 13.5
+          "probability": 13.4
         },
         {
           "score": "1-0",
-          "probability": 10.7
+          "probability": 10.9
         },
         {
           "score": "4-0",
-          "probability": 9.3
+          "probability": 9.1
         },
         {
           "score": "2-1",
-          "probability": 7.4
+          "probability": 7.5
         },
         {
           "score": "3-1",
@@ -11501,14 +11501,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -11692,29 +11692,29 @@
       "is_knockout": false,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 31.2,
+        "team1_win": 31.8,
         "draw": 23.6,
-        "team2_win": 45.3
+        "team2_win": 44.6
       },
       "favorite": "France",
       "predicted_score": "1-2",
-      "confidence": 0.141,
+      "confidence": 0.129,
       "confidence_label": "中",
       "expected_goals": {
-        "team1": 1.38,
-        "team2": 1.71
+        "team1": 1.4,
+        "team2": 1.69
       },
       "score_summary": {
         "representative_score": "1-2",
         "modal_score": "1-1",
         "expected_total_goals": 3.09,
-        "over_2_5": 59.7,
+        "over_2_5": 59.6,
         "over_3_5": 37.3,
         "both_teams_score": 61.4
       },
       "effective_ratings": {
         "team1": 1947.4,
-        "team2": 2189.6
+        "team2": 2181.2
       },
       "market": {
         "team1": {
@@ -11722,14 +11722,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
-          "mentions": 2,
-          "index": 0.667,
-          "adjustment": 16.7,
+          "mentions": 1,
+          "index": 0.333,
+          "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -11788,7 +11788,7 @@
         },
         {
           "name": "市场热度修正",
-          "value": -8.4,
+          "value": 0.0,
           "description": "义乌外贸、世界杯周边订单和公开页面提及度的辅助信号。"
         },
         {
@@ -11803,8 +11803,8 @@
         }
       ],
       "explanation": [
-        "Norway 有效评分 1947，France 有效评分 2190。",
-        "模型预计进球均值为 Norway 1.38，France 1.71。",
+        "Norway 有效评分 1947，France 有效评分 2181。",
+        "模型预计进球均值为 Norway 1.40，France 1.69。",
         "代表比分为 1-2，精确众数比分为 1-1，预测置信度为中。"
       ],
       "team_metrics": {
@@ -11872,27 +11872,27 @@
       "scoreline_distribution": [
         {
           "score": "1-1",
-          "probability": 10.7
+          "probability": 10.8
         },
         {
           "score": "1-2",
-          "probability": 9.2
+          "probability": 9.1
         },
         {
           "score": "0-1",
-          "probability": 7.8
+          "probability": 7.7
         },
         {
           "score": "2-1",
-          "probability": 7.4
+          "probability": 7.5
         },
         {
           "score": "0-2",
-          "probability": 6.6
+          "probability": 6.5
         },
         {
           "score": "2-2",
-          "probability": 6.3
+          "probability": 6.4
         }
       ],
       "advance_probabilities": null
@@ -11943,14 +11943,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -12164,14 +12164,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -12385,14 +12385,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -12606,14 +12606,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -12827,14 +12827,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -13048,14 +13048,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -13269,14 +13269,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -13490,14 +13490,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -13711,14 +13711,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 3,
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -13932,14 +13932,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -14153,14 +14153,14 @@
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -14374,14 +14374,14 @@
           "index": 1.0,
           "adjustment": 25.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -14595,14 +14595,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -14816,14 +14816,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -15037,14 +15037,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -15258,14 +15258,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -15479,14 +15479,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 1,
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -15700,14 +15700,14 @@
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -15921,14 +15921,14 @@
           "index": 0.333,
           "adjustment": 8.3,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "team2": {
           "mentions": 0,
           "index": 0.0,
           "adjustment": 0.0,
           "available": true,
-          "keyword_hits": 157
+          "keyword_hits": 146
         },
         "available": true
       },
@@ -16999,98 +16999,98 @@
       {
         "team": "Spain",
         "round_of_32": 99.9,
-        "round_of_16": 80.2,
-        "quarter_final": 62.7,
-        "semi_final": 50.0,
-        "final": 36.7,
-        "champion": 25.3
+        "round_of_16": 80.4,
+        "quarter_final": 62.9,
+        "semi_final": 50.1,
+        "final": 36.9,
+        "champion": 25.4
       },
       {
         "team": "Argentina",
         "round_of_32": 97.2,
         "round_of_16": 72.6,
-        "quarter_final": 60.0,
+        "quarter_final": 59.9,
         "semi_final": 45.1,
-        "final": 31.8,
-        "champion": 19.4
+        "final": 31.9,
+        "champion": 19.6
       },
       {
         "team": "France",
-        "round_of_32": 95.8,
-        "round_of_16": 78.2,
-        "quarter_final": 56.3,
-        "semi_final": 39.3,
-        "final": 23.0,
-        "champion": 13.6
+        "round_of_32": 95.5,
+        "round_of_16": 77.0,
+        "quarter_final": 54.9,
+        "semi_final": 37.9,
+        "final": 21.8,
+        "champion": 12.7
       },
       {
         "team": "England",
-        "round_of_32": 98.0,
-        "round_of_16": 68.1,
-        "quarter_final": 41.0,
+        "round_of_32": 97.9,
+        "round_of_16": 68.2,
+        "quarter_final": 40.8,
         "semi_final": 23.7,
         "final": 12.2,
         "champion": 5.5
       },
       {
         "team": "Germany",
-        "round_of_32": 97.8,
-        "round_of_16": 76.2,
-        "quarter_final": 43.5,
-        "semi_final": 25.7,
-        "final": 11.3,
-        "champion": 5.2
+        "round_of_32": 97.6,
+        "round_of_16": 76.0,
+        "quarter_final": 43.9,
+        "semi_final": 26.2,
+        "final": 11.6,
+        "champion": 5.4
       },
       {
         "team": "Netherlands",
-        "round_of_32": 98.3,
-        "round_of_16": 60.3,
-        "quarter_final": 39.4,
+        "round_of_32": 98.2,
+        "round_of_16": 60.5,
+        "quarter_final": 39.5,
         "semi_final": 20.6,
-        "final": 9.0,
-        "champion": 3.9
+        "final": 8.9,
+        "champion": 3.8
       },
       {
         "team": "Brazil",
-        "round_of_32": 93.9,
-        "round_of_16": 54.0,
-        "quarter_final": 33.9,
-        "semi_final": 18.3,
-        "final": 8.1,
+        "round_of_32": 93.8,
+        "round_of_16": 53.8,
+        "quarter_final": 34.1,
+        "semi_final": 18.5,
+        "final": 8.3,
         "champion": 3.6
-      },
-      {
-        "team": "Colombia",
-        "round_of_32": 85.7,
-        "round_of_16": 48.5,
-        "quarter_final": 26.7,
-        "semi_final": 14.4,
-        "final": 7.5,
-        "champion": 3.3
       },
       {
         "team": "Mexico",
         "round_of_32": 92.9,
-        "round_of_16": 68.8,
-        "quarter_final": 36.1,
-        "semi_final": 18.0,
-        "final": 7.9,
-        "champion": 3.1
+        "round_of_16": 68.9,
+        "quarter_final": 36.3,
+        "semi_final": 18.4,
+        "final": 8.1,
+        "champion": 3.3
+      },
+      {
+        "team": "Colombia",
+        "round_of_32": 85.7,
+        "round_of_16": 48.6,
+        "quarter_final": 26.7,
+        "semi_final": 14.3,
+        "final": 7.5,
+        "champion": 3.3
       },
       {
         "team": "Portugal",
         "round_of_32": 91.5,
-        "round_of_16": 54.8,
-        "quarter_final": 31.3,
-        "semi_final": 15.6,
-        "final": 7.7,
-        "champion": 3.1
+        "round_of_16": 54.9,
+        "quarter_final": 31.4,
+        "semi_final": 15.7,
+        "final": 7.8,
+        "champion": 3.2
       },
       {
         "team": "Turkey",
         "round_of_32": 92.9,
-        "round_of_16": 68.3,
-        "quarter_final": 37.4,
+        "round_of_16": 68.6,
+        "quarter_final": 37.6,
         "semi_final": 14.4,
         "final": 6.6,
         "champion": 2.5
@@ -17098,99 +17098,99 @@
       {
         "team": "Belgium",
         "round_of_32": 97.8,
-        "round_of_16": 66.0,
-        "quarter_final": 36.8,
+        "round_of_16": 65.9,
+        "quarter_final": 36.5,
         "semi_final": 12.9,
         "final": 5.8,
         "champion": 2.2
       },
       {
         "team": "Croatia",
-        "round_of_32": 91.7,
-        "round_of_16": 51.0,
-        "quarter_final": 22.1,
-        "semi_final": 10.8,
+        "round_of_32": 91.8,
+        "round_of_16": 50.9,
+        "quarter_final": 21.9,
+        "semi_final": 10.6,
         "final": 4.6,
-        "champion": 1.6
+        "champion": 1.7
       },
       {
         "team": "Japan",
-        "round_of_32": 95.7,
-        "round_of_16": 49.9,
-        "quarter_final": 27.3,
+        "round_of_32": 95.8,
+        "round_of_16": 49.8,
+        "quarter_final": 27.2,
         "semi_final": 12.0,
-        "final": 4.5,
+        "final": 4.4,
         "champion": 1.5
       },
       {
         "team": "Morocco",
-        "round_of_32": 95.3,
+        "round_of_32": 95.4,
         "round_of_16": 46.3,
         "quarter_final": 24.8,
         "semi_final": 11.1,
-        "final": 4.0,
+        "final": 3.9,
         "champion": 1.3
       },
       {
         "team": "Switzerland",
-        "round_of_32": 98.1,
-        "round_of_16": 65.4,
-        "quarter_final": 28.4,
-        "semi_final": 10.6,
+        "round_of_32": 98.0,
+        "round_of_16": 65.0,
+        "quarter_final": 28.1,
+        "semi_final": 10.5,
         "final": 3.6,
         "champion": 1.1
       },
       {
         "team": "Ecuador",
         "round_of_32": 78.0,
-        "round_of_16": 47.7,
-        "quarter_final": 20.3,
-        "semi_final": 8.4,
-        "final": 2.8,
-        "champion": 0.8
+        "round_of_16": 47.8,
+        "quarter_final": 20.6,
+        "semi_final": 8.5,
+        "final": 2.9,
+        "champion": 0.9
       },
       {
-        "team": "Norway",
-        "round_of_32": 91.6,
-        "round_of_16": 48.7,
-        "quarter_final": 20.3,
-        "semi_final": 7.4,
+        "team": "Uruguay",
+        "round_of_32": 77.2,
+        "round_of_16": 27.1,
+        "quarter_final": 14.5,
+        "semi_final": 6.3,
         "final": 2.3,
         "champion": 0.6
       },
       {
-        "team": "Uruguay",
-        "round_of_32": 76.9,
-        "round_of_16": 27.0,
-        "quarter_final": 14.5,
-        "semi_final": 6.3,
+        "team": "Norway",
+        "round_of_32": 91.6,
+        "round_of_16": 48.8,
+        "quarter_final": 20.4,
+        "semi_final": 7.5,
         "final": 2.2,
         "champion": 0.6
       },
       {
-        "team": "Senegal",
-        "round_of_32": 81.4,
-        "round_of_16": 39.4,
-        "quarter_final": 16.0,
-        "semi_final": 5.1,
+        "team": "Canada",
+        "round_of_32": 97.1,
+        "round_of_16": 55.9,
+        "quarter_final": 19.1,
+        "semi_final": 5.6,
         "final": 1.5,
         "champion": 0.4
       },
       {
-        "team": "Canada",
-        "round_of_32": 97.0,
-        "round_of_16": 55.8,
-        "quarter_final": 19.0,
-        "semi_final": 5.5,
+        "team": "Senegal",
+        "round_of_32": 81.6,
+        "round_of_16": 39.5,
+        "quarter_final": 15.9,
+        "semi_final": 5.2,
         "final": 1.5,
-        "champion": 0.3
+        "champion": 0.4
       },
       {
         "team": "Austria",
-        "round_of_32": 79.0,
+        "round_of_32": 78.8,
         "round_of_16": 25.9,
         "quarter_final": 11.8,
-        "semi_final": 3.9,
+        "semi_final": 3.8,
         "final": 1.1,
         "champion": 0.3
       },
@@ -17198,16 +17198,25 @@
         "team": "United States",
         "round_of_32": 52.1,
         "round_of_16": 25.8,
-        "quarter_final": 8.9,
-        "semi_final": 2.5,
+        "quarter_final": 9.0,
+        "semi_final": 2.6,
         "final": 0.6,
         "champion": 0.1
       },
       {
         "team": "Algeria",
-        "round_of_32": 72.6,
+        "round_of_32": 72.5,
         "round_of_16": 21.0,
-        "quarter_final": 8.5,
+        "quarter_final": 8.4,
+        "semi_final": 2.3,
+        "final": 0.6,
+        "champion": 0.1
+      },
+      {
+        "team": "Iran",
+        "round_of_32": 80.1,
+        "round_of_16": 33.2,
+        "quarter_final": 9.1,
         "semi_final": 2.3,
         "final": 0.6,
         "champion": 0.1
@@ -17215,26 +17224,17 @@
       {
         "team": "South Korea",
         "round_of_32": 77.7,
-        "round_of_16": 37.0,
-        "quarter_final": 10.2,
+        "round_of_16": 37.1,
+        "quarter_final": 10.5,
         "semi_final": 2.7,
-        "final": 0.5,
-        "champion": 0.1
-      },
-      {
-        "team": "Iran",
-        "round_of_32": 80.0,
-        "round_of_16": 33.3,
-        "quarter_final": 9.2,
-        "semi_final": 2.2,
         "final": 0.5,
         "champion": 0.1
       },
       {
         "team": "Paraguay",
         "round_of_32": 61.0,
-        "round_of_16": 28.6,
-        "quarter_final": 8.7,
+        "round_of_16": 28.7,
+        "quarter_final": 8.8,
         "semi_final": 2.2,
         "final": 0.5,
         "champion": 0.1
@@ -17242,70 +17242,70 @@
       {
         "team": "Australia",
         "round_of_32": 67.5,
-        "round_of_16": 31.6,
+        "round_of_16": 31.7,
         "quarter_final": 9.2,
         "semi_final": 2.1,
-        "final": 0.4,
+        "final": 0.5,
         "champion": 0.1
       },
       {
         "team": "Ivory Coast",
-        "round_of_32": 74.5,
+        "round_of_32": 74.4,
         "round_of_16": 30.2,
-        "quarter_final": 7.9,
-        "semi_final": 1.8,
+        "quarter_final": 7.8,
+        "semi_final": 1.7,
         "final": 0.3,
-        "champion": 0.1
+        "champion": 0.0
       },
       {
         "team": "Czech Republic",
-        "round_of_32": 68.6,
-        "round_of_16": 28.0,
-        "quarter_final": 6.7,
-        "semi_final": 1.3,
+        "round_of_32": 68.4,
+        "round_of_16": 28.1,
+        "quarter_final": 6.8,
+        "semi_final": 1.4,
         "final": 0.2,
         "champion": 0.0
       },
       {
         "team": "Panama",
-        "round_of_32": 55.3,
-        "round_of_16": 12.9,
-        "quarter_final": 3.1,
+        "round_of_32": 55.6,
+        "round_of_16": 13.0,
+        "quarter_final": 3.2,
         "semi_final": 0.8,
         "final": 0.2,
         "champion": 0.0
       },
       {
         "team": "Scotland",
-        "round_of_32": 54.7,
-        "round_of_16": 12.6,
-        "quarter_final": 3.8,
+        "round_of_32": 54.9,
+        "round_of_16": 12.8,
+        "quarter_final": 3.9,
         "semi_final": 0.9,
         "final": 0.1,
         "champion": 0.0
       },
       {
-        "team": "Uzbekistan",
-        "round_of_32": 51.9,
-        "round_of_16": 9.5,
-        "quarter_final": 2.0,
+        "team": "Egypt",
+        "round_of_32": 52.8,
+        "round_of_16": 15.1,
+        "quarter_final": 2.8,
         "semi_final": 0.5,
         "final": 0.1,
         "champion": 0.0
       },
       {
-        "team": "Egypt",
-        "round_of_32": 52.6,
-        "round_of_16": 15.0,
-        "quarter_final": 2.8,
-        "semi_final": 0.4,
+        "team": "Uzbekistan",
+        "round_of_32": 52.0,
+        "round_of_16": 9.6,
+        "quarter_final": 2.1,
+        "semi_final": 0.5,
         "final": 0.1,
         "champion": 0.0
       },
       {
         "team": "Sweden",
-        "round_of_32": 31.9,
-        "round_of_16": 7.9,
+        "round_of_32": 32.0,
+        "round_of_16": 8.0,
         "quarter_final": 1.7,
         "semi_final": 0.3,
         "final": 0.1,
@@ -17313,17 +17313,17 @@
       },
       {
         "team": "Jordan",
-        "round_of_32": 23.7,
-        "round_of_16": 4.6,
-        "quarter_final": 1.2,
+        "round_of_32": 23.9,
+        "round_of_16": 4.7,
+        "quarter_final": 1.3,
         "semi_final": 0.2,
         "final": 0.0,
         "champion": 0.0
       },
       {
         "team": "Cape Verde",
-        "round_of_32": 43.3,
-        "round_of_16": 5.0,
+        "round_of_32": 43.1,
+        "round_of_16": 4.9,
         "quarter_final": 0.9,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17331,8 +17331,8 @@
       },
       {
         "team": "DR Congo",
-        "round_of_32": 41.2,
-        "round_of_16": 5.0,
+        "round_of_32": 40.9,
+        "round_of_16": 4.9,
         "quarter_final": 0.7,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17340,7 +17340,7 @@
       },
       {
         "team": "New Zealand",
-        "round_of_32": 36.1,
+        "round_of_32": 35.8,
         "round_of_16": 5.9,
         "quarter_final": 0.7,
         "semi_final": 0.1,
@@ -17349,8 +17349,8 @@
       },
       {
         "team": "Saudi Arabia",
-        "round_of_32": 26.1,
-        "round_of_16": 2.9,
+        "round_of_32": 26.0,
+        "round_of_16": 2.8,
         "quarter_final": 0.5,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17358,8 +17358,8 @@
       },
       {
         "team": "South Africa",
-        "round_of_32": 35.6,
-        "round_of_16": 8.3,
+        "round_of_32": 36.0,
+        "round_of_16": 8.2,
         "quarter_final": 1.1,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17367,8 +17367,8 @@
       },
       {
         "team": "Tunisia",
-        "round_of_32": 31.4,
-        "round_of_16": 6.0,
+        "round_of_32": 31.6,
+        "round_of_16": 5.9,
         "quarter_final": 0.9,
         "semi_final": 0.1,
         "final": 0.0,
@@ -17377,7 +17377,7 @@
       {
         "team": "Bosnia & Herzegovina",
         "round_of_32": 32.1,
-        "round_of_16": 3.1,
+        "round_of_16": 3.2,
         "quarter_final": 0.3,
         "semi_final": 0.0,
         "final": 0.0,
@@ -17394,7 +17394,7 @@
       },
       {
         "team": "Ghana",
-        "round_of_32": 20.3,
+        "round_of_32": 20.1,
         "round_of_16": 1.9,
         "quarter_final": 0.2,
         "semi_final": 0.0,
@@ -17403,16 +17403,16 @@
       },
       {
         "team": "Haiti",
-        "round_of_32": 25.1,
-        "round_of_16": 2.5,
-        "quarter_final": 0.3,
+        "round_of_32": 25.2,
+        "round_of_16": 2.6,
+        "quarter_final": 0.4,
         "semi_final": 0.0,
         "final": 0.0,
         "champion": 0.0
       },
       {
         "team": "Iraq",
-        "round_of_32": 10.2,
+        "round_of_32": 10.3,
         "round_of_16": 2.1,
         "quarter_final": 0.4,
         "semi_final": 0.0,
@@ -17421,8 +17421,8 @@
       },
       {
         "team": "Qatar",
-        "round_of_32": 27.3,
-        "round_of_16": 3.0,
+        "round_of_32": 27.2,
+        "round_of_16": 2.9,
         "quarter_final": 0.3,
         "semi_final": 0.0,
         "final": 0.0,
@@ -17626,8 +17626,8 @@
         "predicted_score": "3-1",
         "confidence_label": "高",
         "advance_probabilities": {
-          "team1": 90.3,
-          "team2": 9.7,
+          "team1": 90.0,
+          "team2": 10.0,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         }
       },
@@ -17866,8 +17866,8 @@
         "predicted_score": "1-2",
         "confidence_label": "低",
         "advance_probabilities": {
-          "team1": 45.0,
-          "team2": 55.0,
+          "team1": 45.9,
+          "team2": 54.1,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         }
       },
@@ -18026,8 +18026,8 @@
         "predicted_score": "2-1",
         "confidence_label": "低",
         "advance_probabilities": {
-          "team1": 54.5,
-          "team2": 45.5,
+          "team1": 53.6,
+          "team2": 46.4,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         }
       },
@@ -18106,8 +18106,8 @@
         "predicted_score": "1-2",
         "confidence_label": "高",
         "advance_probabilities": {
-          "team1": 33.7,
-          "team2": 66.3,
+          "team1": 32.9,
+          "team2": 67.1,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         }
       },
@@ -18146,8 +18146,8 @@
         "predicted_score": "1-2",
         "confidence_label": "中",
         "advance_probabilities": {
-          "team1": 48.0,
-          "team2": 52.0,
+          "team1": 47.1,
+          "team2": 52.9,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         }
       },
@@ -18863,34 +18863,34 @@
         "rows": [
           {
             "team": "France",
-            "points": 6.05,
-            "gf": 6.26,
-            "ga": 3.0,
-            "gd": 3.26,
+            "points": 6.01,
+            "gf": 6.19,
+            "ga": 3.04,
+            "gd": 3.15,
             "rank": 1
           },
           {
             "team": "Norway",
-            "points": 5.34,
-            "gf": 5.6,
-            "ga": 3.57,
-            "gd": 2.03,
+            "points": 5.36,
+            "gf": 5.62,
+            "ga": 3.55,
+            "gd": 2.07,
             "rank": 2
           },
           {
             "team": "Senegal",
-            "points": 4.41,
-            "gf": 4.49,
-            "ga": 4.07,
-            "gd": 0.42,
+            "points": 4.43,
+            "gf": 4.5,
+            "ga": 4.05,
+            "gd": 0.45,
             "rank": 3
           },
           {
             "team": "Iraq",
-            "points": 1.05,
-            "gf": 1.67,
-            "ga": 7.38,
-            "gd": -5.71,
+            "points": 1.06,
+            "gf": 1.68,
+            "ga": 7.35,
+            "gd": -5.67,
             "rank": 4
           }
         ]

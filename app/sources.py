@@ -182,8 +182,10 @@ def load_local_worldcup_source() -> Tuple[Optional[str], Dict[str, object]]:
 
 async def _fetch_one(client: httpx.AsyncClient, source: WebSource) -> Tuple[WebSource, Optional[str], Dict[str, object]]:
     try:
-        response = await client.get(source.url)
+        response = await asyncio.wait_for(client.get(source.url), timeout=REQUEST_TIMEOUT_SECONDS)
         response.raise_for_status()
+    except asyncio.TimeoutError:
+        return source, None, source_status(source, False, f"抓取超时（{REQUEST_TIMEOUT_SECONDS:.0f} 秒）")
     except Exception as exc:
         return source, None, source_status(source, False, str(exc))
     text = response.text

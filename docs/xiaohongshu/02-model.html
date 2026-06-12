@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--green:#155d3a;--green2:#1f7a4c;--red:#c91f2d;--ink:#17201b;--muted:#5f6964;--line:#d9ded7;--cream:#fffaf2;--paper:#fffdf8;}
+*{box-sizing:border-box}body{margin:0;width:1080px;height:1350px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,#fffaf2 0%,#fffdf8 54%,#edf6ef 100%);letter-spacing:0;overflow:hidden}.card{position:relative;width:1080px;height:1350px;padding:70px}.badge{display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:999px;background:var(--red);color:#fff;font-size:24px;font-weight:800}.headline{margin:34px 0 0;font-size:78px;line-height:1.08;font-weight:950}.sub{margin:28px 0 0;font-size:34px;line-height:1.45;color:var(--muted);font-weight:650}.url{position:absolute;left:70px;right:70px;bottom:64px;padding:22px 26px;border:2px solid var(--line);border-radius:24px;background:rgba(255,255,255,.76);font-size:28px;font-weight:800;color:var(--green);overflow-wrap:anywhere}.panel{background:#fff;border:2px solid var(--line);border-radius:30px;box-shadow:0 24px 54px rgba(45,52,48,.1)}.grid{display:grid;gap:18px}.small{font-size:24px;color:var(--muted);line-height:1.45}.kpi{display:grid;gap:8px;padding:26px;border:2px solid var(--line);border-radius:24px;background:#fff}.kpi span{font-size:24px;color:var(--muted);font-weight:700}.kpi strong{font-size:52px;line-height:1;color:var(--ink)}.pill{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:999px;background:#edf6ef;color:var(--green);font-size:22px;font-weight:900}.table{display:grid;gap:14px}.row{display:grid;grid-template-columns:1.5fr .8fr .8fr 1fr;align-items:center;gap:14px;padding:20px 22px;border:2px solid var(--line);border-radius:22px;background:#fff;font-size:24px}.row.head{border:none;background:transparent;color:var(--muted);font-size:20px;font-weight:800}.hit{color:var(--green);font-weight:950}.footer-note{position:absolute;left:70px;right:70px;bottom:150px;font-size:22px;line-height:1.45;color:var(--muted)}.orb1{position:absolute;right:-130px;top:-90px;width:330px;height:330px;border-radius:999px;background:#f7d1cb;opacity:.58}.orb2{position:absolute;left:-160px;bottom:-120px;width:380px;height:380px;border-radius:999px;background:#d9ead8;opacity:.72}.mock{position:absolute;left:70px;right:70px;top:435px;height:560px;border-radius:32px;background:#fff;border:2px solid var(--line);box-shadow:0 24px 54px rgba(45,52,48,.12);overflow:hidden}.mock img{width:100%;height:100%;object-fit:cover;object-position:left top}.big-number{font-size:118px;line-height:.95;font-weight:1000;color:var(--green)}
+</style></head><body>
+<div class="card">
+  <span class="badge">它参考了哪些信号？</span>
+  <h1 class="headline" style="font-size:64px">不是玄学猜球，<br>是可解释模型</h1>
+  <p class="sub">把足球实力、近期状态、世界杯历史和市场信号拆开看。</p>
+  <div class="grid" style="margin-top:54px;grid-template-columns:1fr 1fr">
+    <div class="kpi"><span>Elo + 历史比赛</span><strong>49,440</strong><small class="small">国际国家队历史结果</small></div>
+    <div class="kpi"><span>世界杯正赛</span><strong>852</strong><small class="small">历届世界杯比赛 CSV</small></div>
+    <div class="kpi"><span>义乌热度</span><strong>±25</strong><small class="small">外贸订单 / 球衣 / 国旗等辅助信号</small></div>
+    <div class="kpi"><span>盘口信号</span><strong>±35</strong><small class="small">公开赔率页面，仅作辅助，不是投注建议</small></div>
+  </div>
+  <p class="footer-note">模型会输出胜平负概率、代表比分、预期进球、比分分布、特征贡献和来源状态。</p>
+  <div class="url">打开：https://worldcup-prediction-peur.onrender.com</div>
+</div>
+</body></html>

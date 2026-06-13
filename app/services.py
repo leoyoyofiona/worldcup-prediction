@@ -3,7 +3,8 @@ import threading
 from copy import deepcopy
 from typing import Any, Dict, List
 
-from .cache import load_cache, now_iso, save_cache
+from .cache import empty_cache, load_cache, now_iso, save_cache
+from .live_results import sync_live_results
 from .model import build_predictions, match_summary
 from .sources import fetch_sources, load_cached_sources
 
@@ -24,7 +25,7 @@ class PredictionService:
     def start_update(self) -> Dict[str, Any]:
         return self._start_background_task(
             "update",
-            "正在联网抓取数据并重建模型，完成后页面会自动刷新。",
+            "正在同步已完赛比分，完成后页面会自动刷新。",
             self._update_job,
         )
 
@@ -78,12 +79,16 @@ class PredictionService:
             self._build_lock.release()
 
     def _update_job(self) -> None:
-        raw_payloads, statuses = asyncio.run(fetch_sources())
-        self._build_or_cache(raw_payloads, statuses)
+        cache = load_cache()
+        if not cache.get("matches"):
+            raw_payloads, statuses = asyncio.run(fetch_sources())
+            cache = self._build_or_cache(raw_payloads, statuses)
+        save_cache(sync_live_results(cache))
 
     def _recalculate_job(self) -> None:
         raw_payloads, statuses = load_cached_sources()
-        self._build_or_cache(raw_payloads, statuses)
+        cache = self._build_or_cache(raw_payloads, statuses)
+        save_cache(sync_live_results(cache))
 
     def status(self) -> Dict[str, Any]:
         cache = load_cache()

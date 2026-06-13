@@ -5,13 +5,12 @@ const state = {
   performance: {},
   selectedId: null,
   loading: false,
-  lang: localStorage.getItem("wc-lang") || "zh",
+  lang: "zh",
   lastStatus: null,
 };
 
 const els = {
   statusLine: document.querySelector("#statusLine"),
-  langToggleBtn: document.querySelector("#langToggleBtn"),
   updateBtn: document.querySelector("#updateBtn"),
   recalcBtn: document.querySelector("#recalcBtn"),
   sourcesBtn: document.querySelector("#sourcesBtn"),
@@ -40,7 +39,7 @@ const translations = {
   zh: {
     appTitle: "2026 男足世界杯预测",
     loadingStatus: "正在读取模型状态...",
-    updateData: "更新数据",
+    updateData: "同步赛果",
     recalculate: "重新计算模型",
     sourceStatus: "来源状态",
     performanceTitle: "真实赛果对比",
@@ -82,10 +81,10 @@ const translations = {
     earlySampleNote: "早期样本较小，命中率会随更多真实赛果持续更新。",
     modelUpdated: "模型 {version}，更新于 {time}",
     noData: "尚未生成预测数据",
-    updating: "正在联网抓取数据并重建模型...",
+    updating: "正在同步已完赛比分...",
     recalculating: "正在使用本地缓存重新计算模型...",
     stillRunning: "后台任务仍在运行，稍后会继续更新；你可以过一会儿刷新页面查看结果。",
-    updateFailed: "更新失败：{message}",
+    updateFailed: "同步赛果失败：{message}",
     recalcFailed: "重新计算失败：{message}",
     initFailed: "初始化失败：{message}",
     noFilteredMatches: "没有符合筛选条件的比赛。",
@@ -122,99 +121,11 @@ const translations = {
     available: "可用",
     failed: "失败",
     usingCache: "使用缓存",
-    languageButton: "English",
-  },
-  en: {
-    appTitle: "2026 Men's World Cup Predictor",
-    loadingStatus: "Loading model status...",
-    updateData: "Update Data",
-    recalculate: "Recalculate",
-    sourceStatus: "Sources",
-    performanceTitle: "Prediction vs Actual Results",
-    tournamentTitle: "Knockout Projection",
-    round: "Round",
-    team: "Team",
-    confidence: "Confidence",
-    search: "Search",
-    searchPlaceholder: "Team / venue",
-    all: "All",
-    high: "High",
-    medium: "Medium",
-    low: "Low",
-    pending: "Pending",
-    close: "Close",
-    noMatchSelected: "No match selected",
-    matches: "Matches",
-    teams: "Teams",
-    historyRows: "History rows",
-    worldCupRows: "World Cup rows",
-    marketSignal: "Market signal",
-    bettingSignal: "Odds signal",
-    simulations: "Simulations",
-    enabled: "Enabled",
-    disabled: "Disabled",
-    actualSamples: "Actual samples",
-    outcomeAccuracy: "Outcome hit",
-    exactScoreAccuracy: "Exact score hit",
-    averageGoalError: "Avg goal error",
-    completedComparison: "Completed matches",
-    prediction: "Model pick",
-    actual: "Actual result",
-    result: "Result",
-    source: "Source",
-    exactHit: "Exact score",
-    outcomeHit: "Outcome",
-    miss: "Miss",
-    noActualResults: "No official final scores are connected yet. The comparison table will update automatically.",
-    earlySampleNote: "Early sample size is small; accuracy will keep updating as more final scores arrive.",
-    modelUpdated: "Model {version}, updated at {time}",
-    noData: "No prediction data yet",
-    updating: "Fetching public data and rebuilding the model...",
-    recalculating: "Recalculating from cached data...",
-    stillRunning: "The background task is still running. Refresh later to view the latest results.",
-    updateFailed: "Update failed: {message}",
-    recalcFailed: "Recalculate failed: {message}",
-    initFailed: "Initialization failed: {message}",
-    noFilteredMatches: "No matches match the current filters.",
-    allRounds: "All rounds",
-    allTeams: "All teams",
-    championSimulations: "{count} simulations",
-    noTournament: "No knockout projection yet",
-    roundOf32: "Round of 32",
-    roundOf16: "Round of 16",
-    quarterFinal: "Quarter-finals",
-    semiFinal: "Semi-finals / Final four",
-    final: "Final",
-    draw: "Draw",
-    homeWin: "Home win",
-    awayWin: "Away win",
-    representativeScore: "Representative score",
-    modalScore: "Most likely exact score",
-    favorite: "Prediction lean",
-    expectedGoals: "Expected goals",
-    expectedTotalGoals: "Expected total goals",
-    over25: "Over 2.5 goals",
-    bothScore: "Both teams score",
-    knockoutAdvance: "Knockout advancement",
-    modelExplanation: "Model explanation",
-    contributors: "Feature contributions",
-    scoreDistribution: "Score distribution",
-    teamMetrics: "Team metrics",
-    loading: "Loading...",
-    unavailablePrediction: "Prediction unavailable",
-    detailFailed: "Failed to load match detail: {message}",
-    sourceLoading: "Loading...",
-    noSources: "No source records yet.",
-    sourceFailed: "Failed to load: {message}",
-    available: "Available",
-    failed: "Failed",
-    usingCache: "Using cache",
-    languageButton: "中文",
   },
 };
 
 function t(key, replacements = {}) {
-  let text = (translations[state.lang] && translations[state.lang][key]) || translations.zh[key] || key;
+  let text = translations.zh[key] || key;
   Object.entries(replacements).forEach(([name, value]) => {
     text = text.replaceAll(`{${name}}`, value);
   });
@@ -222,20 +133,19 @@ function t(key, replacements = {}) {
 }
 
 function applyLanguage() {
-  document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
+  document.documentElement.lang = "zh-CN";
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     node.textContent = t(node.dataset.i18n);
   });
   document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
     node.setAttribute("placeholder", t(node.dataset.i18nPlaceholder));
   });
-  els.langToggleBtn.textContent = t("languageButton");
 }
 
 function formatDateTime(match) {
   if (!match.starts_at) return `${match.date || ""} ${match.time || ""}`.trim();
   const date = new Date(match.starts_at);
-  return new Intl.DateTimeFormat(state.lang === "zh" ? "zh-CN" : "en-US", {
+  return new Intl.DateTimeFormat("zh-CN", {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -272,11 +182,7 @@ function confidenceClass(label) {
 }
 
 function confidenceText(label) {
-  if (state.lang === "zh") return label || t("pending");
-  if (label === "高") return t("high");
-  if (label === "中") return t("medium");
-  if (label === "低") return t("low");
-  return t("pending");
+  return label || t("pending");
 }
 
 async function api(path, options = {}) {
@@ -549,7 +455,7 @@ async function loadStatus() {
   } else if (status.generated_at) {
     els.statusLine.textContent = t("modelUpdated", {
       version: status.model_version,
-      time: new Date(status.generated_at).toLocaleString(state.lang === "zh" ? "zh-CN" : "en-US"),
+      time: new Date(status.generated_at).toLocaleString("zh-CN"),
     });
   } else {
     els.statusLine.textContent = t("noData");
@@ -763,23 +669,6 @@ function escapeHtml(value) {
 }
 
 function bindEvents() {
-  els.langToggleBtn.addEventListener("click", () => {
-    state.lang = state.lang === "zh" ? "en" : "zh";
-    localStorage.setItem("wc-lang", state.lang);
-    applyLanguage();
-    renderSummary((state.lastStatus || {}).summary || {});
-    renderPerformance(state.performance);
-    renderFilters(state.filters);
-    renderTournament(state.tournament);
-    renderMatches();
-    if (state.selectedId) loadMatchDetail(state.selectedId);
-    if ((state.lastStatus || {}).generated_at) {
-      els.statusLine.textContent = t("modelUpdated", {
-        version: state.lastStatus.model_version,
-        time: new Date(state.lastStatus.generated_at).toLocaleString(state.lang === "zh" ? "zh-CN" : "en-US"),
-      });
-    }
-  });
   els.updateBtn.addEventListener("click", updateData);
   els.recalcBtn.addEventListener("click", recalculateModel);
   els.sourcesBtn.addEventListener("click", openSources);

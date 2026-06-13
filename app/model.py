@@ -22,6 +22,7 @@ TEAM_ALIASES: Dict[str, Sequence[str]] = {
     "South Korea": ["Korea Republic", "Republic of Korea", "Korea, Republic of"],
     "North Korea": ["Korea DPR", "DPR Korea"],
     "Czech Republic": ["Czechia", "Czechoslovakia"],
+    "Bosnia & Herzegovina": ["Bosnia-Herzegovina", "Bosnia and Herzegovina", "Bosnia"],
     "Germany": ["Germany FR", "West Germany", "German DR"],
     "Russia": ["Soviet Union"],
     "Serbia": ["Yugoslavia", "Serbia and Montenegro"],

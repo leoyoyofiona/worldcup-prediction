@@ -1,4 +1,4 @@
-# 2026 Men's World Cup Prediction Model
+# 2026 男足世界杯预测模型
 
 <p align="center">
   <a href="https://worldcup-prediction-peur.onrender.com"><img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Render-1f7a4c?style=for-the-badge"></a>
@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <strong>中文</strong> · <a href="#english">English</a>
+  <strong>中文界面</strong>
 </p>
 
 ![小红书风格封面](docs/xiaohongshu-cover.svg)
@@ -25,7 +25,7 @@
 - **可解释预测模型**：Elo、近期状态、进攻/防守强度、世界杯历史、东道主/主大陆因素、义乌市场热度和公开盘口信号共同进入模型。
 - **完整赛事推演**：展示 32 强、16 强、8 强、4 强/半决赛、决赛对阵预测和冠军概率。
 - **真实赛果对比**：已完赛的真实比分会和模型预测逐场对比，自动计算方向命中率、精确比分命中率和进球误差。
-- **中英双语界面**：访问者可直接点击顶部 `English / 中文` 按钮切换。
+- **全中文界面**：访问者打开即可看到中文筛选、赛果、来源和模型解释。
 - **可公开部署**：FastAPI + 原生 HTML/CSS/JS，已配置 Docker 和 Render Blueprint。
 
 ## 程序界面
@@ -34,23 +34,26 @@
 
 ## 模型预测能力
 
-当前已接入 2026 世界杯最早两场已完赛真实比分。模型在这两场上表现很强：
+当前已接入 2026 世界杯已完赛真实比分，页面会自动展示模型预测和真实赛果对比：
 
 | 比赛 | 模型预测 | 真实赛果 | 结果 |
 | --- | ---: | ---: | --- |
 | Mexico vs South Africa | 2-0 | 2-0 | 精确比分命中 |
 | South Korea vs Czech Republic | 2-1 | 2-1 | 精确比分命中 |
+| Canada vs Bosnia & Herzegovina | 3-0 | 1-1 | 未命中 |
+| United States vs Paraguay | 1-2 | 4-1 | 未命中 |
 
 当前样本指标：
 
-- 方向命中：**2 / 2 = 100%**
-- 精确比分命中：**2 / 2 = 100%**
-- 平均进球误差：**0.0**
+- 方向命中：随实时赛果自动更新
+- 精确比分命中：随实时赛果自动更新
+- 平均进球误差：随实时赛果自动更新
 
 说明：这是早期样本，命中率会随着更多真实赛果接入持续更新。页面会保留每场真实赛果来源，避免只展示口号。
 
 真实赛果来源：
 
+- 已完赛比分：ESPN 世界杯实时比分接口。
 - Mexico 2-0 South Africa: [AP live report](https://apnews.com/live/world-cup-mexico-south-africa-2026-updates)
 - South Korea 2-1 Czech Republic: [Al Jazeera report](https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom)
 
@@ -77,9 +80,9 @@
 - FIFA 男足世界排名页面。
 - 小商品指数网、商务预报、中国商品网、公开搜索结果页中的义乌世界杯订单相关文本。
 - OddsJet 多地区页面和 Compare.bet 世界杯冠军赔率页，用于公开盘口市场信号。
-- `data/actual_results.json` 中维护的已完赛真实比分和来源链接。
+- ESPN 世界杯实时比分接口，以及 `data/actual_results.json` 中维护的备用真实比分和来源链接。
 
-抓取结果、模型输出和来源状态会缓存在 `data/` 目录。仓库保留一份公开缓存，保证云端首次启动就能展示完整预测；用户仍可在页面上点击“更新数据”重新抓取。
+抓取结果、模型输出和来源状态会缓存在 `data/` 目录。仓库保留一份公开缓存，保证云端首次启动就能展示完整预测；用户可在页面上点击“同步赛果”刷新已完赛比分，也可点击“重新计算模型”使用本地缓存重算预测。
 
 ## 本地运行
 
@@ -94,7 +97,7 @@ uvicorn app.main:app --reload
 
 ## API
 
-- `POST /api/update`：后台联网更新数据并重建模型。
+- `POST /api/update`：后台同步已完赛比分并刷新命中统计。
 - `POST /api/recalculate`：使用本地缓存后台重新计算模型。
 - `GET /api/status`：查看更新时间、来源数量、后台任务状态。
 - `GET /api/matches`：获取比赛列表、淘汰赛推演、真实赛果对比。
@@ -118,34 +121,4 @@ node --check static/app.js
 
 ---
 
-## English
-
-**Live demo:** [https://worldcup-prediction-peur.onrender.com](https://worldcup-prediction-peur.onrender.com)
-
-This is a small public web app for predicting the 2026 Men's World Cup. It requires no API key. The backend fetches public schedules, historical international results, World Cup history, market heat signals, and public odds pages, then builds an explainable prediction model.
-
-### Highlights
-
-- No API key required.
-- Explainable Elo + form + attack/defense + World Cup history model.
-- Yiwu trade heat and public betting odds are used only as small auxiliary signals.
-- Full bracket projection: Round of 32, Round of 16, quarter-finals, semi-finals, final, and champion probability.
-- Chinese / English UI toggle.
-- Actual final scores are compared against model predictions once connected.
-
-### Early Result Check
-
-The first two connected final scores are both exact-score hits:
-
-| Match | Model | Actual | Result |
-| --- | ---: | ---: | --- |
-| Mexico vs South Africa | 2-0 | 2-0 | Exact score hit |
-| South Korea vs Czech Republic | 2-1 | 2-1 | Exact score hit |
-
-Current connected sample:
-
-- Outcome accuracy: **100%**
-- Exact score accuracy: **100%**
-- Average goal error: **0.0**
-
-This is still an early sample. The dashboard keeps the comparison transparent and updates as more official final scores are connected.
+本项目用于分析和娱乐，不构成投注或投资建议。

@@ -1,7 +1,17 @@
 {
   "model_version": "0.1.1",
-  "generated_at": "2026-06-12T10:21:34+00:00",
+  "generated_at": "2026-06-13T13:27:48+00:00",
   "sources": [
+    {
+      "id": "espn_live_results",
+      "name": "ESPN 世界杯实时比分",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260614",
+      "ok": true,
+      "using_cache": false,
+      "fetched_at": "2026-06-13T13:27:48+00:00",
+      "bytes": 124952,
+      "message": "已同步 4 场已完赛比分"
+    },
     {
       "id": "schedule_openfootball",
       "name": "openfootball 2026 世界杯赛程",
@@ -1556,9 +1566,16 @@
       "team1": "Canada",
       "team2": "Bosnia & Herzegovina",
       "ground": "Toronto",
-      "status": "未开赛",
+      "status": "已结束",
       "is_knockout": false,
-      "actual_score": null,
+      "actual_score": {
+        "team1": 1,
+        "team2": 1,
+        "score": "1-1",
+        "source_name": "ESPN 世界杯实时比分",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260612",
+        "verified_at": "2026-06-13T13:27:48+00:00"
+      },
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 76.2,
@@ -1764,7 +1781,14 @@
           "probability": 6.6
         }
       ],
-      "advance_probabilities": null
+      "advance_probabilities": null,
+      "prediction_result": {
+        "actual_outcome": "draw",
+        "predicted_outcome": "team1_win",
+        "outcome_hit": false,
+        "exact_score_hit": false,
+        "goal_error": 3
+      }
     },
     {
       "id": "wc2026-008",
@@ -4220,9 +4244,16 @@
       "team1": "United States",
       "team2": "Paraguay",
       "ground": "Los Angeles (Inglewood)",
-      "status": "未开赛",
+      "status": "已结束",
       "is_knockout": false,
-      "actual_score": null,
+      "actual_score": {
+        "team1": 4,
+        "team2": 1,
+        "score": "4-1",
+        "source_name": "ESPN 世界杯实时比分",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260612",
+        "verified_at": "2026-06-13T13:27:48+00:00"
+      },
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 33.0,
@@ -4428,7 +4459,14 @@
           "probability": 7.4
         }
       ],
-      "advance_probabilities": null
+      "advance_probabilities": null,
+      "prediction_result": {
+        "actual_outcome": "team1_win",
+        "predicted_outcome": "team2_win",
+        "outcome_hit": false,
+        "exact_score_hit": false,
+        "goal_error": 4
+      }
     },
     {
       "id": "wc2026-020",
@@ -19146,12 +19184,12 @@
     ]
   },
   "performance": {
-    "sample_size": 2,
+    "sample_size": 4,
     "outcome_hits": 2,
     "exact_score_hits": 2,
-    "outcome_accuracy": 100.0,
-    "exact_score_accuracy": 100.0,
-    "average_goal_error": 0.0,
+    "outcome_accuracy": 50.0,
+    "exact_score_accuracy": 50.0,
+    "average_goal_error": 1.75,
     "completed_matches": [
       {
         "id": "wc2026-001",
@@ -19178,6 +19216,32 @@
         "goal_error": 0,
         "source_name": "Al Jazeera / ESPN",
         "source_url": "https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom"
+      },
+      {
+        "id": "wc2026-007",
+        "date": "2026-06-12",
+        "team1": "Canada",
+        "team2": "Bosnia & Herzegovina",
+        "predicted_score": "3-0",
+        "actual_score": "1-1",
+        "outcome_hit": false,
+        "exact_score_hit": false,
+        "goal_error": 3,
+        "source_name": "ESPN 世界杯实时比分",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260612"
+      },
+      {
+        "id": "wc2026-019",
+        "date": "2026-06-12",
+        "team1": "United States",
+        "team2": "Paraguay",
+        "predicted_score": "1-2",
+        "actual_score": "4-1",
+        "outcome_hit": false,
+        "exact_score_hit": false,
+        "goal_error": 4,
+        "source_name": "ESPN 世界杯实时比分",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260612"
       }
     ],
     "note": "早期样本较小，命中率会随更多真实赛果持续更新。"
@@ -20721,9 +20785,11 @@
     "betting_signal_available": true,
     "tournament_simulations": 1000,
     "fifa_rankings_used": 0,
-    "actual_result_count": 2,
-    "outcome_accuracy": 100.0,
-    "exact_score_accuracy": 100.0
+    "actual_result_count": 4,
+    "outcome_accuracy": 50.0,
+    "exact_score_accuracy": 50.0,
+    "finished_match_count": 4,
+    "live_result_synced_at": "2026-06-13T13:27:48+00:00"
   },
   "error": null
 }

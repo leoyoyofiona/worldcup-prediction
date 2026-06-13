@@ -53,7 +53,7 @@ https://worldcup-prediction-peur.onrender.com
 ⚽ 32 强、16 强、8 强、4 强、半决赛、决赛对阵预测  
 ⚽ 冠军概率排行  
 ⚽ 数据来源状态  
-⚽ 中文 / English 一键切换  
+⚽ 全中文界面，朋友打开就能看
 
 目前已经接入前 2 场真实赛果：
 

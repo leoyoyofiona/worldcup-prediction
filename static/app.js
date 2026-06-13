@@ -188,6 +188,7 @@ function confidenceText(label) {
 async function api(path, options = {}) {
   const response = await fetch(path, {
     headers: { "Content-Type": "application/json" },
+    cache: "no-store",
     ...options,
   });
   if (!response.ok) {
@@ -475,6 +476,14 @@ async function loadMatches() {
   renderFilters(state.filters);
   renderTournament(state.tournament);
   renderMatches();
+  if (payload.generated_at) {
+    els.statusLine.textContent = t("modelUpdated", {
+      version: payload.model_version || (state.lastStatus || {}).model_version || "--",
+      time: new Date(payload.generated_at).toLocaleString("zh-CN"),
+    });
+  } else if (!state.matches.length) {
+    els.statusLine.textContent = t("noData");
+  }
   showNotice(payload.error);
   return payload;
 }
@@ -693,3 +702,12 @@ async function init() {
 }
 
 init();
+
+window.addEventListener("error", (event) => {
+  showNotice(`页面脚本错误：${event.message}`);
+});
+
+window.addEventListener("unhandledrejection", (event) => {
+  const message = event.reason && event.reason.message ? event.reason.message : String(event.reason || "未知错误");
+  showNotice(`页面加载失败：${message}`);
+});

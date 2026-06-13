@@ -124,6 +124,76 @@ const translations = {
   },
 };
 
+const teamNamesZh = {
+  "Algeria": "阿尔及利亚",
+  "Argentina": "阿根廷",
+  "Australia": "澳大利亚",
+  "Austria": "奥地利",
+  "Belgium": "比利时",
+  "Bosnia & Herzegovina": "波黑",
+  "Brazil": "巴西",
+  "Canada": "加拿大",
+  "Cape Verde": "佛得角",
+  "Colombia": "哥伦比亚",
+  "Croatia": "克罗地亚",
+  "Curacao": "库拉索",
+  "Czech Republic": "捷克",
+  "DR Congo": "刚果（金）",
+  "Ecuador": "厄瓜多尔",
+  "Egypt": "埃及",
+  "England": "英格兰",
+  "France": "法国",
+  "Germany": "德国",
+  "Ghana": "加纳",
+  "Haiti": "海地",
+  "Iran": "伊朗",
+  "Iraq": "伊拉克",
+  "Ivory Coast": "科特迪瓦",
+  "Japan": "日本",
+  "Jordan": "约旦",
+  "Mexico": "墨西哥",
+  "Morocco": "摩洛哥",
+  "Netherlands": "荷兰",
+  "New Zealand": "新西兰",
+  "Norway": "挪威",
+  "Panama": "巴拿马",
+  "Paraguay": "巴拉圭",
+  "Portugal": "葡萄牙",
+  "Qatar": "卡塔尔",
+  "Saudi Arabia": "沙特阿拉伯",
+  "Scotland": "苏格兰",
+  "Senegal": "塞内加尔",
+  "South Africa": "南非",
+  "South Korea": "韩国",
+  "Spain": "西班牙",
+  "Sweden": "瑞典",
+  "Switzerland": "瑞士",
+  "Tunisia": "突尼斯",
+  "Turkey": "土耳其",
+  "United States": "美国",
+  "Uruguay": "乌拉圭",
+  "Uzbekistan": "乌兹别克斯坦",
+};
+
+function teamName(value) {
+  if (!value) return "待定";
+  return teamNamesZh[value] || value;
+}
+
+function localizeTeamText(value) {
+  let text = String(value ?? "");
+  Object.entries(teamNamesZh)
+    .sort((a, b) => b[0].length - a[0].length)
+    .forEach(([english, chinese]) => {
+      text = text.replaceAll(english, chinese);
+    });
+  return text;
+}
+
+function matchupName(team1, team2) {
+  return `${teamName(team1)} vs ${teamName(team2)}`;
+}
+
 function t(key, replacements = {}) {
   let text = translations.zh[key] || key;
   Object.entries(replacements).forEach(([name, value]) => {
@@ -253,7 +323,7 @@ function renderPerformance(performance = {}) {
     </div>
     ${rows.map((row) => `
       <div class="comparison-row">
-        <span>${escapeHtml(row.team1)} vs ${escapeHtml(row.team2)}</span>
+        <span>${escapeHtml(matchupName(row.team1, row.team2))}</span>
         <strong>${escapeHtml(row.predicted_score || "--")}</strong>
         <strong>${escapeHtml(row.actual_score || "--")}</strong>
         <span class="${row.exact_score_hit ? "hit" : row.outcome_hit ? "partial-hit" : "miss"}">
@@ -277,7 +347,7 @@ function renderTournament(tournament = {}) {
   els.championStrip.innerHTML = topChampions.map((team, index) => `
     <div class="champion-item">
       <span>${index + 1}</span>
-      <strong>${escapeHtml(team.team)}</strong>
+      <strong>${escapeHtml(teamName(team.team))}</strong>
       <em>${percent(team.champion)}</em>
     </div>
   `).join("");
@@ -298,7 +368,7 @@ function renderTournament(tournament = {}) {
         <h3>${escapeHtml(label)}</h3>
         ${teams.map((team) => `
           <div class="stage-row">
-            <span>${escapeHtml(team.team)}</span>
+            <span>${escapeHtml(teamName(team.team))}</span>
             <strong>${percent(team[key])}</strong>
           </div>
         `).join("")}
@@ -336,7 +406,7 @@ function renderMatchupRound(round) {
       <section class="bracket-round team-round">
         <h3>${escapeHtml(round.label)}</h3>
         <div class="team-chip-list">
-          ${teams.map((team) => `<span class="team-chip">${escapeHtml(team)}</span>`).join("") || `<span class="empty-line">待定</span>`}
+          ${teams.map((team) => `<span class="team-chip">${escapeHtml(teamName(team))}</span>`).join("") || `<span class="empty-line">待定</span>`}
         </div>
       </section>
     `;
@@ -347,8 +417,8 @@ function renderMatchupRound(round) {
       <h3>${escapeHtml(round.label)}</h3>
       ${rows.map((match) => `
         <div class="bracket-match">
-          <span class="matchup-line">${escapeHtml(match.team1)} <em>vs</em> ${escapeHtml(match.team2)}</span>
-          <strong>${escapeHtml(match.winner || "待定")}</strong>
+          <span class="matchup-line">${escapeHtml(teamName(match.team1))} <em>vs</em> ${escapeHtml(teamName(match.team2))}</span>
+          <strong>${escapeHtml(teamName(match.winner))}</strong>
           <small>${escapeHtml(match.predicted_score || "")} · ${escapeHtml(match.confidence_label || "")}</small>
         </div>
       `).join("") || `<div class="empty-line">待定</div>`}
@@ -359,7 +429,7 @@ function renderMatchupRound(round) {
 function fillSelect(select, values, allLabel) {
   const current = select.value;
   const options = [`<option value="">${allLabel}</option>`].concat(
-    (values || []).map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
+    (values || []).map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(teamName(value))}</option>`)
   );
   select.innerHTML = options.join("");
   if ([...select.options].some((option) => option.value === current)) {
@@ -382,7 +452,7 @@ function filteredMatches() {
     if (team && match.team1 !== team && match.team2 !== team) return false;
     if (confidence && match.confidence_label !== confidence) return false;
     if (query) {
-      const haystack = `${match.team1} ${match.team2} ${match.ground} ${match.round} ${match.group}`.toLowerCase();
+      const haystack = `${match.team1} ${match.team2} ${teamName(match.team1)} ${teamName(match.team2)} ${match.ground} ${match.round} ${match.group}`.toLowerCase();
       if (!haystack.includes(query)) return false;
     }
     return true;
@@ -415,11 +485,11 @@ function renderMatchRow(match) {
       </div>
       <div class="teams">
         <div class="team-line">
-          <span class="team-name">${escapeHtml(match.team1 || "待定")}</span>
+          <span class="team-name">${escapeHtml(teamName(match.team1))}</span>
           <span class="team-prob">${percent(team1Prob)}</span>
         </div>
         <div class="team-line">
-          <span class="team-name">${escapeHtml(match.team2 || "待定")}</span>
+          <span class="team-name">${escapeHtml(teamName(match.team2))}</span>
           <span class="team-prob">${percent(team2Prob)}</span>
         </div>
         <div class="match-meta">${escapeHtml(match.ground || "")}</div>
@@ -553,7 +623,7 @@ async function loadMatchDetail(matchId) {
 function renderDetail(match) {
   if (!match.teams_confirmed) {
     els.detailPanel.innerHTML = `
-      <h2>${escapeHtml(match.team1 || "待定")} vs ${escapeHtml(match.team2 || "待定")}</h2>
+      <h2>${escapeHtml(matchupName(match.team1, match.team2))}</h2>
       <p class="detail-sub">${escapeHtml(match.round || "")} · ${escapeHtml(match.ground || "")}</p>
       <div class="notice">${escapeHtml((match.explanation || [t("unavailablePrediction")])[0])}</div>
     `;
@@ -563,17 +633,17 @@ function renderDetail(match) {
   const bettingMarket = match.betting_market || { team1: {}, team2: {} };
   const tradeMarket = match.market || { team1: {}, team2: {} };
   els.detailPanel.innerHTML = `
-    <h2>${escapeHtml(match.team1)} vs ${escapeHtml(match.team2)}</h2>
+    <h2>${escapeHtml(matchupName(match.team1, match.team2))}</h2>
     <p class="detail-sub">${escapeHtml(match.round || "")} · ${escapeHtml(match.ground || "")} · ${escapeHtml(formatDateTime(match))}</p>
     <div class="prob-grid">
-      ${probBox(match.team1, probs.team1_win)}
+      ${probBox(teamName(match.team1), probs.team1_win)}
       ${probBox("平局", probs.draw)}
-      ${probBox(match.team2, probs.team2_win)}
+      ${probBox(teamName(match.team2), probs.team2_win)}
     </div>
     <div class="kv-list">
       <div class="kv"><span>${escapeHtml(t("representativeScore"))}</span><strong>${escapeHtml(match.predicted_score)}</strong></div>
       <div class="kv"><span>${escapeHtml(t("modalScore"))}</span><strong>${escapeHtml((match.score_summary || {}).modal_score || match.predicted_score)}</strong></div>
-      <div class="kv"><span>${escapeHtml(t("favorite"))}</span><strong>${escapeHtml(match.favorite)}</strong></div>
+      <div class="kv"><span>${escapeHtml(t("favorite"))}</span><strong>${escapeHtml(teamName(match.favorite))}</strong></div>
       <div class="kv"><span>${escapeHtml(t("confidence"))}</span><strong>${escapeHtml(confidenceText(match.confidence_label))}</strong></div>
       <div class="kv"><span>${escapeHtml(t("expectedGoals"))}</span><strong>${match.expected_goals.team1} : ${match.expected_goals.team2}</strong></div>
       <div class="kv"><span>${escapeHtml(t("expectedTotalGoals"))}</span><strong>${(match.score_summary || {}).expected_total_goals ?? "--"}</strong></div>
@@ -583,7 +653,7 @@ function renderDetail(match) {
     ${renderAdvance(match)}
     <h3 class="section-title">${escapeHtml(t("modelExplanation"))}</h3>
     <div class="kv-list">
-      ${(match.explanation || []).map((item) => `<div class="kv"><span>${escapeHtml(item)}</span></div>`).join("")}
+      ${(match.explanation || []).map((item) => `<div class="kv"><span>${escapeHtml(localizeTeamText(item))}</span></div>`).join("")}
     </div>
     <h3 class="section-title">${escapeHtml(t("contributors"))}</h3>
     <div class="kv-list">
@@ -610,7 +680,7 @@ function renderContributor(item) {
   const sign = value > 0 ? "+" : "";
   return `
     <div class="kv">
-      <span>${escapeHtml(item.name)}<small>${escapeHtml(item.description || "")}</small></span>
+      <span>${escapeHtml(item.name)}<small>${escapeHtml(localizeTeamText(item.description || ""))}</small></span>
       <strong>${sign}${value.toFixed(1)}</strong>
     </div>
   `;
@@ -619,7 +689,7 @@ function renderContributor(item) {
 function renderTeamMetric(team, metric = {}, market = {}, betting = {}) {
   return `
     <div class="kv">
-      <span>${escapeHtml(team)}
+      <span>${escapeHtml(teamName(team))}
         <small>Elo ${metric.elo ?? "--"} · 高盛修正 ${metric.goldman_adjustment ?? "--"} · 世界杯阶段 ${metric.world_cup_stage_adjustment ?? "--"} · 淘汰赛 ${metric.world_cup_knockout_matches ?? 0} 场 · 攻 ${metric.goldman_attack ?? metric.attack ?? "--"} / 防 ${metric.goldman_defense ?? metric.defense ?? "--"}</small>
       </span>
       <strong>热度 ${market.index ?? 0} · 盘口 ${betting.index ?? 0}</strong>
@@ -632,8 +702,8 @@ function renderAdvance(match) {
   return `
     <h3 class="section-title">${escapeHtml(t("knockoutAdvance"))}</h3>
     <div class="kv-list">
-      <div class="kv"><span>${escapeHtml(match.team1)}</span><strong>${percent(match.advance_probabilities.team1)}</strong></div>
-      <div class="kv"><span>${escapeHtml(match.team2)}</span><strong>${percent(match.advance_probabilities.team2)}</strong></div>
+      <div class="kv"><span>${escapeHtml(teamName(match.team1))}</span><strong>${percent(match.advance_probabilities.team1)}</strong></div>
+      <div class="kv"><span>${escapeHtml(teamName(match.team2))}</span><strong>${percent(match.advance_probabilities.team2)}</strong></div>
       <div class="kv"><span>${escapeHtml(match.advance_probabilities.note)}</span></div>
     </div>
   `;

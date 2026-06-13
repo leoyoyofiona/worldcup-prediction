@@ -57,12 +57,12 @@ https://worldcup-prediction-peur.onrender.com
 
 目前已经接入前 2 场真实赛果：
 
-Mexico vs South Africa  
+墨西哥 vs 南非
 模型预测：2-0  
 真实赛果：2-0  
 ✅ 精确比分命中
 
-South Korea vs Czech Republic  
+韩国 vs 捷克
 模型预测：2-1  
 真实赛果：2-1  
 ✅ 精确比分命中

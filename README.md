@@ -38,10 +38,10 @@
 
 | 比赛 | 模型预测 | 真实赛果 | 结果 |
 | --- | ---: | ---: | --- |
-| Mexico vs South Africa | 2-0 | 2-0 | 精确比分命中 |
-| South Korea vs Czech Republic | 2-1 | 2-1 | 精确比分命中 |
-| Canada vs Bosnia & Herzegovina | 3-0 | 1-1 | 未命中 |
-| United States vs Paraguay | 1-2 | 4-1 | 未命中 |
+| 墨西哥 vs 南非 | 2-0 | 2-0 | 精确比分命中 |
+| 韩国 vs 捷克 | 2-1 | 2-1 | 精确比分命中 |
+| 加拿大 vs 波黑 | 3-0 | 1-1 | 未命中 |
+| 美国 vs 巴拉圭 | 1-2 | 4-1 | 未命中 |
 
 当前样本指标：
 
@@ -54,8 +54,8 @@
 真实赛果来源：
 
 - 已完赛比分：ESPN 世界杯实时比分接口。
-- Mexico 2-0 South Africa: [AP live report](https://apnews.com/live/world-cup-mexico-south-africa-2026-updates)
-- South Korea 2-1 Czech Republic: [Al Jazeera report](https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom)
+- 墨西哥 2-0 南非: [AP live report](https://apnews.com/live/world-cup-mexico-south-africa-2026-updates)
+- 韩国 2-1 捷克: [Al Jazeera report](https://www.aljazeera.com/sports/2026/6/12/south-korea-vs-czechia-world-cup-2026-oh-hyeon-gyu-hwang-in-beom)
 
 ## 模型方法
 

@@ -110,11 +110,15 @@ class PredictionService:
 
     def matches(self) -> Dict[str, Any]:
         cache = load_cache()
+        matches = sorted(
+            cache.get("matches", []),
+            key=lambda match: (match.get("starts_at") or "9999-12-31T23:59:59+00:00", match.get("index") or 0),
+        )
         return {
             "generated_at": cache.get("generated_at"),
             "summary": cache.get("summary", {}),
             "filters": cache.get("filters", {}),
-            "matches": [match_summary(match) for match in cache.get("matches", [])],
+            "matches": [match_summary(match) for match in matches],
             "tournament": cache.get("tournament", {}),
             "performance": cache.get("performance", {}),
             "error": cache.get("error"),

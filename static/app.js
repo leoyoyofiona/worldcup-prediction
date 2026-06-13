@@ -447,16 +447,25 @@ function filteredMatches() {
   const team = els.teamFilter.value;
   const confidence = els.confidenceFilter.value;
   const query = els.searchInput.value.trim().toLowerCase();
-  return state.matches.filter((match) => {
-    if (round && match.round !== round) return false;
-    if (team && match.team1 !== team && match.team2 !== team) return false;
-    if (confidence && match.confidence_label !== confidence) return false;
-    if (query) {
-      const haystack = `${match.team1} ${match.team2} ${teamName(match.team1)} ${teamName(match.team2)} ${match.ground} ${match.round} ${match.group}`.toLowerCase();
-      if (!haystack.includes(query)) return false;
-    }
-    return true;
-  });
+  return state.matches
+    .filter((match) => {
+      if (round && match.round !== round) return false;
+      if (team && match.team1 !== team && match.team2 !== team) return false;
+      if (confidence && match.confidence_label !== confidence) return false;
+      if (query) {
+        const haystack = `${match.team1} ${match.team2} ${teamName(match.team1)} ${teamName(match.team2)} ${match.ground} ${match.round} ${match.group}`.toLowerCase();
+        if (!haystack.includes(query)) return false;
+      }
+      return true;
+    })
+    .sort(compareMatchTime);
+}
+
+function compareMatchTime(a, b) {
+  const timeA = a.starts_at ? new Date(a.starts_at).getTime() : Number.MAX_SAFE_INTEGER;
+  const timeB = b.starts_at ? new Date(b.starts_at).getTime() : Number.MAX_SAFE_INTEGER;
+  if (timeA !== timeB) return timeA - timeB;
+  return Number(a.index || 0) - Number(b.index || 0);
 }
 
 function renderMatches() {

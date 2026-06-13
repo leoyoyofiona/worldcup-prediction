@@ -82,7 +82,7 @@ const translations = {
     modelUpdated: "模型 {version}，更新于 {time}",
     noData: "尚未生成预测数据",
     updating: "正在同步已完赛比分...",
-    recalculating: "正在使用本地缓存重新计算模型...",
+    recalculating: "正在刷新模型缓存和已完赛比分...",
     stillRunning: "后台任务仍在运行，稍后会继续更新；你可以过一会儿刷新页面查看结果。",
     updateFailed: "同步赛果失败：{message}",
     recalcFailed: "重新计算失败：{message}",

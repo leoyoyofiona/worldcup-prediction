@@ -1,6 +1,6 @@
 {
   "model_version": "0.1.1",
-  "generated_at": "2026-06-13T13:27:48+00:00",
+  "generated_at": "2026-06-13T14:43:03+00:00",
   "sources": [
     {
       "id": "espn_live_results",
@@ -8,7 +8,7 @@
       "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260614",
       "ok": true,
       "using_cache": false,
-      "fetched_at": "2026-06-13T13:27:48+00:00",
+      "fetched_at": "2026-06-13T14:43:03+00:00",
       "bytes": 124952,
       "message": "已同步 4 场已完赛比分"
     },
@@ -20789,7 +20789,7 @@
     "outcome_accuracy": 50.0,
     "exact_score_accuracy": 50.0,
     "finished_match_count": 4,
-    "live_result_synced_at": "2026-06-13T13:27:48+00:00"
+    "live_result_synced_at": "2026-06-13T14:43:03+00:00"
   },
   "error": null
 }

@@ -5,7 +5,13 @@ from typing import Any, Dict, List, Optional, Tuple
 import httpx
 
 from .cache import now_iso
-from .model import apply_actual_results, build_prediction_performance, canonicalize_team, match_status
+from .model import (
+    apply_actual_results,
+    build_prediction_performance,
+    build_tournament_projection,
+    canonicalize_team,
+    match_status,
+)
 
 
 ESPN_SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
@@ -25,6 +31,7 @@ def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
 
     apply_actual_results(matches, actual_results)
     performance = build_prediction_performance(matches)
+    rebuild_tournament(payload, matches)
     payload["matches"] = matches
     payload["performance"] = performance
     payload["generated_at"] = now_iso()
@@ -36,10 +43,52 @@ def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
     summary["exact_score_accuracy"] = performance["exact_score_accuracy"]
     summary["finished_match_count"] = sum(1 for match in matches if match.get("status") == "已结束")
     summary["live_result_synced_at"] = payload["generated_at"]
+    summary["tournament_synced_at"] = payload["generated_at"]
 
     status["message"] = f"已同步 {len(actual_results)} 场已完赛比分"
     payload["sources"] = upsert_source(payload.get("sources") or [], status)
     return payload
+
+
+def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -> None:
+    teams = payload.get("filters", {}).get("teams") or sorted(payload.get("teams", {}).keys())
+    team_stats = payload.get("teams") or {}
+    if not teams or not team_stats:
+        return
+    market_scores = collect_signal_scores(matches, "market")
+    betting_scores = collect_signal_scores(matches, "betting_market")
+    rankings = collect_rankings(matches)
+    payload["tournament"] = build_tournament_projection(
+        matches,
+        teams,
+        team_stats,
+        market_scores,
+        betting_scores,
+        rankings,
+    )
+
+
+def collect_signal_scores(matches: List[Dict[str, Any]], field: str) -> Dict[str, Dict[str, Any]]:
+    scores: Dict[str, Dict[str, Any]] = {}
+    for match in matches:
+        signal = match.get(field) or {}
+        for side in ("team1", "team2"):
+            team = match.get(side)
+            if team and side in signal and team not in scores:
+                scores[team] = signal[side]
+    return scores
+
+
+def collect_rankings(matches: List[Dict[str, Any]]) -> Dict[str, int]:
+    rankings: Dict[str, int] = {}
+    for match in matches:
+        ranking = match.get("fifa_ranking") or {}
+        for side in ("team1", "team2"):
+            value = ranking.get(side)
+            team = match.get(side)
+            if team and isinstance(value, int):
+                rankings[team] = value
+    return rankings
 
 
 def fetch_espn_completed_events() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:

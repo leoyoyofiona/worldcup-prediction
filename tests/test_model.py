@@ -5,6 +5,7 @@ from app.model import (
     build_prediction_performance,
     build_team_stats,
     build_world_cup_profiles,
+    expected_group_tables,
     is_placeholder_team,
     parse_results_csv,
     parse_schedule,
@@ -161,3 +162,23 @@ def test_prediction_performance_counts_hits():
     assert performance["sample_size"] == 2
     assert performance["outcome_accuracy"] == 100.0
     assert performance["exact_score_accuracy"] == 100.0
+
+
+def test_group_table_uses_actual_scores_before_expected_points():
+    matches = [
+        {
+            "group": "Group A",
+            "teams_confirmed": True,
+            "team1": "Mexico",
+            "team2": "South Africa",
+            "probabilities": {"team1_win": 0.0, "draw": 0.0, "team2_win": 100.0},
+            "expected_goals": {"team1": 0.1, "team2": 4.0},
+            "actual_score": {"team1": 2, "team2": 0, "score": "2-0"},
+        }
+    ]
+    rows = expected_group_tables(matches)["A"]
+    assert rows[0]["team"] == "Mexico"
+    assert rows[0]["points"] == 3.0
+    assert rows[0]["gf"] == 2.0
+    assert rows[1]["team"] == "South Africa"
+    assert rows[1]["points"] == 0.0

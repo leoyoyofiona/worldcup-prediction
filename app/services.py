@@ -1,12 +1,16 @@
 import asyncio
 import threading
 from copy import deepcopy
+from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from .cache import empty_cache, load_cache, now_iso, save_cache
 from .live_results import sync_live_results
 from .model import build_predictions, match_summary
 from .sources import fetch_sources, load_cached_sources
+
+
+AUTO_SYNC_INTERVAL_SECONDS = 300
 
 
 class PredictionService:
@@ -95,7 +99,7 @@ class PredictionService:
         save_cache(sync_live_results(rebuilt))
 
     def status(self) -> Dict[str, Any]:
-        cache = load_cache()
+        cache = self._cache_with_auto_sync()
         return {
             "model_version": cache.get("model_version"),
             "generated_at": cache.get("generated_at"),
@@ -106,10 +110,10 @@ class PredictionService:
         }
 
     def sources(self) -> List[Dict[str, Any]]:
-        return load_cache().get("sources", [])
+        return self._cache_with_auto_sync().get("sources", [])
 
     def matches(self) -> Dict[str, Any]:
-        cache = load_cache()
+        cache = self._cache_with_auto_sync()
         matches = sorted(
             cache.get("matches", []),
             key=lambda match: (match.get("starts_at") or "9999-12-31T23:59:59+00:00", match.get("index") or 0),
@@ -126,7 +130,7 @@ class PredictionService:
         }
 
     def tournament(self) -> Dict[str, Any]:
-        cache = load_cache()
+        cache = self._cache_with_auto_sync()
         return {
             "generated_at": cache.get("generated_at"),
             "summary": cache.get("summary", {}),
@@ -136,7 +140,7 @@ class PredictionService:
         }
 
     def match_detail(self, match_id: str) -> Dict[str, Any]:
-        cache = load_cache()
+        cache = self._cache_with_auto_sync()
         for match in cache.get("matches", []):
             if match.get("id") == match_id:
                 detail = dict(match)
@@ -149,6 +153,52 @@ class PredictionService:
     def _task_snapshot(self) -> Dict[str, Any]:
         with self._state_lock:
             return deepcopy(self._task_state)
+
+    def _cache_with_auto_sync(self) -> Dict[str, Any]:
+        cache = load_cache()
+        if not self._should_auto_sync(cache):
+            return cache
+        if not self._build_lock.acquire(blocking=False):
+            return cache
+        with self._state_lock:
+            self._task_state = {
+                "running": True,
+                "kind": "auto_sync",
+                "message": "正在自动同步最新赛果并刷新预测。",
+                "started_at": now_iso(),
+                "finished_at": None,
+                "error": None,
+            }
+        try:
+            cache = sync_live_results(cache)
+            save_cache(cache)
+            error = None
+        except Exception as exc:
+            error = str(exc)
+            cache["error"] = f"自动同步失败，继续使用旧预测：{exc}"
+        finally:
+            with self._state_lock:
+                self._task_state["running"] = False
+                self._task_state["message"] = "自动同步已完成" if error is None else "自动同步失败"
+                self._task_state["finished_at"] = now_iso()
+                self._task_state["error"] = error
+            self._build_lock.release()
+        return cache
+
+    def _should_auto_sync(self, cache: Dict[str, Any]) -> bool:
+        if not cache.get("matches"):
+            return False
+        synced_at = cache.get("summary", {}).get("live_result_synced_at")
+        if not synced_at:
+            return True
+        try:
+            parsed = datetime.fromisoformat(str(synced_at).replace("Z", "+00:00"))
+        except ValueError:
+            return True
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        age = datetime.now(timezone.utc) - parsed.astimezone(timezone.utc)
+        return age.total_seconds() >= AUTO_SYNC_INTERVAL_SECONDS
 
     def _build_or_cache(self, raw_payloads: Dict[str, str], statuses: List[Dict[str, object]]) -> Dict[str, Any]:
         try:

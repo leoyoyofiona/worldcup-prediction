@@ -1543,6 +1543,23 @@ def add_result(row: Dict[str, Any], points: float, gf: float, ga: float) -> None
     row["gd"] = row["gf"] - row["ga"]
 
 
+def actual_goals(match: Dict[str, Any]) -> Optional[Tuple[int, int]]:
+    actual = match.get("actual_score") or {}
+    goals1 = safe_int_value(actual.get("team1"))
+    goals2 = safe_int_value(actual.get("team2"))
+    if goals1 is None or goals2 is None:
+        return None
+    return goals1, goals2
+
+
+def points_from_goals(goals1: int, goals2: int) -> Tuple[float, float]:
+    if goals1 > goals2:
+        return 3.0, 0.0
+    if goals2 > goals1:
+        return 0.0, 3.0
+    return 1.0, 1.0
+
+
 def rank_rows(rows: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     ranked = sorted(rows, key=lambda row: (-row["points"], -row["gd"], -row["gf"], row["team"]))
     for index, row in enumerate(ranked, start=1):
@@ -1564,6 +1581,13 @@ def expected_group_tables(matches: Sequence[Dict[str, Any]]) -> Dict[str, List[D
         team1, team2 = match["team1"], match["team2"]
         table.setdefault(team1, table_row(team1))
         table.setdefault(team2, table_row(team2))
+        actual = actual_goals(match)
+        if actual:
+            goals1, goals2 = actual
+            points1, points2 = points_from_goals(goals1, goals2)
+            add_result(table[team1], points1, goals1, goals2)
+            add_result(table[team2], points2, goals2, goals1)
+            continue
         p1 = probability_to_float(match.get("probabilities"), "team1_win")
         draw = probability_to_float(match.get("probabilities"), "draw")
         p2 = probability_to_float(match.get("probabilities"), "team2_win")
@@ -1584,6 +1608,13 @@ def simulate_group_tables(matches: Sequence[Dict[str, Any]], rng: random.Random)
         team1, team2 = match["team1"], match["team2"]
         table.setdefault(team1, table_row(team1))
         table.setdefault(team2, table_row(team2))
+        actual = actual_goals(match)
+        if actual:
+            goals1, goals2 = actual
+            points1, points2 = points_from_goals(goals1, goals2)
+            add_result(table[team1], points1, goals1, goals2)
+            add_result(table[team2], points2, goals2, goals1)
+            continue
         p1 = probability_to_float(match.get("probabilities"), "team1_win")
         draw = probability_to_float(match.get("probabilities"), "draw")
         roll = rng.random()
@@ -1778,7 +1809,7 @@ def simulated_stage_probabilities(
     rankings: Dict[str, int],
     simulations: int = TOURNAMENT_SIMULATIONS,
 ) -> List[Dict[str, Any]]:
-    group_inputs: List[Tuple[str, str, str, float, float, float, float]] = []
+    group_inputs: List[Tuple[str, str, str, float, float, float, float, Optional[int], Optional[int]]] = []
     group_teams: Dict[str, set] = defaultdict(set)
     for match in matches:
         group = group_letter(match.get("group", ""))
@@ -1786,6 +1817,8 @@ def simulated_stage_probabilities(
             continue
         team1, team2 = match["team1"], match["team2"]
         expected_goals = match.get("expected_goals") or {}
+        actual = actual_goals(match)
+        actual1, actual2 = actual if actual else (None, None)
         group_inputs.append(
             (
                 group,
@@ -1795,6 +1828,8 @@ def simulated_stage_probabilities(
                 probability_to_float(match.get("probabilities"), "draw"),
                 float(expected_goals.get("team1", 1.2)),
                 float(expected_goals.get("team2", 1.2)),
+                actual1,
+                actual2,
             )
         )
         group_teams[group].update([team1, team2])
@@ -1826,7 +1861,19 @@ def simulated_stage_probabilities(
             group: {team: [0.0, 0.0, 0.0] for team in teams_in_group}
             for group, teams_in_group in group_teams.items()
         }
-        for group, team1, team2, p1, draw, eg1, eg2 in group_inputs:
+        for group, team1, team2, p1, draw, eg1, eg2, actual1, actual2 in group_inputs:
+            if actual1 is not None and actual2 is not None:
+                goals1, goals2 = actual1, actual2
+                pts1, pts2 = points_from_goals(goals1, goals2)
+                row1 = tables[group][team1]
+                row2 = tables[group][team2]
+                row1[0] += pts1
+                row1[1] += goals1
+                row1[2] += goals2
+                row2[0] += pts2
+                row2[1] += goals2
+                row2[2] += goals1
+                continue
             roll = rng.random()
             goals1 = poisson_sample(rng, eg1)
             goals2 = poisson_sample(rng, eg2)

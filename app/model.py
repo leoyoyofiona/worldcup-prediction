@@ -1221,10 +1221,148 @@ def build_post_match_calibration(matches: Sequence[Dict[str, Any]]) -> Dict[str,
     }
 
 
+def build_group_stage_context(matches: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    tables: Dict[str, Dict[str, Dict[str, Any]]] = defaultdict(dict)
+    remaining_by_team: Dict[str, int] = defaultdict(int)
+    for match in matches:
+        group = group_letter(match.get("group", ""))
+        if not group or not match.get("teams_confirmed"):
+            continue
+        table = tables[group]
+        team1, team2 = match["team1"], match["team2"]
+        table.setdefault(team1, table_row(team1))
+        table.setdefault(team2, table_row(team2))
+        actual = actual_goals(match)
+        if actual:
+            goals1, goals2 = actual
+            points1, points2 = points_from_goals(goals1, goals2)
+            add_result(table[team1], points1, goals1, goals2)
+            add_result(table[team2], points2, goals2, goals1)
+        else:
+            remaining_by_team[team1] += 1
+            remaining_by_team[team2] += 1
+
+    ranked_tables = {group: rank_rows(table.values()) for group, table in tables.items()}
+    third_rows = [{**rows[2], "group": group} for group, rows in ranked_tables.items() if len(rows) >= 3]
+    third_cut = {"points": 4.0, "gd": 0.0, "gf": 3.0}
+    if len(third_rows) >= 8:
+        eighth = rank_rows(third_rows)[7]
+        third_cut = {
+            "points": max(4.0, float(eighth["points"])),
+            "gd": max(0.0, float(eighth["gd"])),
+            "gf": max(3.0, float(eighth["gf"])),
+        }
+
+    rows_by_team = {
+        team_row["team"]: {**team_row, "group": group}
+        for group, rows in ranked_tables.items()
+        for team_row in rows
+    }
+    return {
+        "available": bool(ranked_tables),
+        "tables": ranked_tables,
+        "rows_by_team": rows_by_team,
+        "remaining_by_team": dict(remaining_by_team),
+        "third_cut": third_cut,
+    }
+
+
+def group_match_motivation(match: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
+    base = {
+        "available": False,
+        "team1_attack_multiplier": 1.0,
+        "team2_attack_multiplier": 1.0,
+        "draw_multiplier": 1.0,
+        "high_total_multiplier": 1.0,
+        "pressure_delta": 0.0,
+        "description": "小组赛出线形势尚不足以修正比赛动机。",
+    }
+    group = group_letter(match.get("group", ""))
+    if not group or not context.get("available"):
+        return base
+
+    team1 = match.get("team1")
+    team2 = match.get("team2")
+    rows_by_team = context.get("rows_by_team") or {}
+    row1 = rows_by_team.get(team1)
+    row2 = rows_by_team.get(team2)
+    if not row1 or not row2:
+        return base
+
+    remaining = context.get("remaining_by_team") or {}
+    third_cut = context.get("third_cut") or {"points": 4.0, "gd": 0.0, "gf": 3.0}
+    pressure1, label1 = team_group_pressure(row1, int(remaining.get(team1, 0)), third_cut)
+    pressure2, label2 = team_group_pressure(row2, int(remaining.get(team2, 0)), third_cut)
+    attack1 = clamp(1.0 + pressure1 * 0.055, 0.92, 1.18)
+    attack2 = clamp(1.0 + pressure2 * 0.055, 0.92, 1.18)
+    draw_boost = 1.0
+    high_total_boost = 1.0
+    if pressure1 < -0.5 and pressure2 < -0.5:
+        draw_boost = 1.08
+        high_total_boost = 0.94
+    elif pressure1 > 0.7 or pressure2 > 0.7:
+        draw_boost = 0.94
+        high_total_boost = 1.0 + min(max(pressure1, pressure2), 2.2) * 0.055
+
+    return {
+        "available": True,
+        "group": group,
+        "team1_attack_multiplier": round(attack1, 3),
+        "team2_attack_multiplier": round(attack2, 3),
+        "draw_multiplier": round(draw_boost, 3),
+        "high_total_multiplier": round(high_total_boost, 3),
+        "pressure_delta": round((pressure1 - pressure2) * 10.0, 1),
+        "third_cut": third_cut,
+        "team1": {"rank": row1.get("rank"), "points": row1.get("points"), "gd": row1.get("gd"), "remaining": remaining.get(team1, 0), "pressure": round(pressure1, 2), "label": label1},
+        "team2": {"rank": row2.get("rank"), "points": row2.get("points"), "gd": row2.get("gd"), "remaining": remaining.get(team2, 0), "pressure": round(pressure2, 2), "label": label2},
+        "description": f"按 2026 小组前二加 8 个最佳第三名规则，{team1} 当前{label1}，{team2} 当前{label2}；积分、净胜球和进球数会影响后续出线概率。",
+    }
+
+
+def team_group_pressure(row: Dict[str, Any], remaining: int, third_cut: Dict[str, float]) -> Tuple[float, str]:
+    rank = int(row.get("rank") or 4)
+    points = float(row.get("points") or 0.0)
+    gd = float(row.get("gd") or 0.0)
+    gf = float(row.get("gf") or 0.0)
+    max_points = points + remaining * 3.0
+    pressure = 0.0
+    labels: List[str] = []
+
+    if rank <= 2 and points >= 4.0 and remaining <= 2:
+        pressure -= 0.55
+        labels.append("前二区，平局价值较高")
+    if rank == 3:
+        pressure += 0.7
+        labels.append("第三名区，需要和其他小组比较")
+    if rank >= 4:
+        pressure += 1.05
+        labels.append("小组落后，赢球压力高")
+    if max_points < float(third_cut.get("points", 4.0)):
+        pressure += 0.7
+        labels.append("积分上限接近第三名线")
+    if points < float(third_cut.get("points", 4.0)) and remaining <= 2:
+        pressure += 0.45
+        labels.append("积分低于最佳第三参考线")
+    if gd < float(third_cut.get("gd", 0.0)):
+        pressure += 0.35
+        labels.append("净胜球落后")
+    elif gd >= 2.0 and rank <= 2 and remaining <= 1:
+        pressure -= 0.3
+        labels.append("净胜球优势可守")
+    if gf < float(third_cut.get("gf", 3.0)) and remaining <= 1:
+        pressure += 0.2
+        labels.append("进球数仍有提升价值")
+
+    if not labels:
+        labels.append("形势中性")
+    return clamp(pressure, -1.2, 2.4), "、".join(labels)
+
+
 def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dict[str, Any]) -> None:
     if not calibration.get("available"):
         return
 
+    group_context = build_group_stage_context(matches)
     goal_multiplier = float(calibration.get("goal_multiplier") or 1.0)
     draw_multiplier = float(calibration.get("draw_multiplier") or 1.0)
     high_total_multiplier = float(calibration.get("high_total_multiplier") or 1.0)
@@ -1243,6 +1381,12 @@ def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dic
         if match.get("team2") in HOST_TEAMS:
             lambda2 = clamp(lambda2 * host_attack_multiplier, 0.2, 4.6)
 
+        motivation = group_match_motivation(match, group_context)
+        lambda1 = clamp(lambda1 * motivation["team1_attack_multiplier"], 0.2, 4.8)
+        lambda2 = clamp(lambda2 * motivation["team2_attack_multiplier"], 0.2, 4.8)
+        match_draw_multiplier = draw_multiplier * motivation["draw_multiplier"]
+        match_high_total_multiplier = high_total_multiplier * motivation["high_total_multiplier"]
+
         probabilities = match.get("probabilities") or {}
         favorite_key = max(("team1_win", "draw", "team2_win"), key=lambda key: float(probabilities.get(key) or 0.0))
         favorite_probability = float(probabilities.get(favorite_key) or 0.0)
@@ -1253,7 +1397,7 @@ def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dic
             lambda2 = clamp(lambda2 * favorite_compression, 0.2, 4.6)
             lambda1 = clamp(lambda1 * (2.0 - favorite_compression), 0.2, 4.6)
 
-        distribution, probabilities_raw = recalibrated_score_matrix(lambda1, lambda2, draw_multiplier, high_total_multiplier)
+        distribution, probabilities_raw = recalibrated_score_matrix(lambda1, lambda2, match_draw_multiplier, match_high_total_multiplier)
         confidence, label = confidence_label(probabilities_raw)
         favorite_key = max(probabilities_raw, key=probabilities_raw.get)
         if favorite_key == "draw":
@@ -1301,8 +1445,18 @@ def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dic
                 "description": "根据已完赛比分偏差，对总进球、平局、大比分尾部、强队过度自信和东道主进攻进行校准。",
             }
         )
+        if motivation["available"]:
+            contributors.append(
+                {
+                    "name": "小组出线形势",
+                    "value": round(motivation["pressure_delta"], 1),
+                    "description": motivation["description"],
+                }
+            )
         match["contributors"] = contributors
         match["post_match_calibration"] = calibration
+        if motivation["available"]:
+            match["group_stage_context"] = motivation
 
 
 def default_signal() -> Dict[str, Any]:
@@ -1618,6 +1772,7 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "off_field",
         "rule_adaptation",
         "post_match_calibration",
+        "group_stage_context",
     ]
     return {key: match.get(key) for key in fields}
 

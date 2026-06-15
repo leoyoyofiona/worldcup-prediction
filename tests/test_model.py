@@ -275,3 +275,75 @@ def test_post_match_calibration_updates_future_predictions_only():
     assert sum(matches[-1]["expected_goals"].values()) != original_future_total
     assert matches[-1]["post_match_calibration"]["available"] is True
     assert any(item["name"] == "赛后复盘校准" for item in matches[-1]["contributors"])
+
+
+def test_group_stage_pressure_changes_remaining_group_match():
+    matches = [
+        {
+            "id": "g1",
+            "group": "Group A",
+            "teams_confirmed": True,
+            "team1": "Mexico",
+            "team2": "Canada",
+            "actual_score": {"team1": 2, "team2": 0, "score": "2-0"},
+        },
+        {
+            "id": "g2",
+            "group": "Group A",
+            "teams_confirmed": True,
+            "team1": "Brazil",
+            "team2": "South Africa",
+            "actual_score": {"team1": 1, "team2": 1, "score": "1-1"},
+        },
+        {
+            "id": "g3",
+            "group": "Group A",
+            "teams_confirmed": True,
+            "team1": "Canada",
+            "team2": "Brazil",
+            "probabilities": {"team1_win": 22.0, "draw": 26.0, "team2_win": 52.0},
+            "favorite": "Brazil",
+            "expected_goals": {"team1": 0.9, "team2": 1.5},
+            "predicted_score": "1-2",
+            "contributors": [],
+            "effective_ratings": {"team1": 1530.0, "team2": 1710.0},
+        },
+        {
+            "id": "done-1",
+            "group": "Group B",
+            "teams_confirmed": True,
+            "team1": "Germany",
+            "team2": "Japan",
+            "probabilities": {"team1_win": 62.0, "draw": 19.0, "team2_win": 19.0},
+            "expected_goals": {"team1": 1.6, "team2": 0.8},
+            "predicted_score": "2-1",
+            "actual_score": {"team1": 7, "team2": 1, "score": "7-1"},
+        },
+        {
+            "id": "done-2",
+            "group": "Group C",
+            "teams_confirmed": True,
+            "team1": "Netherlands",
+            "team2": "Sweden",
+            "probabilities": {"team1_win": 62.0, "draw": 19.0, "team2_win": 19.0},
+            "expected_goals": {"team1": 1.6, "team2": 0.8},
+            "predicted_score": "2-1",
+            "actual_score": {"team1": 2, "team2": 2, "score": "2-2"},
+        },
+    ]
+    calibration = {
+        "available": True,
+        "sample_size": 4,
+        "goal_multiplier": 1.05,
+        "draw_multiplier": 1.0,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.0,
+        "favorite_compression": 1.0,
+    }
+    original_canada_goals = matches[2]["expected_goals"]["team1"]
+
+    apply_post_match_calibration(matches, calibration)
+
+    assert matches[2]["expected_goals"]["team1"] > original_canada_goals
+    assert matches[2]["group_stage_context"]["available"] is True
+    assert any(item["name"] == "小组出线形势" for item in matches[2]["contributors"])

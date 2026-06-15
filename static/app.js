@@ -511,9 +511,26 @@ function renderMatchRow(match) {
       <div class="prediction-cell">
         <span class="score">${escapeHtml(match.predicted_score || "待定")}</span>
         <span class="badge ${confidenceClass(match.confidence_label)}">${escapeHtml(confidenceText(match.confidence_label))}</span>
+        ${renderContextBadges(match)}
       </div>
     </button>
   `;
+}
+
+function renderContextBadges(match) {
+  const offField = match.off_field || {};
+  const rules = match.rule_adaptation || {};
+  const offDelta = Number((offField.team1 || {}).adjustment || 0) - Number((offField.team2 || {}).adjustment || 0);
+  const ruleDelta = Number(rules.team1 || 0) - Number(rules.team2 || 0);
+  const badges = [];
+  if (Math.abs(offDelta) >= 0.1) badges.push(`<span class="context-badge">场外 ${formatSigned(offDelta)}</span>`);
+  if (Math.abs(ruleDelta) >= 0.1) badges.push(`<span class="context-badge">规则 ${formatSigned(ruleDelta)}</span>`);
+  return badges.join("");
+}
+
+function formatSigned(value) {
+  const number = Number(value || 0);
+  return `${number > 0 ? "+" : ""}${number.toFixed(1)}`;
 }
 
 function bar(label, value, className) {

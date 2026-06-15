@@ -21,7 +21,7 @@ OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
     "England": [
         {
             "name": "装备运输失窃扰动",
-            "adjustment": -4.0,
+            "adjustment": -8.0,
             "description": "训练装备失窃后大部分已追回，按轻微备战扰动处理。",
             "source_name": "CBS Sports / Guardian",
             "source_url": "https://www.cbssports.com/soccer/news/england-gear-stolen-from-kansas-city-team-camp-ahead-of-world-cup-campaign-reportedly-recovered/",
@@ -30,7 +30,7 @@ OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
     "Iran": [
         {
             "name": "签证与入境不确定性",
-            "adjustment": -12.0,
+            "adjustment": -18.0,
             "description": "美国入境、签证和随队人员限制带来旅行与后勤不确定性。",
             "source_name": "Guardian / ESPN / American Immigration Council",
             "source_url": "https://www.theguardian.com/football/2026/jun/06/iran-world-cup-visas-mexico",
@@ -38,7 +38,7 @@ OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
     ],
 }
 
-OFF_FIELD_MAX_ABS_ADJUSTMENT = 18.0
+OFF_FIELD_MAX_ABS_ADJUSTMENT = 24.0
 
 TEAM_ALIASES: Dict[str, Sequence[str]] = {
     "United States": ["USA", "USMNT", "United States of America", "U.S.A.", "U.S."],
@@ -1085,8 +1085,18 @@ def rule_adaptation_adjustment(stat: Dict[str, Any]) -> float:
     competitive_rate = float(stat.get("competitive_points_rate", stat.get("recent_points_rate", 0.5)))
     # New restart countdowns, goalkeeper limits and scheduled water breaks are modeled as a small
     # adaptability signal: efficient attacks and organized defenses benefit slightly.
-    adjustment = (attack - 1.0) * 9.0 + (1.0 - defense) * 7.0 + (competitive_rate - 0.5) * 8.0
-    return round(clamp(adjustment, -10.0, 10.0), 1)
+    adjustment = (attack - 1.0) * 12.0 + (1.0 - defense) * 10.0 + (competitive_rate - 0.5) * 12.0
+    return round(clamp(adjustment, -14.0, 14.0), 1)
+
+
+def context_attack_multiplier(components: Dict[str, float]) -> float:
+    adjustment = components.get("off_field", 0.0) / 220.0 + components.get("rules", 0.0) / 420.0
+    return clamp(1.0 + adjustment, 0.86, 1.12)
+
+
+def context_defense_multiplier(components: Dict[str, float]) -> float:
+    adjustment = -components.get("off_field", 0.0) / 360.0 - components.get("rules", 0.0) / 700.0
+    return clamp(1.0 + adjustment, 0.92, 1.08)
 
 
 def effective_team_rating(
@@ -1155,8 +1165,26 @@ def predict_match(
     diff = rating1 - rating2
 
     lambda_base = 1.42
-    lambda1 = clamp(lambda_base * stat1.get("goldman_attack", stat1["attack"]) * stat2.get("goldman_defense", stat2["defense"]) * math.exp(diff / 900.0), 0.25, 3.8)
-    lambda2 = clamp(lambda_base * stat2.get("goldman_attack", stat2["attack"]) * stat1.get("goldman_defense", stat1["defense"]) * math.exp(-diff / 900.0), 0.25, 3.8)
+    lambda1 = clamp(
+        lambda_base
+        * stat1.get("goldman_attack", stat1["attack"])
+        * stat2.get("goldman_defense", stat2["defense"])
+        * math.exp(diff / 900.0)
+        * context_attack_multiplier(components1)
+        * context_defense_multiplier(components2),
+        0.25,
+        3.8,
+    )
+    lambda2 = clamp(
+        lambda_base
+        * stat2.get("goldman_attack", stat2["attack"])
+        * stat1.get("goldman_defense", stat1["defense"])
+        * math.exp(-diff / 900.0)
+        * context_attack_multiplier(components2)
+        * context_defense_multiplier(components1),
+        0.25,
+        3.8,
+    )
     distribution, probabilities_raw = score_matrix(lambda1, lambda2)
     confidence, label = confidence_label(probabilities_raw)
     probabilities = {key: pct(value) for key, value in probabilities_raw.items()}
@@ -1347,6 +1375,8 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "advance_probabilities",
         "actual_score",
         "prediction_result",
+        "off_field",
+        "rule_adaptation",
     ]
     return {key: match.get(key) for key in fields}
 

@@ -5,6 +5,8 @@ from app.model import (
     build_prediction_performance,
     build_team_stats,
     build_world_cup_profiles,
+    context_attack_multiplier,
+    context_defense_multiplier,
     expected_group_tables,
     off_field_signal,
     rule_adaptation_adjustment,
@@ -201,3 +203,9 @@ def test_context_adjustments_are_bounded_and_explainable():
     )
     assert -10.0 <= rule_score <= 10.0
     assert rule_score > 0
+
+    travel_risk = {"off_field": -18.0, "rules": 0.0}
+    rule_edge = {"off_field": 0.0, "rules": 10.0}
+    assert context_attack_multiplier(travel_risk) < 1.0
+    assert context_defense_multiplier(travel_risk) > 1.0
+    assert context_attack_multiplier(rule_edge) > 1.0

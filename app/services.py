@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from .cache import empty_cache, load_cache, now_iso, save_cache
+from .config import MODEL_VERSION
 from .live_results import sync_live_results
 from .model import build_predictions, match_summary
 from .sources import fetch_sources, load_cached_sources
@@ -91,7 +92,7 @@ class PredictionService:
 
     def _recalculate_job(self) -> None:
         cache = load_cache()
-        if cache.get("matches"):
+        if cache.get("matches") and cache.get("model_version") == MODEL_VERSION:
             save_cache(sync_live_results(cache))
             return
         raw_payloads, statuses = load_cached_sources()

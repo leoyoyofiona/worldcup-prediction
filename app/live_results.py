@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import httpx
 
 from .cache import now_iso
+from .config import MODEL_VERSION
 from .model import (
     apply_actual_results,
     apply_post_match_calibration,
@@ -39,6 +40,7 @@ def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
     payload["matches"] = matches
     payload["performance"] = performance
     payload["post_match_calibration"] = post_match_calibration
+    payload["model_version"] = MODEL_VERSION
     payload["generated_at"] = now_iso()
     payload["error"] = None
 

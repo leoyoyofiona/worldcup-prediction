@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from .cache import empty_cache, load_cache, now_iso, save_cache
-from .config import MODEL_VERSION
+from .config import MODEL_VERSION, UPDATE_JOB_TIMEOUT_SECONDS
 from .live_results import sync_live_results
 from .model import build_predictions, match_summary
 from .sources import fetch_sources, load_cached_sources
@@ -84,7 +84,24 @@ class PredictionService:
             self._build_lock.release()
 
     def _update_job(self) -> None:
-        raw_payloads, statuses = asyncio.run(fetch_sources())
+        try:
+            raw_payloads, statuses = asyncio.run(asyncio.wait_for(fetch_sources(), timeout=UPDATE_JOB_TIMEOUT_SECONDS))
+        except Exception as exc:
+            raw_payloads, statuses = load_cached_sources()
+            statuses.append(
+                {
+                    "id": "update_timeout_fallback",
+                    "name": "联网更新整体超时保护",
+                    "url": "",
+                    "required": False,
+                    "ok": True,
+                    "status": "ok",
+                    "message": f"联网更新超过 {UPDATE_JOB_TIMEOUT_SECONDS:.0f} 秒，已改用本地缓存重新计算：{exc}",
+                    "bytes": 0,
+                    "using_cache": True,
+                    "fetched_at": now_iso(),
+                }
+            )
         rebuilt = self._build_or_cache(raw_payloads, statuses)
         rebuilt.setdefault("summary", {})["full_data_updated_at"] = now_iso()
         save_cache(sync_live_results(rebuilt))

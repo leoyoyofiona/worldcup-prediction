@@ -51,7 +51,7 @@ const translations = {
     fairOdds: "公平赔率",
     valueOdds: "价值赔率",
     bookmakerOverround: "庄家超额水位",
-    noBettingOdds: "暂无逐场真实胜平负赔率，以下为模型门槛，不构成购彩保证。",
+    noBettingOdds: "以下按北京时间当日未开赛比赛生成，金额为每日 100 元示例预算，不构成购彩保证。",
     round: "阶段",
     team: "球队",
     confidence: "置信度",
@@ -408,8 +408,9 @@ function renderTournament(tournament = {}) {
 }
 
 function renderBettingDailyFromMatches(matches = []) {
+  const now = Date.now();
   const upcoming = [...matches]
-    .filter((match) => match.teams_confirmed && !match.actual_score && match.betting_analysis)
+    .filter((match) => match.teams_confirmed && !match.actual_score && match.betting_analysis && match.starts_at && new Date(match.starts_at).getTime() > now)
     .sort(compareMatchTime);
   if (!upcoming.length) {
     els.bettingDayTag.textContent = "--";
@@ -417,12 +418,43 @@ function renderBettingDailyFromMatches(matches = []) {
     els.bettingList.innerHTML = `<div class="empty-line">暂无未赛比赛。</div>`;
     return;
   }
-  const day = beijingDateKey(upcoming[0]);
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+  const availableDays = [...new Set(upcoming.map(beijingDateKey))].sort();
+  const day = availableDays.includes(today) ? today : availableDays[0];
   const rows = upcoming.filter((match) => beijingDateKey(match) === day);
   const rowsWithStakes = attachBettingStakes(rows, 100);
   els.bettingDayTag.textContent = `${day} 北京时间 · ${rows.length} 场 · 示例预算 100 元`;
   els.bettingNote.textContent = t("noBettingOdds");
   els.bettingList.innerHTML = rowsWithStakes.map(renderBettingCard).join("");
+}
+
+function renderBettingDaily(payload = {}) {
+  const current = payload.current_day || {};
+  const rows = current.matches || [];
+  if (!rows.length) {
+    els.bettingDayTag.textContent = "--";
+    els.bettingNote.textContent = "北京时间今天暂无未开赛投注参考。";
+    els.bettingList.innerHTML = `<div class="empty-line">暂无未开赛比赛。</div>`;
+    return;
+  }
+  els.bettingDayTag.textContent = `${current.date} 北京时间 · ${rows.length} 场 · 示例预算 ${Number(current.budget || 100).toFixed(0)} 元`;
+  els.bettingNote.textContent = payload.note || t("noBettingOdds");
+  els.bettingList.innerHTML = rows.map(renderBettingCard).join("");
+}
+
+async function loadBettingDaily() {
+  try {
+    const payload = await api("/api/betting/daily");
+    renderBettingDaily(payload);
+  } catch (error) {
+    renderBettingDailyFromMatches(state.matches);
+    showNotice(`投注参考读取失败，已使用本地列表降级：${error.message}`);
+  }
 }
 
 function attachBettingStakes(rows, budget) {
@@ -716,7 +748,7 @@ async function loadMatches() {
   renderPerformance(state.performance);
   renderFilters(state.filters);
   renderTournament(state.tournament);
-  renderBettingDailyFromMatches(state.matches);
+  await loadBettingDaily();
   renderMatches();
   if (payload.generated_at) {
     els.statusLine.textContent = t("modelUpdated", {

@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 from .cache import empty_cache, load_cache, now_iso, save_cache
 from .config import MODEL_VERSION, UPDATE_JOB_TIMEOUT_SECONDS
 from .live_results import sync_live_results
-from .model import build_predictions, match_summary
+from .model import build_predictions, match_status, match_summary
 from .sources import authorized_source_statuses, fetch_sources, load_cached_sources
 
 
@@ -155,42 +155,7 @@ class PredictionService:
 
     def betting_daily(self) -> Dict[str, Any]:
         cache = self._cache_with_auto_sync()
-        matches = sorted(
-            [
-                match
-                for match in cache.get("matches", [])
-                if match.get("teams_confirmed") and not match.get("actual_score") and match.get("betting_analysis")
-            ],
-            key=lambda match: (match.get("starts_at") or "9999-12-31T23:59:59+00:00", match.get("index") or 0),
-        )
-        days: Dict[str, List[Dict[str, Any]]] = {}
-        for match in matches:
-            day = beijing_date_key(match)
-            days.setdefault(day, []).append(
-                {
-                    "id": match.get("id"),
-                    "round": match.get("round"),
-                    "group": match.get("group"),
-                    "date": match.get("date"),
-                    "starts_at": match.get("starts_at"),
-                    "team1": match.get("team1"),
-                    "team2": match.get("team2"),
-                    "predicted_score": match.get("predicted_score"),
-                    "confidence_label": match.get("confidence_label"),
-                    "probabilities": match.get("probabilities"),
-                    "betting_analysis": match.get("betting_analysis"),
-                }
-            )
-        day_rows = []
-        for day, rows in days.items():
-            day_rows.append(
-                {
-                    "date": day,
-                    "timezone": "Asia/Shanghai",
-                    "budget": DAILY_BETTING_BUDGET,
-                    "matches": attach_betting_recommendations(rows, DAILY_BETTING_BUDGET),
-                }
-            )
+        day_rows = build_betting_days(cache.get("matches", []), DAILY_BETTING_BUDGET)
         return {
             "generated_at": cache.get("generated_at"),
             "model_version": cache.get("model_version"),
@@ -309,6 +274,74 @@ def beijing_date_key(match: Dict[str, Any]) -> str:
     if parsed:
         return parsed.date().isoformat()
     return str(match.get("date") or "待定")
+
+
+def build_betting_days(
+    matches: List[Dict[str, Any]],
+    budget: float,
+    now: Optional[datetime] = None,
+) -> List[Dict[str, Any]]:
+    now_utc = now or datetime.now(timezone.utc)
+    if now_utc.tzinfo is None:
+        now_utc = now_utc.replace(tzinfo=timezone.utc)
+    now_beijing = now_utc.astimezone(BEIJING_TZ)
+    today_key = now_beijing.date().isoformat()
+    candidates = sorted(
+        [
+            match
+            for match in matches
+            if is_betting_candidate(match, now_utc)
+        ],
+        key=lambda match: (match.get("starts_at") or "9999-12-31T23:59:59+00:00", match.get("index") or 0),
+    )
+    grouped: Dict[str, List[Dict[str, Any]]] = {}
+    for match in candidates:
+        grouped.setdefault(beijing_date_key(match), []).append(betting_match_payload(match, now_utc))
+    if not grouped:
+        return []
+    selected_days = [today_key] if today_key in grouped else [min(grouped)]
+    return [
+        {
+            "date": day,
+            "timezone": "Asia/Shanghai",
+            "budget": budget,
+            "matches": attach_betting_recommendations(grouped[day], budget),
+        }
+        for day in selected_days
+    ]
+
+
+def is_betting_candidate(match: Dict[str, Any], now_utc: datetime) -> bool:
+    if not match.get("teams_confirmed") or not match.get("betting_analysis"):
+        return False
+    if match.get("actual_score"):
+        return False
+    parsed = beijing_datetime(match)
+    if parsed is None:
+        return False
+    starts_utc = parsed.astimezone(timezone.utc)
+    if starts_utc <= now_utc:
+        return False
+    return True
+
+
+def betting_match_payload(match: Dict[str, Any], now_utc: datetime) -> Dict[str, Any]:
+    return {
+        "id": match.get("id"),
+        "round": match.get("round"),
+        "group": match.get("group"),
+        "date": match.get("date"),
+        "beijing_date": beijing_date_key(match),
+        "starts_at": match.get("starts_at"),
+        "status": match_status(match.get("starts_at")),
+        "actual_score": match.get("actual_score"),
+        "team1": match.get("team1"),
+        "team2": match.get("team2"),
+        "predicted_score": match.get("predicted_score"),
+        "confidence_label": match.get("confidence_label"),
+        "probabilities": match.get("probabilities"),
+        "betting_analysis": match.get("betting_analysis"),
+    }
 
 
 def attach_betting_recommendations(rows: List[Dict[str, Any]], budget: float) -> List[Dict[str, Any]]:

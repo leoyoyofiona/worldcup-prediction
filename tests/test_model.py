@@ -1,12 +1,14 @@
 from app.model import (
     build_betting_scores,
     build_market_scores,
+    build_post_match_calibration,
     build_predictions,
     build_prediction_performance,
     build_team_stats,
     build_world_cup_profiles,
     context_attack_multiplier,
     context_defense_multiplier,
+    apply_post_match_calibration,
     expected_group_tables,
     off_field_signal,
     rule_adaptation_adjustment,
@@ -209,3 +211,67 @@ def test_context_adjustments_are_bounded_and_explainable():
     assert context_attack_multiplier(travel_risk) < 1.0
     assert context_defense_multiplier(travel_risk) > 1.0
     assert context_attack_multiplier(rule_edge) > 1.0
+
+
+def test_post_match_calibration_updates_future_predictions_only():
+    completed_template = {
+        "teams_confirmed": True,
+        "probabilities": {"team1_win": 62.0, "draw": 19.0, "team2_win": 19.0},
+        "favorite": "Brazil",
+        "expected_goals": {"team1": 1.6, "team2": 0.8},
+        "predicted_score": "2-1",
+        "contributors": [],
+    }
+    matches = [
+        {
+            **completed_template,
+            "id": "done-1",
+            "team1": "Germany",
+            "team2": "Brazil",
+            "actual_score": {"team1": 7, "team2": 1, "score": "7-1"},
+        },
+        {
+            **completed_template,
+            "id": "done-2",
+            "team1": "Netherlands",
+            "team2": "Japan",
+            "actual_score": {"team1": 2, "team2": 2, "score": "2-2"},
+        },
+        {
+            **completed_template,
+            "id": "done-3",
+            "team1": "United States",
+            "team2": "Paraguay",
+            "actual_score": {"team1": 4, "team2": 1, "score": "4-1"},
+        },
+        {
+            **completed_template,
+            "id": "done-4",
+            "team1": "Sweden",
+            "team2": "Nigeria",
+            "actual_score": {"team1": 5, "team2": 0, "score": "5-0"},
+        },
+        {
+            "id": "future-1",
+            "teams_confirmed": True,
+            "team1": "Brazil",
+            "team2": "Canada",
+            "probabilities": {"team1_win": 65.0, "draw": 18.0, "team2_win": 17.0},
+            "favorite": "Brazil",
+            "expected_goals": {"team1": 1.7, "team2": 0.7},
+            "predicted_score": "2-0",
+            "contributors": [],
+            "effective_ratings": {"team1": 1700.0, "team2": 1540.0},
+        },
+    ]
+    calibration = build_post_match_calibration(matches)
+    original_done_score = matches[0]["predicted_score"]
+    original_future_total = sum(matches[-1]["expected_goals"].values())
+
+    apply_post_match_calibration(matches, calibration)
+
+    assert calibration["available"] is True
+    assert matches[0]["predicted_score"] == original_done_score
+    assert sum(matches[-1]["expected_goals"].values()) != original_future_total
+    assert matches[-1]["post_match_calibration"]["available"] is True
+    assert any(item["name"] == "赛后复盘校准" for item in matches[-1]["contributors"])

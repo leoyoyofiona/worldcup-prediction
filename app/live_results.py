@@ -7,7 +7,9 @@ import httpx
 from .cache import now_iso
 from .model import (
     apply_actual_results,
+    apply_post_match_calibration,
     build_prediction_performance,
+    build_post_match_calibration,
     build_tournament_projection,
     canonicalize_team,
     match_status,
@@ -31,9 +33,12 @@ def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
 
     apply_actual_results(matches, actual_results)
     performance = build_prediction_performance(matches)
+    post_match_calibration = build_post_match_calibration(matches)
+    apply_post_match_calibration(matches, post_match_calibration)
     rebuild_tournament(payload, matches)
     payload["matches"] = matches
     payload["performance"] = performance
+    payload["post_match_calibration"] = post_match_calibration
     payload["generated_at"] = now_iso()
     payload["error"] = None
 
@@ -42,6 +47,8 @@ def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
     summary["outcome_accuracy"] = performance["outcome_accuracy"]
     summary["exact_score_accuracy"] = performance["exact_score_accuracy"]
     summary["finished_match_count"] = sum(1 for match in matches if match.get("status") == "已结束")
+    summary["post_match_calibration_available"] = post_match_calibration.get("available", False)
+    summary["post_match_calibration_sample_size"] = post_match_calibration.get("sample_size", 0)
     summary["live_result_synced_at"] = payload["generated_at"]
     summary["tournament_synced_at"] = payload["generated_at"]
 

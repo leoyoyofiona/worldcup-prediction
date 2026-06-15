@@ -1065,6 +1065,246 @@ def score_distribution_summary(distribution: Sequence[Dict[str, Any]]) -> Dict[s
     }
 
 
+def recalibrated_score_matrix(
+    lambda1: float,
+    lambda2: float,
+    draw_multiplier: float = 1.0,
+    high_total_multiplier: float = 1.0,
+) -> Tuple[List[Dict[str, Any]], Dict[str, float]]:
+    rows, _ = score_matrix(lambda1, lambda2)
+    adjusted: List[Dict[str, Any]] = []
+    total_mass = 0.0
+    totals = {"team1_win": 0.0, "draw": 0.0, "team2_win": 0.0}
+    for row in rows:
+        goals1 = int(row["goals1"])
+        goals2 = int(row["goals2"])
+        multiplier = 1.0
+        if goals1 == goals2:
+            multiplier *= draw_multiplier
+        if goals1 + goals2 >= 5:
+            multiplier *= high_total_multiplier
+        probability = float(row["probability"]) * multiplier
+        item = dict(row)
+        item["probability"] = probability
+        adjusted.append(item)
+        total_mass += probability
+
+    if total_mass > 0:
+        for row in adjusted:
+            row["probability"] = float(row["probability"]) / total_mass
+            totals[row["outcome"]] += row["probability"]
+    adjusted.sort(key=lambda item: item["probability"], reverse=True)
+    return adjusted, totals
+
+
+def build_post_match_calibration(matches: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    completed = [
+        match
+        for match in matches
+        if match.get("teams_confirmed")
+        and match.get("actual_score")
+        and match.get("expected_goals")
+        and match.get("probabilities")
+    ]
+    sample_size = len(completed)
+    if sample_size < 4:
+        return {
+            "available": False,
+            "sample_size": sample_size,
+            "goal_multiplier": 1.0,
+            "draw_multiplier": 1.0,
+            "high_total_multiplier": 1.0,
+            "host_attack_multiplier": 1.0,
+            "favorite_compression": 1.0,
+            "notes": ["已完赛样本少于 4 场，暂不把复盘偏差写入后续预测。"],
+        }
+
+    actual_total = 0.0
+    predicted_total = 0.0
+    actual_draws = 0
+    predicted_draw_mass = 0.0
+    actual_high_totals = 0
+    predicted_high_mass = 0.0
+    host_actual_goals = 0.0
+    host_predicted_goals = 0.0
+    host_samples = 0
+    high_favorite_count = 0
+    high_favorite_misses = 0
+    notable_misses: List[str] = []
+
+    for match in completed:
+        actual = match["actual_score"]
+        expected = match["expected_goals"]
+        probabilities = match["probabilities"]
+        goals1 = int(actual["team1"])
+        goals2 = int(actual["team2"])
+        lambda1 = float(expected.get("team1") or 0.0)
+        lambda2 = float(expected.get("team2") or 0.0)
+        actual_total += goals1 + goals2
+        predicted_total += lambda1 + lambda2
+        actual_draws += int(goals1 == goals2)
+        predicted_draw_mass += float(probabilities.get("draw") or 0.0) / 100.0
+
+        distribution, _ = score_matrix(lambda1, lambda2)
+        high_mass = sum(float(row["probability"]) for row in distribution if int(row["goals1"]) + int(row["goals2"]) >= 5)
+        predicted_high_mass += high_mass
+        actual_high_totals += int(goals1 + goals2 >= 5)
+
+        if match.get("team1") in HOST_TEAMS:
+            host_actual_goals += goals1
+            host_predicted_goals += lambda1
+            host_samples += 1
+        if match.get("team2") in HOST_TEAMS:
+            host_actual_goals += goals2
+            host_predicted_goals += lambda2
+            host_samples += 1
+
+        favorite_probability = max(
+            float(probabilities.get("team1_win") or 0.0),
+            float(probabilities.get("team2_win") or 0.0),
+        )
+        predicted = predicted_outcome(match)
+        actual_outcome = score_outcome(goals1, goals2)
+        if favorite_probability >= 60.0 and predicted != "draw":
+            high_favorite_count += 1
+            if predicted != actual_outcome:
+                high_favorite_misses += 1
+                if len(notable_misses) < 5:
+                    notable_misses.append(
+                        f"{match.get('team1')} {goals1}-{goals2} {match.get('team2')}，赛前倾向 {match.get('favorite')}"
+                    )
+
+    actual_avg_goals = actual_total / sample_size
+    predicted_avg_goals = predicted_total / sample_size if predicted_total else actual_avg_goals
+    actual_draw_rate = actual_draws / sample_size
+    predicted_draw_rate = predicted_draw_mass / sample_size
+    actual_high_rate = actual_high_totals / sample_size
+    predicted_high_rate = predicted_high_mass / sample_size
+    favorite_miss_rate = high_favorite_misses / high_favorite_count if high_favorite_count else 0.0
+
+    goal_multiplier = clamp(actual_avg_goals / max(predicted_avg_goals, 0.2), 0.9, 1.22)
+    draw_multiplier = clamp(1.0 + (actual_draw_rate - predicted_draw_rate) * 1.6, 0.9, 1.35)
+    high_total_multiplier = clamp(1.0 + max(0.0, actual_high_rate - predicted_high_rate) * 1.6, 1.0, 1.35)
+    host_attack_multiplier = 1.0
+    if host_samples and host_predicted_goals > 0:
+        host_attack_multiplier = clamp(host_actual_goals / host_predicted_goals, 0.95, 1.28)
+    favorite_compression = clamp(1.0 - favorite_miss_rate * 0.08, 0.9, 1.0)
+
+    notes = [
+        "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+        "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+        "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+        "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+    ]
+    if notable_misses:
+        notes.append("近期热门偏差样本：" + "；".join(notable_misses))
+
+    return {
+        "available": True,
+        "sample_size": sample_size,
+        "goal_multiplier": round(goal_multiplier, 3),
+        "draw_multiplier": round(draw_multiplier, 3),
+        "high_total_multiplier": round(high_total_multiplier, 3),
+        "host_attack_multiplier": round(host_attack_multiplier, 3),
+        "favorite_compression": round(favorite_compression, 3),
+        "diagnostics": {
+            "actual_avg_goals": round(actual_avg_goals, 2),
+            "predicted_avg_goals": round(predicted_avg_goals, 2),
+            "actual_draw_rate": pct(actual_draw_rate),
+            "predicted_draw_rate": pct(predicted_draw_rate),
+            "actual_high_total_rate": pct(actual_high_rate),
+            "predicted_high_total_rate": pct(predicted_high_rate),
+            "high_favorite_miss_rate": pct(favorite_miss_rate),
+            "host_samples": host_samples,
+        },
+        "notes": notes,
+    }
+
+
+def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dict[str, Any]) -> None:
+    if not calibration.get("available"):
+        return
+
+    goal_multiplier = float(calibration.get("goal_multiplier") or 1.0)
+    draw_multiplier = float(calibration.get("draw_multiplier") or 1.0)
+    high_total_multiplier = float(calibration.get("high_total_multiplier") or 1.0)
+    host_attack_multiplier = float(calibration.get("host_attack_multiplier") or 1.0)
+    favorite_compression = float(calibration.get("favorite_compression") or 1.0)
+
+    for match in matches:
+        if match.get("actual_score") or not match.get("teams_confirmed") or not match.get("expected_goals"):
+            continue
+
+        expected = match["expected_goals"]
+        lambda1 = clamp(float(expected.get("team1") or 0.0) * goal_multiplier, 0.2, 4.4)
+        lambda2 = clamp(float(expected.get("team2") or 0.0) * goal_multiplier, 0.2, 4.4)
+        if match.get("team1") in HOST_TEAMS:
+            lambda1 = clamp(lambda1 * host_attack_multiplier, 0.2, 4.6)
+        if match.get("team2") in HOST_TEAMS:
+            lambda2 = clamp(lambda2 * host_attack_multiplier, 0.2, 4.6)
+
+        probabilities = match.get("probabilities") or {}
+        favorite_key = max(("team1_win", "draw", "team2_win"), key=lambda key: float(probabilities.get(key) or 0.0))
+        favorite_probability = float(probabilities.get(favorite_key) or 0.0)
+        if favorite_key == "team1_win" and favorite_probability >= 60.0:
+            lambda1 = clamp(lambda1 * favorite_compression, 0.2, 4.6)
+            lambda2 = clamp(lambda2 * (2.0 - favorite_compression), 0.2, 4.6)
+        elif favorite_key == "team2_win" and favorite_probability >= 60.0:
+            lambda2 = clamp(lambda2 * favorite_compression, 0.2, 4.6)
+            lambda1 = clamp(lambda1 * (2.0 - favorite_compression), 0.2, 4.6)
+
+        distribution, probabilities_raw = recalibrated_score_matrix(lambda1, lambda2, draw_multiplier, high_total_multiplier)
+        confidence, label = confidence_label(probabilities_raw)
+        favorite_key = max(probabilities_raw, key=probabilities_raw.get)
+        if favorite_key == "draw":
+            favorite = "平局倾向"
+        elif favorite_key == "team1_win":
+            favorite = match.get("team1")
+        else:
+            favorite = match.get("team2")
+
+        expected_total = lambda1 + lambda2
+        top_scores = [{"score": item["score"], "probability": pct(item["probability"])} for item in distribution[:6]]
+        modal_score = top_scores[0]["score"] if top_scores else "待定"
+        predicted_score = select_representative_score(distribution, probabilities_raw, expected_total)
+        match["probabilities"] = {key: pct(value) for key, value in probabilities_raw.items()}
+        match["favorite"] = favorite
+        match["predicted_score"] = predicted_score
+        match["confidence"] = round(confidence, 3)
+        match["confidence_label"] = label
+        match["expected_goals"] = {"team1": round(lambda1, 2), "team2": round(lambda2, 2)}
+        match["score_summary"] = {
+            "representative_score": predicted_score,
+            "modal_score": modal_score,
+            "expected_total_goals": round(expected_total, 2),
+            **score_distribution_summary(distribution),
+        }
+        match["scoreline_distribution"] = top_scores
+        if match.get("is_knockout"):
+            rating1 = float((match.get("effective_ratings") or {}).get("team1") or 1500.0)
+            rating2 = float((match.get("effective_ratings") or {}).get("team2") or 1500.0)
+            shootout_bias = expected_score(rating1, rating2)
+            advance1 = probabilities_raw["team1_win"] + probabilities_raw["draw"] * shootout_bias
+            advance2 = probabilities_raw["team2_win"] + probabilities_raw["draw"] * (1.0 - shootout_bias)
+            total = advance1 + advance2
+            match["advance_probabilities"] = {
+                "team1": pct(advance1 / total if total else 0.5),
+                "team2": pct(advance2 / total if total else 0.5),
+                "note": "淘汰赛晋级倾向包含常规时间胜负、点球不确定性和赛后复盘校准。",
+            }
+
+        contributors = list(match.get("contributors") or [])
+        contributors.append(
+            {
+                "name": "赛后复盘校准",
+                "value": round((goal_multiplier - 1.0) * 100.0, 1),
+                "description": "根据已完赛比分偏差，对总进球、平局、大比分尾部、强队过度自信和东道主进攻进行校准。",
+            }
+        )
+        match["contributors"] = contributors
+        match["post_match_calibration"] = calibration
+
+
 def default_signal() -> Dict[str, Any]:
     return {"adjustment": 0.0, "index": 0.0, "mentions": 0, "available": False}
 
@@ -1377,6 +1617,7 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "prediction_result",
         "off_field",
         "rule_adaptation",
+        "post_match_calibration",
     ]
     return {key: match.get(key) for key in fields}
 

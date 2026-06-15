@@ -17,6 +17,29 @@ from .config import ACTUAL_RESULTS_FILE, MODEL_VERSION, TOURNAMENT_SIMULATIONS
 
 HOST_TEAMS = {"United States", "Mexico", "Canada"}
 
+OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
+    "England": [
+        {
+            "name": "装备运输失窃扰动",
+            "adjustment": -4.0,
+            "description": "训练装备失窃后大部分已追回，按轻微备战扰动处理。",
+            "source_name": "CBS Sports / Guardian",
+            "source_url": "https://www.cbssports.com/soccer/news/england-gear-stolen-from-kansas-city-team-camp-ahead-of-world-cup-campaign-reportedly-recovered/",
+        }
+    ],
+    "Iran": [
+        {
+            "name": "签证与入境不确定性",
+            "adjustment": -12.0,
+            "description": "美国入境、签证和随队人员限制带来旅行与后勤不确定性。",
+            "source_name": "Guardian / ESPN / American Immigration Council",
+            "source_url": "https://www.theguardian.com/football/2026/jun/06/iran-world-cup-visas-mexico",
+        }
+    ],
+}
+
+OFF_FIELD_MAX_ABS_ADJUSTMENT = 18.0
+
 TEAM_ALIASES: Dict[str, Sequence[str]] = {
     "United States": ["USA", "USMNT", "United States of America", "U.S.A.", "U.S."],
     "South Korea": ["Korea Republic", "Republic of Korea", "Korea, Republic of"],
@@ -1046,29 +1069,53 @@ def default_signal() -> Dict[str, Any]:
     return {"adjustment": 0.0, "index": 0.0, "mentions": 0, "available": False}
 
 
+def off_field_signal(team: str) -> Dict[str, Any]:
+    factors = list(OFF_FIELD_FACTORS.get(team, []))
+    adjustment = clamp(sum(float(item.get("adjustment", 0.0)) for item in factors), -OFF_FIELD_MAX_ABS_ADJUSTMENT, OFF_FIELD_MAX_ABS_ADJUSTMENT)
+    return {
+        "adjustment": round(adjustment, 1),
+        "available": bool(factors),
+        "factors": factors,
+    }
+
+
+def rule_adaptation_adjustment(stat: Dict[str, Any]) -> float:
+    attack = float(stat.get("goldman_attack", stat.get("attack", 1.0)))
+    defense = float(stat.get("goldman_defense", stat.get("defense", 1.0)))
+    competitive_rate = float(stat.get("competitive_points_rate", stat.get("recent_points_rate", 0.5)))
+    # New restart countdowns, goalkeeper limits and scheduled water breaks are modeled as a small
+    # adaptability signal: efficient attacks and organized defenses benefit slightly.
+    adjustment = (attack - 1.0) * 9.0 + (1.0 - defense) * 7.0 + (competitive_rate - 0.5) * 8.0
+    return round(clamp(adjustment, -10.0, 10.0), 1)
+
+
 def effective_team_rating(
     team: str,
     team_stats: Dict[str, Dict[str, Any]],
     market_scores: Dict[str, Dict[str, Any]],
     betting_scores: Dict[str, Dict[str, Any]],
     rankings: Dict[str, int],
-) -> Tuple[float, Dict[str, float], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
+) -> Tuple[float, Dict[str, float], Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     stat = team_stats.get(team) or fallback_team_stat(team)
     market = market_scores.get(team, default_signal())
     betting = betting_scores.get(team, default_signal())
+    off_field = off_field_signal(team)
     host_adjustment = 35.0 if team in HOST_TEAMS else 0.0
     ranking_adj = ranking_adjustment(rankings.get(team))
+    rules_adj = rule_adaptation_adjustment(stat)
     components = {
         "elo": float(stat["elo"]),
         "form": float(stat.get("form_adjustment", 0.0)),
         "goldman": float(stat.get("goldman_adjustment", 0.0)),
         "market": float(market.get("adjustment", 0.0)),
         "betting": float(betting.get("adjustment", 0.0)),
+        "off_field": float(off_field.get("adjustment", 0.0)),
+        "rules": rules_adj,
         "host": host_adjustment,
         "ranking": ranking_adj,
     }
     rating = sum(components.values())
-    return rating, components, stat, market, betting
+    return rating, components, stat, market, betting, off_field
 
 
 def predict_match(
@@ -1103,8 +1150,8 @@ def predict_match(
 
     rankings = rankings or {}
     betting_scores = betting_scores or {}
-    rating1, components1, stat1, market1, betting1 = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings)
-    rating2, components2, stat2, market2, betting2 = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings)
+    rating1, components1, stat1, market1, betting1, off_field1 = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings)
+    rating2, components2, stat2, market2, betting2, off_field2 = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings)
     diff = rating1 - rating2
 
     lambda_base = 1.42
@@ -1183,6 +1230,16 @@ def predict_match(
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。",
         },
         {
+            "name": "场外不确定性修正",
+            "value": round(components1["off_field"] - components2["off_field"], 1),
+            "description": "装备、签证、入境、旅行和临时后勤事件，只作为小幅临场扰动。",
+        },
+        {
+            "name": "新规则适应性",
+            "value": round(components1["rules"] - components2["rules"], 1),
+            "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。",
+        },
+        {
             "name": "FIFA 排名参考",
             "value": round(components1["ranking"] - components2["ranking"], 1),
             "description": "仅在公开页面可解析到足够排名时启用。",
@@ -1215,6 +1272,12 @@ def predict_match(
                 "team2": betting2,
                 "available": bool(betting1.get("available") or betting2.get("available")),
             },
+            "off_field": {
+                "team1": off_field1,
+                "team2": off_field2,
+                "available": bool(off_field1.get("available") or off_field2.get("available")),
+            },
+            "rule_adaptation": {"team1": components1["rules"], "team2": components2["rules"]},
             "fifa_ranking": {"team1": rankings.get(team1), "team2": rankings.get(team2)},
             "contributors": contributors,
             "explanation": explanation,
@@ -1849,8 +1912,8 @@ def simulated_stage_probabilities(
         key = (team1, team2)
         if key in advance_cache:
             return advance_cache[key]
-        rating1, _, _, _, _ = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings)
-        rating2, _, _, _, _ = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings)
+        rating1, _, _, _, _, _ = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings)
+        rating2, _, _, _, _, _ = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings)
         probability = clamp(expected_score(rating1, rating2), 0.06, 0.94)
         advance_cache[key] = probability
         advance_cache[(team2, team1)] = 1.0 - probability

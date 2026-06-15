@@ -6,6 +6,8 @@ from app.model import (
     build_team_stats,
     build_world_cup_profiles,
     expected_group_tables,
+    off_field_signal,
+    rule_adaptation_adjustment,
     is_placeholder_team,
     parse_results_csv,
     parse_schedule,
@@ -182,3 +184,20 @@ def test_group_table_uses_actual_scores_before_expected_points():
     assert rows[0]["gf"] == 2.0
     assert rows[1]["team"] == "South Africa"
     assert rows[1]["points"] == 0.0
+
+
+def test_context_adjustments_are_bounded_and_explainable():
+    iran = off_field_signal("Iran")
+    assert iran["available"] is True
+    assert -18.0 <= iran["adjustment"] <= 18.0
+    assert iran["factors"][0]["source_url"]
+
+    rule_score = rule_adaptation_adjustment(
+        {
+            "goldman_attack": 1.35,
+            "goldman_defense": 0.8,
+            "competitive_points_rate": 0.7,
+        }
+    )
+    assert -10.0 <= rule_score <= 10.0
+    assert rule_score > 0

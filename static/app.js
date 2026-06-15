@@ -668,6 +668,7 @@ function renderDetail(match) {
     <div class="kv-list">
       ${(match.contributors || []).map(renderContributor).join("")}
     </div>
+    ${renderContextFactors(match)}
     <h3 class="section-title">${escapeHtml(t("scoreDistribution"))}</h3>
     <div class="score-list">
       ${(match.scoreline_distribution || []).map((item) => `<div class="score-pill"><strong>${escapeHtml(item.score)}</strong><span>${percent(item.probability)}</span></div>`).join("")}
@@ -692,6 +693,36 @@ function renderContributor(item) {
       <span>${escapeHtml(item.name)}<small>${escapeHtml(localizeTeamText(item.description || ""))}</small></span>
       <strong>${sign}${value.toFixed(1)}</strong>
     </div>
+  `;
+}
+
+function renderContextFactors(match) {
+  const offField = match.off_field || {};
+  const rules = match.rule_adaptation || {};
+  const rows = [];
+  [offField.team1, offField.team2].forEach((signal, index) => {
+    const team = index === 0 ? match.team1 : match.team2;
+    (signal && signal.factors ? signal.factors : []).forEach((factor) => {
+      rows.push(`
+        <div class="kv">
+          <span>${escapeHtml(teamName(team))}<small>${escapeHtml(factor.description || factor.name || "")}</small></span>
+          <strong>${Number(factor.adjustment || 0).toFixed(1)}</strong>
+        </div>
+      `);
+    });
+  });
+  if (rules.team1 !== undefined || rules.team2 !== undefined) {
+    rows.push(`
+      <div class="kv">
+        <span>新规则适应性<small>补水暂停、门将持球限制、界外球/门球倒计时等综合影响。</small></span>
+        <strong>${Number(rules.team1 || 0).toFixed(1)} : ${Number(rules.team2 || 0).toFixed(1)}</strong>
+      </div>
+    `);
+  }
+  if (!rows.length) return "";
+  return `
+    <h3 class="section-title">场外与规则因素</h3>
+    <div class="kv-list">${rows.join("")}</div>
   `;
 }
 

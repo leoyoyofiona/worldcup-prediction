@@ -143,6 +143,44 @@ class PredictionService:
             "task": self._task_snapshot(),
         }
 
+    def betting_daily(self) -> Dict[str, Any]:
+        cache = self._cache_with_auto_sync()
+        matches = sorted(
+            [
+                match
+                for match in cache.get("matches", [])
+                if match.get("teams_confirmed") and not match.get("actual_score") and match.get("betting_analysis")
+            ],
+            key=lambda match: (match.get("starts_at") or "9999-12-31T23:59:59+00:00", match.get("index") or 0),
+        )
+        days: Dict[str, List[Dict[str, Any]]] = {}
+        for match in matches:
+            day = str(match.get("date") or (match.get("starts_at") or "")[:10] or "待定")
+            days.setdefault(day, []).append(
+                {
+                    "id": match.get("id"),
+                    "round": match.get("round"),
+                    "group": match.get("group"),
+                    "date": match.get("date"),
+                    "starts_at": match.get("starts_at"),
+                    "team1": match.get("team1"),
+                    "team2": match.get("team2"),
+                    "predicted_score": match.get("predicted_score"),
+                    "confidence_label": match.get("confidence_label"),
+                    "probabilities": match.get("probabilities"),
+                    "betting_analysis": match.get("betting_analysis"),
+                }
+            )
+        day_rows = [{"date": day, "matches": rows} for day, rows in days.items()]
+        return {
+            "generated_at": cache.get("generated_at"),
+            "model_version": cache.get("model_version"),
+            "days": day_rows,
+            "current_day": day_rows[0] if day_rows else None,
+            "note": "当前未接入逐场真实胜平负赔率；页面先给出模型公平赔率和价值赔率门槛。若后续接入授权赔率，会自动计算超额水位、去水概率和价值差。",
+            "task": self._task_snapshot(),
+        }
+
     def tournament(self) -> Dict[str, Any]:
         cache = self._cache_with_auto_sync()
         return {

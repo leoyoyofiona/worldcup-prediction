@@ -45,6 +45,11 @@ def get_tournament():
     return service.tournament()
 
 
+@app.get("/api/betting/daily")
+def get_betting_daily():
+    return service.betting_daily()
+
+
 @app.get("/api/matches/{match_id}")
 def get_match(match_id: str):
     try:

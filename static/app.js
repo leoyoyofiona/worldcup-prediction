@@ -22,6 +22,9 @@ const els = {
   championStrip: document.querySelector("#championStrip"),
   stageGrid: document.querySelector("#stageGrid"),
   bracketGrid: document.querySelector("#bracketGrid"),
+  bettingDayTag: document.querySelector("#bettingDayTag"),
+  bettingNote: document.querySelector("#bettingNote"),
+  bettingList: document.querySelector("#bettingList"),
   roundFilter: document.querySelector("#roundFilter"),
   teamFilter: document.querySelector("#teamFilter"),
   confidenceFilter: document.querySelector("#confidenceFilter"),
@@ -44,6 +47,11 @@ const translations = {
     sourceStatus: "来源状态",
     performanceTitle: "真实赛果对比",
     tournamentTitle: "淘汰赛推演",
+    bettingValueTitle: "当日投注价值参考",
+    fairOdds: "公平赔率",
+    valueOdds: "价值赔率",
+    bookmakerOverround: "庄家超额水位",
+    noBettingOdds: "暂无逐场真实胜平负赔率，以下为模型门槛，不构成购彩保证。",
     round: "阶段",
     team: "球队",
     confidence: "置信度",
@@ -62,6 +70,7 @@ const translations = {
     worldCupRows: "世界杯正赛",
     marketSignal: "市场热度",
     bettingSignal: "盘口信号",
+    contextSignal: "临场信息",
     simulations: "模拟次数",
     enabled: "已启用",
     disabled: "未启用",
@@ -288,6 +297,7 @@ function renderSummary(summary = {}) {
     [t("worldCupRows"), summary.world_cup_rows ?? "--"],
     [t("marketSignal"), summary.market_signal_available ? t("enabled") : t("disabled")],
     [t("bettingSignal"), summary.betting_signal_available ? t("enabled") : t("disabled")],
+    [t("contextSignal"), summary.context_signal_available ? t("enabled") : t("disabled")],
     [t("simulations"), summary.tournament_simulations ?? "--"],
   ];
   els.summaryGrid.innerHTML = items
@@ -378,6 +388,55 @@ function renderTournament(tournament = {}) {
 
   const matchupRounds = tournament.matchup_rounds || buildMatchupRoundsFromLegacy(tournament);
   els.bracketGrid.innerHTML = matchupRounds.map(renderMatchupRound).join("");
+}
+
+function renderBettingDailyFromMatches(matches = []) {
+  const upcoming = [...matches]
+    .filter((match) => match.teams_confirmed && !match.actual_score && match.betting_analysis)
+    .sort(compareMatchTime);
+  if (!upcoming.length) {
+    els.bettingDayTag.textContent = "--";
+    els.bettingNote.textContent = t("noBettingOdds");
+    els.bettingList.innerHTML = `<div class="empty-line">暂无未赛比赛。</div>`;
+    return;
+  }
+  const day = upcoming[0].date || (upcoming[0].starts_at || "").slice(0, 10) || "待定";
+  const rows = upcoming.filter((match) => (match.date || (match.starts_at || "").slice(0, 10)) === day);
+  els.bettingDayTag.textContent = `${day} · ${rows.length} 场`;
+  els.bettingNote.textContent = t("noBettingOdds");
+  els.bettingList.innerHTML = rows.map(renderBettingCard).join("");
+}
+
+function renderBettingCard(match) {
+  const analysis = match.betting_analysis || {};
+  const fair = analysis.fair_odds || {};
+  const threshold = analysis.value_threshold_odds || {};
+  const probs = match.probabilities || {};
+  return `
+    <div class="betting-card">
+      <div>
+        <strong>${escapeHtml(matchupName(match.team1, match.team2))}</strong>
+        <small>${escapeHtml(formatDateTime(match))} · ${escapeHtml(match.round || "")} · 预测 ${escapeHtml(match.predicted_score || "待定")}</small>
+      </div>
+      <div class="odds-grid">
+        ${renderOddsCell(teamName(match.team1), probs.team1_win, fair.team1_win, threshold.team1_win)}
+        ${renderOddsCell("平局", probs.draw, fair.draw, threshold.draw)}
+        ${renderOddsCell(teamName(match.team2), probs.team2_win, fair.team2_win, threshold.team2_win)}
+      </div>
+      <p>${escapeHtml(localizeTeamText(analysis.suggestion || ""))}</p>
+      ${analysis.overround !== undefined ? `<p>${escapeHtml(t("bookmakerOverround"))}：${percent(analysis.overround)}</p>` : ""}
+    </div>
+  `;
+}
+
+function renderOddsCell(label, probability, fair, threshold) {
+  return `
+    <div class="odds-cell">
+      <span>${escapeHtml(label)} ${percent(probability)}</span>
+      <strong>${escapeHtml(t("fairOdds"))} ${fair ?? "--"}</strong>
+      <em>${escapeHtml(t("valueOdds"))} >= ${threshold ?? "--"}</em>
+    </div>
+  `;
 }
 
 function buildMatchupRoundsFromLegacy(tournament = {}) {
@@ -520,11 +579,14 @@ function renderMatchRow(match) {
 function renderContextBadges(match) {
   const offField = match.off_field || {};
   const rules = match.rule_adaptation || {};
+  const context = match.match_context || {};
   const offDelta = Number((offField.team1 || {}).adjustment || 0) - Number((offField.team2 || {}).adjustment || 0);
   const ruleDelta = Number(rules.team1 || 0) - Number(rules.team2 || 0);
+  const contextDelta = Number((context.team1 || {}).adjustment || 0) - Number((context.team2 || {}).adjustment || 0);
   const badges = [];
   if (Math.abs(offDelta) >= 0.1) badges.push(`<span class="context-badge">场外 ${formatSigned(offDelta)}</span>`);
   if (Math.abs(ruleDelta) >= 0.1) badges.push(`<span class="context-badge">规则 ${formatSigned(ruleDelta)}</span>`);
+  if (Math.abs(contextDelta) >= 0.1) badges.push(`<span class="context-badge">临场 ${formatSigned(contextDelta)}</span>`);
   return badges.join("");
 }
 
@@ -571,6 +633,7 @@ async function loadMatches() {
   renderPerformance(state.performance);
   renderFilters(state.filters);
   renderTournament(state.tournament);
+  renderBettingDailyFromMatches(state.matches);
   renderMatches();
   if (payload.generated_at) {
     els.statusLine.textContent = t("modelUpdated", {
@@ -657,6 +720,7 @@ function renderDetail(match) {
   }
   const probs = match.probabilities;
   const bettingMarket = match.betting_market || { team1: {}, team2: {} };
+  const matchContext = match.match_context || { team1: {}, team2: {} };
   const tradeMarket = match.market || { team1: {}, team2: {} };
   els.detailPanel.innerHTML = `
     <h2>${escapeHtml(matchupName(match.team1, match.team2))}</h2>
@@ -677,6 +741,7 @@ function renderDetail(match) {
       <div class="kv"><span>${escapeHtml(t("bothScore"))}</span><strong>${percent((match.score_summary || {}).both_teams_score)}</strong></div>
     </div>
     ${renderAdvance(match)}
+    ${renderBettingAnalysis(match)}
     <h3 class="section-title">${escapeHtml(t("modelExplanation"))}</h3>
     <div class="kv-list">
       ${(match.explanation || []).map((item) => `<div class="kv"><span>${escapeHtml(localizeTeamText(item))}</span></div>`).join("")}
@@ -694,6 +759,8 @@ function renderDetail(match) {
     <div class="kv-list">
       ${renderTeamMetric(match.team1, match.team_metrics[match.team1], tradeMarket.team1, bettingMarket.team1)}
       ${renderTeamMetric(match.team2, match.team_metrics[match.team2], tradeMarket.team2, bettingMarket.team2)}
+      ${renderContextMetric(match.team1, matchContext.team1)}
+      ${renderContextMetric(match.team2, matchContext.team2)}
     </div>
   `;
 }
@@ -740,6 +807,29 @@ function renderContextFactors(match) {
   return `
     <h3 class="section-title">场外与规则因素</h3>
     <div class="kv-list">${rows.join("")}</div>
+  `;
+}
+
+function renderBettingAnalysis(match) {
+  const analysis = match.betting_analysis || {};
+  if (!analysis.available) return "";
+  return `
+    <h3 class="section-title">赔率价值参考</h3>
+    <div class="betting-list">
+      ${renderBettingCard(match)}
+    </div>
+  `;
+}
+
+function renderContextMetric(team, context = {}) {
+  if (!context || !context.available) return "";
+  return `
+    <div class="kv">
+      <span>${escapeHtml(teamName(team))}
+        <small>伤停 ${context.injury_hits ?? 0} · 首发 ${context.lineup_hits ?? 0} · 裁判/天气 ${context.weather_referee_hits ?? 0}</small>
+      </span>
+      <strong>临场 ${formatSigned(context.adjustment || 0)}</strong>
+    </div>
   `;
 }
 

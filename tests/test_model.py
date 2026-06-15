@@ -1,6 +1,8 @@
 from app.model import (
     build_betting_scores,
+    build_betting_analysis,
     build_market_scores,
+    build_context_scores,
     build_post_match_calibration,
     build_predictions,
     build_prediction_performance,
@@ -83,6 +85,30 @@ def test_build_betting_scores_uses_nearby_odds():
     assert scores["Brazil"]["available"] is True
     assert scores["Brazil"]["best_decimal_odds"] == 4.5
     assert scores["Brazil"]["adjustment"] > scores["Canada"]["adjustment"]
+
+
+def test_betting_analysis_calculates_overround_and_value_thresholds():
+    match = {
+        "team1": "Brazil",
+        "team2": "Canada",
+        "probabilities": {"team1_win": 60.0, "draw": 24.0, "team2_win": 16.0},
+    }
+    analysis = build_betting_analysis(match, {"team1_win": 1.8, "draw": 3.6, "team2_win": 5.4})
+    assert analysis["has_quoted_odds"] is True
+    assert analysis["overround"] > 0.0
+    assert analysis["fair_odds"]["team1_win"] == 1.67
+    assert analysis["value_threshold_odds"]["team1_win"] > analysis["fair_odds"]["team1_win"]
+    assert len(analysis["rows"]) == 3
+
+
+def test_context_scores_penalize_injury_mentions():
+    scores = build_context_scores(
+        ["Brazil", "Canada"],
+        ["Brazil injury doubtful suspended. Canada starting XI lineup confirmed. referee weather forecast"],
+    )
+    assert scores["Brazil"]["adjustment"] < 0
+    assert scores["Canada"]["adjustment"] > scores["Brazil"]["adjustment"]
+    assert scores["Canada"]["weather_referee_hits"] > 0
 
 
 def test_knockout_placeholder_detection():

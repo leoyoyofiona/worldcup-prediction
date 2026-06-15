@@ -148,6 +148,23 @@ BETTING_SOURCE_IDS = [
     "comparebet_uk",
 ]
 
+CONTEXT_SOURCE_IDS = ["lineup_injury_search", "referee_weather_search"]
+INJURY_KEYWORDS = [
+    "injury",
+    "injured",
+    "doubtful",
+    "out",
+    "suspended",
+    "suspension",
+    "misses",
+    "伤病",
+    "受伤",
+    "缺阵",
+    "停赛",
+]
+LINEUP_KEYWORDS = ["lineup", "starting xi", "starter", "首发", "阵容"]
+WEATHER_REFEREE_KEYWORDS = ["weather", "forecast", "referee", "VAR", "天气", "裁判", "判罚"]
+
 GROUP_LETTERS = list("ABCDEFGHIJKL")
 TOURNAMENT_RANDOM_SEED = 20260603
 
@@ -919,6 +936,48 @@ def build_betting_scores(teams: Iterable[str], raw_texts: Iterable[str]) -> Dict
     return scores
 
 
+def count_keywords(window: str, keywords: Sequence[str]) -> int:
+    lowered = strip_accents(window).lower()
+    return sum(lowered.count(strip_accents(keyword).lower()) for keyword in keywords)
+
+
+def build_context_scores(teams: Iterable[str], raw_texts: Iterable[str]) -> Dict[str, Dict[str, Any]]:
+    cleaned = "\n".join(clean_text(text) for text in raw_texts if text)
+    lowered = strip_accents(cleaned).lower()
+    global_hits = count_keywords(cleaned, WEATHER_REFEREE_KEYWORDS)
+    scores: Dict[str, Dict[str, Any]] = {}
+    for team in teams:
+        mentions = 0
+        injury_hits = 0
+        lineup_hits = 0
+        for alias in team_aliases_for_text(team):
+            if len(alias) < 3:
+                continue
+            if re.search(r"[\u4e00-\u9fff]", alias):
+                pattern = re.escape(alias)
+                source_text = cleaned
+            else:
+                pattern = rf"(?<![a-z0-9]){re.escape(strip_accents(alias).lower())}(?![a-z0-9])"
+                source_text = lowered
+            for match in re.finditer(pattern, source_text):
+                mentions += 1
+                start = match.start()
+                end = min(len(source_text), match.end() + 160)
+                window = source_text[start:end]
+                injury_hits += count_keywords(window, INJURY_KEYWORDS)
+                lineup_hits += count_keywords(window, LINEUP_KEYWORDS)
+        adjustment = clamp(lineup_hits * 1.5 - injury_hits * 4.0, -16.0, 6.0)
+        scores[team] = {
+            "available": bool(cleaned and (mentions or global_hits)),
+            "mentions": mentions,
+            "injury_hits": injury_hits,
+            "lineup_hits": lineup_hits,
+            "weather_referee_hits": global_hits,
+            "adjustment": round(adjustment, 1),
+        }
+    return scores
+
+
 def parse_fifa_rankings(raw_text: str, teams: Iterable[str]) -> Dict[str, int]:
     cleaned = clean_text(raw_text)
     rankings: Dict[str, int] = {}
@@ -1010,6 +1069,97 @@ def confidence_label(probabilities: Dict[str, float]) -> Tuple[float, str]:
 
 def pct(value: float) -> float:
     return round(value * 100.0, 1)
+
+
+def decimal_from_probability(probability_pct: float) -> Optional[float]:
+    probability = float(probability_pct or 0.0) / 100.0
+    if probability <= 0:
+        return None
+    return round(1.0 / probability, 2)
+
+
+def build_betting_analysis(match: Dict[str, Any], quoted_odds: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
+    probabilities = match.get("probabilities") or {}
+    if not probabilities:
+        return {"available": False, "note": "参赛队未确定，暂不做赔率价值分析。"}
+
+    labels = {
+        "team1_win": match.get("team1"),
+        "draw": "平局",
+        "team2_win": match.get("team2"),
+    }
+    model_probabilities = {key: float(probabilities.get(key) or 0.0) for key in ("team1_win", "draw", "team2_win")}
+    fair_odds = {key: decimal_from_probability(value) for key, value in model_probabilities.items()}
+    value_threshold_odds = {
+        key: round((1.05 / max(value / 100.0, 0.001)), 2)
+        for key, value in model_probabilities.items()
+    }
+    favorite_key = max(model_probabilities, key=model_probabilities.get)
+
+    analysis: Dict[str, Any] = {
+        "available": True,
+        "has_quoted_odds": False,
+        "model_probabilities": model_probabilities,
+        "fair_odds": fair_odds,
+        "value_threshold_odds": value_threshold_odds,
+        "favorite": favorite_key,
+        "suggestion": f"等待真实胜平负赔率；若{labels[favorite_key]}赔率高于 {value_threshold_odds[favorite_key]}，才进入价值观察区。",
+        "risk_note": "赔率价值不是中奖保证；庄家水位、限额和临场信息会改变期望值。",
+    }
+    if not quoted_odds:
+        return analysis
+
+    valid_odds = {
+        key: float(value)
+        for key, value in quoted_odds.items()
+        if key in model_probabilities and value and float(value) > 1.0
+    }
+    if len(valid_odds) != 3:
+        analysis["note"] = "真实胜平负赔率不完整，暂不计算庄家超额水位。"
+        return analysis
+
+    implied = {key: 1.0 / value for key, value in valid_odds.items()}
+    book_sum = sum(implied.values())
+    no_vig = {key: implied[key] / book_sum for key in implied}
+    rows = []
+    best_key = None
+    best_ev = -999.0
+    for key in ("team1_win", "draw", "team2_win"):
+        model_probability = model_probabilities[key] / 100.0
+        expected_value = model_probability * valid_odds[key] - 1.0
+        edge = model_probability - no_vig[key]
+        if expected_value > best_ev:
+            best_ev = expected_value
+            best_key = key
+        rows.append(
+            {
+                "outcome": key,
+                "label": labels[key],
+                "quoted_odds": round(valid_odds[key], 2),
+                "implied_probability": pct(implied[key]),
+                "no_vig_probability": pct(no_vig[key]),
+                "model_probability": pct(model_probability),
+                "edge": round(edge * 100.0, 1),
+                "expected_value": round(expected_value * 100.0, 1),
+                "value": expected_value >= 0.03 and edge >= 0.02,
+            }
+        )
+
+    analysis.update(
+        {
+            "has_quoted_odds": True,
+            "quoted_odds": {key: round(value, 2) for key, value in valid_odds.items()},
+            "overround": round((book_sum - 1.0) * 100.0, 1),
+            "no_vig_probabilities": {key: pct(value) for key, value in no_vig.items()},
+            "rows": rows,
+            "suggestion": (
+                f"模型价值倾向：{labels[best_key]}，EV {round(best_ev * 100.0, 1)}%。"
+                if best_key and best_ev >= 0.03
+                else "当前真实赔率未达到模型价值阈值，建议观望。"
+            ),
+        }
+    )
+    return analysis
 
 
 def select_representative_score(
@@ -1424,6 +1574,7 @@ def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dic
             **score_distribution_summary(distribution),
         }
         match["scoreline_distribution"] = top_scores
+        match["betting_analysis"] = build_betting_analysis(match)
         if match.get("is_knockout"):
             rating1 = float((match.get("effective_ratings") or {}).get("team1") or 1500.0)
             rating2 = float((match.get("effective_ratings") or {}).get("team2") or 1500.0)
@@ -1499,10 +1650,12 @@ def effective_team_rating(
     market_scores: Dict[str, Dict[str, Any]],
     betting_scores: Dict[str, Dict[str, Any]],
     rankings: Dict[str, int],
-) -> Tuple[float, Dict[str, float], Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
+    context_scores: Optional[Dict[str, Dict[str, Any]]] = None,
+) -> Tuple[float, Dict[str, float], Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any], Dict[str, Any]]:
     stat = team_stats.get(team) or fallback_team_stat(team)
     market = market_scores.get(team, default_signal())
     betting = betting_scores.get(team, default_signal())
+    context = (context_scores or {}).get(team, default_signal())
     off_field = off_field_signal(team)
     host_adjustment = 35.0 if team in HOST_TEAMS else 0.0
     ranking_adj = ranking_adjustment(rankings.get(team))
@@ -1513,13 +1666,14 @@ def effective_team_rating(
         "goldman": float(stat.get("goldman_adjustment", 0.0)),
         "market": float(market.get("adjustment", 0.0)),
         "betting": float(betting.get("adjustment", 0.0)),
+        "context": float(context.get("adjustment", 0.0)),
         "off_field": float(off_field.get("adjustment", 0.0)),
         "rules": rules_adj,
         "host": host_adjustment,
         "ranking": ranking_adj,
     }
     rating = sum(components.values())
-    return rating, components, stat, market, betting, off_field
+    return rating, components, stat, market, betting, off_field, context
 
 
 def predict_match(
@@ -1528,6 +1682,7 @@ def predict_match(
     market_scores: Dict[str, Dict[str, Any]],
     rankings: Optional[Dict[str, int]] = None,
     betting_scores: Optional[Dict[str, Dict[str, Any]]] = None,
+    context_scores: Optional[Dict[str, Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     team1 = canonicalize_team(match["team1"], team_stats.keys())
     team2 = canonicalize_team(match["team2"], team_stats.keys())
@@ -1554,8 +1709,9 @@ def predict_match(
 
     rankings = rankings or {}
     betting_scores = betting_scores or {}
-    rating1, components1, stat1, market1, betting1, off_field1 = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings)
-    rating2, components2, stat2, market2, betting2, off_field2 = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings)
+    context_scores = context_scores or {}
+    rating1, components1, stat1, market1, betting1, off_field1, context1 = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings, context_scores)
+    rating2, components2, stat2, market2, betting2, off_field2, context2 = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings, context_scores)
     diff = rating1 - rating2
 
     lambda_base = 1.42
@@ -1652,6 +1808,11 @@ def predict_match(
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。",
         },
         {
+            "name": "临场信息修正",
+            "value": round(components1["context"] - components2["context"], 1),
+            "description": "公开页面中的首发、伤病、停赛、天气和裁判信息；无授权数据时只做小幅修正。",
+        },
+        {
             "name": "场外不确定性修正",
             "value": round(components1["off_field"] - components2["off_field"], 1),
             "description": "装备、签证、入境、旅行和临时后勤事件，只作为小幅临场扰动。",
@@ -1676,13 +1837,13 @@ def predict_match(
     base.update(
         {
             "teams_confirmed": True,
-            "probabilities": probabilities,
-            "favorite": favorite,
-            "predicted_score": predicted_score,
-            "confidence": round(confidence, 3),
-            "confidence_label": label,
-            "expected_goals": {"team1": round(lambda1, 2), "team2": round(lambda2, 2)},
-            "score_summary": score_summary,
+        "probabilities": probabilities,
+        "favorite": favorite,
+        "predicted_score": predicted_score,
+        "confidence": round(confidence, 3),
+        "confidence_label": label,
+        "expected_goals": {"team1": round(lambda1, 2), "team2": round(lambda2, 2)},
+        "score_summary": score_summary,
             "effective_ratings": {"team1": round(rating1, 1), "team2": round(rating2, 1)},
             "market": {
                 "team1": market1,
@@ -1693,6 +1854,11 @@ def predict_match(
                 "team1": betting1,
                 "team2": betting2,
                 "available": bool(betting1.get("available") or betting2.get("available")),
+            },
+            "match_context": {
+                "team1": context1,
+                "team2": context2,
+                "available": bool(context1.get("available") or context2.get("available")),
             },
             "off_field": {
                 "team1": off_field1,
@@ -1708,6 +1874,7 @@ def predict_match(
             "advance_probabilities": advance_probabilities,
         }
     )
+    base["betting_analysis"] = build_betting_analysis(base)
     return base
 
 
@@ -1770,9 +1937,11 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "actual_score",
         "prediction_result",
         "off_field",
+        "match_context",
         "rule_adaptation",
         "post_match_calibration",
         "group_stage_context",
+        "betting_analysis",
     ]
     return {key: match.get(key) for key in fields}
 
@@ -2194,6 +2363,7 @@ def virtual_prediction(
     market_scores: Dict[str, Dict[str, Any]],
     betting_scores: Dict[str, Dict[str, Any]],
     rankings: Dict[str, int],
+    context_scores: Dict[str, Dict[str, Any]],
     match: Dict[str, Any],
 ) -> Dict[str, Any]:
     virtual_match = dict(match)
@@ -2201,7 +2371,7 @@ def virtual_prediction(
     virtual_match["team2"] = team2
     virtual_match["group"] = ""
     virtual_match["is_knockout"] = True
-    return predict_match(virtual_match, team_stats, market_scores, rankings, betting_scores)
+    return predict_match(virtual_match, team_stats, market_scores, rankings, betting_scores, context_scores)
 
 
 def deterministic_bracket_projection(
@@ -2210,6 +2380,7 @@ def deterministic_bracket_projection(
     market_scores: Dict[str, Dict[str, Any]],
     betting_scores: Dict[str, Dict[str, Any]],
     rankings: Dict[str, int],
+    context_scores: Dict[str, Dict[str, Any]],
 ) -> Dict[str, Any]:
     group_matches = [match for match in matches if group_letter(match.get("group", ""))]
     knockout_matches = [match for match in matches if match.get("is_knockout")]
@@ -2235,7 +2406,7 @@ def deterministic_bracket_projection(
         if not team1 or not team2:
             projected_matches.append({**match, "team1": team1 or match["team1"], "team2": team2 or match["team2"], "winner": "待定"})
             continue
-        prediction = virtual_prediction(team1, team2, team_stats, market_scores, betting_scores, rankings, match)
+        prediction = virtual_prediction(team1, team2, team_stats, market_scores, betting_scores, rankings, context_scores, match)
         advance = prediction.get("advance_probabilities") or {"team1": 50.0, "team2": 50.0}
         if float(advance["team1"]) >= float(advance["team2"]):
             winner, loser = team1, team2
@@ -2296,6 +2467,7 @@ def simulated_stage_probabilities(
     market_scores: Dict[str, Dict[str, Any]],
     betting_scores: Dict[str, Dict[str, Any]],
     rankings: Dict[str, int],
+    context_scores: Dict[str, Dict[str, Any]],
     simulations: int = TOURNAMENT_SIMULATIONS,
 ) -> List[Dict[str, Any]]:
     group_inputs: List[Tuple[str, str, str, float, float, float, float, Optional[int], Optional[int]]] = []
@@ -2338,8 +2510,8 @@ def simulated_stage_probabilities(
         key = (team1, team2)
         if key in advance_cache:
             return advance_cache[key]
-        rating1, _, _, _, _, _ = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings)
-        rating2, _, _, _, _, _ = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings)
+        rating1, _, _, _, _, _, _ = effective_team_rating(team1, team_stats, market_scores, betting_scores, rankings, context_scores)
+        rating2, _, _, _, _, _, _ = effective_team_rating(team2, team_stats, market_scores, betting_scores, rankings, context_scores)
         probability = clamp(expected_score(rating1, rating2), 0.06, 0.94)
         advance_cache[key] = probability
         advance_cache[(team2, team1)] = 1.0 - probability
@@ -2468,9 +2640,11 @@ def build_tournament_projection(
     market_scores: Dict[str, Dict[str, Any]],
     betting_scores: Dict[str, Dict[str, Any]],
     rankings: Dict[str, int],
+    context_scores: Optional[Dict[str, Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
-    deterministic = deterministic_bracket_projection(matches, team_stats, market_scores, betting_scores, rankings)
-    probabilities = simulated_stage_probabilities(matches, teams, team_stats, market_scores, betting_scores, rankings)
+    context_scores = context_scores or {}
+    deterministic = deterministic_bracket_projection(matches, team_stats, market_scores, betting_scores, rankings, context_scores)
+    probabilities = simulated_stage_probabilities(matches, teams, team_stats, market_scores, betting_scores, rankings, context_scores)
     return {
         "simulations": TOURNAMENT_SIMULATIONS,
         "stage_probabilities": probabilities,
@@ -2515,12 +2689,14 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
     market_scores = build_market_scores(schedule_teams, market_texts)
     betting_texts = [raw_payloads.get(source_id, "") for source_id in BETTING_SOURCE_IDS]
     betting_scores = build_betting_scores(schedule_teams, betting_texts)
+    context_texts = [raw_payloads.get(source_id, "") for source_id in CONTEXT_SOURCE_IDS]
+    context_scores = build_context_scores(schedule_teams, context_texts)
     rankings = parse_fifa_rankings(raw_payloads.get("fifa_ranking", ""), schedule_teams)
 
-    matches = [predict_match(match, team_stats, market_scores, rankings, betting_scores) for match in schedule]
+    matches = [predict_match(match, team_stats, market_scores, rankings, betting_scores, context_scores) for match in schedule]
     apply_actual_results(matches, load_actual_results())
     performance = build_prediction_performance(matches)
-    tournament = build_tournament_projection(matches, schedule_teams, team_stats, market_scores, betting_scores, rankings)
+    tournament = build_tournament_projection(matches, schedule_teams, team_stats, market_scores, betting_scores, rankings, context_scores)
     filters = {
         "rounds": sorted({match["round"] for match in matches if match.get("round")}),
         "teams": schedule_teams,
@@ -2529,6 +2705,7 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
     }
     market_available = any(item.get("available") for item in market_scores.values())
     betting_available = any(item.get("available") for item in betting_scores.values())
+    context_available = any(item.get("available") for item in context_scores.values())
     return {
         "model_version": MODEL_VERSION,
         "generated_at": now_iso(),
@@ -2546,6 +2723,7 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
             "world_cup_local_signal_available": bool(world_cup_results),
             "market_signal_available": market_available,
             "betting_signal_available": betting_available,
+            "context_signal_available": context_available,
             "tournament_simulations": tournament["simulations"],
             "fifa_rankings_used": len(rankings),
             "actual_result_count": performance["sample_size"],

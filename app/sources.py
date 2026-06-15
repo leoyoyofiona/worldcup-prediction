@@ -105,6 +105,33 @@ WEB_SOURCES: List[WebSource] = [
         url="https://www.compare.bet/betting/football/world-cup/winner-odds",
         filename="comparebet_uk.html",
     ),
+    WebSource(
+        id="lineup_injury_search",
+        name="公开首发/伤病/停赛搜索页",
+        url="https://duckduckgo.com/html/?q=2026%20World%20Cup%20lineup%20injury%20suspension%20starting%20XI",
+        filename="lineup_injury_search.html",
+    ),
+    WebSource(
+        id="referee_weather_search",
+        name="公开裁判/天气信息搜索页",
+        url="https://duckduckgo.com/html/?q=2026%20World%20Cup%20referee%20weather%20stadium%20forecast",
+        filename="referee_weather_search.html",
+    ),
+]
+
+AUTHORIZED_DATA_SOURCES: List[WebSource] = [
+    WebSource(
+        id="sportradar_authorized",
+        name="Sportradar 授权赛事/球员/赔率数据",
+        url="https://developer.sportradar.com/",
+        filename="sportradar_authorized.json",
+    ),
+    WebSource(
+        id="genius_sports_authorized",
+        name="Genius Sports 授权赛事/赔率数据",
+        url="https://www.geniussports.com/",
+        filename="genius_sports_authorized.json",
+    ),
 ]
 
 LOCAL_WORLDCUP_SOURCE = WebSource(
@@ -134,6 +161,17 @@ def source_status(
         "using_cache": using_cache,
         "fetched_at": now_iso(),
     }
+
+
+def authorized_source_statuses() -> List[Dict[str, object]]:
+    return [
+        source_status(
+            source,
+            False,
+            "需要商业授权/API Key；当前版本不伪造数据，未授权时自动跳过。",
+        )
+        for source in AUTHORIZED_DATA_SOURCES
+    ]
 
 
 def read_text_with_fallback(path: Path) -> str:
@@ -235,6 +273,7 @@ async def fetch_sources() -> Tuple[Dict[str, str], List[Dict[str, object]]]:
     if local_content is not None:
         raw_payloads[LOCAL_WORLDCUP_SOURCE.id] = local_content
     statuses.append(local_status)
+    statuses.extend(authorized_source_statuses())
     return raw_payloads, statuses
 
 
@@ -260,4 +299,5 @@ def load_cached_sources() -> Tuple[Dict[str, str], List[Dict[str, object]]]:
     if local_content is not None:
         raw_payloads[LOCAL_WORLDCUP_SOURCE.id] = local_content
     statuses.append(local_status)
+    statuses.extend(authorized_source_statuses())
     return raw_payloads, statuses

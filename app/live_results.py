@@ -66,6 +66,7 @@ def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -
         return
     market_scores = collect_signal_scores(matches, "market")
     betting_scores = collect_signal_scores(matches, "betting_market")
+    context_scores = collect_signal_scores(matches, "match_context")
     rankings = collect_rankings(matches)
     payload["tournament"] = build_tournament_projection(
         matches,
@@ -74,6 +75,7 @@ def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -
         market_scores,
         betting_scores,
         rankings,
+        context_scores,
     )
 
 

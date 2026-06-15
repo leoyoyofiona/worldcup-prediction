@@ -186,6 +186,14 @@ button.primary:hover {
   white-space: nowrap;
 }
 
+.comparison-row small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: normal;
+}
+
 .comparison-row .hit {
   color: var(--green-dark);
   font-weight: 700;
@@ -673,6 +681,27 @@ button.primary:hover {
   font-size: 14px;
 }
 
+.bet-slip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 10px;
+  border: 1px dashed #d8c7a0;
+  border-radius: 6px;
+  background: #fffaf0;
+}
+
+.bet-slip span,
+.bet-slip em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.bet-slip strong {
+  font-size: 13px;
+}
+
 .drawer {
   position: fixed;
   inset: 0;
@@ -745,7 +774,8 @@ button.primary:hover {
   .champion-strip,
   .stage-grid,
   .bracket-grid,
-  .odds-grid {
+  .odds-grid,
+  .bet-slip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -802,6 +832,7 @@ button.primary:hover {
   .stage-grid,
   .bracket-grid,
   .odds-grid,
+  .bet-slip,
   .filters,
   .prob-grid {
     grid-template-columns: 1fr;

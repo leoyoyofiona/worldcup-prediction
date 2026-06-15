@@ -3,7 +3,8 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 import threading
 from copy import deepcopy
 from datetime import datetime, timezone
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+from zoneinfo import ZoneInfo
 
 from .cache import empty_cache, load_cache, now_iso, save_cache
 from .config import MODEL_VERSION, UPDATE_JOB_TIMEOUT_SECONDS
@@ -13,6 +14,8 @@ from .sources import authorized_source_statuses, fetch_sources, load_cached_sour
 
 
 AUTO_SYNC_INTERVAL_SECONDS = 300
+BEIJING_TZ = ZoneInfo("Asia/Shanghai")
+DAILY_BETTING_BUDGET = 100.0
 
 
 class PredictionService:
@@ -162,7 +165,7 @@ class PredictionService:
         )
         days: Dict[str, List[Dict[str, Any]]] = {}
         for match in matches:
-            day = str(match.get("date") or (match.get("starts_at") or "")[:10] or "待定")
+            day = beijing_date_key(match)
             days.setdefault(day, []).append(
                 {
                     "id": match.get("id"),
@@ -178,13 +181,22 @@ class PredictionService:
                     "betting_analysis": match.get("betting_analysis"),
                 }
             )
-        day_rows = [{"date": day, "matches": rows} for day, rows in days.items()]
+        day_rows = []
+        for day, rows in days.items():
+            day_rows.append(
+                {
+                    "date": day,
+                    "timezone": "Asia/Shanghai",
+                    "budget": DAILY_BETTING_BUDGET,
+                    "matches": attach_betting_recommendations(rows, DAILY_BETTING_BUDGET),
+                }
+            )
         return {
             "generated_at": cache.get("generated_at"),
             "model_version": cache.get("model_version"),
             "days": day_rows,
             "current_day": day_rows[0] if day_rows else None,
-            "note": "当前未接入逐场真实胜平负赔率；页面先给出模型公平赔率和价值赔率门槛。若后续接入授权赔率，会自动计算超额水位、去水概率和价值差。",
+            "note": "金额为按每日 100 元示例预算生成的模型参考，不是收益保证；若接入真实体彩赔率，会优先使用真实赔率计算超额水位、去水概率、EV 和可能奖金。",
             "task": self._task_snapshot(),
         }
 
@@ -277,3 +289,75 @@ class PredictionService:
 
 
 service = PredictionService()
+
+
+def beijing_datetime(match: Dict[str, Any]) -> Optional[datetime]:
+    starts_at = match.get("starts_at")
+    if not starts_at:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(starts_at).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(BEIJING_TZ)
+
+
+def beijing_date_key(match: Dict[str, Any]) -> str:
+    parsed = beijing_datetime(match)
+    if parsed:
+        return parsed.date().isoformat()
+    return str(match.get("date") or "待定")
+
+
+def attach_betting_recommendations(rows: List[Dict[str, Any]], budget: float) -> List[Dict[str, Any]]:
+    weighted: List[tuple[float, Dict[str, Any]]] = []
+    for row in rows:
+        analysis = row.get("betting_analysis") or {}
+        probabilities = analysis.get("model_probabilities") or row.get("probabilities") or {}
+        if not probabilities:
+            weight = 1.0
+        else:
+            values = sorted([float(value or 0.0) for value in probabilities.values()], reverse=True)
+            gap = (values[0] - values[1]) if len(values) > 1 else values[0]
+            weight = max(0.8, gap / 10.0)
+        weighted.append((weight, row))
+
+    total_weight = sum(weight for weight, _ in weighted) or 1.0
+    for index, (weight, row) in enumerate(weighted):
+        raw_stake = budget * weight / total_weight
+        stake = max(2.0, round(raw_stake / 2.0) * 2.0)
+        if index == len(weighted) - 1:
+            used = sum(float(item.get("betting_recommendation", {}).get("stake", 0.0)) for _, item in weighted[:index])
+            stake = max(2.0, round((budget - used) / 2.0) * 2.0)
+        row["betting_recommendation"] = build_betting_recommendation(row, stake)
+    return [row for _, row in weighted]
+
+
+def build_betting_recommendation(row: Dict[str, Any], stake: float) -> Dict[str, Any]:
+    analysis = row.get("betting_analysis") or {}
+    probabilities = analysis.get("model_probabilities") or row.get("probabilities") or {}
+    favorite = analysis.get("favorite") or max(probabilities, key=probabilities.get)
+    labels = {
+        "team1_win": row.get("team1"),
+        "draw": "平局",
+        "team2_win": row.get("team2"),
+    }
+    fair_odds = analysis.get("fair_odds") or {}
+    threshold_odds = analysis.get("value_threshold_odds") or {}
+    quoted_odds = analysis.get("quoted_odds") or {}
+    odds = float(quoted_odds.get(favorite) or threshold_odds.get(favorite) or fair_odds.get(favorite) or 1.0)
+    possible_payout = round(stake * odds, 2)
+    possible_profit = round(possible_payout - stake, 2)
+    return {
+        "play_type": "竞彩足球胜平负",
+        "selection": labels.get(favorite, favorite),
+        "outcome_key": favorite,
+        "stake": round(stake, 2),
+        "reference_odds": round(odds, 2),
+        "odds_type": "真实赔率" if favorite in quoted_odds else "建议最低参考赔率",
+        "possible_payout": possible_payout,
+        "possible_profit": possible_profit,
+        "risk_note": "按模型概率和参考赔率估算，实际出票赔率、过关方式、税费规则和赛果会改变奖金。",
+    }

@@ -2088,6 +2088,7 @@ def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str,
             {
                 "id": match.get("id"),
                 "date": match.get("date"),
+                "starts_at": match.get("starts_at"),
                 "team1": match.get("team1"),
                 "team2": match.get("team2"),
                 "predicted_score": match.get("predicted_score"),
@@ -2099,6 +2100,7 @@ def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str,
                 "source_url": actual.get("source_url"),
             }
         )
+    rows.sort(key=lambda row: (row.get("starts_at") or row.get("date") or "", row.get("id") or ""))
     return {
         "sample_size": sample_size,
         "outcome_hits": outcome_hits,

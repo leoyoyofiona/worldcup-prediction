@@ -223,12 +223,29 @@ function applyLanguage() {
 
 function formatDateTime(match) {
   if (!match.starts_at) return `${match.date || ""} ${match.time || ""}`.trim();
-  const date = new Date(match.starts_at);
+  return formatBeijingDateTime(match.starts_at);
+}
+
+function formatBeijingDateTime(value) {
+  if (!value) return "";
+  const date = new Date(value);
   return new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai",
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+  }).format(date);
+}
+
+function beijingDateKey(match) {
+  if (!match.starts_at) return match.date || "待定";
+  const date = new Date(match.starts_at);
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   }).format(date);
 }
 
@@ -333,7 +350,7 @@ function renderPerformance(performance = {}) {
     </div>
     ${rows.map((row) => `
       <div class="comparison-row">
-        <span>${escapeHtml(matchupName(row.team1, row.team2))}</span>
+        <span>${escapeHtml(matchupName(row.team1, row.team2))}<small>${escapeHtml(formatBeijingDateTime(row.starts_at))} 北京时间</small></span>
         <strong>${escapeHtml(row.predicted_score || "--")}</strong>
         <strong>${escapeHtml(row.actual_score || "--")}</strong>
         <span class="${row.exact_score_hit ? "hit" : row.outcome_hit ? "partial-hit" : "miss"}">
@@ -400,11 +417,50 @@ function renderBettingDailyFromMatches(matches = []) {
     els.bettingList.innerHTML = `<div class="empty-line">暂无未赛比赛。</div>`;
     return;
   }
-  const day = upcoming[0].date || (upcoming[0].starts_at || "").slice(0, 10) || "待定";
-  const rows = upcoming.filter((match) => (match.date || (match.starts_at || "").slice(0, 10)) === day);
-  els.bettingDayTag.textContent = `${day} · ${rows.length} 场`;
+  const day = beijingDateKey(upcoming[0]);
+  const rows = upcoming.filter((match) => beijingDateKey(match) === day);
+  const rowsWithStakes = attachBettingStakes(rows, 100);
+  els.bettingDayTag.textContent = `${day} 北京时间 · ${rows.length} 场 · 示例预算 100 元`;
   els.bettingNote.textContent = t("noBettingOdds");
-  els.bettingList.innerHTML = rows.map(renderBettingCard).join("");
+  els.bettingList.innerHTML = rowsWithStakes.map(renderBettingCard).join("");
+}
+
+function attachBettingStakes(rows, budget) {
+  const weighted = rows.map((match) => {
+    const probs = Object.values((match.betting_analysis || {}).model_probabilities || match.probabilities || {}).map(Number).sort((a, b) => b - a);
+    const gap = probs.length > 1 ? probs[0] - probs[1] : probs[0] || 10;
+    return { match, weight: Math.max(0.8, gap / 10) };
+  });
+  const totalWeight = weighted.reduce((sum, item) => sum + item.weight, 0) || 1;
+  let used = 0;
+  return weighted.map((item, index) => {
+    const copy = { ...item.match };
+    let stake = Math.max(2, Math.round((budget * item.weight / totalWeight) / 2) * 2);
+    if (index === weighted.length - 1) stake = Math.max(2, Math.round((budget - used) / 2) * 2);
+    used += stake;
+    copy.betting_recommendation = buildClientBettingRecommendation(copy, stake);
+    return copy;
+  });
+}
+
+function buildClientBettingRecommendation(match, stake) {
+  const analysis = match.betting_analysis || {};
+  const probabilities = analysis.model_probabilities || match.probabilities || {};
+  const favorite = analysis.favorite || Object.entries(probabilities).sort((a, b) => Number(b[1]) - Number(a[1]))[0]?.[0] || "team1_win";
+  const labels = { team1_win: teamName(match.team1), draw: "平局", team2_win: teamName(match.team2) };
+  const quoted = analysis.quoted_odds || {};
+  const threshold = analysis.value_threshold_odds || {};
+  const fair = analysis.fair_odds || {};
+  const odds = Number(quoted[favorite] || threshold[favorite] || fair[favorite] || 1);
+  return {
+    play_type: "竞彩足球胜平负",
+    selection: labels[favorite] || favorite,
+    stake,
+    reference_odds: odds,
+    odds_type: quoted[favorite] ? "真实赔率" : "建议最低参考赔率",
+    possible_payout: Number((stake * odds).toFixed(2)),
+    possible_profit: Number((stake * odds - stake).toFixed(2)),
+  };
 }
 
 function renderBettingCard(match) {
@@ -424,8 +480,23 @@ function renderBettingCard(match) {
         ${renderOddsCell(teamName(match.team2), probs.team2_win, fair.team2_win, threshold.team2_win)}
       </div>
       <p>${escapeHtml(localizeTeamText(analysis.suggestion || ""))}</p>
+      ${renderBettingRecommendation(match.betting_recommendation)}
       ${renderLotteryReference(analysis.lottery_reference)}
       ${analysis.overround !== undefined ? `<p>${escapeHtml(t("bookmakerOverround"))}：${percent(analysis.overround)}</p>` : ""}
+    </div>
+  `;
+}
+
+function renderBettingRecommendation(recommendation = {}) {
+  if (!recommendation.play_type) return "";
+  return `
+    <div class="bet-slip">
+      <span>玩法：${escapeHtml(recommendation.play_type)}</span>
+      <span>选择：${escapeHtml(recommendation.selection)}</span>
+      <span>金额：${Number(recommendation.stake || 0).toFixed(0)} 元</span>
+      <span>${escapeHtml(recommendation.odds_type || "参考赔率")}：${Number(recommendation.reference_odds || 0).toFixed(2)}</span>
+      <strong>可能奖金：${Number(recommendation.possible_payout || 0).toFixed(2)} 元</strong>
+      <em>可能盈利：${Number(recommendation.possible_profit || 0).toFixed(2)} 元</em>
     </div>
   `;
 }
@@ -554,6 +625,7 @@ function renderMatchRow(match) {
   const team1Prob = probs ? probs.team1_win : null;
   const drawProb = probs ? probs.draw : null;
   const team2Prob = probs ? probs.team2_win : null;
+  const actual = match.actual_score;
   return `
     <button class="match-row ${state.selectedId === match.id ? "active" : ""}" data-id="${escapeHtml(match.id)}">
       <div class="match-meta">
@@ -578,7 +650,8 @@ function renderMatchRow(match) {
         ${bar(t("awayWin"), team2Prob, "away")}
       </div>
       <div class="prediction-cell">
-        <span class="score">${escapeHtml(match.predicted_score || "待定")}</span>
+        <span class="score">${escapeHtml(actual ? `完赛 ${actual.score}` : match.predicted_score || "待定")}</span>
+        ${actual ? `<span class="badge">真实赛果</span>` : ""}
         <span class="badge ${confidenceClass(match.confidence_label)}">${escapeHtml(confidenceText(match.confidence_label))}</span>
         ${renderContextBadges(match)}
       </div>
@@ -742,6 +815,7 @@ function renderDetail(match) {
     </div>
     <div class="kv-list">
       <div class="kv"><span>${escapeHtml(t("representativeScore"))}</span><strong>${escapeHtml(match.predicted_score)}</strong></div>
+      ${match.actual_score ? `<div class="kv"><span>真实赛果</span><strong>${escapeHtml(match.actual_score.score || "")}</strong></div>` : ""}
       <div class="kv"><span>${escapeHtml(t("modalScore"))}</span><strong>${escapeHtml((match.score_summary || {}).modal_score || match.predicted_score)}</strong></div>
       <div class="kv"><span>${escapeHtml(t("favorite"))}</span><strong>${escapeHtml(teamName(match.favorite))}</strong></div>
       <div class="kv"><span>${escapeHtml(t("confidence"))}</span><strong>${escapeHtml(confidenceText(match.confidence_label))}</strong></div>

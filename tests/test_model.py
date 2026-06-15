@@ -98,6 +98,8 @@ def test_betting_analysis_calculates_overround_and_value_thresholds():
     assert analysis["overround"] > 0.0
     assert analysis["fair_odds"]["team1_win"] == 1.67
     assert analysis["value_threshold_odds"]["team1_win"] > analysis["fair_odds"]["team1_win"]
+    assert "胜平负" in analysis["lottery_reference"]["play_types"]
+    assert analysis["lottery_reference"]["primary_play"] == "胜平负"
     assert len(analysis["rows"]) == 3
 
 

@@ -136,6 +136,12 @@ BETTING_KEYWORDS = [
     "赔率",
     "博彩",
     "让球",
+    "竞彩",
+    "中国体彩网",
+    "胜平负",
+    "让球胜平负",
+    "总进球",
+    "半全场",
 ]
 
 BETTING_SOURCE_IDS = [
@@ -146,6 +152,8 @@ BETTING_SOURCE_IDS = [
     "oddsjet_north_america",
     "oddsjet_south_america",
     "comparebet_uk",
+    "china_sporttery_jc",
+    "china_sporttery_football_schedule",
 ]
 
 CONTEXT_SOURCE_IDS = ["lineup_injury_search", "referee_weather_search"]
@@ -1099,12 +1107,18 @@ def build_betting_analysis(match: Dict[str, Any], quoted_odds: Optional[Dict[str
     analysis: Dict[str, Any] = {
         "available": True,
         "has_quoted_odds": False,
+        "lottery_reference": {
+            "source": "中国体彩网 / 竞彩网公开信息",
+            "play_types": ["胜平负", "让球胜平负", "比分", "总进球数", "半全场"],
+            "primary_play": "胜平负",
+            "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。",
+        },
         "model_probabilities": model_probabilities,
         "fair_odds": fair_odds,
         "value_threshold_odds": value_threshold_odds,
         "favorite": favorite_key,
-        "suggestion": f"等待真实胜平负赔率；若{labels[favorite_key]}赔率高于 {value_threshold_odds[favorite_key]}，才进入价值观察区。",
-        "risk_note": "赔率价值不是中奖保证；庄家水位、限额和临场信息会改变期望值。",
+        "suggestion": f"参考中国体彩胜平负口径：若{labels[favorite_key]}公开赔率高于 {value_threshold_odds[favorite_key]}，才进入价值观察区。",
+        "risk_note": "赔率价值不是中奖保证；体彩固定奖金额、销售截止、限额和临场信息会改变期望值。",
     }
     if not quoted_odds:
         return analysis

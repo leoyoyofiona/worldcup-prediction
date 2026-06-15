@@ -424,8 +424,18 @@ function renderBettingCard(match) {
         ${renderOddsCell(teamName(match.team2), probs.team2_win, fair.team2_win, threshold.team2_win)}
       </div>
       <p>${escapeHtml(localizeTeamText(analysis.suggestion || ""))}</p>
+      ${renderLotteryReference(analysis.lottery_reference)}
       ${analysis.overround !== undefined ? `<p>${escapeHtml(t("bookmakerOverround"))}：${percent(analysis.overround)}</p>` : ""}
     </div>
+  `;
+}
+
+function renderLotteryReference(reference = {}) {
+  if (!reference.source) return "";
+  const playTypes = reference.play_types || [];
+  return `
+    <p>体彩口径：${escapeHtml(reference.primary_play || "胜平负")} · ${escapeHtml(reference.source)}</p>
+    <p>玩法参考：${playTypes.map((item) => escapeHtml(item)).join(" / ")}</p>
   `;
 }
 

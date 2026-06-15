@@ -106,6 +106,18 @@ WEB_SOURCES: List[WebSource] = [
         filename="comparebet_uk.html",
     ),
     WebSource(
+        id="china_sporttery_jc",
+        name="中国体彩网竞彩官方入口",
+        url="https://www.lottery.gov.cn/jc/",
+        filename="china_sporttery_jc.html",
+    ),
+    WebSource(
+        id="china_sporttery_football_schedule",
+        name="竞彩网足球竞猜赛程",
+        url="https://www.sporttery.cn/jc/zqszsc/index.html",
+        filename="china_sporttery_football_schedule.html",
+    ),
+    WebSource(
         id="lineup_injury_search",
         name="公开首发/伤病/停赛搜索页",
         url="https://duckduckgo.com/html/?q=2026%20World%20Cup%20lineup%20injury%20suspension%20starting%20XI",

@@ -9,7 +9,7 @@ from .cache import empty_cache, load_cache, now_iso, save_cache
 from .config import MODEL_VERSION, UPDATE_JOB_TIMEOUT_SECONDS
 from .live_results import sync_live_results
 from .model import build_predictions, match_summary
-from .sources import fetch_sources, load_cached_sources
+from .sources import authorized_source_statuses, fetch_sources, load_cached_sources
 
 
 AUTO_SYNC_INTERVAL_SECONDS = 300
@@ -129,7 +129,9 @@ class PredictionService:
         }
 
     def sources(self) -> List[Dict[str, Any]]:
-        return self._cache_with_auto_sync().get("sources", [])
+        sources = self._cache_with_auto_sync().get("sources", [])
+        existing = {source.get("id") for source in sources}
+        return sources + [source for source in authorized_source_statuses() if source.get("id") not in existing]
 
     def matches(self) -> Dict[str, Any]:
         cache = self._cache_with_auto_sync()

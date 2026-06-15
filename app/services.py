@@ -1,4 +1,5 @@
 import asyncio
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 import threading
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -84,9 +85,11 @@ class PredictionService:
             self._build_lock.release()
 
     def _update_job(self) -> None:
+        executor = ThreadPoolExecutor(max_workers=1)
         try:
-            raw_payloads, statuses = asyncio.run(asyncio.wait_for(fetch_sources(), timeout=UPDATE_JOB_TIMEOUT_SECONDS))
-        except Exception as exc:
+            future = executor.submit(lambda: asyncio.run(fetch_sources()))
+            raw_payloads, statuses = future.result(timeout=UPDATE_JOB_TIMEOUT_SECONDS)
+        except (FutureTimeoutError, Exception) as exc:
             raw_payloads, statuses = load_cached_sources()
             statuses.append(
                 {
@@ -102,6 +105,8 @@ class PredictionService:
                     "fetched_at": now_iso(),
                 }
             )
+        finally:
+            executor.shutdown(wait=False, cancel_futures=True)
         rebuilt = self._build_or_cache(raw_payloads, statuses)
         rebuilt.setdefault("summary", {})["full_data_updated_at"] = now_iso()
         save_cache(sync_live_results(rebuilt))

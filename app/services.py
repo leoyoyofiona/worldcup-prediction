@@ -37,7 +37,7 @@ class PredictionService:
     def start_recalculate(self) -> Dict[str, Any]:
         return self._start_background_task(
             "recalculate",
-            "正在刷新模型缓存和已完赛比分，完成后页面会自动刷新。",
+            "正在使用本地缓存重新计算模型，完成后页面会自动刷新。",
             self._recalculate_job,
         )
 
@@ -90,12 +90,9 @@ class PredictionService:
         save_cache(sync_live_results(rebuilt))
 
     def _recalculate_job(self) -> None:
-        cache = load_cache()
-        if cache.get("matches") and cache.get("model_version") == MODEL_VERSION:
-            save_cache(sync_live_results(cache))
-            return
         raw_payloads, statuses = load_cached_sources()
         rebuilt = self._build_or_cache(raw_payloads, statuses)
+        rebuilt.setdefault("summary", {})["local_model_recalculated_at"] = now_iso()
         save_cache(sync_live_results(rebuilt))
 
     def status(self) -> Dict[str, Any]:

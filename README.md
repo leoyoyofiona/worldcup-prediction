@@ -118,6 +118,7 @@ node --check static/app.js
 - Service: `worldcup-prediction`
 - URL: [https://worldcup-prediction-peur.onrender.com](https://worldcup-prediction-peur.onrender.com)
 - Runtime: Docker / FastAPI / Uvicorn
+- Update behavior: `更新数据并重算` 会联网刷新公开源并全量重建模型；`重新计算模型` 会用本地缓存快速重建模型。
 
 ---
 

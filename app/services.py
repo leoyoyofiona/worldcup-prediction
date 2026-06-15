@@ -30,7 +30,7 @@ class PredictionService:
     def start_update(self) -> Dict[str, Any]:
         return self._start_background_task(
             "update",
-            "正在同步已完赛比分，完成后页面会自动刷新。",
+            "正在联网更新公开数据源并重新计算模型，完成后页面会自动刷新。",
             self._update_job,
         )
 
@@ -84,11 +84,10 @@ class PredictionService:
             self._build_lock.release()
 
     def _update_job(self) -> None:
-        cache = load_cache()
-        if not cache.get("matches"):
-            raw_payloads, statuses = asyncio.run(fetch_sources())
-            cache = self._build_or_cache(raw_payloads, statuses)
-        save_cache(sync_live_results(cache))
+        raw_payloads, statuses = asyncio.run(fetch_sources())
+        rebuilt = self._build_or_cache(raw_payloads, statuses)
+        rebuilt.setdefault("summary", {})["full_data_updated_at"] = now_iso()
+        save_cache(sync_live_results(rebuilt))
 
     def _recalculate_job(self) -> None:
         cache = load_cache()

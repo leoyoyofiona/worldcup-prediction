@@ -2,7 +2,7 @@ import asyncio
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 import threading
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 from zoneinfo import ZoneInfo
 
@@ -320,12 +320,15 @@ def is_betting_candidate(match: Dict[str, Any], now_utc: datetime) -> bool:
     if parsed is None:
         return False
     starts_utc = parsed.astimezone(timezone.utc)
-    if starts_utc <= now_utc:
+    if starts_utc <= now_utc - timedelta(hours=2, minutes=30):
         return False
     return True
 
 
 def betting_match_payload(match: Dict[str, Any], now_utc: datetime) -> Dict[str, Any]:
+    parsed = beijing_datetime(match)
+    starts_utc = parsed.astimezone(timezone.utc) if parsed else None
+    bettable = bool(starts_utc and starts_utc > now_utc)
     return {
         "id": match.get("id"),
         "round": match.get("round"),
@@ -333,7 +336,8 @@ def betting_match_payload(match: Dict[str, Any], now_utc: datetime) -> Dict[str,
         "date": match.get("date"),
         "beijing_date": beijing_date_key(match),
         "starts_at": match.get("starts_at"),
-        "status": match_status(match.get("starts_at")),
+        "status": match_status_at(match.get("starts_at"), now_utc),
+        "bettable": bettable,
         "actual_score": match.get("actual_score"),
         "team1": match.get("team1"),
         "team2": match.get("team2"),
@@ -347,6 +351,9 @@ def betting_match_payload(match: Dict[str, Any], now_utc: datetime) -> Dict[str,
 def attach_betting_recommendations(rows: List[Dict[str, Any]], budget: float) -> List[Dict[str, Any]]:
     weighted: List[tuple[float, Dict[str, Any]]] = []
     for row in rows:
+        if row.get("bettable") is False:
+            weighted.append((0.0, row))
+            continue
         analysis = row.get("betting_analysis") or {}
         probabilities = analysis.get("model_probabilities") or row.get("probabilities") or {}
         if not probabilities:
@@ -357,15 +364,37 @@ def attach_betting_recommendations(rows: List[Dict[str, Any]], budget: float) ->
             weight = max(0.8, gap / 10.0)
         weighted.append((weight, row))
 
-    total_weight = sum(weight for weight, _ in weighted) or 1.0
+    total_weight = sum(weight for weight, row in weighted if row.get("bettable") is not False) or 1.0
     for index, (weight, row) in enumerate(weighted):
+        if row.get("bettable") is False:
+            row["betting_recommendation"] = build_betting_recommendation(row, 0.0)
+            row["betting_recommendation"]["risk_note"] = "比赛已开赛，不建议再按赛前投注方案投注。"
+            continue
         raw_stake = budget * weight / total_weight
         stake = max(2.0, round(raw_stake / 2.0) * 2.0)
-        if index == len(weighted) - 1:
+        remaining_bettable = [item for _, item in weighted[index + 1 :] if item.get("bettable") is not False]
+        if not remaining_bettable:
             used = sum(float(item.get("betting_recommendation", {}).get("stake", 0.0)) for _, item in weighted[:index])
             stake = max(2.0, round((budget - used) / 2.0) * 2.0)
         row["betting_recommendation"] = build_betting_recommendation(row, stake)
     return [row for _, row in weighted]
+
+
+def match_status_at(starts_at: Optional[str], now_utc: datetime) -> str:
+    if not starts_at:
+        return "时间待定"
+    try:
+        starts = datetime.fromisoformat(str(starts_at).replace("Z", "+00:00"))
+    except ValueError:
+        return "时间待定"
+    if starts.tzinfo is None:
+        starts = starts.replace(tzinfo=timezone.utc)
+    starts = starts.astimezone(timezone.utc)
+    if now_utc < starts:
+        return "未开赛"
+    if now_utc <= starts + timedelta(hours=2, minutes=30):
+        return "进行中"
+    return "已结束"
 
 
 def build_betting_recommendation(row: Dict[str, Any], stake: float) -> Dict[str, Any]:

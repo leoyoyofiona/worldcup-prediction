@@ -114,6 +114,14 @@ def test_betting_days_use_today_beijing_and_exclude_started_matches():
             "betting_analysis": base_analysis,
         },
         {
+            "id": "live",
+            "starts_at": "2026-06-16T07:30:00+00:00",
+            "teams_confirmed": True,
+            "team1": "Live A",
+            "team2": "Live B",
+            "betting_analysis": base_analysis,
+        },
+        {
             "id": "today-2",
             "starts_at": "2026-06-16T15:00:00+00:00",
             "teams_confirmed": True,
@@ -132,5 +140,7 @@ def test_betting_days_use_today_beijing_and_exclude_started_matches():
     ]
     days = build_betting_days(matches, 100.0, now=datetime(2026, 6, 16, 8, 0, tzinfo=timezone.utc))
     assert days[0]["date"] == "2026-06-16"
-    assert [match["id"] for match in days[0]["matches"]] == ["today-1", "today-2"]
+    assert [match["id"] for match in days[0]["matches"]] == ["live", "today-1", "today-2"]
+    assert days[0]["matches"][0]["bettable"] is False
+    assert days[0]["matches"][0]["betting_recommendation"]["stake"] == 0.0
     assert sum(match["betting_recommendation"]["stake"] for match in days[0]["matches"]) == 100.0

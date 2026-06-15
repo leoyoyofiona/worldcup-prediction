@@ -504,7 +504,7 @@ function renderBettingCard(match) {
     <div class="betting-card">
       <div>
         <strong>${escapeHtml(matchupName(match.team1, match.team2))}</strong>
-        <small>${escapeHtml(formatDateTime(match))} · ${escapeHtml(match.round || "")} · 预测 ${escapeHtml(match.predicted_score || "待定")}</small>
+        <small>${escapeHtml(formatDateTime(match))} · ${escapeHtml(match.round || "")} · ${escapeHtml(match.status || "")} · 预测 ${escapeHtml(match.predicted_score || "待定")}</small>
       </div>
       <div class="odds-grid">
         ${renderOddsCell(teamName(match.team1), probs.team1_win, fair.team1_win, threshold.team1_win)}
@@ -513,6 +513,7 @@ function renderBettingCard(match) {
       </div>
       <p>${escapeHtml(localizeTeamText(analysis.suggestion || ""))}</p>
       ${renderBettingRecommendation(match.betting_recommendation)}
+      ${match.bettable === false ? `<p class="bad">已开赛，不建议再按赛前投注方案投注。</p>` : ""}
       ${renderLotteryReference(analysis.lottery_reference)}
       ${analysis.overround !== undefined ? `<p>${escapeHtml(t("bookmakerOverround"))}：${percent(analysis.overround)}</p>` : ""}
     </div>
@@ -529,6 +530,7 @@ function renderBettingRecommendation(recommendation = {}) {
       <span>${escapeHtml(recommendation.odds_type || "参考赔率")}：${Number(recommendation.reference_odds || 0).toFixed(2)}</span>
       <strong>可能奖金：${Number(recommendation.possible_payout || 0).toFixed(2)} 元</strong>
       <em>可能盈利：${Number(recommendation.possible_profit || 0).toFixed(2)} 元</em>
+      ${recommendation.risk_note ? `<span>${escapeHtml(recommendation.risk_note)}</span>` : ""}
     </div>
   `;
 }

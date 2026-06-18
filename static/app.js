@@ -71,6 +71,7 @@ const translations = {
     marketSignal: "市场热度",
     bettingSignal: "盘口信号",
     contextSignal: "临场信息",
+    technicalStatsSignal: "技术统计",
     simulations: "模拟次数",
     enabled: "已启用",
     disabled: "未启用",
@@ -315,6 +316,7 @@ function renderSummary(summary = {}) {
     [t("marketSignal"), summary.market_signal_available ? t("enabled") : t("disabled")],
     [t("bettingSignal"), summary.betting_signal_available ? t("enabled") : t("disabled")],
     [t("contextSignal"), summary.context_signal_available ? t("enabled") : t("disabled")],
+    [t("technicalStatsSignal"), summary.technical_stat_match_count ?? 0],
     [t("simulations"), summary.tournament_simulations ?? "--"],
   ];
   els.summaryGrid.innerHTML = items
@@ -1001,6 +1003,7 @@ function renderDetail(match) {
       <div class="kv"><span>${escapeHtml(t("bothScore"))}</span><strong>${percent((match.score_summary || {}).both_teams_score)}</strong></div>
     </div>
     ${renderAdvance(match)}
+    ${renderTechnicalIndicators(match)}
     ${renderBettingAnalysis(match)}
     <h3 class="section-title">${escapeHtml(t("modelExplanation"))}</h3>
     <div class="kv-list">
@@ -1068,6 +1071,63 @@ function renderContextFactors(match) {
     <h3 class="section-title">场外与规则因素</h3>
     <div class="kv-list">${rows.join("")}</div>
   `;
+}
+
+function renderTechnicalIndicators(match) {
+  const projected = match.technical_indicators || {};
+  const actual = match.technical_stats || {};
+  if (!projected.available && !actual.available) return "";
+  const profile = match.technical_profile || {};
+  return `
+    <h3 class="section-title">技术统计层</h3>
+    <div class="kv-list">
+      ${projected.available ? renderTechnicalBlock("赛前技术统计预测", projected.team1 || {}, projected.team2 || {}, match, projected.source_note) : ""}
+      ${actual.available ? renderTechnicalBlock("真实技术统计", actual.team1 || {}, actual.team2 || {}, match, `${actual.source_name || ""}${actual.referee ? ` · 裁判 ${actual.referee}` : ""}`) : ""}
+      ${profile.available ? `
+        <div class="kv">
+          <span>技术统计修正<small>${escapeHtml(profile.description || "")}</small></span>
+          <strong>${formatSigned(profile.delta || 0)}</strong>
+        </div>
+      ` : ""}
+    </div>
+  `;
+}
+
+function renderTechnicalBlock(title, team1Stats, team2Stats, match, note = "") {
+  const rows = [
+    ["xg", "xG / 近似xG"],
+    ["possession_pct", "控球率"],
+    ["shots", "射门"],
+    ["shots_on_target", "射正"],
+    ["corners", "角球"],
+    ["tackles", "抢断"],
+    ["yellow_cards", "黄牌"],
+    ["red_cards", "红牌"],
+    ["substitutions", "换人"],
+  ];
+  return `
+    <div class="kv">
+      <span>${escapeHtml(title)}<small>${escapeHtml(note || "")}</small></span>
+      <strong>${escapeHtml(teamName(match.team1))} : ${escapeHtml(teamName(match.team2))}</strong>
+    </div>
+    ${rows.map(([key, label]) => `
+      <div class="kv">
+        <span>${escapeHtml(label)}</span>
+        <strong>${formatTechnicalValue(key, team1Stats)} : ${formatTechnicalValue(key, team2Stats)}</strong>
+      </div>
+    `).join("")}
+  `;
+}
+
+function formatTechnicalValue(key, stats = {}) {
+  const sourceKey = key === "xg" && stats.xg === undefined ? "xg_proxy" : key;
+  const value = stats[sourceKey];
+  if (value === undefined || value === null || value === "") return "--";
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return escapeHtml(String(value));
+  if (key === "possession_pct") return `${numeric.toFixed(1)}%`;
+  if (key === "red_cards" || key === "xg") return numeric.toFixed(2);
+  return numeric.toFixed(1);
 }
 
 function renderBettingAnalysis(match) {

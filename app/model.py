@@ -40,6 +40,18 @@ OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
 
 OFF_FIELD_MAX_ABS_ADJUSTMENT = 24.0
 
+TECHNICAL_PROFILE_KEYS = (
+    "xg_proxy",
+    "possession_pct",
+    "shots",
+    "shots_on_target",
+    "corners",
+    "tackles",
+    "yellow_cards",
+    "red_cards",
+    "substitutions",
+)
+
 TEAM_ALIASES: Dict[str, Sequence[str]] = {
     "United States": ["USA", "USMNT", "United States of America", "U.S.A.", "U.S."],
     "South Korea": ["Korea Republic", "Republic of Korea", "Korea, Republic of"],
@@ -331,6 +343,15 @@ def safe_int_value(value: Any) -> Optional[int]:
         return int(value)
     except (TypeError, ValueError):
         return safe_int(str(value))
+
+
+def safe_float_value(value: Any) -> Optional[float]:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def parse_schedule(raw_json: str) -> List[Dict[str, Any]]:
@@ -1658,6 +1679,202 @@ def context_defense_multiplier(components: Dict[str, float]) -> float:
     return clamp(1.0 + adjustment, 0.92, 1.08)
 
 
+def estimate_match_technical_stats(
+    team1: str,
+    team2: str,
+    lambda1: float,
+    lambda2: float,
+    rating1: float,
+    rating2: float,
+    stat1: Dict[str, Any],
+    stat2: Dict[str, Any],
+) -> Dict[str, Any]:
+    possession1 = clamp(50.0 + math.tanh((rating1 - rating2) / 360.0) * 13.0 + (float(stat1.get("goldman_attack", 1.0)) - float(stat2.get("goldman_attack", 1.0))) * 4.0, 34.0, 66.0)
+    possession2 = 100.0 - possession1
+    return {
+        "available": True,
+        "source": "model_estimate",
+        "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
+        "team1": estimate_team_technical_line(lambda1, possession1, stat1),
+        "team2": estimate_team_technical_line(lambda2, possession2, stat2),
+    }
+
+
+def estimate_team_technical_line(expected_goals: float, possession_pct: float, stat: Dict[str, Any]) -> Dict[str, Any]:
+    attack = float(stat.get("goldman_attack", stat.get("attack", 1.0)) or 1.0)
+    defense = float(stat.get("goldman_defense", stat.get("defense", 1.0)) or 1.0)
+    shots = clamp(5.2 + expected_goals * 4.5 + max(possession_pct - 50.0, -18.0) * 0.08 + (attack - 1.0) * 2.4, 4.0, 22.0)
+    shots_on_target = clamp(expected_goals * 1.9 + shots * 0.14, 1.0, 9.0)
+    corners = clamp(1.7 + shots * 0.22 + max(possession_pct - 50.0, -15.0) * 0.04, 1.0, 11.0)
+    tackles = clamp(18.5 - (possession_pct - 50.0) * 0.13 + (1.0 - defense) * 2.2, 9.0, 30.0)
+    yellow_cards = clamp(1.45 + max(50.0 - possession_pct, 0.0) * 0.025 + tackles * 0.018, 0.5, 4.5)
+    red_cards = clamp(0.06 + yellow_cards * 0.018, 0.02, 0.22)
+    substitutions = clamp(4.4 + max(expected_goals - 1.4, -0.8) * 0.18, 3.2, 5.6)
+    return {
+        "xg": round(expected_goals, 2),
+        "possession_pct": round(possession_pct, 1),
+        "shots": round(shots, 1),
+        "shots_on_target": round(shots_on_target, 1),
+        "corners": round(corners, 1),
+        "tackles": round(tackles, 1),
+        "yellow_cards": round(yellow_cards, 1),
+        "red_cards": round(red_cards, 2),
+        "substitutions": round(substitutions, 1),
+    }
+
+
+def build_technical_profiles(matches: Sequence[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    totals: Dict[str, Dict[str, float]] = defaultdict(lambda: defaultdict(float))
+    counts: Counter[str] = Counter()
+    for match in matches:
+        technical = match.get("technical_stats") or {}
+        if not technical.get("available"):
+            continue
+        for side in ("team1", "team2"):
+            team = match.get(side)
+            stats = technical.get(side) or {}
+            if not team or not stats:
+                continue
+            any_value = False
+            for key in TECHNICAL_PROFILE_KEYS:
+                value = safe_float_value(stats.get(key))
+                if value is None:
+                    continue
+                totals[team][key] += value
+                any_value = True
+            if any_value:
+                counts[team] += 1
+
+    profiles: Dict[str, Dict[str, Any]] = {}
+    for team, total in totals.items():
+        count = counts[team]
+        if not count:
+            continue
+        averages = {key: round(total.get(key, 0.0) / count, 2) for key in TECHNICAL_PROFILE_KEYS if key in total}
+        attack_index = (
+            (averages.get("xg_proxy", 1.25) - 1.25) * 8.0
+            + (averages.get("shots", 10.0) - 10.0) * 0.9
+            + (averages.get("shots_on_target", 3.5) - 3.5) * 1.8
+            + (averages.get("corners", 4.2) - 4.2) * 0.55
+            + (averages.get("possession_pct", 50.0) - 50.0) * 0.12
+        )
+        discipline_drag = (
+            max(averages.get("yellow_cards", 1.6) - 1.6, 0.0) * 1.4
+            + averages.get("red_cards", 0.08) * 8.0
+        )
+        pressing_index = (averages.get("tackles", 16.0) - 16.0) * 0.22
+        rotation_index = (averages.get("substitutions", 4.5) - 4.5) * 0.35
+        technical_adjustment = clamp(attack_index + pressing_index + rotation_index - discipline_drag, -18.0, 18.0)
+        profiles[team] = {
+            "available": True,
+            "sample_size": count,
+            "averages": averages,
+            "attack_index": round(attack_index, 2),
+            "discipline_drag": round(discipline_drag, 2),
+            "technical_adjustment": round(technical_adjustment, 2),
+            "source": "ESPN 世界杯实时比分/技术统计",
+        }
+    return profiles
+
+
+def apply_technical_calibration(matches: List[Dict[str, Any]], profiles: Dict[str, Dict[str, Any]]) -> None:
+    if not profiles:
+        return
+    for match in matches:
+        if match.get("actual_score") or not match.get("teams_confirmed") or not match.get("expected_goals"):
+            continue
+        team1 = match.get("team1")
+        team2 = match.get("team2")
+        profile1 = profiles.get(team1 or "")
+        profile2 = profiles.get(team2 or "")
+        if not profile1 and not profile2:
+            continue
+
+        expected = match["expected_goals"]
+        base_lambda1 = float(expected.get("team1") or 0.0)
+        base_lambda2 = float(expected.get("team2") or 0.0)
+        adjustment1 = float((profile1 or {}).get("technical_adjustment") or 0.0)
+        adjustment2 = float((profile2 or {}).get("technical_adjustment") or 0.0)
+        delta = clamp(adjustment1 - adjustment2, -24.0, 24.0)
+        lambda1 = clamp(base_lambda1 * (1.0 + delta / 520.0), 0.2, 4.8)
+        lambda2 = clamp(base_lambda2 * (1.0 - delta / 520.0), 0.2, 4.8)
+        if abs(lambda1 - base_lambda1) < 0.01 and abs(lambda2 - base_lambda2) < 0.01:
+            continue
+
+        distribution, probabilities_raw = score_matrix(lambda1, lambda2)
+        confidence, label = confidence_label(probabilities_raw)
+        favorite_key = max(probabilities_raw, key=probabilities_raw.get)
+        favorite = "平局倾向" if favorite_key == "draw" else (team1 if favorite_key == "team1_win" else team2)
+        expected_total = lambda1 + lambda2
+        top_scores = [{"score": item["score"], "probability": pct(item["probability"])} for item in distribution[:6]]
+        modal_score = top_scores[0]["score"] if top_scores else "待定"
+        predicted_score = select_representative_score(distribution, probabilities_raw, expected_total)
+        match["probabilities"] = {key: pct(value) for key, value in probabilities_raw.items()}
+        match["favorite"] = favorite
+        match["predicted_score"] = predicted_score
+        match["confidence"] = round(confidence, 3)
+        match["confidence_label"] = label
+        match["expected_goals"] = {"team1": round(lambda1, 2), "team2": round(lambda2, 2)}
+        match["score_summary"] = {
+            "representative_score": predicted_score,
+            "modal_score": modal_score,
+            "expected_total_goals": round(expected_total, 2),
+            **score_distribution_summary(distribution),
+        }
+        match["scoreline_distribution"] = top_scores
+        match["technical_profile"] = {
+            "available": True,
+            "team1": profile1 or {"available": False},
+            "team2": profile2 or {"available": False},
+            "delta": round(delta, 2),
+            "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。",
+        }
+        explanation = list(match.get("explanation") or [])
+        explanation = [
+            f"模型预计进球均值为 {team1} {lambda1:.2f}，{team2} {lambda2:.2f}。"
+            if "模型预计进球均值" in item
+            else f"代表比分为 {predicted_score}，精确众数比分为 {modal_score}，预测置信度为{label}。"
+            if "代表比分为" in item
+            else item
+            for item in explanation
+        ]
+        explanation.append("技术统计层已纳入控球率、射门、射正、角球、抢断、红黄牌和换人情况，对本场 xG 做小幅校准。")
+        match["explanation"] = explanation
+        refresh_technical_indicators(match, lambda1, lambda2)
+        contributors = list(match.get("contributors") or [])
+        contributors.append(
+            {
+                "name": "技术统计修正",
+                "value": round(delta, 1),
+                "description": "真实技术统计层：控球率、射门、射正、角球、抢断、红黄牌和换人情况进入后续比赛 xG 校准。",
+            }
+        )
+        match["contributors"] = contributors
+        match["betting_analysis"] = build_betting_analysis(match)
+
+
+def refresh_technical_indicators(match: Dict[str, Any], lambda1: float, lambda2: float) -> None:
+    indicators = deepcopy_technical_indicators(match.get("technical_indicators"))
+    for side, value in (("team1", lambda1), ("team2", lambda2)):
+        line = indicators.setdefault(side, {})
+        old_xg = float(line.get("xg") or value)
+        scale = value / max(old_xg, 0.2)
+        line["xg"] = round(value, 2)
+        for key in ("shots", "shots_on_target", "corners"):
+            if key in line:
+                line[key] = round(float(line[key]) * clamp(scale, 0.82, 1.18), 1)
+    indicators["available"] = True
+    indicators["source"] = "model_estimate_with_real_technical_calibration"
+    indicators["source_note"] = "赛前技术统计为模型估算，并已用已完赛真实技术统计进行小幅校准。"
+    match["technical_indicators"] = indicators
+
+
+def deepcopy_technical_indicators(value: Any) -> Dict[str, Any]:
+    if isinstance(value, dict):
+        return json.loads(json.dumps(value))
+    return {"available": True, "source": "model_estimate", "team1": {}, "team2": {}}
+
+
 def effective_team_rating(
     team: str,
     team_stats: Dict[str, Dict[str, Any]],
@@ -1785,6 +2002,7 @@ def predict_match(
         "expected_total_goals": round(expected_total, 2),
         **score_distribution_summary(distribution),
     }
+    technical_indicators = estimate_match_technical_stats(team1, team2, lambda1, lambda2, rating1, rating2, stat1, stat2)
     contributors = [
         {
             "name": "基础 Elo 差",
@@ -1851,13 +2069,14 @@ def predict_match(
     base.update(
         {
             "teams_confirmed": True,
-        "probabilities": probabilities,
-        "favorite": favorite,
-        "predicted_score": predicted_score,
-        "confidence": round(confidence, 3),
-        "confidence_label": label,
-        "expected_goals": {"team1": round(lambda1, 2), "team2": round(lambda2, 2)},
-        "score_summary": score_summary,
+            "probabilities": probabilities,
+            "favorite": favorite,
+            "predicted_score": predicted_score,
+            "confidence": round(confidence, 3),
+            "confidence_label": label,
+            "expected_goals": {"team1": round(lambda1, 2), "team2": round(lambda2, 2)},
+            "score_summary": score_summary,
+            "technical_indicators": technical_indicators,
             "effective_ratings": {"team1": round(rating1, 1), "team2": round(rating2, 1)},
             "market": {
                 "team1": market1,
@@ -1948,6 +2167,9 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "confidence_label",
         "expected_goals",
         "score_summary",
+        "technical_indicators",
+        "technical_stats",
+        "technical_profile",
         "advance_probabilities",
         "actual_score",
         "prediction_result",

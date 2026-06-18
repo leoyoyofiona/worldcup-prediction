@@ -1,6 +1,7 @@
-from app.live_results import build_actual_results, parse_espn_event
+from app.live_results import build_actual_results, build_technical_results, parse_espn_event, parse_espn_technical_event
 from datetime import datetime, timezone
 
+from app.model import apply_technical_calibration, build_technical_profiles
 from app.services import attach_betting_recommendations, beijing_date_key, build_betting_days
 
 
@@ -65,6 +66,114 @@ def test_build_actual_results_matches_aliases_and_preserves_schedule_order():
     assert actuals["wc2026-002"]["score"] == "2-1"
     assert actuals["wc2026-007"]["score"] == "1-1"
     assert actuals["wc2026-007"]["team2_name"] == "Bosnia & Herzegovina"
+
+
+def test_parse_espn_technical_event_includes_match_stats_and_substitutions():
+    event = {
+        "id": "760436",
+        "date": "2026-06-18T02:00Z",
+        "competitions": [
+            {
+                "competitors": [
+                    {
+                        "homeAway": "home",
+                        "team": {"displayName": "Uzbekistan"},
+                        "statistics": [
+                            {"name": "possessionPct", "displayValue": "41.5"},
+                            {"name": "totalShots", "displayValue": "8"},
+                            {"name": "shotsOnTarget", "displayValue": "3"},
+                        ],
+                    },
+                    {
+                        "homeAway": "away",
+                        "team": {"displayName": "Colombia"},
+                        "statistics": [
+                            {"name": "possessionPct", "displayValue": "58.5"},
+                            {"name": "totalShots", "displayValue": "13"},
+                            {"name": "shotsOnTarget", "displayValue": "5"},
+                        ],
+                    },
+                ]
+            }
+        ],
+    }
+    summary = {
+        "boxscore": {
+            "teams": [
+                {
+                    "team": {"displayName": "Uzbekistan"},
+                    "statistics": [
+                        {"name": "wonCorners", "displayValue": "2"},
+                        {"name": "totalTackles", "displayValue": "18"},
+                        {"name": "yellowCards", "displayValue": "3"},
+                        {"name": "redCards", "displayValue": "0"},
+                    ],
+                },
+                {
+                    "team": {"displayName": "Colombia"},
+                    "statistics": [
+                        {"name": "wonCorners", "displayValue": "6"},
+                        {"name": "totalTackles", "displayValue": "11"},
+                        {"name": "yellowCards", "displayValue": "1"},
+                        {"name": "redCards", "displayValue": "0"},
+                    ],
+                },
+            ]
+        },
+        "keyEvents": [
+            {"type": {"type": "substitution"}, "team": {"displayName": "Uzbekistan"}},
+            {"type": {"type": "substitution"}, "team": {"displayName": "Colombia"}},
+            {"type": {"type": "substitution"}, "team": {"displayName": "Colombia"}},
+        ],
+    }
+    parsed = parse_espn_technical_event(event, "https://example.test", summary)
+    assert parsed["technical_stats"]["home"]["corners"] == 2.0
+    assert parsed["technical_stats"]["away"]["substitutions"] == 2
+    assert parsed["technical_stats"]["home"]["xg_proxy"] > 0
+
+
+def test_technical_results_map_to_schedule_order_and_calibrate_future_match():
+    matches = [
+        {
+            "id": "done",
+            "team1": "Uzbekistan",
+            "team2": "Colombia",
+            "starts_at": "2026-06-18T02:00:00+00:00",
+            "actual_score": {"team1": 1, "team2": 2, "score": "1-2"},
+        },
+        {
+            "id": "future",
+            "team1": "Colombia",
+            "team2": "South Africa",
+            "starts_at": "2026-06-22T02:00:00+00:00",
+            "teams_confirmed": True,
+            "expected_goals": {"team1": 1.5, "team2": 1.0},
+            "probabilities": {"team1_win": 50.0, "draw": 25.0, "team2_win": 25.0},
+            "technical_indicators": {"available": True, "team1": {"xg": 1.5, "shots": 11.0}, "team2": {"xg": 1.0, "shots": 8.0}},
+        },
+    ]
+    events = [
+        {
+            "home": "Uzbekistan",
+            "away": "Colombia",
+            "date": "2026-06-18T02:00Z",
+            "technical_source_url": "https://example.test",
+            "technical_stats": {
+                "available": True,
+                "home": {"shots": 7.0, "shots_on_target": 2.0, "corners": 2.0, "tackles": 18.0, "yellow_cards": 3.0, "red_cards": 0.0, "substitutions": 5.0, "xg_proxy": 0.9},
+                "away": {"shots": 16.0, "shots_on_target": 7.0, "corners": 6.0, "tackles": 11.0, "yellow_cards": 1.0, "red_cards": 0.0, "substitutions": 5.0, "xg_proxy": 2.2},
+            },
+        }
+    ]
+    technical = build_technical_results(matches, events)
+    matches[0]["technical_stats"] = technical["done"]
+    profiles = build_technical_profiles(matches)
+    original_xg = matches[1]["expected_goals"]["team1"]
+    apply_technical_calibration(matches, profiles)
+    assert technical["done"]["team1"]["shots"] == 7.0
+    assert profiles["Colombia"]["technical_adjustment"] > profiles["Uzbekistan"]["technical_adjustment"]
+    assert matches[1]["expected_goals"]["team1"] > original_xg
+    assert any(item["name"] == "技术统计修正" for item in matches[1]["contributors"])
 
 
 def test_beijing_day_and_betting_recommendation_payload():

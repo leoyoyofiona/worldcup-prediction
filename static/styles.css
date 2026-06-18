@@ -647,6 +647,119 @@ button.primary:hover {
   display: block;
 }
 
+.pass-plan {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #cbd7c9;
+  border-radius: 8px;
+  background: #f7fbf5;
+}
+
+.pass-plan-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pass-plan-head strong {
+  font-size: 15px;
+}
+
+.pass-plan-head span,
+.pass-plan p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.pass-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.pass-metrics div {
+  display: grid;
+  gap: 3px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.pass-metrics span,
+.pass-ticket span,
+.pass-ticket em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+.pass-metrics strong,
+.pass-ticket strong {
+  font-size: 13px;
+}
+
+.pass-ticket-list {
+  display: grid;
+  gap: 8px;
+}
+
+.pass-ticket {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.pass-ticket ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pass-ticket li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(86px, 0.7fr) minmax(120px, 0.9fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.xg-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 10px;
+  align-items: baseline;
+  padding: 9px;
+  border: 1px solid #d8e3d2;
+  border-radius: 6px;
+  background: #fbfdf9;
+}
+
+.xg-strip span,
+.xg-strip em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.xg-strip strong {
+  min-width: 0;
+  font-size: 13px;
+}
+
+.xg-strip em {
+  grid-column: 1 / -1;
+}
+
 .betting-card small,
 .betting-card p {
   display: block;
@@ -775,8 +888,17 @@ button.primary:hover {
   .stage-grid,
   .bracket-grid,
   .odds-grid,
-  .bet-slip {
+  .bet-slip,
+  .pass-metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pass-ticket li {
+    grid-template-columns: 1fr 0.7fr;
+  }
+
+  .pass-ticket li em {
+    grid-column: 1 / -1;
   }
 }
 
@@ -833,8 +955,22 @@ button.primary:hover {
   .bracket-grid,
   .odds-grid,
   .bet-slip,
+  .pass-metrics,
   .filters,
   .prob-grid {
     grid-template-columns: 1fr;
+  }
+
+  .pass-plan-head {
+    display: grid;
+  }
+
+  .pass-ticket li,
+  .xg-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .xg-strip em {
+    grid-column: auto;
   }
 }

@@ -144,3 +144,39 @@ def test_betting_days_use_today_beijing_and_exclude_started_matches():
     assert days[0]["matches"][0]["bettable"] is False
     assert days[0]["matches"][0]["betting_recommendation"]["stake"] == 0.0
     assert sum(match["betting_recommendation"]["stake"] for match in days[0]["matches"]) == 100.0
+
+
+def test_betting_days_include_xg_and_mixed_pass_plan():
+    base_analysis = {
+        "favorite": "team1_win",
+        "model_probabilities": {"team1_win": 55.0, "draw": 25.0, "team2_win": 20.0},
+        "fair_odds": {"team1_win": 1.82, "draw": 4.0, "team2_win": 5.0},
+        "value_threshold_odds": {"team1_win": 1.91, "draw": 4.2, "team2_win": 5.25},
+    }
+    matches = [
+        {
+            "id": f"match-{index}",
+            "starts_at": f"2026-06-16T{10 + index:02d}:00:00+00:00",
+            "teams_confirmed": True,
+            "team1": f"Team {index}A",
+            "team2": f"Team {index}B",
+            "predicted_score": "2-1",
+            "expected_goals": {"team1": 1.8, "team2": 1.1},
+            "score_summary": {"expected_total_goals": 2.9, "over_2_5": 54.0, "both_teams_score": 51.0},
+            "probabilities": {"team1_win": 55.0, "draw": 25.0, "team2_win": 20.0},
+            "betting_analysis": base_analysis,
+        }
+        for index in range(4)
+    ]
+    days = build_betting_days(matches, 50.0, now=datetime(2026, 6, 16, 8, 0, tzinfo=timezone.utc))
+    day = days[0]
+    plan = day["mixed_pass_plan"]
+    assert day["budget"] == 50.0
+    assert day["target_profit"] == 10000.0
+    assert day["matches"][0]["expected_goals"] == {"team1": 1.8, "team2": 1.1}
+    assert day["matches"][0]["score_summary"]["expected_total_goals"] == 2.9
+    assert plan["available"] is True
+    assert plan["total_stake"] == 50.0
+    assert [ticket["pass_type"] for ticket in plan["tickets"]] == ["4串1", "3串1", "3串1", "3串1", "3串1"]
+    assert plan["target_gap"] > 0
+    assert "达不到万元目标" in plan["feasibility"]

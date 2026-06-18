@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 import threading
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from itertools import combinations
 from typing import Any, Dict, List, Optional
 from zoneinfo import ZoneInfo
 
@@ -14,8 +15,10 @@ from .sources import authorized_source_statuses, fetch_sources, load_cached_sour
 
 
 AUTO_SYNC_INTERVAL_SECONDS = 300
+AUTO_SYNC_TIMEOUT_SECONDS = 20
 BEIJING_TZ = ZoneInfo("Asia/Shanghai")
-DAILY_BETTING_BUDGET = 100.0
+DAILY_BETTING_BUDGET = 50.0
+DAILY_BETTING_TARGET_PROFIT = 10000.0
 
 
 class PredictionService:
@@ -161,7 +164,7 @@ class PredictionService:
             "model_version": cache.get("model_version"),
             "days": day_rows,
             "current_day": day_rows[0] if day_rows else None,
-            "note": "金额为按每日 100 元示例预算生成的模型参考，不是收益保证；若接入真实体彩赔率，会优先使用真实赔率计算超额水位、去水概率、EV 和可能奖金。",
+            "note": "金额为按每日 50 元示例预算生成的中国体彩混合过关参考，不是收益保证；若接入真实体彩赔率，会优先使用真实赔率计算超额水位、去水概率、EV 和可能奖金。",
             "task": self._task_snapshot(),
         }
 
@@ -205,14 +208,17 @@ class PredictionService:
                 "finished_at": None,
                 "error": None,
             }
+        executor = ThreadPoolExecutor(max_workers=1)
         try:
-            cache = sync_live_results(cache)
+            future = executor.submit(sync_live_results, cache)
+            cache = future.result(timeout=AUTO_SYNC_TIMEOUT_SECONDS)
             save_cache(cache)
             error = None
-        except Exception as exc:
+        except (FutureTimeoutError, Exception) as exc:
             error = str(exc)
             cache["error"] = f"自动同步失败，继续使用旧预测：{exc}"
         finally:
+            executor.shutdown(wait=False, cancel_futures=True)
             with self._state_lock:
                 self._task_state["running"] = False
                 self._task_state["message"] = "自动同步已完成" if error is None else "自动同步失败"
@@ -300,15 +306,20 @@ def build_betting_days(
     if not grouped:
         return []
     selected_days = [today_key] if today_key in grouped else [min(grouped)]
-    return [
-        {
-            "date": day,
-            "timezone": "Asia/Shanghai",
-            "budget": budget,
-            "matches": attach_betting_recommendations(grouped[day], budget),
-        }
-        for day in selected_days
-    ]
+    days = []
+    for day in selected_days:
+        matches_with_recommendations = attach_betting_recommendations(grouped[day], budget)
+        days.append(
+            {
+                "date": day,
+                "timezone": "Asia/Shanghai",
+                "budget": budget,
+                "target_profit": DAILY_BETTING_TARGET_PROFIT,
+                "matches": matches_with_recommendations,
+                "mixed_pass_plan": build_mixed_pass_plan(matches_with_recommendations, budget, DAILY_BETTING_TARGET_PROFIT),
+            }
+        )
+    return days
 
 
 def is_betting_candidate(match: Dict[str, Any], now_utc: datetime) -> bool:
@@ -343,6 +354,8 @@ def betting_match_payload(match: Dict[str, Any], now_utc: datetime) -> Dict[str,
         "team2": match.get("team2"),
         "predicted_score": match.get("predicted_score"),
         "confidence_label": match.get("confidence_label"),
+        "expected_goals": match.get("expected_goals"),
+        "score_summary": match.get("score_summary"),
         "probabilities": match.get("probabilities"),
         "betting_analysis": match.get("betting_analysis"),
     }
@@ -423,3 +436,112 @@ def build_betting_recommendation(row: Dict[str, Any], stake: float) -> Dict[str,
         "possible_profit": possible_profit,
         "risk_note": "按模型概率和参考赔率估算，实际出票赔率、过关方式、税费规则和赛果会改变奖金。",
     }
+
+
+def build_mixed_pass_plan(rows: List[Dict[str, Any]], budget: float, target_profit: float) -> Dict[str, Any]:
+    bettable_rows = [
+        row
+        for row in rows
+        if row.get("bettable") is not False and (row.get("betting_recommendation") or {}).get("reference_odds")
+    ][:4]
+    if len(bettable_rows) < 3:
+        return {
+            "available": False,
+            "budget": round(budget, 2),
+            "target_profit": round(target_profit, 2),
+            "title": "50元冲击万元目标混合过关",
+            "summary": "北京时间当日可投注比赛少于 3 场，暂不生成 3串1/4串1 混合过关方案。",
+            "warning": "过关投注需要组合内所有选择同时命中才中奖，不能保证收益。",
+        }
+
+    combo_defs = []
+    if len(bettable_rows) >= 4:
+        combo_defs.append(("4串1", tuple(range(4))))
+    combo_defs.extend(("3串1", combo) for combo in combinations(range(len(bettable_rows)), 3))
+    stakes = allocate_pass_stakes(len(combo_defs), budget)
+
+    tickets = []
+    for (pass_type, indexes), stake in zip(combo_defs, stakes):
+        combo_rows = [bettable_rows[index] for index in indexes]
+        combined_odds = 1.0
+        selections = []
+        model_probability = 1.0
+        for row in combo_rows:
+            recommendation = row.get("betting_recommendation") or build_betting_recommendation(row, 0.0)
+            odds = float(recommendation.get("reference_odds") or 1.0)
+            combined_odds *= odds
+            probability = float((row.get("probabilities") or {}).get(recommendation.get("outcome_key"), 0.0)) / 100.0
+            model_probability *= max(probability, 0.0)
+            selections.append(
+                {
+                    "match_id": row.get("id"),
+                    "matchup": f"{row.get('team1')} vs {row.get('team2')}",
+                    "selection": recommendation.get("selection"),
+                    "outcome_key": recommendation.get("outcome_key"),
+                    "reference_odds": round(odds, 2),
+                    "expected_goals": row.get("expected_goals"),
+                    "predicted_score": row.get("predicted_score"),
+                }
+            )
+        possible_payout = round(stake * combined_odds, 2)
+        tickets.append(
+            {
+                "pass_type": pass_type,
+                "stake": round(stake, 2),
+                "required_hits": len(indexes),
+                "combined_odds": round(combined_odds, 2),
+                "model_hit_probability": round(model_probability * 100.0, 2),
+                "possible_payout": possible_payout,
+                "possible_profit": round(possible_payout - stake, 2),
+                "selections": selections,
+            }
+        )
+
+    total_stake = round(sum(ticket["stake"] for ticket in tickets), 2)
+    max_possible_payout = round(sum(ticket["possible_payout"] for ticket in tickets), 2)
+    max_possible_profit = round(max_possible_payout - total_stake, 2)
+    target_gap = round(max(target_profit - max_possible_profit, 0.0), 2)
+    target_payout = round(target_profit + total_stake, 2)
+    feasible = target_gap <= 0
+    return {
+        "available": True,
+        "title": "50元冲击万元目标混合过关",
+        "budget": round(budget, 2),
+        "target_profit": round(target_profit, 2),
+        "target_payout": target_payout,
+        "selected_match_count": len(bettable_rows),
+        "tickets": tickets,
+        "total_stake": total_stake,
+        "max_possible_payout": max_possible_payout,
+        "max_possible_profit": max_possible_profit,
+        "target_gap": target_gap,
+        "feasibility": "理论奖金达到万元目标" if feasible else "当前赔率组合达不到万元目标",
+        "summary": (
+            f"若全部过关票命中，理论最高奖金约 {max_possible_payout:.2f} 元，理论盈利约 {max_possible_profit:.2f} 元。"
+            if feasible
+            else f"当前参考赔率下，全部命中理论盈利约 {max_possible_profit:.2f} 元，距离 1 万元目标还差约 {target_gap:.2f} 元。"
+        ),
+        "warning": "中国体彩过关投注需要每张票内所有选择同时命中才中奖；本方案只做模型和赔率测算，不保证中奖或盈利，不建议为追求万元目标强行选择低概率冷门、比分或大额倍投。",
+        "source_note": "参考中国体彩网/竞彩网公开过关口径；当前赔率优先使用真实赔率，缺失时使用模型价值赔率。实际出票以中国体彩销售终端为准。",
+    }
+
+
+def allocate_pass_stakes(ticket_count: int, budget: float) -> List[float]:
+    if ticket_count <= 0:
+        return []
+    if ticket_count == 5 and round(budget) == 50:
+        return [18.0, 8.0, 8.0, 8.0, 8.0]
+
+    units = max(int(round(budget / 2.0)), ticket_count)
+    base = max(1, units // ticket_count)
+    stakes = [base * 2.0 for _ in range(ticket_count)]
+    remaining_units = units - base * ticket_count
+    index = 0
+    while remaining_units > 0:
+        stakes[index % ticket_count] += 2.0
+        remaining_units -= 1
+        index += 1
+    diff = round(budget - sum(stakes), 2)
+    if stakes and abs(diff) >= 0.01:
+        stakes[0] = round(stakes[0] + diff, 2)
+    return stakes

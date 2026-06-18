@@ -1947,6 +1947,7 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "confidence",
         "confidence_label",
         "expected_goals",
+        "score_summary",
         "advance_probabilities",
         "actual_score",
         "prediction_result",

@@ -51,7 +51,7 @@ const translations = {
     fairOdds: "公平赔率",
     valueOdds: "价值赔率",
     bookmakerOverround: "庄家超额水位",
-    noBettingOdds: "以下按北京时间当日未开赛比赛生成，金额为每日 100 元示例预算，不构成购彩保证。",
+    noBettingOdds: "以下按北京时间当日未完赛比赛生成，金额为每日 50 元示例预算，不构成购彩保证。",
     round: "阶段",
     team: "球队",
     confidence: "置信度",
@@ -112,8 +112,8 @@ const translations = {
     representativeScore: "代表比分",
     modalScore: "精确众数比分",
     favorite: "预测倾向",
-    expectedGoals: "预计进球",
-    expectedTotalGoals: "总进球期望",
+    expectedGoals: "预期进球 xG",
+    expectedTotalGoals: "总 xG",
     over25: "大于 2.5 球",
     bothScore: "双方进球",
     knockoutAdvance: "淘汰赛晋级倾向",
@@ -427,10 +427,10 @@ function renderBettingDailyFromMatches(matches = []) {
   const availableDays = [...new Set(upcoming.map(beijingDateKey))].sort();
   const day = availableDays.includes(today) ? today : availableDays[0];
   const rows = upcoming.filter((match) => beijingDateKey(match) === day);
-  const rowsWithStakes = attachBettingStakes(rows, 100);
-  els.bettingDayTag.textContent = `${day} 北京时间 · ${rows.length} 场 · 示例预算 100 元`;
+  const rowsWithStakes = attachBettingStakes(rows, 50);
+  els.bettingDayTag.textContent = `${day} 北京时间 · ${rows.length} 场 · 示例预算 50 元`;
   els.bettingNote.textContent = t("noBettingOdds");
-  els.bettingList.innerHTML = rowsWithStakes.map(renderBettingCard).join("");
+  els.bettingList.innerHTML = `${renderMixedPassPlan(buildClientMixedPassPlan(rowsWithStakes, 50))}${rowsWithStakes.map(renderBettingCard).join("")}`;
 }
 
 function renderBettingDaily(payload = {}) {
@@ -442,9 +442,9 @@ function renderBettingDaily(payload = {}) {
     els.bettingList.innerHTML = `<div class="empty-line">暂无未开赛比赛。</div>`;
     return;
   }
-  els.bettingDayTag.textContent = `${current.date} 北京时间 · ${rows.length} 场 · 示例预算 ${Number(current.budget || 100).toFixed(0)} 元`;
+  els.bettingDayTag.textContent = `${current.date} 北京时间 · ${rows.length} 场 · 示例预算 ${Number(current.budget || 50).toFixed(0)} 元`;
   els.bettingNote.textContent = payload.note || t("noBettingOdds");
-  els.bettingList.innerHTML = rows.map(renderBettingCard).join("");
+  els.bettingList.innerHTML = `${renderMixedPassPlan(current.mixed_pass_plan)}${rows.map(renderBettingCard).join("")}`;
 }
 
 async function loadBettingDaily() {
@@ -495,6 +495,130 @@ function buildClientBettingRecommendation(match, stake) {
   };
 }
 
+function buildClientMixedPassPlan(rows = [], budget = 50) {
+  const bettable = rows.filter((row) => row.bettable !== false && row.betting_recommendation?.reference_odds).slice(0, 4);
+  if (bettable.length < 3) {
+    return {
+      available: false,
+      title: "50元冲击万元目标混合过关",
+      summary: "北京时间当日可投注比赛少于 3 场，暂不生成 3串1/4串1 混合过关方案。",
+      warning: "过关投注需要组合内所有选择同时命中才中奖，不能保证收益。",
+    };
+  }
+  const comboDefs = [];
+  if (bettable.length >= 4) comboDefs.push({ pass_type: "4串1", indexes: [0, 1, 2, 3] });
+  for (let a = 0; a < bettable.length - 2; a += 1) {
+    for (let b = a + 1; b < bettable.length - 1; b += 1) {
+      for (let c = b + 1; c < bettable.length; c += 1) {
+        comboDefs.push({ pass_type: "3串1", indexes: [a, b, c] });
+      }
+    }
+  }
+  const stakes = comboDefs.length === 5 && Math.round(budget) === 50
+    ? [18, 8, 8, 8, 8]
+    : comboDefs.map((_, index) => index === 0 ? budget : 0);
+  const tickets = comboDefs.map((combo, index) => {
+    const selections = combo.indexes.map((rowIndex) => {
+      const row = bettable[rowIndex];
+      return {
+        matchup: matchupName(row.team1, row.team2),
+        selection: row.betting_recommendation.selection,
+        reference_odds: Number(row.betting_recommendation.reference_odds || 1),
+        expected_goals: row.expected_goals,
+        predicted_score: row.predicted_score,
+      };
+    });
+    const combinedOdds = selections.reduce((product, item) => product * Number(item.reference_odds || 1), 1);
+    const stake = Number(stakes[index] || 0);
+    const possiblePayout = Number((stake * combinedOdds).toFixed(2));
+    return {
+      pass_type: combo.pass_type,
+      stake,
+      required_hits: combo.indexes.length,
+      combined_odds: Number(combinedOdds.toFixed(2)),
+      possible_payout: possiblePayout,
+      possible_profit: Number((possiblePayout - stake).toFixed(2)),
+      selections,
+    };
+  });
+  const totalStake = tickets.reduce((sum, ticket) => sum + Number(ticket.stake || 0), 0);
+  const maxPayout = tickets.reduce((sum, ticket) => sum + Number(ticket.possible_payout || 0), 0);
+  const maxProfit = maxPayout - totalStake;
+  const targetGap = Math.max(10000 - maxProfit, 0);
+  return {
+    available: true,
+    title: "50元冲击万元目标混合过关",
+    budget,
+    target_profit: 10000,
+    tickets,
+    total_stake: totalStake,
+    max_possible_payout: Number(maxPayout.toFixed(2)),
+    max_possible_profit: Number(maxProfit.toFixed(2)),
+    target_gap: Number(targetGap.toFixed(2)),
+    feasibility: targetGap <= 0 ? "理论奖金达到万元目标" : "当前赔率组合达不到万元目标",
+    summary: targetGap <= 0
+      ? `若全部过关票命中，理论最高奖金约 ${maxPayout.toFixed(2)} 元，理论盈利约 ${maxProfit.toFixed(2)} 元。`
+      : `当前参考赔率下，全部命中理论盈利约 ${maxProfit.toFixed(2)} 元，距离 1 万元目标还差约 ${targetGap.toFixed(2)} 元。`,
+    warning: "中国体彩过关投注需要每张票内所有选择同时命中才中奖；本方案只做模型和赔率测算，不保证中奖或盈利。",
+  };
+}
+
+function renderMixedPassPlan(plan = {}) {
+  if (!plan.title) return "";
+  if (plan.available === false) {
+    return `
+      <section class="pass-plan">
+        <div class="pass-plan-head">
+          <strong>${escapeHtml(plan.title)}</strong>
+          <span>预算 50 元</span>
+        </div>
+        <p>${escapeHtml(plan.summary || "")}</p>
+        <p class="bad">${escapeHtml(plan.warning || "")}</p>
+      </section>
+    `;
+  }
+  const tickets = plan.tickets || [];
+  return `
+    <section class="pass-plan">
+      <div class="pass-plan-head">
+        <strong>${escapeHtml(plan.title || "50元混合过关")}</strong>
+        <span>预算 ${Number(plan.total_stake || plan.budget || 0).toFixed(0)} 元 · 目标盈利 ${Number(plan.target_profit || 10000).toFixed(0)} 元</span>
+      </div>
+      <div class="pass-metrics">
+        <div><span>理论最高奖金</span><strong>${Number(plan.max_possible_payout || 0).toFixed(2)} 元</strong></div>
+        <div><span>理论最高盈利</span><strong>${Number(plan.max_possible_profit || 0).toFixed(2)} 元</strong></div>
+        <div><span>目标缺口</span><strong>${Number(plan.target_gap || 0).toFixed(2)} 元</strong></div>
+      </div>
+      <p>${escapeHtml(plan.summary || "")}</p>
+      <div class="pass-ticket-list">
+        ${tickets.map(renderPassTicket).join("")}
+      </div>
+      <p class="bad">${escapeHtml(plan.warning || "")}</p>
+    </section>
+  `;
+}
+
+function renderPassTicket(ticket = {}) {
+  const selections = ticket.selections || [];
+  return `
+    <div class="pass-ticket">
+      <div>
+        <strong>${escapeHtml(ticket.pass_type || "")} · ${Number(ticket.stake || 0).toFixed(0)} 元</strong>
+        <span>组合赔率 ${Number(ticket.combined_odds || 0).toFixed(2)} · 理论奖金 ${Number(ticket.possible_payout || 0).toFixed(2)} 元 · 需中 ${ticket.required_hits || selections.length} 场</span>
+      </div>
+      <ul>
+        ${selections.map((item) => `
+          <li>
+            <span>${escapeHtml(localizeTeamText(item.matchup || ""))}</span>
+            <strong>${escapeHtml(localizeTeamText(item.selection || ""))}</strong>
+            <em>${Number(item.reference_odds || 0).toFixed(2)} · xG ${formatExpectedGoals(item.expected_goals)}</em>
+          </li>
+        `).join("")}
+      </ul>
+    </div>
+  `;
+}
+
 function renderBettingCard(match) {
   const analysis = match.betting_analysis || {};
   const fair = analysis.fair_odds || {};
@@ -506,6 +630,7 @@ function renderBettingCard(match) {
         <strong>${escapeHtml(matchupName(match.team1, match.team2))}</strong>
         <small>${escapeHtml(formatDateTime(match))} · ${escapeHtml(match.round || "")} · ${escapeHtml(match.status || "")} · 预测 ${escapeHtml(match.predicted_score || "待定")}</small>
       </div>
+      ${renderExpectedGoalsStrip(match)}
       <div class="odds-grid">
         ${renderOddsCell(teamName(match.team1), probs.team1_win, fair.team1_win, threshold.team1_win)}
         ${renderOddsCell("平局", probs.draw, fair.draw, threshold.draw)}
@@ -513,11 +638,28 @@ function renderBettingCard(match) {
       </div>
       <p>${escapeHtml(localizeTeamText(analysis.suggestion || ""))}</p>
       ${renderBettingRecommendation(match.betting_recommendation)}
-      ${match.bettable === false ? `<p class="bad">已开赛，不建议再按赛前投注方案投注。</p>` : ""}
       ${renderLotteryReference(analysis.lottery_reference)}
       ${analysis.overround !== undefined ? `<p>${escapeHtml(t("bookmakerOverround"))}：${percent(analysis.overround)}</p>` : ""}
     </div>
   `;
+}
+
+function renderExpectedGoalsStrip(match = {}) {
+  const expected = match.expected_goals || {};
+  if (expected.team1 === undefined || expected.team2 === undefined) return "";
+  const summary = match.score_summary || {};
+  return `
+    <div class="xg-strip">
+      <span>${escapeHtml(t("expectedGoals"))}</span>
+      <strong>${escapeHtml(teamName(match.team1))} ${Number(expected.team1 || 0).toFixed(2)} : ${Number(expected.team2 || 0).toFixed(2)} ${escapeHtml(teamName(match.team2))}</strong>
+      <em>${escapeHtml(t("expectedTotalGoals"))} ${summary.expected_total_goals ?? (Number(expected.team1 || 0) + Number(expected.team2 || 0)).toFixed(2)} · 大2.5 ${percent(summary.over_2_5)} · 双方进球 ${percent(summary.both_teams_score)}</em>
+    </div>
+  `;
+}
+
+function formatExpectedGoals(expected = {}) {
+  if (expected.team1 === undefined || expected.team2 === undefined) return "--";
+  return `${Number(expected.team1 || 0).toFixed(2)}:${Number(expected.team2 || 0).toFixed(2)}`;
 }
 
 function renderBettingRecommendation(recommendation = {}) {
@@ -525,7 +667,7 @@ function renderBettingRecommendation(recommendation = {}) {
   return `
     <div class="bet-slip">
       <span>玩法：${escapeHtml(recommendation.play_type)}</span>
-      <span>选择：${escapeHtml(recommendation.selection)}</span>
+      <span>选择：${escapeHtml(localizeTeamText(recommendation.selection || ""))}</span>
       <span>金额：${Number(recommendation.stake || 0).toFixed(0)} 元</span>
       <span>${escapeHtml(recommendation.odds_type || "参考赔率")}：${Number(recommendation.reference_odds || 0).toFixed(2)}</span>
       <strong>可能奖金：${Number(recommendation.possible_payout || 0).toFixed(2)} 元</strong>

@@ -133,12 +133,59 @@ button.primary:hover {
 }
 
 .performance-panel,
-.tournament-panel {
+.tournament-panel,
+.support-panel {
   margin-bottom: 14px;
   padding: 14px;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+
+.support-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.support-copy h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.support-copy p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.support-qr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.support-qr-card {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.support-qr-card img {
+  display: block;
+  width: min(100%, 220px);
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+.support-qr-card strong {
+  font-size: 14px;
 }
 
 .performance-grid {
@@ -889,7 +936,8 @@ button.primary:hover {
   .bracket-grid,
   .odds-grid,
   .bet-slip,
-  .pass-metrics {
+  .pass-metrics,
+  .support-panel {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -956,6 +1004,8 @@ button.primary:hover {
   .odds-grid,
   .bet-slip,
   .pass-metrics,
+  .support-panel,
+  .support-qr-grid,
   .filters,
   .prob-grid {
     grid-template-columns: 1fr;

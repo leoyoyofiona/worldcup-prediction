@@ -1,4 +1,6 @@
 from app.cache import empty_cache, load_cache, save_cache
+from app.services import PredictionService
+import time
 
 
 def test_cache_roundtrip(tmp_path):
@@ -11,3 +13,30 @@ def test_cache_roundtrip(tmp_path):
     assert loaded["generated_at"] == payload["generated_at"]
     assert loaded["matches"][0]["id"] == "wc2026-001"
 
+
+def test_auto_sync_returns_cache_and_finishes_in_background(monkeypatch):
+    service = PredictionService()
+    old_cache = {"matches": [{"id": "wc2026-001"}], "summary": {}, "generated_at": "old"}
+    saved = []
+
+    def fake_sync(cache):
+        time.sleep(0.02)
+        updated = dict(cache)
+        updated["generated_at"] = "new"
+        updated["summary"] = {"live_result_synced_at": "new"}
+        return updated
+
+    monkeypatch.setattr("app.services.load_cache", lambda: old_cache)
+    monkeypatch.setattr("app.services.save_cache", lambda payload: saved.append(payload))
+    monkeypatch.setattr("app.services.sync_live_results", fake_sync)
+
+    returned = service._cache_with_auto_sync()
+    assert returned is old_cache
+    assert service._task_snapshot()["running"] is True
+
+    for _ in range(20):
+        if saved:
+            break
+        time.sleep(0.01)
+    assert saved[0]["generated_at"] == "new"
+    assert service._task_snapshot()["running"] is False

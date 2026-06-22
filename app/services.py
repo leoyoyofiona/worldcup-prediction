@@ -15,7 +15,6 @@ from .sources import authorized_source_statuses, fetch_sources, load_cached_sour
 
 
 AUTO_SYNC_INTERVAL_SECONDS = 300
-AUTO_SYNC_TIMEOUT_SECONDS = 20
 BEIJING_TZ = ZoneInfo("Asia/Shanghai")
 DAILY_BETTING_BUDGET = 50.0
 DAILY_BETTING_TARGET_PROFIT = 10000.0
@@ -199,6 +198,10 @@ class PredictionService:
             return cache
         if not self._build_lock.acquire(blocking=False):
             return cache
+        self._start_auto_sync_task(cache)
+        return cache
+
+    def _start_auto_sync_task(self, cache: Dict[str, Any]) -> None:
         with self._state_lock:
             self._task_state = {
                 "running": True,
@@ -208,24 +211,11 @@ class PredictionService:
                 "finished_at": None,
                 "error": None,
             }
-        executor = ThreadPoolExecutor(max_workers=1)
-        try:
-            future = executor.submit(sync_live_results, cache)
-            cache = future.result(timeout=AUTO_SYNC_TIMEOUT_SECONDS)
-            save_cache(cache)
-            error = None
-        except (FutureTimeoutError, Exception) as exc:
-            error = str(exc)
-            cache["error"] = f"自动同步失败，继续使用旧预测：{exc}"
-        finally:
-            executor.shutdown(wait=False, cancel_futures=True)
-            with self._state_lock:
-                self._task_state["running"] = False
-                self._task_state["message"] = "自动同步已完成" if error is None else "自动同步失败"
-                self._task_state["finished_at"] = now_iso()
-                self._task_state["error"] = error
-            self._build_lock.release()
-        return cache
+        thread = threading.Thread(target=self._run_background_task, args=(lambda: self._auto_sync_job(cache),), daemon=True)
+        thread.start()
+
+    def _auto_sync_job(self, cache: Dict[str, Any]) -> None:
+        save_cache(sync_live_results(cache))
 
     def _should_auto_sync(self, cache: Dict[str, Any]) -> bool:
         if not cache.get("matches"):

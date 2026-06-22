@@ -68,6 +68,30 @@ def test_build_actual_results_matches_aliases_and_preserves_schedule_order():
     assert actuals["wc2026-007"]["team2_name"] == "Bosnia & Herzegovina"
 
 
+def test_build_actual_results_matches_turkiye_alias():
+    matches = [
+        {
+            "id": "wc2026-022",
+            "team1": "Turkey",
+            "team2": "Paraguay",
+            "starts_at": "2026-06-20T03:00:00+00:00",
+        }
+    ]
+    events = [
+        {
+            "home": "Türkiye",
+            "away": "Paraguay",
+            "home_score": 0,
+            "away_score": 1,
+            "date": "2026-06-20T03:00Z",
+            "source_url": "https://example.test/turkiye",
+        }
+    ]
+    actuals = build_actual_results(matches, events)
+    assert actuals["wc2026-022"]["score"] == "0-1"
+    assert actuals["wc2026-022"]["team1_name"] == "Turkey"
+
+
 def test_parse_espn_technical_event_includes_match_stats_and_substitutions():
     event = {
         "id": "760436",

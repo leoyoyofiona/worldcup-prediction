@@ -68,6 +68,7 @@ TEAM_ALIASES: Dict[str, Sequence[str]] = {
     "Iran": ["IR Iran"],
     "Cape Verde": ["Cabo Verde"],
     "Curacao": ["Curaçao"],
+    "Turkey": ["Türkiye", "Turkiye"],
 }
 
 TEAM_CHINESE_ALIASES: Dict[str, Sequence[str]] = {

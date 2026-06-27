@@ -3,7 +3,6 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 import threading
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
-from itertools import combinations
 from typing import Any, Dict, List, Optional
 from zoneinfo import ZoneInfo
 
@@ -16,8 +15,6 @@ from .sources import authorized_source_statuses, fetch_sources, load_cached_sour
 
 AUTO_SYNC_INTERVAL_SECONDS = 300
 BEIJING_TZ = ZoneInfo("Asia/Shanghai")
-DAILY_BETTING_BUDGET = 50.0
-DAILY_BETTING_TARGET_PROFIT = 10000.0
 
 
 class PredictionService:
@@ -157,13 +154,13 @@ class PredictionService:
 
     def betting_daily(self) -> Dict[str, Any]:
         cache = self._cache_with_auto_sync()
-        day_rows = build_betting_days(cache.get("matches", []), DAILY_BETTING_BUDGET)
+        day_rows = build_betting_days(cache.get("matches", []))
         return {
             "generated_at": cache.get("generated_at"),
             "model_version": cache.get("model_version"),
             "days": day_rows,
             "current_day": day_rows[0] if day_rows else None,
-            "note": "金额为按每日 50 元示例预算生成的中国体彩混合过关参考，不是收益保证；若接入真实体彩赔率，会优先使用真实赔率计算超额水位、去水概率、EV 和可能奖金。",
+            "note": "以下按北京时间当日未完赛比赛生成总进球数、比分、半全场和爆冷观察；仅供赛前分析和理性观赛参考，不构成购彩保证。",
             "task": self._task_snapshot(),
         }
 
@@ -274,7 +271,6 @@ def beijing_date_key(match: Dict[str, Any]) -> str:
 
 def build_betting_days(
     matches: List[Dict[str, Any]],
-    budget: float,
     now: Optional[datetime] = None,
 ) -> List[Dict[str, Any]]:
     now_utc = now or datetime.now(timezone.utc)
@@ -298,15 +294,12 @@ def build_betting_days(
     selected_days = [today_key] if today_key in grouped else [min(grouped)]
     days = []
     for day in selected_days:
-        matches_with_recommendations = attach_betting_recommendations(grouped[day], budget)
         days.append(
             {
                 "date": day,
                 "timezone": "Asia/Shanghai",
-                "budget": budget,
-                "target_profit": DAILY_BETTING_TARGET_PROFIT,
-                "matches": matches_with_recommendations,
-                "mixed_pass_plan": build_mixed_pass_plan(matches_with_recommendations, budget, DAILY_BETTING_TARGET_PROFIT),
+                "recommendation_types": ["总进球数", "比分", "半全场", "爆冷观察"],
+                "matches": grouped[day],
             }
         )
     return days
@@ -348,39 +341,158 @@ def betting_match_payload(match: Dict[str, Any], now_utc: datetime) -> Dict[str,
         "score_summary": match.get("score_summary"),
         "probabilities": match.get("probabilities"),
         "betting_analysis": match.get("betting_analysis"),
+        "daily_recommendation": build_daily_match_recommendation(match),
     }
 
 
-def attach_betting_recommendations(rows: List[Dict[str, Any]], budget: float) -> List[Dict[str, Any]]:
-    weighted: List[tuple[float, Dict[str, Any]]] = []
-    for row in rows:
-        if row.get("bettable") is False:
-            weighted.append((0.0, row))
-            continue
-        analysis = row.get("betting_analysis") or {}
-        probabilities = analysis.get("model_probabilities") or row.get("probabilities") or {}
-        if not probabilities:
-            weight = 1.0
-        else:
-            values = sorted([float(value or 0.0) for value in probabilities.values()], reverse=True)
-            gap = (values[0] - values[1]) if len(values) > 1 else values[0]
-            weight = max(0.8, gap / 10.0)
-        weighted.append((weight, row))
+def build_daily_match_recommendation(match: Dict[str, Any]) -> Dict[str, Any]:
+    probabilities = probability_map(match)
+    favorite_key = max(probabilities, key=probabilities.get) if probabilities else "team1_win"
+    favorite_probability = probabilities.get(favorite_key, 0.0)
+    second_probability = sorted(probabilities.values(), reverse=True)[1] if len(probabilities) > 1 else 0.0
+    confidence = confidence_from_probability_gap(favorite_probability, favorite_probability - second_probability)
+    return {
+        "total_goals": build_total_goals_pick(match),
+        "score": build_score_pick(match),
+        "half_full": build_half_full_pick(match, favorite_key, confidence),
+        "upset": build_upset_pick(match, favorite_key),
+    }
 
-    total_weight = sum(weight for weight, row in weighted if row.get("bettable") is not False) or 1.0
-    for index, (weight, row) in enumerate(weighted):
-        if row.get("bettable") is False:
-            row["betting_recommendation"] = build_betting_recommendation(row, 0.0)
-            row["betting_recommendation"]["risk_note"] = "比赛已开赛，不建议再按赛前投注方案投注。"
-            continue
-        raw_stake = budget * weight / total_weight
-        stake = max(2.0, round(raw_stake / 2.0) * 2.0)
-        remaining_bettable = [item for _, item in weighted[index + 1 :] if item.get("bettable") is not False]
-        if not remaining_bettable:
-            used = sum(float(item.get("betting_recommendation", {}).get("stake", 0.0)) for _, item in weighted[:index])
-            stake = max(2.0, round((budget - used) / 2.0) * 2.0)
-        row["betting_recommendation"] = build_betting_recommendation(row, stake)
-    return [row for _, row in weighted]
+
+def probability_map(match: Dict[str, Any]) -> Dict[str, float]:
+    analysis = match.get("betting_analysis") or {}
+    raw = analysis.get("model_probabilities") or match.get("probabilities") or {}
+    return {
+        key: safe_float(raw.get(key), 0.0)
+        for key in ("team1_win", "draw", "team2_win")
+    }
+
+
+def safe_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def confidence_from_probability_gap(probability: float, gap: float) -> str:
+    if probability >= 64.0 and gap >= 24.0:
+        return "高"
+    if probability >= 48.0 and gap >= 10.0:
+        return "中"
+    return "观察"
+
+
+def build_total_goals_pick(match: Dict[str, Any]) -> Dict[str, Any]:
+    summary = match.get("score_summary") or {}
+    expected = match.get("expected_goals") or {}
+    expected_total = safe_float(
+        summary.get("expected_total_goals"),
+        safe_float(expected.get("team1")) + safe_float(expected.get("team2")),
+    )
+    over_25 = safe_float(summary.get("over_2_5"))
+    over_35 = safe_float(summary.get("over_3_5"))
+    both_score = safe_float(summary.get("both_teams_score"))
+    if expected_total >= 3.6 or over_35 >= 58.0:
+        selection = "4球及以上"
+        confidence = "高" if over_35 >= 62.0 else "中"
+    elif expected_total >= 2.75 or over_25 >= 58.0:
+        selection = "3球左右"
+        confidence = "中"
+    elif expected_total <= 2.15 or over_25 <= 42.0:
+        selection = "0-2球"
+        confidence = "中"
+    else:
+        selection = "2-3球"
+        confidence = "观察"
+    return {
+        "play_type": "总进球数",
+        "selection": selection,
+        "confidence": confidence,
+        "expected_total_goals": round(expected_total, 2),
+        "over_2_5": round(over_25, 1),
+        "over_3_5": round(over_35, 1),
+        "both_teams_score": round(both_score, 1),
+        "reason": f"总 xG {expected_total:.2f}，大2.5概率 {over_25:.1f}%，双方进球 {both_score:.1f}%。",
+    }
+
+
+def build_score_pick(match: Dict[str, Any]) -> Dict[str, Any]:
+    summary = match.get("score_summary") or {}
+    primary = str(summary.get("representative_score") or match.get("predicted_score") or "待定")
+    modal = str(summary.get("modal_score") or primary)
+    expected = match.get("expected_goals") or {}
+    secondary = modal if modal != primary else ""
+    return {
+        "play_type": "比分",
+        "selection": primary,
+        "secondary": secondary,
+        "confidence": "观察",
+        "reason": (
+            f"xG {safe_float(expected.get('team1')):.2f}:{safe_float(expected.get('team2')):.2f}"
+            + (f"，精确众数比分 {modal}。" if modal and modal != primary else "。")
+        ),
+    }
+
+
+def build_half_full_pick(match: Dict[str, Any], favorite_key: str, confidence: str) -> Dict[str, Any]:
+    probabilities = probability_map(match)
+    total_expected = safe_float((match.get("score_summary") or {}).get("expected_total_goals"))
+    draw_probability = probabilities.get("draw", 0.0)
+    favorite_probability = probabilities.get(favorite_key, 0.0)
+    if favorite_key == "draw" or (draw_probability >= 30.0 and favorite_probability < 48.0):
+        selection = "平平"
+        reason = f"平局概率 {draw_probability:.1f}%，双方差距不大。"
+    elif favorite_key == "team1_win":
+        selection = "胜胜" if favorite_probability >= 62.0 and total_expected >= 2.7 else "平胜"
+        reason = f"{match.get('team1')} 取胜概率 {favorite_probability:.1f}%，上半场按谨慎节奏估计。"
+    else:
+        selection = "负负" if favorite_probability >= 62.0 and total_expected >= 2.7 else "平负"
+        reason = f"{match.get('team2')} 取胜概率 {favorite_probability:.1f}%，上半场按谨慎节奏估计。"
+    return {
+        "play_type": "半全场",
+        "selection": selection,
+        "confidence": confidence,
+        "reason": reason,
+    }
+
+
+def build_upset_pick(match: Dict[str, Any], favorite_key: str) -> Dict[str, Any]:
+    probabilities = probability_map(match)
+    analysis = match.get("betting_analysis") or {}
+    threshold_odds = analysis.get("value_threshold_odds") or {}
+    labels = {
+        "team1_win": match.get("team1") or "第一队",
+        "draw": "平局",
+        "team2_win": match.get("team2") or "第二队",
+    }
+    favorite_probability = probabilities.get(favorite_key, 0.0)
+    candidates = [(key, value) for key, value in probabilities.items() if key != favorite_key]
+    cold_key, cold_probability = max(candidates, key=lambda item: item[1]) if candidates else ("draw", 0.0)
+    if favorite_probability >= 66.0 and cold_probability < 22.0:
+        selection = "爆冷风险低"
+        confidence = "高"
+        reason = f"热门方向概率 {favorite_probability:.1f}%，最大冷门方向 {labels[cold_key]} 仅 {cold_probability:.1f}%。"
+    elif cold_key == "draw":
+        selection = "防平"
+        confidence = "中" if cold_probability >= 24.0 else "观察"
+        reason = f"平局概率 {cold_probability:.1f}%，适合列为冷门观察项。"
+    else:
+        selection = f"关注{labels[cold_key]}爆冷"
+        confidence = "观察"
+        reason = f"{labels[cold_key]} 概率 {cold_probability:.1f}%，属于低概率高波动方向。"
+    value_odds = threshold_odds.get(cold_key)
+    if value_odds:
+        reason = f"{reason} 公开赔率高于 {safe_float(value_odds):.2f} 时才进入价值观察。"
+    return {
+        "play_type": "爆冷观察",
+        "selection": selection,
+        "outcome_key": cold_key,
+        "probability": round(cold_probability, 1),
+        "value_threshold_odds": round(safe_float(value_odds), 2) if value_odds else None,
+        "confidence": confidence,
+        "reason": reason,
+    }
 
 
 def match_status_at(starts_at: Optional[str], now_utc: datetime) -> str:
@@ -398,140 +510,3 @@ def match_status_at(starts_at: Optional[str], now_utc: datetime) -> str:
     if now_utc <= starts + timedelta(hours=2, minutes=30):
         return "进行中"
     return "已结束"
-
-
-def build_betting_recommendation(row: Dict[str, Any], stake: float) -> Dict[str, Any]:
-    analysis = row.get("betting_analysis") or {}
-    probabilities = analysis.get("model_probabilities") or row.get("probabilities") or {}
-    favorite = analysis.get("favorite") or max(probabilities, key=probabilities.get)
-    labels = {
-        "team1_win": row.get("team1"),
-        "draw": "平局",
-        "team2_win": row.get("team2"),
-    }
-    fair_odds = analysis.get("fair_odds") or {}
-    threshold_odds = analysis.get("value_threshold_odds") or {}
-    quoted_odds = analysis.get("quoted_odds") or {}
-    odds = float(quoted_odds.get(favorite) or threshold_odds.get(favorite) or fair_odds.get(favorite) or 1.0)
-    possible_payout = round(stake * odds, 2)
-    possible_profit = round(possible_payout - stake, 2)
-    return {
-        "play_type": "竞彩足球胜平负",
-        "selection": labels.get(favorite, favorite),
-        "outcome_key": favorite,
-        "stake": round(stake, 2),
-        "reference_odds": round(odds, 2),
-        "odds_type": "真实赔率" if favorite in quoted_odds else "建议最低参考赔率",
-        "possible_payout": possible_payout,
-        "possible_profit": possible_profit,
-        "risk_note": "按模型概率和参考赔率估算，实际出票赔率、过关方式、税费规则和赛果会改变奖金。",
-    }
-
-
-def build_mixed_pass_plan(rows: List[Dict[str, Any]], budget: float, target_profit: float) -> Dict[str, Any]:
-    bettable_rows = [
-        row
-        for row in rows
-        if row.get("bettable") is not False and (row.get("betting_recommendation") or {}).get("reference_odds")
-    ][:4]
-    if len(bettable_rows) < 3:
-        return {
-            "available": False,
-            "budget": round(budget, 2),
-            "target_profit": round(target_profit, 2),
-            "title": "50元冲击万元目标混合过关",
-            "summary": "北京时间当日可投注比赛少于 3 场，暂不生成 3串1/4串1 混合过关方案。",
-            "warning": "过关投注需要组合内所有选择同时命中才中奖，不能保证收益。",
-        }
-
-    combo_defs = []
-    if len(bettable_rows) >= 4:
-        combo_defs.append(("4串1", tuple(range(4))))
-    combo_defs.extend(("3串1", combo) for combo in combinations(range(len(bettable_rows)), 3))
-    stakes = allocate_pass_stakes(len(combo_defs), budget)
-
-    tickets = []
-    for (pass_type, indexes), stake in zip(combo_defs, stakes):
-        combo_rows = [bettable_rows[index] for index in indexes]
-        combined_odds = 1.0
-        selections = []
-        model_probability = 1.0
-        for row in combo_rows:
-            recommendation = row.get("betting_recommendation") or build_betting_recommendation(row, 0.0)
-            odds = float(recommendation.get("reference_odds") or 1.0)
-            combined_odds *= odds
-            probability = float((row.get("probabilities") or {}).get(recommendation.get("outcome_key"), 0.0)) / 100.0
-            model_probability *= max(probability, 0.0)
-            selections.append(
-                {
-                    "match_id": row.get("id"),
-                    "matchup": f"{row.get('team1')} vs {row.get('team2')}",
-                    "selection": recommendation.get("selection"),
-                    "outcome_key": recommendation.get("outcome_key"),
-                    "reference_odds": round(odds, 2),
-                    "expected_goals": row.get("expected_goals"),
-                    "predicted_score": row.get("predicted_score"),
-                }
-            )
-        possible_payout = round(stake * combined_odds, 2)
-        tickets.append(
-            {
-                "pass_type": pass_type,
-                "stake": round(stake, 2),
-                "required_hits": len(indexes),
-                "combined_odds": round(combined_odds, 2),
-                "model_hit_probability": round(model_probability * 100.0, 2),
-                "possible_payout": possible_payout,
-                "possible_profit": round(possible_payout - stake, 2),
-                "selections": selections,
-            }
-        )
-
-    total_stake = round(sum(ticket["stake"] for ticket in tickets), 2)
-    max_possible_payout = round(sum(ticket["possible_payout"] for ticket in tickets), 2)
-    max_possible_profit = round(max_possible_payout - total_stake, 2)
-    target_gap = round(max(target_profit - max_possible_profit, 0.0), 2)
-    target_payout = round(target_profit + total_stake, 2)
-    feasible = target_gap <= 0
-    return {
-        "available": True,
-        "title": "50元冲击万元目标混合过关",
-        "budget": round(budget, 2),
-        "target_profit": round(target_profit, 2),
-        "target_payout": target_payout,
-        "selected_match_count": len(bettable_rows),
-        "tickets": tickets,
-        "total_stake": total_stake,
-        "max_possible_payout": max_possible_payout,
-        "max_possible_profit": max_possible_profit,
-        "target_gap": target_gap,
-        "feasibility": "理论奖金达到万元目标" if feasible else "当前赔率组合达不到万元目标",
-        "summary": (
-            f"若全部过关票命中，理论最高奖金约 {max_possible_payout:.2f} 元，理论盈利约 {max_possible_profit:.2f} 元。"
-            if feasible
-            else f"当前参考赔率下，全部命中理论盈利约 {max_possible_profit:.2f} 元，距离 1 万元目标还差约 {target_gap:.2f} 元。"
-        ),
-        "warning": "中国体彩过关投注需要每张票内所有选择同时命中才中奖；本方案只做模型和赔率测算，不保证中奖或盈利，不建议为追求万元目标强行选择低概率冷门、比分或大额倍投。",
-        "source_note": "参考中国体彩网/竞彩网公开过关口径；当前赔率优先使用真实赔率，缺失时使用模型价值赔率。实际出票以中国体彩销售终端为准。",
-    }
-
-
-def allocate_pass_stakes(ticket_count: int, budget: float) -> List[float]:
-    if ticket_count <= 0:
-        return []
-    if ticket_count == 5 and round(budget) == 50:
-        return [18.0, 8.0, 8.0, 8.0, 8.0]
-
-    units = max(int(round(budget / 2.0)), ticket_count)
-    base = max(1, units // ticket_count)
-    stakes = [base * 2.0 for _ in range(ticket_count)]
-    remaining_units = units - base * ticket_count
-    index = 0
-    while remaining_units > 0:
-        stakes[index % ticket_count] += 2.0
-        remaining_units -= 1
-        index += 1
-    diff = round(budget - sum(stakes), 2)
-    if stakes and abs(diff) >= 0.01:
-        stakes[0] = round(stakes[0] + diff, 2)
-    return stakes

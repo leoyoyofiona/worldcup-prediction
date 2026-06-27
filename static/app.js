@@ -12,7 +12,6 @@ const state = {
 const els = {
   statusLine: document.querySelector("#statusLine"),
   updateBtn: document.querySelector("#updateBtn"),
-  recalcBtn: document.querySelector("#recalcBtn"),
   sourcesBtn: document.querySelector("#sourcesBtn"),
   summaryGrid: document.querySelector("#summaryGrid"),
   performanceTag: document.querySelector("#performanceTag"),
@@ -43,15 +42,14 @@ const translations = {
     appTitle: "2026 男足世界杯预测",
     loadingStatus: "正在读取模型状态...",
     updateData: "更新数据并重算",
-    recalculate: "重新计算模型",
     sourceStatus: "来源状态",
     performanceTitle: "真实赛果对比",
     tournamentTitle: "淘汰赛推演",
-    bettingValueTitle: "当日投注价值参考",
+    bettingValueTitle: "当日比赛分析预测",
     fairOdds: "公平赔率",
     valueOdds: "价值赔率",
     bookmakerOverround: "庄家超额水位",
-    noBettingOdds: "以下按北京时间当日未完赛比赛生成，金额为每日 50 元示例预算，不构成购彩保证。",
+    noBettingOdds: "以下按北京时间当日未完赛比赛生成总进球数、比分、半全场和爆冷观察；仅供赛前分析和理性观赛参考。",
     round: "阶段",
     team: "球队",
     confidence: "置信度",
@@ -92,10 +90,8 @@ const translations = {
     modelUpdated: "模型 {version}，更新于 {time}",
     noData: "尚未生成预测数据",
     updating: "正在联网更新数据源并重新计算模型...",
-    recalculating: "正在使用本地缓存重新计算模型...",
     stillRunning: "后台任务仍在运行，稍后会继续更新；你可以过一会儿刷新页面查看结果。",
     updateFailed: "更新数据失败：{message}",
-    recalcFailed: "重新计算失败：{message}",
     initFailed: "初始化失败：{message}",
     noFilteredMatches: "没有符合筛选条件的比赛。",
     allRounds: "全部阶段",
@@ -253,7 +249,6 @@ function beijingDateKey(match) {
 function setBusy(isBusy, label = t("loading")) {
   state.loading = isBusy;
   els.updateBtn.disabled = isBusy;
-  els.recalcBtn.disabled = isBusy;
   if (isBusy) els.statusLine.textContent = label;
 }
 
@@ -429,10 +424,10 @@ function renderBettingDailyFromMatches(matches = []) {
   const availableDays = [...new Set(upcoming.map(beijingDateKey))].sort();
   const day = availableDays.includes(today) ? today : availableDays[0];
   const rows = upcoming.filter((match) => beijingDateKey(match) === day);
-  const rowsWithStakes = attachBettingStakes(rows, 50);
-  els.bettingDayTag.textContent = `${day} 北京时间 · ${rows.length} 场 · 示例预算 50 元`;
+  const rowsWithRecommendations = attachDailyRecommendations(rows);
+  els.bettingDayTag.textContent = `${day} 北京时间 · ${rows.length} 场`;
   els.bettingNote.textContent = t("noBettingOdds");
-  els.bettingList.innerHTML = `${renderMixedPassPlan(buildClientMixedPassPlan(rowsWithStakes, 50))}${rowsWithStakes.map(renderBettingCard).join("")}`;
+  els.bettingList.innerHTML = rowsWithRecommendations.map(renderBettingCard).join("");
 }
 
 function renderBettingDaily(payload = {}) {
@@ -444,9 +439,9 @@ function renderBettingDaily(payload = {}) {
     els.bettingList.innerHTML = `<div class="empty-line">暂无未开赛比赛。</div>`;
     return;
   }
-  els.bettingDayTag.textContent = `${current.date} 北京时间 · ${rows.length} 场 · 示例预算 ${Number(current.budget || 50).toFixed(0)} 元`;
+  els.bettingDayTag.textContent = `${current.date} 北京时间 · ${rows.length} 场`;
   els.bettingNote.textContent = payload.note || t("noBettingOdds");
-  els.bettingList.innerHTML = `${renderMixedPassPlan(current.mixed_pass_plan)}${rows.map(renderBettingCard).join("")}`;
+  els.bettingList.innerHTML = rows.map(renderBettingCard).join("");
 }
 
 async function loadBettingDaily() {
@@ -459,166 +454,145 @@ async function loadBettingDaily() {
   }
 }
 
-function attachBettingStakes(rows, budget) {
-  const weighted = rows.map((match) => {
-    const probs = Object.values((match.betting_analysis || {}).model_probabilities || match.probabilities || {}).map(Number).sort((a, b) => b - a);
-    const gap = probs.length > 1 ? probs[0] - probs[1] : probs[0] || 10;
-    return { match, weight: Math.max(0.8, gap / 10) };
-  });
-  const totalWeight = weighted.reduce((sum, item) => sum + item.weight, 0) || 1;
-  let used = 0;
-  return weighted.map((item, index) => {
-    const copy = { ...item.match };
-    let stake = Math.max(2, Math.round((budget * item.weight / totalWeight) / 2) * 2);
-    if (index === weighted.length - 1) stake = Math.max(2, Math.round((budget - used) / 2) * 2);
-    used += stake;
-    copy.betting_recommendation = buildClientBettingRecommendation(copy, stake);
-    return copy;
-  });
+function attachDailyRecommendations(rows) {
+  return rows.map((match) => ({
+    ...match,
+    daily_recommendation: match.daily_recommendation || buildClientDailyRecommendation(match),
+  }));
 }
 
-function buildClientBettingRecommendation(match, stake) {
-  const analysis = match.betting_analysis || {};
-  const probabilities = analysis.model_probabilities || match.probabilities || {};
-  const favorite = analysis.favorite || Object.entries(probabilities).sort((a, b) => Number(b[1]) - Number(a[1]))[0]?.[0] || "team1_win";
+function buildClientDailyRecommendation(match) {
+  const probabilities = probabilityMap(match);
+  const entries = Object.entries(probabilities).sort((a, b) => Number(b[1]) - Number(a[1]));
+  const favorite = entries[0]?.[0] || "team1_win";
+  const favoriteProbability = Number(entries[0]?.[1] || 0);
+  const secondProbability = Number(entries[1]?.[1] || 0);
+  const confidence = confidenceFromProbabilityGap(favoriteProbability, favoriteProbability - secondProbability);
+  return {
+    total_goals: buildClientTotalGoalsPick(match),
+    score: buildClientScorePick(match),
+    half_full: buildClientHalfFullPick(match, favorite, confidence),
+    upset: buildClientUpsetPick(match, favorite),
+  };
+}
+
+function probabilityMap(match) {
+  const raw = (match.betting_analysis || {}).model_probabilities || match.probabilities || {};
+  return {
+    team1_win: Number(raw.team1_win || 0),
+    draw: Number(raw.draw || 0),
+    team2_win: Number(raw.team2_win || 0),
+  };
+}
+
+function confidenceFromProbabilityGap(probability, gap) {
+  if (probability >= 64 && gap >= 24) return "高";
+  if (probability >= 48 && gap >= 10) return "中";
+  return "观察";
+}
+
+function buildClientTotalGoalsPick(match) {
+  const summary = match.score_summary || {};
+  const expected = match.expected_goals || {};
+  const expectedTotal = Number(summary.expected_total_goals ?? (Number(expected.team1 || 0) + Number(expected.team2 || 0)));
+  const over25 = Number(summary.over_2_5 || 0);
+  const over35 = Number(summary.over_3_5 || 0);
+  const bothScore = Number(summary.both_teams_score || 0);
+  let selection = "2-3球";
+  let confidence = "观察";
+  if (expectedTotal >= 3.6 || over35 >= 58) {
+    selection = "4球及以上";
+    confidence = over35 >= 62 ? "高" : "中";
+  } else if (expectedTotal >= 2.75 || over25 >= 58) {
+    selection = "3球左右";
+    confidence = "中";
+  } else if (expectedTotal <= 2.15 || over25 <= 42) {
+    selection = "0-2球";
+    confidence = "中";
+  }
+  return {
+    play_type: "总进球数",
+    selection,
+    confidence,
+    reason: `总 xG ${expectedTotal.toFixed(2)}，大2.5概率 ${over25.toFixed(1)}%，双方进球 ${bothScore.toFixed(1)}%。`,
+  };
+}
+
+function buildClientScorePick(match) {
+  const summary = match.score_summary || {};
+  const primary = summary.representative_score || match.predicted_score || "待定";
+  const modal = summary.modal_score || primary;
+  const expected = match.expected_goals || {};
+  return {
+    play_type: "比分",
+    selection: primary,
+    secondary: modal !== primary ? modal : "",
+    confidence: "观察",
+    reason: `xG ${Number(expected.team1 || 0).toFixed(2)}:${Number(expected.team2 || 0).toFixed(2)}${modal !== primary ? `，精确众数比分 ${modal}。` : "。"}`
+  };
+}
+
+function buildClientHalfFullPick(match, favorite, confidence) {
+  const probabilities = probabilityMap(match);
+  const expectedTotal = Number((match.score_summary || {}).expected_total_goals || 0);
+  const drawProbability = Number(probabilities.draw || 0);
+  const favoriteProbability = Number(probabilities[favorite] || 0);
+  if (favorite === "draw" || (drawProbability >= 30 && favoriteProbability < 48)) {
+    return {
+      play_type: "半全场",
+      selection: "平平",
+      confidence,
+      reason: `平局概率 ${drawProbability.toFixed(1)}%，双方差距不大。`,
+    };
+  }
+  if (favorite === "team1_win") {
+    return {
+      play_type: "半全场",
+      selection: favoriteProbability >= 62 && expectedTotal >= 2.7 ? "胜胜" : "平胜",
+      confidence,
+      reason: `${teamName(match.team1)} 取胜概率 ${favoriteProbability.toFixed(1)}%，上半场按谨慎节奏估计。`,
+    };
+  }
+  return {
+    play_type: "半全场",
+    selection: favoriteProbability >= 62 && expectedTotal >= 2.7 ? "负负" : "平负",
+    confidence,
+    reason: `${teamName(match.team2)} 取胜概率 ${favoriteProbability.toFixed(1)}%，上半场按谨慎节奏估计。`,
+  };
+}
+
+function buildClientUpsetPick(match, favorite) {
+  const probabilities = probabilityMap(match);
+  const threshold = (match.betting_analysis || {}).value_threshold_odds || {};
   const labels = { team1_win: teamName(match.team1), draw: "平局", team2_win: teamName(match.team2) };
-  const quoted = analysis.quoted_odds || {};
-  const threshold = analysis.value_threshold_odds || {};
-  const fair = analysis.fair_odds || {};
-  const odds = Number(quoted[favorite] || threshold[favorite] || fair[favorite] || 1);
+  const favoriteProbability = Number(probabilities[favorite] || 0);
+  const [coldKey, coldProbability] = Object.entries(probabilities)
+    .filter(([key]) => key !== favorite)
+    .sort((a, b) => Number(b[1]) - Number(a[1]))[0] || ["draw", 0];
+  let selection;
+  let confidence = "观察";
+  let reason;
+  if (favoriteProbability >= 66 && Number(coldProbability) < 22) {
+    selection = "爆冷风险低";
+    confidence = "高";
+    reason = `热门方向概率 ${favoriteProbability.toFixed(1)}%，最大冷门方向 ${labels[coldKey]} 仅 ${Number(coldProbability).toFixed(1)}%。`;
+  } else if (coldKey === "draw") {
+    selection = "防平";
+    confidence = Number(coldProbability) >= 24 ? "中" : "观察";
+    reason = `平局概率 ${Number(coldProbability).toFixed(1)}%，适合列为冷门观察项。`;
+  } else {
+    selection = `关注${labels[coldKey]}爆冷`;
+    reason = `${labels[coldKey]} 概率 ${Number(coldProbability).toFixed(1)}%，属于低概率高波动方向。`;
+  }
+  if (threshold[coldKey]) reason += ` 公开赔率高于 ${Number(threshold[coldKey]).toFixed(2)} 时才进入价值观察。`;
   return {
-    play_type: "竞彩足球胜平负",
-    selection: labels[favorite] || favorite,
-    stake,
-    reference_odds: odds,
-    odds_type: quoted[favorite] ? "真实赔率" : "建议最低参考赔率",
-    possible_payout: Number((stake * odds).toFixed(2)),
-    possible_profit: Number((stake * odds - stake).toFixed(2)),
+    play_type: "爆冷观察",
+    selection,
+    confidence,
+    probability: Number(coldProbability),
+    value_threshold_odds: threshold[coldKey] || null,
+    reason,
   };
-}
-
-function buildClientMixedPassPlan(rows = [], budget = 50) {
-  const bettable = rows.filter((row) => row.bettable !== false && row.betting_recommendation?.reference_odds).slice(0, 4);
-  if (bettable.length < 3) {
-    return {
-      available: false,
-      title: "50元冲击万元目标混合过关",
-      summary: "北京时间当日可投注比赛少于 3 场，暂不生成 3串1/4串1 混合过关方案。",
-      warning: "过关投注需要组合内所有选择同时命中才中奖，不能保证收益。",
-    };
-  }
-  const comboDefs = [];
-  if (bettable.length >= 4) comboDefs.push({ pass_type: "4串1", indexes: [0, 1, 2, 3] });
-  for (let a = 0; a < bettable.length - 2; a += 1) {
-    for (let b = a + 1; b < bettable.length - 1; b += 1) {
-      for (let c = b + 1; c < bettable.length; c += 1) {
-        comboDefs.push({ pass_type: "3串1", indexes: [a, b, c] });
-      }
-    }
-  }
-  const stakes = comboDefs.length === 5 && Math.round(budget) === 50
-    ? [18, 8, 8, 8, 8]
-    : comboDefs.map((_, index) => index === 0 ? budget : 0);
-  const tickets = comboDefs.map((combo, index) => {
-    const selections = combo.indexes.map((rowIndex) => {
-      const row = bettable[rowIndex];
-      return {
-        matchup: matchupName(row.team1, row.team2),
-        selection: row.betting_recommendation.selection,
-        reference_odds: Number(row.betting_recommendation.reference_odds || 1),
-        expected_goals: row.expected_goals,
-        predicted_score: row.predicted_score,
-      };
-    });
-    const combinedOdds = selections.reduce((product, item) => product * Number(item.reference_odds || 1), 1);
-    const stake = Number(stakes[index] || 0);
-    const possiblePayout = Number((stake * combinedOdds).toFixed(2));
-    return {
-      pass_type: combo.pass_type,
-      stake,
-      required_hits: combo.indexes.length,
-      combined_odds: Number(combinedOdds.toFixed(2)),
-      possible_payout: possiblePayout,
-      possible_profit: Number((possiblePayout - stake).toFixed(2)),
-      selections,
-    };
-  });
-  const totalStake = tickets.reduce((sum, ticket) => sum + Number(ticket.stake || 0), 0);
-  const maxPayout = tickets.reduce((sum, ticket) => sum + Number(ticket.possible_payout || 0), 0);
-  const maxProfit = maxPayout - totalStake;
-  const targetGap = Math.max(10000 - maxProfit, 0);
-  return {
-    available: true,
-    title: "50元冲击万元目标混合过关",
-    budget,
-    target_profit: 10000,
-    tickets,
-    total_stake: totalStake,
-    max_possible_payout: Number(maxPayout.toFixed(2)),
-    max_possible_profit: Number(maxProfit.toFixed(2)),
-    target_gap: Number(targetGap.toFixed(2)),
-    feasibility: targetGap <= 0 ? "理论奖金达到万元目标" : "当前赔率组合达不到万元目标",
-    summary: targetGap <= 0
-      ? `若全部过关票命中，理论最高奖金约 ${maxPayout.toFixed(2)} 元，理论盈利约 ${maxProfit.toFixed(2)} 元。`
-      : `当前参考赔率下，全部命中理论盈利约 ${maxProfit.toFixed(2)} 元，距离 1 万元目标还差约 ${targetGap.toFixed(2)} 元。`,
-    warning: "中国体彩过关投注需要每张票内所有选择同时命中才中奖；本方案只做模型和赔率测算，不保证中奖或盈利。",
-  };
-}
-
-function renderMixedPassPlan(plan = {}) {
-  if (!plan.title) return "";
-  if (plan.available === false) {
-    return `
-      <section class="pass-plan">
-        <div class="pass-plan-head">
-          <strong>${escapeHtml(plan.title)}</strong>
-          <span>预算 50 元</span>
-        </div>
-        <p>${escapeHtml(plan.summary || "")}</p>
-        <p class="bad">${escapeHtml(plan.warning || "")}</p>
-      </section>
-    `;
-  }
-  const tickets = plan.tickets || [];
-  return `
-    <section class="pass-plan">
-      <div class="pass-plan-head">
-        <strong>${escapeHtml(plan.title || "50元混合过关")}</strong>
-        <span>预算 ${Number(plan.total_stake || plan.budget || 0).toFixed(0)} 元 · 目标盈利 ${Number(plan.target_profit || 10000).toFixed(0)} 元</span>
-      </div>
-      <div class="pass-metrics">
-        <div><span>理论最高奖金</span><strong>${Number(plan.max_possible_payout || 0).toFixed(2)} 元</strong></div>
-        <div><span>理论最高盈利</span><strong>${Number(plan.max_possible_profit || 0).toFixed(2)} 元</strong></div>
-        <div><span>目标缺口</span><strong>${Number(plan.target_gap || 0).toFixed(2)} 元</strong></div>
-      </div>
-      <p>${escapeHtml(plan.summary || "")}</p>
-      <div class="pass-ticket-list">
-        ${tickets.map(renderPassTicket).join("")}
-      </div>
-      <p class="bad">${escapeHtml(plan.warning || "")}</p>
-    </section>
-  `;
-}
-
-function renderPassTicket(ticket = {}) {
-  const selections = ticket.selections || [];
-  return `
-    <div class="pass-ticket">
-      <div>
-        <strong>${escapeHtml(ticket.pass_type || "")} · ${Number(ticket.stake || 0).toFixed(0)} 元</strong>
-        <span>组合赔率 ${Number(ticket.combined_odds || 0).toFixed(2)} · 理论奖金 ${Number(ticket.possible_payout || 0).toFixed(2)} 元 · 需中 ${ticket.required_hits || selections.length} 场</span>
-      </div>
-      <ul>
-        ${selections.map((item) => `
-          <li>
-            <span>${escapeHtml(localizeTeamText(item.matchup || ""))}</span>
-            <strong>${escapeHtml(localizeTeamText(item.selection || ""))}</strong>
-            <em>${Number(item.reference_odds || 0).toFixed(2)} · xG ${formatExpectedGoals(item.expected_goals)}</em>
-          </li>
-        `).join("")}
-      </ul>
-    </div>
-  `;
 }
 
 function renderBettingCard(match) {
@@ -626,6 +600,7 @@ function renderBettingCard(match) {
   const fair = analysis.fair_odds || {};
   const threshold = analysis.value_threshold_odds || {};
   const probs = match.probabilities || {};
+  const recommendation = match.daily_recommendation || buildClientDailyRecommendation(match);
   return `
     <div class="betting-card">
       <div>
@@ -633,13 +608,13 @@ function renderBettingCard(match) {
         <small>${escapeHtml(formatDateTime(match))} · ${escapeHtml(match.round || "")} · ${escapeHtml(match.status || "")} · 预测 ${escapeHtml(match.predicted_score || "待定")}</small>
       </div>
       ${renderExpectedGoalsStrip(match)}
+      ${renderDailyRecommendation(recommendation)}
       <div class="odds-grid">
         ${renderOddsCell(teamName(match.team1), probs.team1_win, fair.team1_win, threshold.team1_win)}
         ${renderOddsCell("平局", probs.draw, fair.draw, threshold.draw)}
         ${renderOddsCell(teamName(match.team2), probs.team2_win, fair.team2_win, threshold.team2_win)}
       </div>
       <p>${escapeHtml(localizeTeamText(analysis.suggestion || ""))}</p>
-      ${renderBettingRecommendation(match.betting_recommendation)}
       ${renderLotteryReference(analysis.lottery_reference)}
       ${analysis.overround !== undefined ? `<p>${escapeHtml(t("bookmakerOverround"))}：${percent(analysis.overround)}</p>` : ""}
     </div>
@@ -664,17 +639,30 @@ function formatExpectedGoals(expected = {}) {
   return `${Number(expected.team1 || 0).toFixed(2)}:${Number(expected.team2 || 0).toFixed(2)}`;
 }
 
-function renderBettingRecommendation(recommendation = {}) {
-  if (!recommendation.play_type) return "";
+function renderDailyRecommendation(recommendation = {}) {
+  const items = [
+    recommendation.total_goals,
+    recommendation.score,
+    recommendation.half_full,
+    recommendation.upset,
+  ].filter(Boolean);
+  if (!items.length) return "";
   return `
-    <div class="bet-slip">
-      <span>玩法：${escapeHtml(recommendation.play_type)}</span>
-      <span>选择：${escapeHtml(localizeTeamText(recommendation.selection || ""))}</span>
-      <span>金额：${Number(recommendation.stake || 0).toFixed(0)} 元</span>
-      <span>${escapeHtml(recommendation.odds_type || "参考赔率")}：${Number(recommendation.reference_odds || 0).toFixed(2)}</span>
-      <strong>可能奖金：${Number(recommendation.possible_payout || 0).toFixed(2)} 元</strong>
-      <em>可能盈利：${Number(recommendation.possible_profit || 0).toFixed(2)} 元</em>
-      ${recommendation.risk_note ? `<span>${escapeHtml(recommendation.risk_note)}</span>` : ""}
+    <div class="analysis-pick-grid">
+      ${items.map(renderAnalysisPick).join("")}
+    </div>
+  `;
+}
+
+function renderAnalysisPick(item = {}) {
+  const secondary = item.secondary ? `<em>备选：${escapeHtml(localizeTeamText(item.secondary))}</em>` : "";
+  return `
+    <div class="analysis-pick ${item.play_type === "爆冷观察" ? "upset" : ""}">
+      <span>${escapeHtml(item.play_type || "")}</span>
+      <strong>${escapeHtml(localizeTeamText(item.selection || ""))}</strong>
+      <em>置信度：${escapeHtml(item.confidence || "观察")}</em>
+      ${secondary}
+      <small>${escapeHtml(localizeTeamText(item.reason || ""))}</small>
     </div>
   `;
 }
@@ -940,24 +928,6 @@ async function updateData() {
   }
 }
 
-async function recalculateModel() {
-  const label = t("recalculating");
-  setBusy(true, label);
-  try {
-    const payload = await api("/api/recalculate", { method: "POST" });
-    showNotice(payload.error || payload.message);
-    if (taskRunning(payload)) {
-      await waitForBackgroundTask(label);
-    } else {
-      await loadMatches();
-    }
-  } catch (error) {
-    showNotice(t("recalcFailed", { message: error.message }));
-  } finally {
-    setBusy(false);
-  }
-}
-
 async function loadMatchDetail(matchId) {
   state.selectedId = matchId;
   renderMatches();
@@ -1216,7 +1186,6 @@ function escapeHtml(value) {
 
 function bindEvents() {
   els.updateBtn.addEventListener("click", updateData);
-  els.recalcBtn.addEventListener("click", recalculateModel);
   els.sourcesBtn.addEventListener("click", openSources);
   els.closeDrawerBtn.addEventListener("click", closeSources);
   els.drawerBackdrop.addEventListener("click", closeSources);

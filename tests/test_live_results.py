@@ -2,7 +2,7 @@ from app.live_results import build_actual_results, build_technical_results, pars
 from datetime import datetime, timezone
 
 from app.model import apply_technical_calibration, build_technical_profiles
-from app.services import attach_betting_recommendations, beijing_date_key, build_betting_days
+from app.services import beijing_date_key, build_betting_days, build_daily_match_recommendation
 
 
 def test_parse_completed_espn_event():
@@ -200,11 +200,14 @@ def test_technical_results_map_to_schedule_order_and_calibrate_future_match():
     assert any(item["name"] == "技术统计修正" for item in matches[1]["contributors"])
 
 
-def test_beijing_day_and_betting_recommendation_payload():
+def test_beijing_day_and_daily_recommendation_payload():
     match = {
         "starts_at": "2026-06-14T23:00:00+00:00",
         "team1": "Ivory Coast",
         "team2": "Ecuador",
+        "predicted_score": "2-1",
+        "expected_goals": {"team1": 1.8, "team2": 1.1},
+        "score_summary": {"expected_total_goals": 2.9, "over_2_5": 54.0, "over_3_5": 32.0, "both_teams_score": 51.0},
         "probabilities": {"team1_win": 55.0, "draw": 25.0, "team2_win": 20.0},
         "betting_analysis": {
             "favorite": "team1_win",
@@ -214,12 +217,13 @@ def test_beijing_day_and_betting_recommendation_payload():
         },
     }
     assert beijing_date_key(match) == "2026-06-15"
-    rows = attach_betting_recommendations([match], 100.0)
-    recommendation = rows[0]["betting_recommendation"]
-    assert recommendation["play_type"] == "竞彩足球胜平负"
-    assert recommendation["stake"] == 100.0
-    assert recommendation["reference_odds"] == 1.91
-    assert recommendation["possible_payout"] == 191.0
+    recommendation = build_daily_match_recommendation(match)
+    assert recommendation["total_goals"]["play_type"] == "总进球数"
+    assert recommendation["score"]["selection"] == "2-1"
+    assert recommendation["half_full"]["play_type"] == "半全场"
+    assert recommendation["upset"]["play_type"] == "爆冷观察"
+    assert "stake" not in recommendation["upset"]
+    assert "possible_payout" not in recommendation["upset"]
 
 
 def test_betting_days_use_today_beijing_and_exclude_started_matches():
@@ -271,15 +275,17 @@ def test_betting_days_use_today_beijing_and_exclude_started_matches():
             "betting_analysis": base_analysis,
         },
     ]
-    days = build_betting_days(matches, 100.0, now=datetime(2026, 6, 16, 8, 0, tzinfo=timezone.utc))
+    days = build_betting_days(matches, now=datetime(2026, 6, 16, 8, 0, tzinfo=timezone.utc))
     assert days[0]["date"] == "2026-06-16"
     assert [match["id"] for match in days[0]["matches"]] == ["live", "today-1", "today-2"]
     assert days[0]["matches"][0]["bettable"] is False
-    assert days[0]["matches"][0]["betting_recommendation"]["stake"] == 0.0
-    assert sum(match["betting_recommendation"]["stake"] for match in days[0]["matches"]) == 100.0
+    assert days[0]["recommendation_types"] == ["总进球数", "比分", "半全场", "爆冷观察"]
+    assert all("daily_recommendation" in match for match in days[0]["matches"])
+    assert all("betting_recommendation" not in match for match in days[0]["matches"])
+    assert "budget" not in days[0]
 
 
-def test_betting_days_include_xg_and_mixed_pass_plan():
+def test_betting_days_include_xg_and_daily_analysis_picks():
     base_analysis = {
         "favorite": "team1_win",
         "model_probabilities": {"team1_win": 55.0, "draw": 25.0, "team2_win": 20.0},
@@ -295,21 +301,19 @@ def test_betting_days_include_xg_and_mixed_pass_plan():
             "team2": f"Team {index}B",
             "predicted_score": "2-1",
             "expected_goals": {"team1": 1.8, "team2": 1.1},
-            "score_summary": {"expected_total_goals": 2.9, "over_2_5": 54.0, "both_teams_score": 51.0},
+            "score_summary": {"expected_total_goals": 2.9, "over_2_5": 54.0, "over_3_5": 32.0, "both_teams_score": 51.0},
             "probabilities": {"team1_win": 55.0, "draw": 25.0, "team2_win": 20.0},
             "betting_analysis": base_analysis,
         }
         for index in range(4)
     ]
-    days = build_betting_days(matches, 50.0, now=datetime(2026, 6, 16, 8, 0, tzinfo=timezone.utc))
+    days = build_betting_days(matches, now=datetime(2026, 6, 16, 8, 0, tzinfo=timezone.utc))
     day = days[0]
-    plan = day["mixed_pass_plan"]
-    assert day["budget"] == 50.0
-    assert day["target_profit"] == 10000.0
     assert day["matches"][0]["expected_goals"] == {"team1": 1.8, "team2": 1.1}
     assert day["matches"][0]["score_summary"]["expected_total_goals"] == 2.9
-    assert plan["available"] is True
-    assert plan["total_stake"] == 50.0
-    assert [ticket["pass_type"] for ticket in plan["tickets"]] == ["4串1", "3串1", "3串1", "3串1", "3串1"]
-    assert plan["target_gap"] > 0
-    assert "达不到万元目标" in plan["feasibility"]
+    recommendation = day["matches"][0]["daily_recommendation"]
+    assert recommendation["total_goals"]["selection"] in {"2-3球", "3球左右"}
+    assert recommendation["score"]["selection"] == "2-1"
+    assert recommendation["half_full"]["selection"] in {"平胜", "胜胜"}
+    assert recommendation["upset"]["value_threshold_odds"] == 4.2
+    assert "mixed_pass_plan" not in day

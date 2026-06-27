@@ -82,7 +82,7 @@
 - OddsJet 多地区页面和 Compare.bet 世界杯冠军赔率页，用于公开盘口市场信号。
 - ESPN 世界杯实时比分接口，以及 `data/actual_results.json` 中维护的备用真实比分和来源链接。
 
-抓取结果、模型输出和来源状态会缓存在 `data/` 目录。仓库保留一份公开缓存，保证云端首次启动就能展示完整预测；用户可在页面上点击“更新数据并重算”联网刷新公开数据源并完整重建模型，也可点击“重新计算模型”使用本地缓存重算预测。
+抓取结果、模型输出和来源状态会缓存在 `data/` 目录。仓库保留一份公开缓存，保证云端首次启动就能展示完整预测；用户可在页面上点击“更新数据并重算”联网刷新公开数据源并完整重建模型。
 
 ## 本地运行
 
@@ -98,10 +98,10 @@ uvicorn app.main:app --reload
 ## API
 
 - `POST /api/update`：后台联网刷新公开数据源、重建模型、同步已完赛比分并刷新命中统计。
-- `POST /api/recalculate`：使用本地缓存后台重新计算模型。
 - `GET /api/status`：查看更新时间、来源数量、后台任务状态。
 - `GET /api/matches`：获取比赛列表、淘汰赛推演、真实赛果对比。
 - `GET /api/matches/{id}`：获取单场详细预测和解释。
+- `GET /api/betting/daily`：获取北京时间当日比赛的总进球数、比分、半全场和爆冷观察。
 - `GET /api/sources`：查看来源状态。
 
 ## 测试
@@ -118,7 +118,7 @@ node --check static/app.js
 - Service: `worldcup-prediction`
 - URL: [https://worldcup-prediction-peur.onrender.com](https://worldcup-prediction-peur.onrender.com)
 - Runtime: Docker / FastAPI / Uvicorn
-- Update behavior: `更新数据并重算` 会联网刷新公开源并全量重建模型；`重新计算模型` 会用本地缓存快速重建模型。
+- Update behavior: `更新数据并重算` 会联网刷新公开源并全量重建模型；页面不再暴露本地重新计算按钮。
 
 ---
 

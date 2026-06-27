@@ -694,90 +694,39 @@ button.primary:hover {
   display: block;
 }
 
-.pass-plan {
+.analysis-pick-grid {
   display: grid;
-  gap: 10px;
-  padding: 12px;
-  border: 1px solid #cbd7c9;
-  border-radius: 8px;
-  background: #f7fbf5;
-}
-
-.pass-plan-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
-.pass-plan-head strong {
-  font-size: 15px;
-}
-
-.pass-plan-head span,
-.pass-plan p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.pass-metrics {
+.analysis-pick {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.pass-metrics div {
-  display: grid;
-  gap: 3px;
-  padding: 9px;
-  border: 1px solid var(--line);
+  gap: 10px;
+  align-content: start;
+  padding: 10px;
+  border: 1px solid #d8e3d2;
   border-radius: 6px;
-  background: #fff;
+  background: #fbfdf9;
 }
 
-.pass-metrics span,
-.pass-ticket span,
-.pass-ticket em {
+.analysis-pick.upset {
+  border-color: #e3d2aa;
+  background: #fffaf0;
+}
+
+.analysis-pick span,
+.analysis-pick em,
+.analysis-pick small {
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-.pass-metrics strong,
-.pass-ticket strong {
-  font-size: 13px;
-}
-
-.pass-ticket-list {
-  display: grid;
-  gap: 8px;
-}
-
-.pass-ticket {
-  display: grid;
-  gap: 8px;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #fff;
-}
-
-.pass-ticket ul {
-  display: grid;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.pass-ticket li {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(86px, 0.7fr) minmax(120px, 0.9fr);
-  gap: 8px;
-  align-items: center;
+.analysis-pick strong {
+  font-size: 15px;
+  line-height: 1.25;
 }
 
 .xg-strip {
@@ -839,27 +788,6 @@ button.primary:hover {
 
 .odds-cell strong {
   font-size: 14px;
-}
-
-.bet-slip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
-  padding: 10px;
-  border: 1px dashed #d8c7a0;
-  border-radius: 6px;
-  background: #fffaf0;
-}
-
-.bet-slip span,
-.bet-slip em {
-  color: var(--muted);
-  font-size: 12px;
-  font-style: normal;
-}
-
-.bet-slip strong {
-  font-size: 13px;
 }
 
 .drawer {
@@ -934,19 +862,10 @@ button.primary:hover {
   .champion-strip,
   .stage-grid,
   .bracket-grid,
+  .analysis-pick-grid,
   .odds-grid,
-  .bet-slip,
-  .pass-metrics,
   .support-panel {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .pass-ticket li {
-    grid-template-columns: 1fr 0.7fr;
-  }
-
-  .pass-ticket li em {
-    grid-column: 1 / -1;
   }
 }
 
@@ -1001,9 +920,8 @@ button.primary:hover {
   .champion-strip,
   .stage-grid,
   .bracket-grid,
+  .analysis-pick-grid,
   .odds-grid,
-  .bet-slip,
-  .pass-metrics,
   .support-panel,
   .support-qr-grid,
   .filters,
@@ -1011,11 +929,6 @@ button.primary:hover {
     grid-template-columns: 1fr;
   }
 
-  .pass-plan-head {
-    display: grid;
-  }
-
-  .pass-ticket li,
   .xg-strip {
     grid-template-columns: 1fr;
   }

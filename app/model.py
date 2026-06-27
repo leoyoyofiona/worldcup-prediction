@@ -1140,7 +1140,7 @@ def build_betting_analysis(match: Dict[str, Any], quoted_odds: Optional[Dict[str
         "value_threshold_odds": value_threshold_odds,
         "favorite": favorite_key,
         "suggestion": f"参考中国体彩胜平负口径：若{labels[favorite_key]}公开赔率高于 {value_threshold_odds[favorite_key]}，才进入价值观察区。",
-        "risk_note": "赔率价值不是中奖保证；体彩固定奖金额、销售截止、限额和临场信息会改变期望值。",
+        "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。",
     }
     if not quoted_odds:
         return analysis

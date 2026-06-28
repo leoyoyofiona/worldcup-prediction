@@ -1,6 +1,6 @@
 {
-  "model_version": "0.3.1",
-  "generated_at": "2026-06-28T04:56:28+00:00",
+  "model_version": "0.3.2",
+  "generated_at": "2026-06-28T05:14:17+00:00",
   "sources": [
     {
       "id": "espn_live_results",
@@ -8,8 +8,8 @@
       "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260629",
       "ok": true,
       "using_cache": false,
-      "fetched_at": "2026-06-28T04:56:14+00:00",
-      "bytes": 868491,
+      "fetched_at": "2026-06-28T05:14:04+00:00",
+      "bytes": 868493,
       "message": "已同步 72 场已完赛比分，72 场技术统计"
     },
     {
@@ -656,7 +656,7 @@
           "xg_proxy": 0.56
         },
         "referee": "Wilton Pereira Sampaio",
-        "synced_at": "2026-06-28T04:56:17+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       }
     },
     {
@@ -1049,7 +1049,7 @@
           "xg_proxy": 1.26
         },
         "referee": "Amin Omar",
-        "synced_at": "2026-06-28T04:56:17+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       }
     },
     {
@@ -1551,7 +1551,7 @@
           "xg_proxy": 1.96
         },
         "referee": "Tori Penso",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -2060,7 +2060,7 @@
           "xg_proxy": 1.0
         },
         "referee": "Gustavo Tejera",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -2589,7 +2589,7 @@
           "xg_proxy": 1.59
         },
         "referee": "Yael Falcón Pérez",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -3130,7 +3130,7 @@
           "xg_proxy": 1.19
         },
         "referee": "Facundo Tello",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -3523,7 +3523,7 @@
           "xg_proxy": 1.14
         },
         "referee": "Facundo Tello",
-        "synced_at": "2026-06-28T04:56:17+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -3916,7 +3916,7 @@
           "xg_proxy": 3.19
         },
         "referee": "Martínez, Héctor",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -4425,7 +4425,7 @@
           "xg_proxy": 0.91
         },
         "referee": "João Pinheiro",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -4934,7 +4934,7 @@
           "xg_proxy": 0.17
         },
         "referee": "Cristián Garay",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -5463,7 +5463,7 @@
           "xg_proxy": 2.21
         },
         "referee": "Ramon Abatti Abel",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -6004,7 +6004,7 @@
           "xg_proxy": 1.24
         },
         "referee": "Jesús Valenzuela",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -6397,7 +6397,7 @@
           "xg_proxy": 1.51
         },
         "referee": "Slavko Vincici",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -6790,7 +6790,7 @@
           "xg_proxy": 1.03
         },
         "referee": "Mustapha Ghorbal",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -7299,7 +7299,7 @@
           "xg_proxy": 1.29
         },
         "referee": "Ilgiz Tantashev",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -7808,7 +7808,7 @@
           "xg_proxy": 1.07
         },
         "referee": "Alejandro José Hernández Hernández",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -8312,22 +8312,44 @@
         "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260624",
         "team1": {
           "fouls": 10.0,
+          "yellow_cards": 1.0,
+          "red_cards": 0.0,
+          "offsides": 0.0,
           "corners": 7.0,
+          "saves": 5.0,
           "possession_pct": 46.0,
-          "shots_on_target": 5.0,
           "shots": 14.0,
+          "shots_on_target": 5.0,
+          "accurate_passes": 450.0,
+          "passes": 500.0,
+          "blocked_shots": 3.0,
+          "effective_tackles": 8.0,
+          "tackles": 12.0,
+          "interceptions": 2.0,
+          "substitutions": 5,
           "xg_proxy": 1.96
         },
         "team2": {
           "fouls": 11.0,
+          "yellow_cards": 2.0,
+          "red_cards": 0.0,
+          "offsides": 1.0,
           "corners": 7.0,
+          "saves": 5.0,
           "possession_pct": 54.0,
-          "shots_on_target": 9.0,
           "shots": 21.0,
+          "shots_on_target": 9.0,
+          "accurate_passes": 564.0,
+          "passes": 605.0,
+          "blocked_shots": 5.0,
+          "effective_tackles": 6.0,
+          "tackles": 14.0,
+          "interceptions": 13.0,
+          "substitutions": 5,
           "xg_proxy": 3.08
         },
-        "referee": null,
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "referee": "César Arturo Ramos Palazuelos",
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -8868,7 +8890,7 @@
           "xg_proxy": 0.98
         },
         "referee": "Danny Makkelie",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -9261,7 +9283,7 @@
           "xg_proxy": 0.82
         },
         "referee": "Danny Makkelie",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -9764,7 +9786,7 @@
           "xg_proxy": 3.58
         },
         "referee": "Jesús Valenzuela",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -10257,7 +10279,7 @@
           "xg_proxy": 0.77
         },
         "referee": "Felix Zwayer",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -10766,7 +10788,7 @@
           "xg_proxy": 0.81
         },
         "referee": "Iván Arcides Barton Cisneros",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -11307,7 +11329,7 @@
           "xg_proxy": 2.61
         },
         "referee": "Mustapha Ghorbal",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -11842,7 +11864,7 @@
           "xg_proxy": 1.72
         },
         "referee": "Clément Turpin",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -12235,7 +12257,7 @@
           "xg_proxy": 0.91
         },
         "referee": "Jalal Jayed",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -12628,7 +12650,7 @@
           "xg_proxy": 1.15
         },
         "referee": "Francois Letexier",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -13137,7 +13159,7 @@
           "xg_proxy": 1.03
         },
         "referee": "Juan Gabriel Benítez",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -13646,7 +13668,7 @@
           "xg_proxy": 1.18
         },
         "referee": "Ma Ning",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -14187,7 +14209,7 @@
           "xg_proxy": 1.12
         },
         "referee": "Glenn Nyberg",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -14716,7 +14738,7 @@
           "xg_proxy": 1.3
         },
         "referee": "Tori Penso",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -15109,7 +15131,7 @@
           "xg_proxy": 1.28
         },
         "referee": "Ismail Elfath",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -15502,7 +15524,7 @@
           "xg_proxy": 0.79
         },
         "referee": "Yael Falcón Pérez",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -16011,7 +16033,7 @@
           "xg_proxy": 2.53
         },
         "referee": "Michael Oliver",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -16520,7 +16542,7 @@
           "xg_proxy": 1.7
         },
         "referee": "Istvan Kovacs",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -17061,7 +17083,7 @@
           "xg_proxy": 1.77
         },
         "referee": "Iván Arcides Barton Cisneros",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -17602,7 +17624,7 @@
           "xg_proxy": 2.67
         },
         "referee": "Katia Itzel García",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -17995,7 +18017,7 @@
           "xg_proxy": 1.64
         },
         "referee": "Ramon Abatti Abel",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -18396,7 +18418,7 @@
           "xg_proxy": 2.29
         },
         "referee": "César Arturo Ramos Palazuelos",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -18913,7 +18935,7 @@
           "xg_proxy": 1.02
         },
         "referee": "Dario Herrera",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -19422,7 +19444,7 @@
           "xg_proxy": 2.55
         },
         "referee": "Omar Al Ali",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -19965,7 +19987,7 @@
           "xg_proxy": 1.6
         },
         "referee": "Szymon Marciniak",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -20506,7 +20528,7 @@
           "xg_proxy": 4.25
         },
         "referee": "Adham Mohammad",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -20899,7 +20921,7 @@
           "xg_proxy": 0.61
         },
         "referee": "Adham Mohammad",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -21292,7 +21314,7 @@
           "xg_proxy": 3.84
         },
         "referee": "Maurizio Mariani",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -21801,7 +21823,7 @@
           "xg_proxy": 0.4
         },
         "referee": "Raphael Claus",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -22310,7 +22332,7 @@
           "xg_proxy": 1.58
         },
         "referee": "Espen Eskas",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -22851,7 +22873,7 @@
           "xg_proxy": 1.02
         },
         "referee": "Francois Letexier",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -23331,7 +23353,7 @@
           "xg_proxy": 0.73
         },
         "referee": "Ismail Elfath",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -23724,7 +23746,7 @@
           "xg_proxy": 0.84
         },
         "referee": "Alireza Faghani",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:07+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -24117,7 +24139,7 @@
           "xg_proxy": 1.77
         },
         "referee": "Pierre Atcho",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -24658,7 +24680,7 @@
           "xg_proxy": 0.33
         },
         "referee": "Drew Fischer",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -25199,7 +25221,7 @@
           "xg_proxy": 1.86
         },
         "referee": "Wilton Pereira Sampaio",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -25740,7 +25762,7 @@
           "xg_proxy": 2.83
         },
         "referee": "Michael Oliver",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -26281,7 +26303,7 @@
           "xg_proxy": 0.66
         },
         "referee": "Anthony Taylor",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -26674,7 +26696,7 @@
           "xg_proxy": 0.7
         },
         "referee": "Szymon Marciniak",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -27067,7 +27089,7 @@
           "xg_proxy": 1.49
         },
         "referee": "Beida Damane",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -27608,7 +27630,7 @@
           "xg_proxy": 0.66
         },
         "referee": "Amin Omar",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -28149,7 +28171,7 @@
           "xg_proxy": 2.72
         },
         "referee": "Slavko Vincici",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -28706,7 +28728,7 @@
           "xg_proxy": 1.26
         },
         "referee": "Ilgiz Tantashev",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -29263,7 +29285,7 @@
           "xg_proxy": 1.63
         },
         "referee": "Istvan Kovacs",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -29656,7 +29678,7 @@
           "xg_proxy": 0.98
         },
         "referee": "Abdulrahman Al-Jassim",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -30049,7 +30071,7 @@
           "xg_proxy": 1.79
         },
         "referee": "Anthony Taylor",
-        "synced_at": "2026-06-28T04:56:19+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -30529,7 +30551,7 @@
           "xg_proxy": 0.86
         },
         "referee": "Jalal Jayed",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -31070,7 +31092,7 @@
           "xg_proxy": 0.75
         },
         "referee": "Maurizio Mariani",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -31627,7 +31649,7 @@
           "xg_proxy": 1.28
         },
         "referee": "Alireza Faghani",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -32117,7 +32139,7 @@
           "xg_proxy": 0.47
         },
         "referee": "Felix Zwayer",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -32518,7 +32540,7 @@
           "xg_proxy": 1.55
         },
         "referee": "Clément Turpin",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -32911,7 +32933,7 @@
           "xg_proxy": 1.46
         },
         "referee": "Glenn Nyberg",
-        "synced_at": "2026-06-28T04:56:18+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -33460,7 +33482,7 @@
           "xg_proxy": 0.35
         },
         "referee": "Martínez, Héctor",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -34001,7 +34023,7 @@
           "xg_proxy": 0.79
         },
         "referee": "Pierre Atcho",
-        "synced_at": "2026-06-28T04:56:20+00:00"
+        "synced_at": "2026-06-28T05:14:08+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -34566,7 +34588,7 @@
           "xg_proxy": 2.33
         },
         "referee": "Abdulrahman Al-Jassim",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -35123,7 +35145,7 @@
           "xg_proxy": 0.63
         },
         "referee": "Drew Fischer",
-        "synced_at": "2026-06-28T04:56:21+00:00"
+        "synced_at": "2026-06-28T05:14:09+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -35472,6 +35494,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Canada公开赔率高于 1.77，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.39,
+            "possession_pct": 44.27,
+            "shots": 11.0,
+            "shots_on_target": 3.33,
+            "corners": 3.33,
+            "tackles": 15.0,
+            "yellow_cards": 1.67,
+            "red_cards": 0.67,
+            "substitutions": 3.33
+          },
+          "attack_index": 0.55,
+          "discipline_drag": 5.46,
+          "technical_adjustment": -5.54,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.77,
+            "possession_pct": 61.6,
+            "shots": 19.33,
+            "shots_on_target": 7.0,
+            "corners": 11.67,
+            "tackles": 13.67,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 32.36,
+          "discipline_drag": 0.1,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -23.54,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -35484,45 +35575,45 @@
       "time": "16:30 UTC-4",
       "starts_at": "2026-06-29T20:30:00+00:00",
       "team1": "Germany",
-      "team2": "Bosnia & Herzegovina",
+      "team2": "Paraguay",
       "ground": "Boston (Foxborough)",
       "status": "未开赛",
       "is_knockout": true,
       "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 86.4,
-        "draw": 9.3,
-        "team2_win": 4.3
+        "team1_win": 65.5,
+        "draw": 21.4,
+        "team2_win": 13.1
       },
       "favorite": "Germany",
-      "predicted_score": "4-0",
-      "confidence": 0.771,
+      "predicted_score": "2-1",
+      "confidence": 0.442,
       "confidence_label": "高",
       "explanation": [
-        "Germany 有效评分 2094，Bosnia & Herzegovina 有效评分 1659。",
-        "模型预计进球均值为 Germany 3.25，Bosnia & Herzegovina 0.64。",
-        "代表比分为 4-0，精确众数比分为 3-0，预测置信度为高。"
+        "Germany 有效评分 2094，Paraguay 有效评分 1864。",
+        "模型预计进球均值为 Germany 1.88，Paraguay 0.69。",
+        "代表比分为 2-1，精确众数比分为 1-0，预测置信度为高。"
       ],
       "contributors": [
         {
           "name": "基础 Elo 差",
-          "value": 321.3,
-          "description": "Germany 与 Bosnia & Herzegovina 的长期实力差。"
+          "value": 103.4,
+          "description": "Germany 与 Paraguay 的长期实力差。"
         },
         {
           "name": "近期状态差",
-          "value": 24.3,
+          "value": 35.8,
           "description": "最近 10 场的积分率、净胜球和对手强度。"
         },
         {
           "name": "高盛式特征修正",
-          "value": 62.6,
+          "value": 63.7,
           "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
         },
         {
           "name": "世界杯阶段经验",
-          "value": 45.0,
+          "value": 53.4,
           "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
         },
         {
@@ -35537,7 +35628,7 @@
         },
         {
           "name": "博彩盘口修正",
-          "value": 20.2,
+          "value": 20.7,
           "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
         },
         {
@@ -35552,7 +35643,7 @@
         },
         {
           "name": "新规则适应性",
-          "value": 7.2,
+          "value": 6.4,
           "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
         },
         {
@@ -35592,105 +35683,105 @@
           "goldman_attack": 1.439,
           "goldman_defense": 0.697
         },
-        "Bosnia & Herzegovina": {
-          "team": "Bosnia & Herzegovina",
-          "elo": 1623.9,
-          "matches": 283,
-          "recent_points_rate": 0.5,
-          "recent_goal_diff": 1.0,
-          "recent_opponent_elo": 1608.0,
-          "form_adjustment": 20.7,
-          "attack": 0.991,
-          "defense": 1.014,
+        "Paraguay": {
+          "team": "Paraguay",
+          "elo": 1841.8,
+          "matches": 784,
+          "recent_points_rate": 0.467,
+          "recent_goal_diff": 0.2,
+          "recent_opponent_elo": 1818.8,
+          "form_adjustment": 9.2,
+          "attack": 0.899,
+          "defense": 0.738,
           "competitive_points_rate": 0.633,
-          "competitive_goal_diff": 1.0,
-          "competitive_opponent_elo": 1541.7,
-          "competitive_adjustment": 29.8,
-          "world_cup_points_rate": 0.333,
-          "world_cup_goal_diff": 0.0,
-          "world_cup_adjustment": -6.0,
-          "world_cup_stage_adjustment": 0.0,
-          "world_cup_stage_points_rate": 0.0,
-          "world_cup_stage_goal_diff": 0.0,
-          "world_cup_local_matches": 0,
-          "world_cup_knockout_matches": 0,
+          "competitive_goal_diff": 0.5,
+          "competitive_opponent_elo": 1868.1,
+          "competitive_adjustment": 28.0,
+          "world_cup_points_rate": 0.417,
+          "world_cup_goal_diff": 0.19,
+          "world_cup_adjustment": 0.9,
+          "world_cup_stage_adjustment": -8.4,
+          "world_cup_stage_points_rate": 0.345,
+          "world_cup_stage_goal_diff": -0.21,
+          "world_cup_local_matches": 27,
+          "world_cup_knockout_matches": 5,
           "world_cup_knockout_win_rate": 0.0,
           "home_continent_adjustment": 0.0,
-          "goldman_adjustment": 10.4,
-          "mandatory_attack": 1.198,
-          "mandatory_defense": 0.876,
-          "goldman_attack": 1.062,
-          "goldman_defense": 0.96
+          "goldman_adjustment": 9.3,
+          "mandatory_attack": 0.968,
+          "mandatory_defense": 0.599,
+          "goldman_attack": 0.909,
+          "goldman_defense": 0.698
         }
       },
       "scoreline_distribution": [
         {
-          "score": "3-0",
-          "probability": 11.9
+          "score": "1-0",
+          "probability": 14.4
         },
         {
           "score": "2-0",
-          "probability": 11.0
+          "probability": 13.5
         },
         {
-          "score": "4-0",
-          "probability": 9.6
-        },
-        {
-          "score": "3-1",
-          "probability": 7.6
+          "score": "1-1",
+          "probability": 10.0
         },
         {
           "score": "2-1",
-          "probability": 7.1
+          "probability": 9.3
         },
         {
-          "score": "1-0",
-          "probability": 6.8
+          "score": "3-0",
+          "probability": 8.4
+        },
+        {
+          "score": "0-0",
+          "probability": 7.7
         }
       ],
       "advance_probabilities": {
-        "team1": 95.0,
-        "team2": 5.0,
+        "team1": 82.4,
+        "team2": 17.6,
         "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
       },
       "slot_team1": "1E",
       "slot_team2": "3A/B/C/D/F",
       "projected_from_knockout_path": true,
       "expected_goals": {
-        "team1": 3.25,
-        "team2": 0.64
+        "team1": 1.88,
+        "team2": 0.69
       },
       "score_summary": {
-        "representative_score": "4-0",
-        "modal_score": "3-0",
-        "expected_total_goals": 3.89,
-        "over_2_5": 74.0,
-        "over_3_5": 53.6,
-        "both_teams_score": 45.5
+        "representative_score": "2-1",
+        "modal_score": "1-0",
+        "expected_total_goals": 2.57,
+        "over_2_5": 47.3,
+        "over_3_5": 25.7,
+        "both_teams_score": 42.3
       },
       "technical_indicators": {
         "available": true,
         "source": "model_estimate",
         "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
         "team1": {
-          "xg": 3.25,
-          "possession_pct": 62.4,
-          "shots": 21.8,
-          "shots_on_target": 9.0,
-          "corners": 7.0,
-          "tackles": 17.6,
+          "xg": 1.88,
+          "possession_pct": 59.5,
+          "shots": 15.4,
+          "shots_on_target": 5.7,
+          "corners": 5.5,
+          "tackles": 17.9,
           "yellow_cards": 1.8,
           "red_cards": 0.09,
-          "substitutions": 4.7
+          "substitutions": 4.5
         },
         "team2": {
-          "xg": 0.64,
-          "possession_pct": 37.6,
+          "xg": 0.69,
+          "possession_pct": 40.5,
           "shots": 7.3,
-          "shots_on_target": 2.2,
-          "corners": 2.8,
-          "tackles": 20.2,
+          "shots_on_target": 2.3,
+          "corners": 2.9,
+          "tackles": 20.4,
           "yellow_cards": 2.1,
           "red_cards": 0.1,
           "substitutions": 4.3
@@ -35698,7 +35789,7 @@
       },
       "effective_ratings": {
         "team1": 2094.1,
-        "team2": 1658.5
+        "team2": 1864.1
       },
       "market": {
         "team1": {
@@ -35729,13 +35820,13 @@
           "available": true
         },
         "team2": {
-          "mentions": 56,
-          "odds_count": 212,
-          "best_decimal_odds": 50.0,
-          "implied_probability": 2.0,
+          "mentions": 28,
+          "odds_count": 100,
+          "best_decimal_odds": 151.0,
+          "implied_probability": 0.66,
           "keyword_hits": 3089,
-          "index": 0.024,
-          "adjustment": 0.8,
+          "index": 0.008,
+          "adjustment": 0.3,
           "available": true
         },
         "available": true
@@ -35774,7 +35865,7 @@
       },
       "rule_adaptation": {
         "team1": 9.9,
-        "team2": 2.7
+        "team2": 3.5
       },
       "fifa_ranking": {
         "team1": null,
@@ -35796,23 +35887,92 @@
           "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
         },
         "model_probabilities": {
-          "team1_win": 86.4,
-          "draw": 9.3,
-          "team2_win": 4.3
+          "team1_win": 65.5,
+          "draw": 21.4,
+          "team2_win": 13.1
         },
         "fair_odds": {
-          "team1_win": 1.16,
-          "draw": 10.75,
-          "team2_win": 23.26
+          "team1_win": 1.53,
+          "draw": 4.67,
+          "team2_win": 7.63
         },
         "value_threshold_odds": {
-          "team1_win": 1.22,
-          "draw": 11.29,
-          "team2_win": 24.42
+          "team1_win": 1.6,
+          "draw": 4.91,
+          "team2_win": 8.02
         },
         "favorite": "team1_win",
-        "suggestion": "参考中国体彩胜平负口径：若Germany公开赔率高于 1.22，才进入价值观察区。",
+        "suggestion": "参考中国体彩胜平负口径：若Germany公开赔率高于 1.6，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.56,
+            "possession_pct": 61.73,
+            "shots": 17.67,
+            "shots_on_target": 7.33,
+            "corners": 6.0,
+            "tackles": 21.67,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 26.67,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.32,
+            "possession_pct": 43.67,
+            "shots": 9.0,
+            "shots_on_target": 3.67,
+            "corners": 4.0,
+            "tackles": 14.33,
+            "yellow_cards": 2.0,
+            "red_cards": 0.33,
+            "substitutions": 5.0
+          },
+          "attack_index": -0.9,
+          "discipline_drag": 3.2,
+          "technical_adjustment": -4.3,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 22.3,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -36154,6 +36314,32 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Netherlands公开赔率高于 2.4，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -36495,6 +36681,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Japan公开赔率高于 2.37，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.11,
+            "possession_pct": 54.03,
+            "shots": 13.67,
+            "shots_on_target": 6.33,
+            "corners": 5.67,
+            "tackles": 19.33,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 16.57,
+          "discipline_drag": 0.1,
+          "technical_adjustment": 17.38,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.36,
+            "possession_pct": 51.53,
+            "shots": 9.67,
+            "shots_on_target": 3.67,
+            "corners": 3.67,
+            "tackles": 14.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 0.78,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 0.52,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 16.86,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -36507,45 +36762,45 @@
       "time": "17:00 UTC-4",
       "starts_at": "2026-06-30T21:00:00+00:00",
       "team1": "France",
-      "team2": "Paraguay",
+      "team2": "Sweden",
       "ground": "New York/New Jersey (East Rutherford)",
       "status": "未开赛",
       "is_knockout": true,
       "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 66.9,
-        "draw": 20.6,
-        "team2_win": 12.5
+        "team1_win": 84.0,
+        "draw": 10.2,
+        "team2_win": 5.9
       },
       "favorite": "France",
-      "predicted_score": "2-1",
-      "confidence": 0.462,
+      "predicted_score": "3-1",
+      "confidence": 0.738,
       "confidence_label": "高",
       "explanation": [
-        "France 有效评分 2182，Paraguay 有效评分 1864。",
-        "模型预计进球均值为 France 1.94，Paraguay 0.70。",
-        "代表比分为 2-1，精确众数比分为 1-0，预测置信度为高。"
+        "France 有效评分 2182，Sweden 有效评分 1753。",
+        "模型预计进球均值为 France 3.34，Sweden 0.84。",
+        "代表比分为 3-1，精确众数比分为 3-0，预测置信度为高。"
       ],
       "contributors": [
         {
           "name": "基础 Elo 差",
-          "value": 189.2,
-          "description": "France 与 Paraguay 的长期实力差。"
+          "value": 299.4,
+          "description": "France 与 Sweden 的长期实力差。"
         },
         {
           "name": "近期状态差",
-          "value": 35.8,
+          "value": 65.0,
           "description": "最近 10 场的积分率、净胜球和对手强度。"
         },
         {
           "name": "高盛式特征修正",
-          "value": 66.6,
+          "value": 57.4,
           "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
         },
         {
           "name": "世界杯阶段经验",
-          "value": 43.0,
+          "value": 20.3,
           "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
         },
         {
@@ -36560,7 +36815,7 @@
         },
         {
           "name": "博彩盘口修正",
-          "value": 20.7,
+          "value": 0.0,
           "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
         },
         {
@@ -36575,7 +36830,7 @@
         },
         {
           "name": "新规则适应性",
-          "value": 5.8,
+          "value": 7.4,
           "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
         },
         {
@@ -36615,105 +36870,105 @@
           "goldman_attack": 1.355,
           "goldman_defense": 0.774
         },
-        "Paraguay": {
-          "team": "Paraguay",
-          "elo": 1841.8,
-          "matches": 784,
-          "recent_points_rate": 0.467,
-          "recent_goal_diff": 0.2,
-          "recent_opponent_elo": 1818.8,
-          "form_adjustment": 9.2,
-          "attack": 0.899,
-          "defense": 0.738,
-          "competitive_points_rate": 0.633,
-          "competitive_goal_diff": 0.5,
-          "competitive_opponent_elo": 1868.1,
-          "competitive_adjustment": 28.0,
-          "world_cup_points_rate": 0.417,
-          "world_cup_goal_diff": 0.19,
-          "world_cup_adjustment": 0.9,
-          "world_cup_stage_adjustment": -8.4,
-          "world_cup_stage_points_rate": 0.345,
-          "world_cup_stage_goal_diff": -0.21,
-          "world_cup_local_matches": 27,
-          "world_cup_knockout_matches": 5,
-          "world_cup_knockout_win_rate": 0.0,
+        "Sweden": {
+          "team": "Sweden",
+          "elo": 1731.6,
+          "matches": 1102,
+          "recent_points_rate": 0.3,
+          "recent_goal_diff": -0.7,
+          "recent_opponent_elo": 1764.1,
+          "form_adjustment": -20.0,
+          "attack": 1.314,
+          "defense": 0.991,
+          "competitive_points_rate": 0.467,
+          "competitive_goal_diff": 0.2,
+          "competitive_opponent_elo": 1722.2,
+          "competitive_adjustment": 7.4,
+          "world_cup_points_rate": 0.479,
+          "world_cup_goal_diff": 0.25,
+          "world_cup_adjustment": 5.2,
+          "world_cup_stage_adjustment": 14.3,
+          "world_cup_stage_points_rate": 0.414,
+          "world_cup_stage_goal_diff": 0.11,
+          "world_cup_local_matches": 46,
+          "world_cup_knockout_matches": 13,
+          "world_cup_knockout_win_rate": 0.325,
           "home_continent_adjustment": 0.0,
-          "goldman_adjustment": 9.3,
-          "mandatory_attack": 0.968,
-          "mandatory_defense": 0.599,
-          "goldman_attack": 0.909,
-          "goldman_defense": 0.698
+          "goldman_adjustment": 18.5,
+          "mandatory_attack": 1.152,
+          "mandatory_defense": 1.152,
+          "goldman_attack": 1.236,
+          "goldman_defense": 1.056
         }
       },
       "scoreline_distribution": [
         {
-          "score": "1-0",
-          "probability": 13.9
-        },
-        {
-          "score": "2-0",
-          "probability": 13.5
-        },
-        {
-          "score": "1-1",
+          "score": "3-0",
           "probability": 9.7
         },
         {
+          "score": "2-0",
+          "probability": 8.8
+        },
+        {
+          "score": "3-1",
+          "probability": 8.1
+        },
+        {
+          "score": "4-0",
+          "probability": 8.1
+        },
+        {
           "score": "2-1",
-          "probability": 9.4
+          "probability": 7.3
         },
         {
-          "score": "3-0",
-          "probability": 8.7
-        },
-        {
-          "score": "0-0",
-          "probability": 7.1
+          "score": "4-1",
+          "probability": 6.8
         }
       ],
       "advance_probabilities": {
-        "team1": 84.6,
-        "team2": 15.4,
+        "team1": 93.3,
+        "team2": 6.7,
         "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
       },
       "slot_team1": "1I",
       "slot_team2": "3C/D/F/G/H",
       "projected_from_knockout_path": true,
       "expected_goals": {
-        "team1": 1.94,
-        "team2": 0.7
+        "team1": 3.34,
+        "team2": 0.84
       },
       "score_summary": {
-        "representative_score": "2-1",
-        "modal_score": "1-0",
-        "expected_total_goals": 2.64,
-        "over_2_5": 49.2,
-        "over_3_5": 27.3,
-        "both_teams_score": 43.1
+        "representative_score": "3-1",
+        "modal_score": "3-0",
+        "expected_total_goals": 4.17,
+        "over_2_5": 78.2,
+        "over_3_5": 59.1,
+        "both_teams_score": 54.6
       },
       "technical_indicators": {
         "available": true,
         "source": "model_estimate",
         "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
         "team1": {
-          "xg": 1.94,
-          "possession_pct": 61.0,
-          "shots": 15.7,
-          "shots_on_target": 5.9,
-          "corners": 5.6,
-          "tackles": 17.6,
+          "xg": 3.34,
+          "possession_pct": 61.3,
+          "shots": 22.0,
+          "shots_on_target": 9.0,
+          "corners": 7.0,
+          "tackles": 17.5,
           "yellow_cards": 1.8,
           "red_cards": 0.09,
-          "substitutions": 4.5
+          "substitutions": 4.7
         },
         "team2": {
-          "xg": 0.7,
-          "possession_pct": 39.0,
-          "shots": 7.2,
-          "shots_on_target": 2.3,
-          "corners": 2.9,
-          "tackles": 20.6,
+          "xg": 0.84,
+          "possession_pct": 38.7,
+          "shots": 8.6,
+          "shots_on_target": 2.8,
+          "corners": 3.1,
+          "tackles": 19.8,
           "yellow_cards": 2.1,
           "red_cards": 0.1,
           "substitutions": 4.3
@@ -36721,7 +36976,7 @@
       },
       "effective_ratings": {
         "team1": 2182.2,
-        "team2": 1864.1
+        "team2": 1753.0
       },
       "market": {
         "team1": {
@@ -36752,13 +37007,13 @@
           "available": true
         },
         "team2": {
-          "mentions": 28,
-          "odds_count": 100,
-          "best_decimal_odds": 151.0,
-          "implied_probability": 0.66,
+          "mentions": 88,
+          "odds_count": 112,
+          "best_decimal_odds": 2.0,
+          "implied_probability": 50.0,
           "keyword_hits": 3089,
-          "index": 0.008,
-          "adjustment": 0.3,
+          "index": 0.6,
+          "adjustment": 21.0,
           "available": true
         },
         "available": true
@@ -36797,7 +37052,7 @@
       },
       "rule_adaptation": {
         "team1": 9.3,
-        "team2": 3.5
+        "team2": 1.9
       },
       "fifa_ranking": {
         "team1": null,
@@ -36819,23 +37074,92 @@
           "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
         },
         "model_probabilities": {
-          "team1_win": 66.9,
-          "draw": 20.6,
-          "team2_win": 12.5
+          "team1_win": 84.0,
+          "draw": 10.2,
+          "team2_win": 5.9
         },
         "fair_odds": {
-          "team1_win": 1.49,
-          "draw": 4.85,
-          "team2_win": 8.0
+          "team1_win": 1.19,
+          "draw": 9.8,
+          "team2_win": 16.95
         },
         "value_threshold_odds": {
-          "team1_win": 1.57,
-          "draw": 5.1,
-          "team2_win": 8.4
+          "team1_win": 1.25,
+          "draw": 10.29,
+          "team2_win": 17.8
         },
         "favorite": "team1_win",
-        "suggestion": "参考中国体彩胜平负口径：若France公开赔率高于 1.57，才进入价值观察区。",
+        "suggestion": "参考中国体彩胜平负口径：若France公开赔率高于 1.25，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.42,
+            "possession_pct": 55.23,
+            "shots": 16.0,
+            "shots_on_target": 7.33,
+            "corners": 5.0,
+            "tackles": 16.67,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 4.0
+          },
+          "attack_index": 22.72,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 0.82,
+            "possession_pct": 33.4,
+            "shots": 7.67,
+            "shots_on_target": 1.67,
+            "corners": 0.67,
+            "tackles": 23.33,
+            "yellow_cards": 2.33,
+            "red_cards": 0.33,
+            "substitutions": 5.0
+          },
+          "attack_index": -12.76,
+          "discipline_drag": 3.66,
+          "technical_adjustment": -14.64,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 24.0,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -37177,6 +37501,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Norway公开赔率高于 1.74，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.3,
+            "possession_pct": 50.73,
+            "shots": 10.33,
+            "shots_on_target": 3.0,
+            "corners": 4.0,
+            "tackles": 16.67,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": -0.23,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 0.1,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.79,
+            "possession_pct": 48.77,
+            "shots": 11.67,
+            "shots_on_target": 5.33,
+            "corners": 4.67,
+            "tackles": 14.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 9.23,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.96,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -8.86,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -37518,6 +37911,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Mexico公开赔率高于 2.53，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.55,
+            "possession_pct": 50.33,
+            "shots": 11.67,
+            "shots_on_target": 4.33,
+            "corners": 1.67,
+            "tackles": 12.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.33,
+            "substitutions": 5.0
+          },
+          "attack_index": 4.05,
+          "discipline_drag": 2.64,
+          "technical_adjustment": 0.85,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.23,
+            "possession_pct": 55.03,
+            "shots": 15.33,
+            "shots_on_target": 6.33,
+            "corners": 6.0,
+            "tackles": 22.0,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 4.33
+          },
+          "attack_index": 19.32,
+          "discipline_drag": 0.1,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -17.15,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -37867,6 +38329,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若England公开赔率高于 1.43，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.62,
+            "possession_pct": 65.9,
+            "shots": 19.33,
+            "shots_on_target": 6.67,
+            "corners": 8.0,
+            "tackles": 13.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 29.06,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.25,
+            "possession_pct": 39.57,
+            "shots": 11.33,
+            "shots_on_target": 2.33,
+            "corners": 3.33,
+            "tackles": 17.33,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": -2.64,
+          "discipline_drag": 0.1,
+          "technical_adjustment": -2.27,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 20.27,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -37879,45 +38410,45 @@
       "time": "17:00 UTC-7",
       "starts_at": "2026-07-02T00:00:00+00:00",
       "team1": "United States",
-      "team2": "Algeria",
+      "team2": "Bosnia & Herzegovina",
       "ground": "San Francisco Bay Area (Santa Clara)",
       "status": "未开赛",
       "is_knockout": true,
       "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 21.4,
-        "draw": 23.4,
-        "team2_win": 55.2
+        "team1_win": 55.5,
+        "draw": 22.0,
+        "team2_win": 22.5
       },
-      "favorite": "Algeria",
-      "predicted_score": "1-2",
-      "confidence": 0.317,
+      "favorite": "United States",
+      "predicted_score": "2-1",
+      "confidence": 0.329,
       "confidence_label": "高",
       "explanation": [
-        "United States 有效评分 1893，Algeria 有效评分 1889。",
-        "模型预计进球均值为 United States 1.00，Algeria 1.76。",
-        "代表比分为 1-2，精确众数比分为 1-1，预测置信度为高。"
+        "United States 有效评分 1893，Bosnia & Herzegovina 有效评分 1659。",
+        "模型预计进球均值为 United States 1.95，Bosnia & Herzegovina 1.17。",
+        "代表比分为 2-1，精确众数比分为 1-1，预测置信度为高。"
       ],
       "contributors": [
         {
           "name": "基础 Elo 差",
-          "value": -38.3,
-          "description": "United States 与 Algeria 的长期实力差。"
+          "value": 175.7,
+          "description": "United States 与 Bosnia & Herzegovina 的长期实力差。"
         },
         {
           "name": "近期状态差",
-          "value": -31.2,
+          "value": -6.9,
           "description": "最近 10 场的积分率、净胜球和对手强度。"
         },
         {
           "name": "高盛式特征修正",
-          "value": 9.6,
+          "value": -3.8,
           "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
         },
         {
           "name": "世界杯阶段经验",
-          "value": 6.2,
+          "value": -14.5,
           "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
         },
         {
@@ -37932,7 +38463,7 @@
         },
         {
           "name": "博彩盘口修正",
-          "value": 34.9,
+          "value": 34.2,
           "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
         },
         {
@@ -37947,7 +38478,7 @@
         },
         {
           "name": "新规则适应性",
-          "value": -6.6,
+          "value": 0.1,
           "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
         },
         {
@@ -37987,113 +38518,113 @@
           "goldman_attack": 1.097,
           "goldman_defense": 1.0
         },
-        "Algeria": {
-          "team": "Algeria",
-          "elo": 1837.9,
-          "matches": 617,
-          "recent_points_rate": 0.767,
-          "recent_goal_diff": 1.7,
-          "recent_opponent_elo": 1681.8,
-          "form_adjustment": 45.0,
-          "attack": 1.337,
-          "defense": 0.599,
-          "competitive_points_rate": 0.767,
-          "competitive_goal_diff": 1.2,
-          "competitive_opponent_elo": 1598.3,
-          "competitive_adjustment": 44.1,
-          "world_cup_points_rate": 0.308,
-          "world_cup_goal_diff": -0.46,
-          "world_cup_adjustment": -12.9,
-          "world_cup_stage_adjustment": -20.7,
-          "world_cup_stage_points_rate": 0.242,
-          "world_cup_stage_goal_diff": -0.48,
-          "world_cup_local_matches": 14,
-          "world_cup_knockout_matches": 2,
+        "Bosnia & Herzegovina": {
+          "team": "Bosnia & Herzegovina",
+          "elo": 1623.9,
+          "matches": 283,
+          "recent_points_rate": 0.5,
+          "recent_goal_diff": 1.0,
+          "recent_opponent_elo": 1608.0,
+          "form_adjustment": 20.7,
+          "attack": 0.991,
+          "defense": 1.014,
+          "competitive_points_rate": 0.633,
+          "competitive_goal_diff": 1.0,
+          "competitive_opponent_elo": 1541.7,
+          "competitive_adjustment": 29.8,
+          "world_cup_points_rate": 0.333,
+          "world_cup_goal_diff": 0.0,
+          "world_cup_adjustment": -6.0,
+          "world_cup_stage_adjustment": 0.0,
+          "world_cup_stage_points_rate": 0.0,
+          "world_cup_stage_goal_diff": 0.0,
+          "world_cup_local_matches": 0,
+          "world_cup_knockout_matches": 0,
           "world_cup_knockout_win_rate": 0.0,
           "home_continent_adjustment": 0.0,
-          "goldman_adjustment": -3.0,
-          "mandatory_attack": 1.152,
-          "mandatory_defense": 0.599,
-          "goldman_attack": 1.224,
-          "goldman_defense": 0.647
+          "goldman_adjustment": 10.4,
+          "mandatory_attack": 1.198,
+          "mandatory_defense": 0.876,
+          "goldman_attack": 1.062,
+          "goldman_defense": 0.96
         }
       },
       "scoreline_distribution": [
         {
           "score": "1-1",
-          "probability": 11.1
+          "probability": 10.1
         },
         {
-          "score": "0-1",
-          "probability": 11.1
-        },
-        {
-          "score": "1-2",
-          "probability": 9.8
-        },
-        {
-          "score": "0-2",
+          "score": "2-1",
           "probability": 9.8
         },
         {
           "score": "1-0",
-          "probability": 6.3
+          "probability": 8.7
         },
         {
-          "score": "0-0",
-          "probability": 6.3
+          "score": "2-0",
+          "probability": 8.4
+        },
+        {
+          "score": "3-1",
+          "probability": 6.4
+        },
+        {
+          "score": "1-2",
+          "probability": 5.9
         }
       ],
       "advance_probabilities": {
-        "team1": 33.2,
-        "team2": 66.8,
+        "team1": 72.9,
+        "team2": 27.1,
         "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
       },
       "slot_team1": "1D",
       "slot_team2": "3B/E/F/I/J",
       "projected_from_knockout_path": true,
       "expected_goals": {
-        "team1": 1.0,
-        "team2": 1.76
+        "team1": 1.95,
+        "team2": 1.17
       },
       "score_summary": {
-        "representative_score": "1-2",
+        "representative_score": "2-1",
         "modal_score": "1-1",
-        "expected_total_goals": 2.77,
-        "over_2_5": 52.3,
-        "over_3_5": 30.1,
-        "both_teams_score": 52.5
+        "expected_total_goals": 3.11,
+        "over_2_5": 60.1,
+        "over_3_5": 37.7,
+        "both_teams_score": 59.0
       },
       "technical_indicators": {
         "available": true,
         "source": "model_estimate",
         "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
         "team1": {
-          "xg": 1.0,
-          "possession_pct": 49.6,
-          "shots": 9.9,
-          "shots_on_target": 3.3,
-          "corners": 3.9,
-          "tackles": 18.6,
-          "yellow_cards": 1.8,
-          "red_cards": 0.09,
-          "substitutions": 4.3
-        },
-        "team2": {
-          "xg": 1.76,
-          "possession_pct": 50.4,
-          "shots": 13.7,
-          "shots_on_target": 5.3,
-          "corners": 4.7,
-          "tackles": 19.2,
+          "xg": 1.95,
+          "possession_pct": 57.6,
+          "shots": 14.8,
+          "shots_on_target": 5.8,
+          "corners": 5.3,
+          "tackles": 17.5,
           "yellow_cards": 1.8,
           "red_cards": 0.09,
           "substitutions": 4.5
+        },
+        "team2": {
+          "xg": 1.17,
+          "possession_pct": 42.4,
+          "shots": 10.0,
+          "shots_on_target": 3.6,
+          "corners": 3.6,
+          "tackles": 19.6,
+          "yellow_cards": 2.0,
+          "red_cards": 0.1,
+          "substitutions": 4.4
         }
       },
       "effective_ratings": {
         "team1": 1892.8,
-        "team2": 1889.4
+        "team2": 1658.5
       },
       "market": {
         "team1": {
@@ -38124,13 +38655,13 @@
           "available": true
         },
         "team2": {
-          "mentions": 16,
-          "odds_count": 88,
-          "best_decimal_odds": 400.0,
-          "implied_probability": 0.25,
+          "mentions": 56,
+          "odds_count": 212,
+          "best_decimal_odds": 50.0,
+          "implied_probability": 2.0,
           "keyword_hits": 3089,
-          "index": 0.003,
-          "adjustment": 0.1,
+          "index": 0.024,
+          "adjustment": 0.8,
           "available": true
         },
         "available": true
@@ -38169,7 +38700,7 @@
       },
       "rule_adaptation": {
         "team1": 2.8,
-        "team2": 9.4
+        "team2": 2.7
       },
       "fifa_ranking": {
         "team1": null,
@@ -38191,23 +38722,92 @@
           "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
         },
         "model_probabilities": {
-          "team1_win": 21.4,
-          "draw": 23.4,
-          "team2_win": 55.2
+          "team1_win": 55.5,
+          "draw": 22.0,
+          "team2_win": 22.5
         },
         "fair_odds": {
-          "team1_win": 4.67,
-          "draw": 4.27,
-          "team2_win": 1.81
+          "team1_win": 1.8,
+          "draw": 4.55,
+          "team2_win": 4.44
         },
         "value_threshold_odds": {
-          "team1_win": 4.91,
-          "draw": 4.49,
-          "team2_win": 1.9
+          "team1_win": 1.89,
+          "draw": 4.77,
+          "team2_win": 4.67
         },
-        "favorite": "team2_win",
-        "suggestion": "参考中国体彩胜平负口径：若Algeria公开赔率高于 1.9，才进入价值观察区。",
+        "favorite": "team1_win",
+        "suggestion": "参考中国体彩胜平负口径：若United States公开赔率高于 1.89，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.99,
+            "possession_pct": 59.93,
+            "shots": 14.67,
+            "shots_on_target": 5.0,
+            "corners": 6.33,
+            "tackles": 14.33,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 15.19,
+          "discipline_drag": 0.1,
+          "technical_adjustment": 14.78,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.69,
+            "possession_pct": 63.13,
+            "shots": 12.0,
+            "shots_on_target": 4.67,
+            "corners": 4.0,
+            "tackles": 18.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 8.89,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 9.39,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 5.39,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -38549,6 +39149,32 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Belgium公开赔率高于 2.2，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -38890,6 +39516,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Croatia公开赔率高于 2.71，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.59,
+            "possession_pct": 62.23,
+            "shots": 12.33,
+            "shots_on_target": 4.0,
+            "corners": 3.33,
+            "tackles": 11.67,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 6.71,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 5.81,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.21,
+            "possession_pct": 53.2,
+            "shots": 8.0,
+            "shots_on_target": 3.67,
+            "corners": 2.33,
+            "tackles": 14.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": -2.46,
+          "discipline_drag": 0.0,
+          "technical_adjustment": -2.69,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 8.5,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -39231,6 +39926,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Spain公开赔率高于 1.53，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.33,
+            "possession_pct": 69.43,
+            "shots": 18.33,
+            "shots_on_target": 5.33,
+            "corners": 7.67,
+            "tackles": 13.33,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 23.67,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.14,
+            "possession_pct": 48.17,
+            "shots": 9.0,
+            "shots_on_target": 2.67,
+            "corners": 3.33,
+            "tackles": 13.0,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": -3.97,
+          "discipline_drag": 0.0,
+          "technical_adjustment": -4.46,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 22.46,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -39243,45 +40007,45 @@
       "time": "20:00 UTC-7",
       "starts_at": "2026-07-03T03:00:00+00:00",
       "team1": "Switzerland",
-      "team2": "Sweden",
+      "team2": "Algeria",
       "ground": "Vancouver",
       "status": "未开赛",
       "is_knockout": true,
       "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 63.9,
-        "draw": 19.1,
-        "team2_win": 17.1
+        "team1_win": 34.1,
+        "draw": 27.1,
+        "team2_win": 38.8
       },
-      "favorite": "Switzerland",
-      "predicted_score": "2-1",
-      "confidence": 0.448,
-      "confidence_label": "高",
+      "favorite": "Algeria",
+      "predicted_score": "1-2",
+      "confidence": 0.047,
+      "confidence_label": "低",
       "explanation": [
-        "Switzerland 有效评分 1963，Sweden 有效评分 1753。",
-        "模型预计进球均值为 Switzerland 2.28，Sweden 1.10。",
-        "代表比分为 2-1，精确众数比分为 2-1，预测置信度为高。"
+        "Switzerland 有效评分 1963，Algeria 有效评分 1889。",
+        "模型预计进球均值为 Switzerland 1.19，Algeria 1.29。",
+        "代表比分为 1-2，精确众数比分为 1-1，预测置信度为低。"
       ],
       "contributors": [
         {
           "name": "基础 Elo 差",
-          "value": 144.5,
-          "description": "Switzerland 与 Sweden 的长期实力差。"
+          "value": 38.2,
+          "description": "Switzerland 与 Algeria 的长期实力差。"
         },
         {
           "name": "近期状态差",
-          "value": 61.0,
+          "value": -4.0,
           "description": "最近 10 场的积分率、净胜球和对手强度。"
         },
         {
           "name": "高盛式特征修正",
-          "value": -11.9,
+          "value": 9.6,
           "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
         },
         {
           "name": "世界杯阶段经验",
-          "value": -22.4,
+          "value": 12.6,
           "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
         },
         {
@@ -39296,7 +40060,7 @@
         },
         {
           "name": "博彩盘口修正",
-          "value": 14.0,
+          "value": 34.9,
           "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
         },
         {
@@ -39311,7 +40075,7 @@
         },
         {
           "name": "新规则适应性",
-          "value": 2.9,
+          "value": -4.6,
           "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
         },
         {
@@ -39351,113 +40115,113 @@
           "goldman_attack": 1.195,
           "goldman_defense": 0.793
         },
-        "Sweden": {
-          "team": "Sweden",
-          "elo": 1731.6,
-          "matches": 1102,
-          "recent_points_rate": 0.3,
-          "recent_goal_diff": -0.7,
-          "recent_opponent_elo": 1764.1,
-          "form_adjustment": -20.0,
-          "attack": 1.314,
-          "defense": 0.991,
-          "competitive_points_rate": 0.467,
-          "competitive_goal_diff": 0.2,
-          "competitive_opponent_elo": 1722.2,
-          "competitive_adjustment": 7.4,
-          "world_cup_points_rate": 0.479,
-          "world_cup_goal_diff": 0.25,
-          "world_cup_adjustment": 5.2,
-          "world_cup_stage_adjustment": 14.3,
-          "world_cup_stage_points_rate": 0.414,
-          "world_cup_stage_goal_diff": 0.11,
-          "world_cup_local_matches": 46,
-          "world_cup_knockout_matches": 13,
-          "world_cup_knockout_win_rate": 0.325,
+        "Algeria": {
+          "team": "Algeria",
+          "elo": 1837.9,
+          "matches": 617,
+          "recent_points_rate": 0.767,
+          "recent_goal_diff": 1.7,
+          "recent_opponent_elo": 1681.8,
+          "form_adjustment": 45.0,
+          "attack": 1.337,
+          "defense": 0.599,
+          "competitive_points_rate": 0.767,
+          "competitive_goal_diff": 1.2,
+          "competitive_opponent_elo": 1598.3,
+          "competitive_adjustment": 44.1,
+          "world_cup_points_rate": 0.308,
+          "world_cup_goal_diff": -0.46,
+          "world_cup_adjustment": -12.9,
+          "world_cup_stage_adjustment": -20.7,
+          "world_cup_stage_points_rate": 0.242,
+          "world_cup_stage_goal_diff": -0.48,
+          "world_cup_local_matches": 14,
+          "world_cup_knockout_matches": 2,
+          "world_cup_knockout_win_rate": 0.0,
           "home_continent_adjustment": 0.0,
-          "goldman_adjustment": 18.5,
+          "goldman_adjustment": -3.0,
           "mandatory_attack": 1.152,
-          "mandatory_defense": 1.152,
-          "goldman_attack": 1.236,
-          "goldman_defense": 1.056
+          "mandatory_defense": 0.599,
+          "goldman_attack": 1.224,
+          "goldman_defense": 0.647
         }
       },
       "scoreline_distribution": [
         {
-          "score": "2-1",
-          "probability": 9.8
-        },
-        {
-          "score": "2-0",
-          "probability": 8.9
-        },
-        {
           "score": "1-1",
-          "probability": 8.5
+          "probability": 12.9
+        },
+        {
+          "score": "0-1",
+          "probability": 10.8
         },
         {
           "score": "1-0",
-          "probability": 7.8
+          "probability": 10.0
         },
         {
-          "score": "3-1",
-          "probability": 7.4
+          "score": "0-0",
+          "probability": 8.4
         },
         {
-          "score": "3-0",
-          "probability": 6.8
+          "score": "1-2",
+          "probability": 8.3
+        },
+        {
+          "score": "2-1",
+          "probability": 7.6
         }
       ],
       "advance_probabilities": {
-        "team1": 78.6,
-        "team2": 21.4,
+        "team1": 50.5,
+        "team2": 49.5,
         "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
       },
       "slot_team1": "1B",
       "slot_team2": "3E/F/G/I/J",
       "projected_from_knockout_path": true,
       "expected_goals": {
-        "team1": 2.28,
-        "team2": 1.1
+        "team1": 1.19,
+        "team2": 1.29
       },
       "score_summary": {
-        "representative_score": "2-1",
-        "modal_score": "2-1",
-        "expected_total_goals": 3.38,
-        "over_2_5": 65.6,
-        "over_3_5": 43.6,
-        "both_teams_score": 59.9
+        "representative_score": "1-2",
+        "modal_score": "1-1",
+        "expected_total_goals": 2.48,
+        "over_2_5": 45.1,
+        "over_3_5": 23.8,
+        "both_teams_score": 50.4
       },
       "technical_indicators": {
         "available": true,
         "source": "model_estimate",
         "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
         "team1": {
-          "xg": 2.28,
-          "possession_pct": 56.7,
-          "shots": 16.5,
-          "shots_on_target": 6.6,
-          "corners": 5.6,
-          "tackles": 18.1,
+          "xg": 1.19,
+          "possession_pct": 52.5,
+          "shots": 11.2,
+          "shots_on_target": 3.8,
+          "corners": 4.3,
+          "tackles": 18.6,
           "yellow_cards": 1.8,
           "red_cards": 0.09,
-          "substitutions": 4.6
+          "substitutions": 4.4
         },
         "team2": {
-          "xg": 1.1,
-          "possession_pct": 43.3,
-          "shots": 10.2,
-          "shots_on_target": 3.5,
-          "corners": 3.7,
-          "tackles": 19.2,
-          "yellow_cards": 2.0,
-          "red_cards": 0.1,
-          "substitutions": 4.3
+          "xg": 1.29,
+          "possession_pct": 47.5,
+          "shots": 11.3,
+          "shots_on_target": 4.0,
+          "corners": 4.1,
+          "tackles": 19.6,
+          "yellow_cards": 1.9,
+          "red_cards": 0.09,
+          "substitutions": 4.4
         }
       },
       "effective_ratings": {
         "team1": 1963.5,
-        "team2": 1753.0
+        "team2": 1889.4
       },
       "market": {
         "team1": {
@@ -39488,13 +40252,13 @@
           "available": true
         },
         "team2": {
-          "mentions": 88,
-          "odds_count": 112,
-          "best_decimal_odds": 2.0,
-          "implied_probability": 50.0,
+          "mentions": 16,
+          "odds_count": 88,
+          "best_decimal_odds": 400.0,
+          "implied_probability": 0.25,
           "keyword_hits": 3089,
-          "index": 0.6,
-          "adjustment": 21.0,
+          "index": 0.003,
+          "adjustment": 0.1,
           "available": true
         },
         "available": true
@@ -39533,7 +40297,7 @@
       },
       "rule_adaptation": {
         "team1": 4.8,
-        "team2": 1.9
+        "team2": 9.4
       },
       "fifa_ranking": {
         "team1": null,
@@ -39555,23 +40319,49 @@
           "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
         },
         "model_probabilities": {
-          "team1_win": 63.9,
-          "draw": 19.1,
-          "team2_win": 17.1
+          "team1_win": 34.1,
+          "draw": 27.1,
+          "team2_win": 38.8
         },
         "fair_odds": {
-          "team1_win": 1.56,
-          "draw": 5.24,
-          "team2_win": 5.85
+          "team1_win": 2.93,
+          "draw": 3.69,
+          "team2_win": 2.58
         },
         "value_threshold_odds": {
-          "team1_win": 1.64,
-          "draw": 5.5,
-          "team2_win": 6.14
+          "team1_win": 3.08,
+          "draw": 3.87,
+          "team2_win": 2.71
         },
-        "favorite": "team1_win",
-        "suggestion": "参考中国体彩胜平负口径：若Switzerland公开赔率高于 1.64，才进入价值观察区。",
+        "favorite": "team2_win",
+        "suggestion": "参考中国体彩胜平负口径：若Algeria公开赔率高于 2.71，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -39913,6 +40703,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Argentina公开赔率高于 1.22，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.67,
+            "possession_pct": 58.23,
+            "shots": 11.33,
+            "shots_on_target": 5.0,
+            "corners": 3.0,
+            "tackles": 20.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 7.58,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.79,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.22,
+            "possession_pct": 37.17,
+            "shots": 11.0,
+            "shots_on_target": 2.33,
+            "corners": 3.0,
+            "tackles": 16.33,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": -3.65,
+          "discipline_drag": 0.0,
+          "technical_adjustment": -3.4,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 12.19,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -40254,6 +41113,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Colombia公开赔率高于 1.49，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.51,
+            "possession_pct": 59.83,
+            "shots": 19.67,
+            "shots_on_target": 6.33,
+            "corners": 4.67,
+            "tackles": 11.67,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 4.33
+          },
+          "attack_index": 25.32,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 0.61,
+            "possession_pct": 35.27,
+            "shots": 5.0,
+            "shots_on_target": 1.33,
+            "corners": 2.0,
+            "tackles": 17.0,
+            "yellow_cards": 1.0,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": -16.5,
+          "discipline_drag": 0.0,
+          "technical_adjustment": -16.22,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 24.0,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -40595,6 +41523,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Australia公开赔率高于 2.27，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.3,
+            "possession_pct": 40.83,
+            "shots": 8.67,
+            "shots_on_target": 3.67,
+            "corners": 4.0,
+            "tackles": 16.0,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 4.33
+          },
+          "attack_index": -1.7,
+          "discipline_drag": 0.1,
+          "technical_adjustment": -1.86,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.97,
+            "possession_pct": 54.47,
+            "shots": 16.0,
+            "shots_on_target": 4.33,
+            "corners": 6.33,
+            "tackles": 20.33,
+            "yellow_cards": 2.0,
+            "red_cards": 0.0,
+            "substitutions": 5.33
+          },
+          "attack_index": 14.36,
+          "discipline_drag": 0.56,
+          "technical_adjustment": 15.04,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -16.9,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -40936,6 +41933,32 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若France公开赔率高于 2.72，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -41277,6 +42300,32 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Netherlands公开赔率高于 1.8，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -41618,6 +42667,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Norway公开赔率高于 2.79，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.36,
+            "possession_pct": 51.53,
+            "shots": 9.67,
+            "shots_on_target": 3.67,
+            "corners": 3.67,
+            "tackles": 14.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 0.78,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 0.52,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.79,
+            "possession_pct": 48.77,
+            "shots": 11.67,
+            "shots_on_target": 5.33,
+            "corners": 4.67,
+            "tackles": 14.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 9.23,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.96,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -8.44,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -41967,6 +43085,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若England公开赔率高于 2.08，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.55,
+            "possession_pct": 50.33,
+            "shots": 11.67,
+            "shots_on_target": 4.33,
+            "corners": 1.67,
+            "tackles": 12.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.33,
+            "substitutions": 5.0
+          },
+          "attack_index": 4.05,
+          "discipline_drag": 2.64,
+          "technical_adjustment": 0.85,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.62,
+            "possession_pct": 65.9,
+            "shots": 19.33,
+            "shots_on_target": 6.67,
+            "corners": 8.0,
+            "tackles": 13.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 29.06,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -17.15,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -42308,6 +43495,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Spain公开赔率高于 1.6，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.59,
+            "possession_pct": 62.23,
+            "shots": 12.33,
+            "shots_on_target": 4.0,
+            "corners": 3.33,
+            "tackles": 11.67,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 6.71,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 5.81,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.33,
+            "possession_pct": 69.43,
+            "shots": 18.33,
+            "shots_on_target": 5.33,
+            "corners": 7.67,
+            "tackles": 13.33,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 23.67,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -12.19,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -42319,7 +43575,7 @@
       "date": "2026-07-06",
       "time": "17:00 UTC-7",
       "starts_at": "2026-07-07T00:00:00+00:00",
-      "team1": "Algeria",
+      "team1": "United States",
       "team2": "Belgium",
       "ground": "Seattle",
       "status": "未开赛",
@@ -42327,43 +43583,43 @@
       "actual_score": null,
       "teams_confirmed": true,
       "probabilities": {
-        "team1_win": 25.6,
-        "draw": 24.0,
-        "team2_win": 50.3
+        "team1_win": 12.2,
+        "draw": 15.9,
+        "team2_win": 71.9
       },
       "favorite": "Belgium",
-      "predicted_score": "1-2",
-      "confidence": 0.247,
+      "predicted_score": "1-3",
+      "confidence": 0.56,
       "confidence_label": "高",
       "explanation": [
-        "Algeria 有效评分 1889，Belgium 有效评分 2024。",
-        "模型预计进球均值为 Algeria 1.14，Belgium 1.70。",
-        "代表比分为 1-2，精确众数比分为 1-1，预测置信度为高。"
+        "United States 有效评分 1893，Belgium 有效评分 2024。",
+        "模型预计进球均值为 United States 1.01，Belgium 2.64。",
+        "代表比分为 1-3，精确众数比分为 1-2，预测置信度为高。"
       ],
       "contributors": [
         {
           "name": "基础 Elo 差",
-          "value": -58.0,
-          "description": "Algeria 与 Belgium 的长期实力差。"
+          "value": -96.3,
+          "description": "United States 与 Belgium 的长期实力差。"
         },
         {
           "name": "近期状态差",
-          "value": 0.0,
+          "value": -31.2,
           "description": "最近 10 场的积分率、净胜球和对手强度。"
         },
         {
           "name": "高盛式特征修正",
-          "value": -53.6,
+          "value": -44.0,
           "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
         },
         {
           "name": "世界杯阶段经验",
-          "value": -31.9,
+          "value": -25.7,
           "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
         },
         {
           "name": "主办国修正",
-          "value": 0.0,
+          "value": 35.0,
           "description": "美国、墨西哥、加拿大作为东道主的小幅修正。"
         },
         {
@@ -42373,7 +43629,7 @@
         },
         {
           "name": "博彩盘口修正",
-          "value": -20.9,
+          "value": 14.0,
           "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
         },
         {
@@ -42388,7 +43644,7 @@
         },
         {
           "name": "新规则适应性",
-          "value": -2.2,
+          "value": -8.8,
           "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
         },
         {
@@ -42398,35 +43654,35 @@
         }
       ],
       "team_metrics": {
-        "Algeria": {
-          "team": "Algeria",
-          "elo": 1837.9,
-          "matches": 617,
-          "recent_points_rate": 0.767,
-          "recent_goal_diff": 1.7,
-          "recent_opponent_elo": 1681.8,
-          "form_adjustment": 45.0,
-          "attack": 1.337,
-          "defense": 0.599,
-          "competitive_points_rate": 0.767,
-          "competitive_goal_diff": 1.2,
-          "competitive_opponent_elo": 1598.3,
-          "competitive_adjustment": 44.1,
-          "world_cup_points_rate": 0.308,
-          "world_cup_goal_diff": -0.46,
-          "world_cup_adjustment": -12.9,
-          "world_cup_stage_adjustment": -20.7,
-          "world_cup_stage_points_rate": 0.242,
-          "world_cup_stage_goal_diff": -0.48,
-          "world_cup_local_matches": 14,
-          "world_cup_knockout_matches": 2,
-          "world_cup_knockout_win_rate": 0.0,
-          "home_continent_adjustment": 0.0,
-          "goldman_adjustment": -3.0,
-          "mandatory_attack": 1.152,
-          "mandatory_defense": 0.599,
-          "goldman_attack": 1.224,
-          "goldman_defense": 0.647
+        "United States": {
+          "team": "United States",
+          "elo": 1799.6,
+          "matches": 790,
+          "recent_points_rate": 0.533,
+          "recent_goal_diff": 0.1,
+          "recent_opponent_elo": 1888.0,
+          "form_adjustment": 13.8,
+          "attack": 1.083,
+          "defense": 1.06,
+          "competitive_points_rate": 0.633,
+          "competitive_goal_diff": 0.8,
+          "competitive_opponent_elo": 1704.4,
+          "competitive_adjustment": 29.9,
+          "world_cup_points_rate": 0.312,
+          "world_cup_goal_diff": -0.44,
+          "world_cup_adjustment": -12.4,
+          "world_cup_stage_adjustment": -14.5,
+          "world_cup_stage_points_rate": 0.262,
+          "world_cup_stage_goal_diff": -0.67,
+          "world_cup_local_matches": 34,
+          "world_cup_knockout_matches": 7,
+          "world_cup_knockout_win_rate": 0.126,
+          "home_continent_adjustment": 12.0,
+          "goldman_adjustment": 6.6,
+          "mandatory_attack": 1.198,
+          "mandatory_defense": 0.876,
+          "goldman_attack": 1.097,
+          "goldman_defense": 1.0
         },
         "Belgium": {
           "team": "Belgium",
@@ -42461,79 +43717,79 @@
       },
       "scoreline_distribution": [
         {
-          "score": "1-1",
-          "probability": 11.3
-        },
-        {
-          "score": "0-1",
-          "probability": 9.9
-        },
-        {
           "score": "1-2",
-          "probability": 9.6
+          "probability": 9.2
         },
         {
           "score": "0-2",
-          "probability": 8.4
+          "probability": 9.1
         },
         {
-          "score": "1-0",
-          "probability": 6.7
+          "score": "1-3",
+          "probability": 8.1
         },
         {
-          "score": "2-1",
-          "probability": 6.5
+          "score": "0-3",
+          "probability": 8.0
+        },
+        {
+          "score": "1-1",
+          "probability": 7.0
+        },
+        {
+          "score": "0-1",
+          "probability": 6.9
         }
       ],
       "advance_probabilities": {
-        "team1": 33.2,
-        "team2": 66.8,
+        "team1": 17.3,
+        "team2": 82.7,
         "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
       },
       "slot_team1": "W81",
       "slot_team2": "W82",
       "projected_from_knockout_path": true,
       "expected_goals": {
-        "team1": 1.14,
-        "team2": 1.7
+        "team1": 1.01,
+        "team2": 2.64
       },
       "score_summary": {
-        "representative_score": "1-2",
-        "modal_score": "1-1",
-        "expected_total_goals": 2.84,
-        "over_2_5": 53.9,
-        "over_3_5": 31.6,
-        "both_teams_score": 55.6
+        "representative_score": "1-3",
+        "modal_score": "1-2",
+        "expected_total_goals": 3.65,
+        "over_2_5": 70.4,
+        "over_3_5": 49.2,
+        "both_teams_score": 59.0
       },
       "technical_indicators": {
         "available": true,
         "source": "model_estimate",
         "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
         "team1": {
-          "xg": 1.14,
-          "possession_pct": 44.0,
-          "shots": 10.4,
-          "shots_on_target": 3.6,
-          "corners": 3.7,
-          "tackles": 20.1,
+          "xg": 1.01,
+          "possession_pct": 43.6,
+          "shots": 9.5,
+          "shots_on_target": 3.2,
+          "corners": 3.5,
+          "tackles": 19.3,
           "yellow_cards": 2.0,
           "red_cards": 0.1,
-          "substitutions": 4.4
+          "substitutions": 4.3
         },
         "team2": {
-          "xg": 1.7,
-          "possession_pct": 56.0,
-          "shots": 14.7,
-          "shots_on_target": 5.3,
-          "corners": 5.2,
+          "xg": 2.64,
+          "possession_pct": 56.4,
+          "shots": 18.9,
+          "shots_on_target": 7.7,
+          "corners": 6.1,
           "tackles": 18.2,
           "yellow_cards": 1.8,
           "red_cards": 0.09,
-          "substitutions": 4.5
+          "substitutions": 4.6
         }
       },
       "effective_ratings": {
-        "team1": 1889.4,
+        "team1": 1892.8,
         "team2": 2024.1
       },
       "market": {
@@ -42555,13 +43811,13 @@
       },
       "betting_market": {
         "team1": {
-          "mentions": 16,
-          "odds_count": 88,
-          "best_decimal_odds": 400.0,
-          "implied_probability": 0.25,
+          "mentions": 40,
+          "odds_count": 152,
+          "best_decimal_odds": 1.2,
+          "implied_probability": 83.33,
           "keyword_hits": 3089,
-          "index": 0.003,
-          "adjustment": 0.1,
+          "index": 1.0,
+          "adjustment": 35.0,
           "available": true
         },
         "team2": {
@@ -42609,7 +43865,7 @@
         "available": false
       },
       "rule_adaptation": {
-        "team1": 9.4,
+        "team1": 2.8,
         "team2": 11.6
       },
       "fifa_ranking": {
@@ -42632,23 +43888,92 @@
           "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
         },
         "model_probabilities": {
-          "team1_win": 25.6,
-          "draw": 24.0,
-          "team2_win": 50.3
+          "team1_win": 12.2,
+          "draw": 15.9,
+          "team2_win": 71.9
         },
         "fair_odds": {
-          "team1_win": 3.91,
-          "draw": 4.17,
-          "team2_win": 1.99
+          "team1_win": 8.2,
+          "draw": 6.29,
+          "team2_win": 1.39
         },
         "value_threshold_odds": {
-          "team1_win": 4.1,
-          "draw": 4.38,
-          "team2_win": 2.09
+          "team1_win": 8.61,
+          "draw": 6.6,
+          "team2_win": 1.46
         },
         "favorite": "team2_win",
-        "suggestion": "参考中国体彩胜平负口径：若Belgium公开赔率高于 2.09，才进入价值观察区。",
+        "suggestion": "参考中国体彩胜平负口径：若Belgium公开赔率高于 1.46，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.69,
+            "possession_pct": 63.13,
+            "shots": 12.0,
+            "shots_on_target": 4.67,
+            "corners": 4.0,
+            "tackles": 18.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 8.89,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 9.39,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.89,
+            "possession_pct": 59.4,
+            "shots": 24.33,
+            "shots_on_target": 6.67,
+            "corners": 4.67,
+            "tackles": 14.0,
+            "yellow_cards": 1.0,
+            "red_cards": 0.33,
+            "substitutions": 5.0
+          },
+          "attack_index": 33.11,
+          "discipline_drag": 2.64,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -8.61,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -42990,6 +44315,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Argentina公开赔率高于 1.48，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.67,
+            "possession_pct": 58.23,
+            "shots": 11.33,
+            "shots_on_target": 5.0,
+            "corners": 3.0,
+            "tackles": 20.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 7.58,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.79,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.3,
+            "possession_pct": 40.83,
+            "shots": 8.67,
+            "shots_on_target": 3.67,
+            "corners": 4.0,
+            "tackles": 16.0,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
+            "substitutions": 4.33
+          },
+          "attack_index": -1.7,
+          "discipline_drag": 0.1,
+          "technical_adjustment": -1.86,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 10.65,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -43331,6 +44725,32 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Colombia公开赔率高于 2.42，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -43672,6 +45092,32 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Netherlands公开赔率高于 2.73，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -44013,6 +45459,32 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Spain公开赔率高于 1.71，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -44362,6 +45834,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若England公开赔率高于 2.26，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.36,
+            "possession_pct": 51.53,
+            "shots": 9.67,
+            "shots_on_target": 3.67,
+            "corners": 3.67,
+            "tackles": 14.0,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 0.78,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 0.52,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.62,
+            "possession_pct": 65.9,
+            "shots": 19.33,
+            "shots_on_target": 6.67,
+            "corners": 8.0,
+            "tackles": 13.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 29.06,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -17.48,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -44703,6 +46244,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Argentina公开赔率高于 1.74，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.67,
+            "possession_pct": 58.23,
+            "shots": 11.33,
+            "shots_on_target": 5.0,
+            "corners": 3.0,
+            "tackles": 20.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 7.58,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.79,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.51,
+            "possession_pct": 59.83,
+            "shots": 19.67,
+            "shots_on_target": 6.33,
+            "corners": 4.67,
+            "tackles": 11.67,
+            "yellow_cards": 1.33,
+            "red_cards": 0.0,
+            "substitutions": 4.33
+          },
+          "attack_index": 25.32,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": -9.21,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -45044,6 +46654,32 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Spain公开赔率高于 1.94，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -45393,6 +47029,75 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若Argentina公开赔率高于 2.67，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.62,
+            "possession_pct": 65.9,
+            "shots": 19.33,
+            "shots_on_target": 6.67,
+            "corners": 8.0,
+            "tackles": 13.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 29.06,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.67,
+            "possession_pct": 58.23,
+            "shots": 11.33,
+            "shots_on_target": 5.0,
+            "corners": 3.0,
+            "tackles": 20.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 7.58,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.79,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 9.21,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -45742,6 +47447,32 @@
         "favorite": "team2_win",
         "suggestion": "参考中国体彩胜平负口径：若England公开赔率高于 2.49，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
       }
     },
     {
@@ -46083,6 +47814,75 @@
         "favorite": "team1_win",
         "suggestion": "参考中国体彩胜平负口径：若Spain公开赔率高于 2.48，才进入价值观察区。",
         "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
+      },
+      "post_match_calibration": {
+        "available": true,
+        "sample_size": 72,
+        "goal_multiplier": 0.9,
+        "draw_multiplier": 1.133,
+        "high_total_multiplier": 1.0,
+        "host_attack_multiplier": 1.083,
+        "favorite_compression": 0.979,
+        "diagnostics": {
+          "actual_avg_goals": 2.99,
+          "predicted_avg_goals": 3.32,
+          "actual_draw_rate": 27.8,
+          "predicted_draw_rate": 19.5,
+          "actual_high_total_rate": 22.2,
+          "predicted_high_total_rate": 24.6,
+          "high_favorite_miss_rate": 25.6,
+          "host_samples": 9
+        },
+        "notes": [
+          "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
+          "德国 7-1 这类大比分说明泊松尾部偏保守，因此提高 5 球以上比分矩阵权重。",
+          "荷兰-日本这类强弱倾向下的平局会提高平局校准因子，并压缩热门队过度自信。",
+          "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
+          "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
+        ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.33,
+            "possession_pct": 69.43,
+            "shots": 18.33,
+            "shots_on_target": 5.33,
+            "corners": 7.67,
+            "tackles": 13.33,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 23.67,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.67,
+            "possession_pct": 58.23,
+            "shots": 11.33,
+            "shots_on_target": 5.0,
+            "corners": 3.0,
+            "tackles": 20.67,
+            "yellow_cards": 0.67,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 7.58,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 8.79,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 9.21,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     }
   ],
@@ -46094,8 +47894,8 @@
         "round_of_32": 100.0,
         "round_of_16": 93.9,
         "quarter_final": 85.6,
-        "semi_final": 62.2,
-        "final": 44.3,
+        "semi_final": 62.5,
+        "final": 44.6,
         "champion": 25.7
       },
       {
@@ -46103,18 +47903,18 @@
         "round_of_32": 100.0,
         "round_of_16": 87.2,
         "quarter_final": 66.5,
-        "semi_final": 56.2,
-        "final": 38.7,
-        "champion": 25.7
+        "semi_final": 56.1,
+        "final": 38.4,
+        "champion": 25.6
       },
       {
         "team": "France",
         "round_of_32": 100.0,
-        "round_of_16": 85.9,
-        "quarter_final": 55.6,
-        "semi_final": 39.7,
-        "final": 21.6,
-        "champion": 12.0
+        "round_of_16": 92.0,
+        "quarter_final": 62.2,
+        "semi_final": 44.4,
+        "final": 24.2,
+        "champion": 13.5
       },
       {
         "team": "England",
@@ -46129,28 +47929,28 @@
         "team": "Colombia",
         "round_of_32": 100.0,
         "round_of_16": 93.9,
-        "quarter_final": 67.4,
-        "semi_final": 26.9,
-        "final": 14.6,
-        "champion": 6.0
+        "quarter_final": 66.2,
+        "semi_final": 26.4,
+        "final": 14.3,
+        "champion": 5.8
       },
       {
         "team": "Germany",
         "round_of_32": 100.0,
-        "round_of_16": 92.6,
-        "quarter_final": 40.2,
-        "semi_final": 24.3,
-        "final": 10.4,
-        "champion": 4.7
+        "round_of_16": 78.9,
+        "quarter_final": 32.7,
+        "semi_final": 19.7,
+        "final": 8.4,
+        "champion": 3.8
       },
       {
         "team": "Netherlands",
         "round_of_32": 100.0,
         "round_of_16": 60.1,
         "quarter_final": 47.7,
-        "semi_final": 20.5,
-        "final": 8.7,
-        "champion": 3.8
+        "semi_final": 20.3,
+        "final": 8.6,
+        "champion": 3.7
       },
       {
         "team": "Brazil",
@@ -46183,19 +47983,10 @@
         "team": "Belgium",
         "round_of_32": 100.0,
         "round_of_16": 64.0,
-        "quarter_final": 43.9,
-        "semi_final": 12.9,
-        "final": 5.0,
-        "champion": 1.8
-      },
-      {
-        "team": "Morocco",
-        "round_of_32": 100.0,
-        "round_of_16": 39.9,
-        "quarter_final": 28.9,
-        "semi_final": 9.9,
-        "final": 3.5,
-        "champion": 1.2
+        "quarter_final": 46.4,
+        "semi_final": 13.7,
+        "final": 5.3,
+        "champion": 1.9
       },
       {
         "team": "Japan",
@@ -46207,22 +47998,22 @@
         "champion": 1.1
       },
       {
+        "team": "Morocco",
+        "round_of_32": 100.0,
+        "round_of_16": 39.9,
+        "quarter_final": 28.9,
+        "semi_final": 9.7,
+        "final": 3.4,
+        "champion": 1.1
+      },
+      {
         "team": "Croatia",
         "round_of_32": 100.0,
         "round_of_16": 45.1,
         "quarter_final": 12.3,
         "semi_final": 7.4,
-        "final": 2.9,
+        "final": 3.0,
         "champion": 1.0
-      },
-      {
-        "team": "Switzerland",
-        "round_of_32": 100.0,
-        "round_of_16": 77.0,
-        "quarter_final": 27.9,
-        "semi_final": 7.3,
-        "final": 2.8,
-        "champion": 0.7
       },
       {
         "team": "Norway",
@@ -46234,20 +48025,38 @@
         "champion": 0.6
       },
       {
+        "team": "Switzerland",
+        "round_of_32": 100.0,
+        "round_of_16": 60.7,
+        "quarter_final": 22.0,
+        "semi_final": 5.7,
+        "final": 2.2,
+        "champion": 0.6
+      },
+      {
         "team": "Ecuador",
         "round_of_32": 100.0,
         "round_of_16": 38.9,
         "quarter_final": 14.6,
         "semi_final": 6.6,
         "final": 1.8,
-        "champion": 0.5
+        "champion": 0.4
+      },
+      {
+        "team": "United States",
+        "round_of_32": 100.0,
+        "round_of_16": 79.7,
+        "quarter_final": 29.3,
+        "semi_final": 5.2,
+        "final": 1.1,
+        "champion": 0.3
       },
       {
         "team": "Senegal",
         "round_of_32": 100.0,
         "round_of_16": 36.0,
-        "quarter_final": 19.7,
-        "semi_final": 4.0,
+        "quarter_final": 21.5,
+        "semi_final": 4.3,
         "final": 1.1,
         "champion": 0.3
       },
@@ -46263,20 +48072,11 @@
       {
         "team": "Algeria",
         "round_of_32": 100.0,
-        "round_of_16": 49.4,
-        "quarter_final": 17.8,
-        "semi_final": 3.2,
+        "round_of_16": 39.3,
+        "quarter_final": 11.0,
+        "semi_final": 2.3,
         "final": 0.7,
-        "champion": 0.2
-      },
-      {
-        "team": "United States",
-        "round_of_32": 100.0,
-        "round_of_16": 50.6,
-        "quarter_final": 18.7,
-        "semi_final": 3.2,
-        "final": 0.7,
-        "champion": 0.2
+        "champion": 0.1
       },
       {
         "team": "Australia",
@@ -46297,20 +48097,20 @@
         "champion": 0.1
       },
       {
-        "team": "Paraguay",
-        "round_of_32": 100.0,
-        "round_of_16": 14.1,
-        "quarter_final": 3.5,
-        "semi_final": 1.1,
-        "final": 0.2,
-        "champion": 0.1
-      },
-      {
         "team": "Ivory Coast",
         "round_of_32": 100.0,
         "round_of_16": 33.1,
         "quarter_final": 7.4,
         "semi_final": 1.5,
+        "final": 0.2,
+        "champion": 0.0
+      },
+      {
+        "team": "Paraguay",
+        "round_of_32": 100.0,
+        "round_of_16": 21.1,
+        "quarter_final": 3.8,
+        "semi_final": 1.2,
         "final": 0.2,
         "champion": 0.0
       },
@@ -46326,10 +48126,19 @@
       {
         "team": "Sweden",
         "round_of_32": 100.0,
-        "round_of_16": 23.0,
-        "quarter_final": 3.7,
-        "semi_final": 0.4,
-        "final": 0.1,
+        "round_of_16": 8.0,
+        "quarter_final": 1.4,
+        "semi_final": 0.3,
+        "final": 0.0,
+        "champion": 0.0
+      },
+      {
+        "team": "Bosnia & Herzegovina",
+        "round_of_32": 100.0,
+        "round_of_16": 20.3,
+        "quarter_final": 2.7,
+        "semi_final": 0.2,
+        "final": 0.0,
         "champion": 0.0
       },
       {
@@ -46360,19 +48169,10 @@
         "champion": 0.0
       },
       {
-        "team": "Bosnia & Herzegovina",
-        "round_of_32": 100.0,
-        "round_of_16": 7.4,
-        "quarter_final": 0.7,
-        "semi_final": 0.1,
-        "final": 0.0,
-        "champion": 0.0
-      },
-      {
         "team": "Ghana",
         "round_of_32": 100.0,
         "round_of_16": 6.1,
-        "quarter_final": 1.0,
+        "quarter_final": 0.8,
         "semi_final": 0.1,
         "final": 0.0,
         "champion": 0.0
@@ -46573,7 +48373,7 @@
           "Norway",
           "Mexico",
           "England",
-          "Algeria",
+          "United States",
           "Belgium",
           "Portugal",
           "Spain",
@@ -46973,57 +48773,57 @@
         "slot_team1": "1E",
         "slot_team2": "3A/B/C/D/F",
         "team1": "Germany",
-        "team2": "Bosnia & Herzegovina",
+        "team2": "Paraguay",
         "winner": "Germany",
         "advance_probabilities": {
-          "team1": 95.0,
-          "team2": 5.0,
+          "team1": 82.4,
+          "team2": 17.6,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         },
         "teams_confirmed": true,
         "probabilities": {
-          "team1_win": 86.4,
-          "draw": 9.3,
-          "team2_win": 4.3
+          "team1_win": 65.5,
+          "draw": 21.4,
+          "team2_win": 13.1
         },
         "favorite": "Germany",
-        "predicted_score": "4-0",
-        "confidence": 0.771,
+        "predicted_score": "2-1",
+        "confidence": 0.442,
         "confidence_label": "高",
         "expected_goals": {
-          "team1": 3.25,
-          "team2": 0.64
+          "team1": 1.88,
+          "team2": 0.69
         },
         "score_summary": {
-          "representative_score": "4-0",
-          "modal_score": "3-0",
-          "expected_total_goals": 3.89,
-          "over_2_5": 74.0,
-          "over_3_5": 53.6,
-          "both_teams_score": 45.5
+          "representative_score": "2-1",
+          "modal_score": "1-0",
+          "expected_total_goals": 2.57,
+          "over_2_5": 47.3,
+          "over_3_5": 25.7,
+          "both_teams_score": 42.3
         },
         "technical_indicators": {
           "available": true,
           "source": "model_estimate",
           "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
           "team1": {
-            "xg": 3.25,
-            "possession_pct": 62.4,
-            "shots": 21.8,
-            "shots_on_target": 9.0,
-            "corners": 7.0,
-            "tackles": 17.6,
+            "xg": 1.88,
+            "possession_pct": 59.5,
+            "shots": 15.4,
+            "shots_on_target": 5.7,
+            "corners": 5.5,
+            "tackles": 17.9,
             "yellow_cards": 1.8,
             "red_cards": 0.09,
-            "substitutions": 4.7
+            "substitutions": 4.5
           },
           "team2": {
-            "xg": 0.64,
-            "possession_pct": 37.6,
+            "xg": 0.69,
+            "possession_pct": 40.5,
             "shots": 7.3,
-            "shots_on_target": 2.2,
-            "corners": 2.8,
-            "tackles": 20.2,
+            "shots_on_target": 2.3,
+            "corners": 2.9,
+            "tackles": 20.4,
             "yellow_cards": 2.1,
             "red_cards": 0.1,
             "substitutions": 4.3
@@ -47031,7 +48831,7 @@
         },
         "effective_ratings": {
           "team1": 2094.1,
-          "team2": 1658.5
+          "team2": 1864.1
         },
         "market": {
           "team1": {
@@ -47062,13 +48862,13 @@
             "available": true
           },
           "team2": {
-            "mentions": 56,
-            "odds_count": 212,
-            "best_decimal_odds": 50.0,
-            "implied_probability": 2.0,
+            "mentions": 28,
+            "odds_count": 100,
+            "best_decimal_odds": 151.0,
+            "implied_probability": 0.66,
             "keyword_hits": 3089,
-            "index": 0.024,
-            "adjustment": 0.8,
+            "index": 0.008,
+            "adjustment": 0.3,
             "available": true
           },
           "available": true
@@ -47107,7 +48907,7 @@
         },
         "rule_adaptation": {
           "team1": 9.9,
-          "team2": 2.7
+          "team2": 3.5
         },
         "fifa_ranking": {
           "team1": null,
@@ -47116,22 +48916,22 @@
         "contributors": [
           {
             "name": "基础 Elo 差",
-            "value": 321.3,
-            "description": "Germany 与 Bosnia & Herzegovina 的长期实力差。"
+            "value": 103.4,
+            "description": "Germany 与 Paraguay 的长期实力差。"
           },
           {
             "name": "近期状态差",
-            "value": 24.3,
+            "value": 35.8,
             "description": "最近 10 场的积分率、净胜球和对手强度。"
           },
           {
             "name": "高盛式特征修正",
-            "value": 62.6,
+            "value": 63.7,
             "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
           },
           {
             "name": "世界杯阶段经验",
-            "value": 45.0,
+            "value": 53.4,
             "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
           },
           {
@@ -47146,7 +48946,7 @@
           },
           {
             "name": "博彩盘口修正",
-            "value": 20.2,
+            "value": 20.7,
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
           },
           {
@@ -47161,7 +48961,7 @@
           },
           {
             "name": "新规则适应性",
-            "value": 7.2,
+            "value": 6.4,
             "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
           },
           {
@@ -47171,9 +48971,9 @@
           }
         ],
         "explanation": [
-          "Germany 有效评分 2094，Bosnia & Herzegovina 有效评分 1659。",
-          "模型预计进球均值为 Germany 3.25，Bosnia & Herzegovina 0.64。",
-          "代表比分为 4-0，精确众数比分为 3-0，预测置信度为高。"
+          "Germany 有效评分 2094，Paraguay 有效评分 1864。",
+          "模型预计进球均值为 Germany 1.88，Paraguay 0.69。",
+          "代表比分为 2-1，精确众数比分为 1-0，预测置信度为高。"
         ],
         "team_metrics": {
           "Germany": {
@@ -47206,61 +49006,61 @@
             "goldman_attack": 1.439,
             "goldman_defense": 0.697
           },
-          "Bosnia & Herzegovina": {
-            "team": "Bosnia & Herzegovina",
-            "elo": 1623.9,
-            "matches": 283,
-            "recent_points_rate": 0.5,
-            "recent_goal_diff": 1.0,
-            "recent_opponent_elo": 1608.0,
-            "form_adjustment": 20.7,
-            "attack": 0.991,
-            "defense": 1.014,
+          "Paraguay": {
+            "team": "Paraguay",
+            "elo": 1841.8,
+            "matches": 784,
+            "recent_points_rate": 0.467,
+            "recent_goal_diff": 0.2,
+            "recent_opponent_elo": 1818.8,
+            "form_adjustment": 9.2,
+            "attack": 0.899,
+            "defense": 0.738,
             "competitive_points_rate": 0.633,
-            "competitive_goal_diff": 1.0,
-            "competitive_opponent_elo": 1541.7,
-            "competitive_adjustment": 29.8,
-            "world_cup_points_rate": 0.333,
-            "world_cup_goal_diff": 0.0,
-            "world_cup_adjustment": -6.0,
-            "world_cup_stage_adjustment": 0.0,
-            "world_cup_stage_points_rate": 0.0,
-            "world_cup_stage_goal_diff": 0.0,
-            "world_cup_local_matches": 0,
-            "world_cup_knockout_matches": 0,
+            "competitive_goal_diff": 0.5,
+            "competitive_opponent_elo": 1868.1,
+            "competitive_adjustment": 28.0,
+            "world_cup_points_rate": 0.417,
+            "world_cup_goal_diff": 0.19,
+            "world_cup_adjustment": 0.9,
+            "world_cup_stage_adjustment": -8.4,
+            "world_cup_stage_points_rate": 0.345,
+            "world_cup_stage_goal_diff": -0.21,
+            "world_cup_local_matches": 27,
+            "world_cup_knockout_matches": 5,
             "world_cup_knockout_win_rate": 0.0,
             "home_continent_adjustment": 0.0,
-            "goldman_adjustment": 10.4,
-            "mandatory_attack": 1.198,
-            "mandatory_defense": 0.876,
-            "goldman_attack": 1.062,
-            "goldman_defense": 0.96
+            "goldman_adjustment": 9.3,
+            "mandatory_attack": 0.968,
+            "mandatory_defense": 0.599,
+            "goldman_attack": 0.909,
+            "goldman_defense": 0.698
           }
         },
         "scoreline_distribution": [
           {
-            "score": "3-0",
-            "probability": 11.9
+            "score": "1-0",
+            "probability": 14.4
           },
           {
             "score": "2-0",
-            "probability": 11.0
+            "probability": 13.5
           },
           {
-            "score": "4-0",
-            "probability": 9.6
-          },
-          {
-            "score": "3-1",
-            "probability": 7.6
+            "score": "1-1",
+            "probability": 10.0
           },
           {
             "score": "2-1",
-            "probability": 7.1
+            "probability": 9.3
           },
           {
-            "score": "1-0",
-            "probability": 6.8
+            "score": "3-0",
+            "probability": 8.4
+          },
+          {
+            "score": "0-0",
+            "probability": 7.7
           }
         ],
         "betting_analysis": {
@@ -47279,22 +49079,22 @@
             "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
           },
           "model_probabilities": {
-            "team1_win": 86.4,
-            "draw": 9.3,
-            "team2_win": 4.3
+            "team1_win": 65.5,
+            "draw": 21.4,
+            "team2_win": 13.1
           },
           "fair_odds": {
-            "team1_win": 1.16,
-            "draw": 10.75,
-            "team2_win": 23.26
+            "team1_win": 1.53,
+            "draw": 4.67,
+            "team2_win": 7.63
           },
           "value_threshold_odds": {
-            "team1_win": 1.22,
-            "draw": 11.29,
-            "team2_win": 24.42
+            "team1_win": 1.6,
+            "draw": 4.91,
+            "team2_win": 8.02
           },
           "favorite": "team1_win",
-          "suggestion": "参考中国体彩胜平负口径：若Germany公开赔率高于 1.22，才进入价值观察区。",
+          "suggestion": "参考中国体彩胜平负口径：若Germany公开赔率高于 1.6，才进入价值观察区。",
           "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
         }
       },
@@ -47984,57 +49784,57 @@
         "slot_team1": "1I",
         "slot_team2": "3C/D/F/G/H",
         "team1": "France",
-        "team2": "Paraguay",
+        "team2": "Sweden",
         "winner": "France",
         "advance_probabilities": {
-          "team1": 84.6,
-          "team2": 15.4,
+          "team1": 93.3,
+          "team2": 6.7,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         },
         "teams_confirmed": true,
         "probabilities": {
-          "team1_win": 66.9,
-          "draw": 20.6,
-          "team2_win": 12.5
+          "team1_win": 84.0,
+          "draw": 10.2,
+          "team2_win": 5.9
         },
         "favorite": "France",
-        "predicted_score": "2-1",
-        "confidence": 0.462,
+        "predicted_score": "3-1",
+        "confidence": 0.738,
         "confidence_label": "高",
         "expected_goals": {
-          "team1": 1.94,
-          "team2": 0.7
+          "team1": 3.34,
+          "team2": 0.84
         },
         "score_summary": {
-          "representative_score": "2-1",
-          "modal_score": "1-0",
-          "expected_total_goals": 2.64,
-          "over_2_5": 49.2,
-          "over_3_5": 27.3,
-          "both_teams_score": 43.1
+          "representative_score": "3-1",
+          "modal_score": "3-0",
+          "expected_total_goals": 4.17,
+          "over_2_5": 78.2,
+          "over_3_5": 59.1,
+          "both_teams_score": 54.6
         },
         "technical_indicators": {
           "available": true,
           "source": "model_estimate",
           "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
           "team1": {
-            "xg": 1.94,
-            "possession_pct": 61.0,
-            "shots": 15.7,
-            "shots_on_target": 5.9,
-            "corners": 5.6,
-            "tackles": 17.6,
+            "xg": 3.34,
+            "possession_pct": 61.3,
+            "shots": 22.0,
+            "shots_on_target": 9.0,
+            "corners": 7.0,
+            "tackles": 17.5,
             "yellow_cards": 1.8,
             "red_cards": 0.09,
-            "substitutions": 4.5
+            "substitutions": 4.7
           },
           "team2": {
-            "xg": 0.7,
-            "possession_pct": 39.0,
-            "shots": 7.2,
-            "shots_on_target": 2.3,
-            "corners": 2.9,
-            "tackles": 20.6,
+            "xg": 0.84,
+            "possession_pct": 38.7,
+            "shots": 8.6,
+            "shots_on_target": 2.8,
+            "corners": 3.1,
+            "tackles": 19.8,
             "yellow_cards": 2.1,
             "red_cards": 0.1,
             "substitutions": 4.3
@@ -48042,7 +49842,7 @@
         },
         "effective_ratings": {
           "team1": 2182.2,
-          "team2": 1864.1
+          "team2": 1753.0
         },
         "market": {
           "team1": {
@@ -48073,13 +49873,13 @@
             "available": true
           },
           "team2": {
-            "mentions": 28,
-            "odds_count": 100,
-            "best_decimal_odds": 151.0,
-            "implied_probability": 0.66,
+            "mentions": 88,
+            "odds_count": 112,
+            "best_decimal_odds": 2.0,
+            "implied_probability": 50.0,
             "keyword_hits": 3089,
-            "index": 0.008,
-            "adjustment": 0.3,
+            "index": 0.6,
+            "adjustment": 21.0,
             "available": true
           },
           "available": true
@@ -48118,7 +49918,7 @@
         },
         "rule_adaptation": {
           "team1": 9.3,
-          "team2": 3.5
+          "team2": 1.9
         },
         "fifa_ranking": {
           "team1": null,
@@ -48127,22 +49927,22 @@
         "contributors": [
           {
             "name": "基础 Elo 差",
-            "value": 189.2,
-            "description": "France 与 Paraguay 的长期实力差。"
+            "value": 299.4,
+            "description": "France 与 Sweden 的长期实力差。"
           },
           {
             "name": "近期状态差",
-            "value": 35.8,
+            "value": 65.0,
             "description": "最近 10 场的积分率、净胜球和对手强度。"
           },
           {
             "name": "高盛式特征修正",
-            "value": 66.6,
+            "value": 57.4,
             "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
           },
           {
             "name": "世界杯阶段经验",
-            "value": 43.0,
+            "value": 20.3,
             "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
           },
           {
@@ -48157,7 +49957,7 @@
           },
           {
             "name": "博彩盘口修正",
-            "value": 20.7,
+            "value": 0.0,
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
           },
           {
@@ -48172,7 +49972,7 @@
           },
           {
             "name": "新规则适应性",
-            "value": 5.8,
+            "value": 7.4,
             "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
           },
           {
@@ -48182,9 +49982,9 @@
           }
         ],
         "explanation": [
-          "France 有效评分 2182，Paraguay 有效评分 1864。",
-          "模型预计进球均值为 France 1.94，Paraguay 0.70。",
-          "代表比分为 2-1，精确众数比分为 1-0，预测置信度为高。"
+          "France 有效评分 2182，Sweden 有效评分 1753。",
+          "模型预计进球均值为 France 3.34，Sweden 0.84。",
+          "代表比分为 3-1，精确众数比分为 3-0，预测置信度为高。"
         ],
         "team_metrics": {
           "France": {
@@ -48217,61 +50017,61 @@
             "goldman_attack": 1.355,
             "goldman_defense": 0.774
           },
-          "Paraguay": {
-            "team": "Paraguay",
-            "elo": 1841.8,
-            "matches": 784,
-            "recent_points_rate": 0.467,
-            "recent_goal_diff": 0.2,
-            "recent_opponent_elo": 1818.8,
-            "form_adjustment": 9.2,
-            "attack": 0.899,
-            "defense": 0.738,
-            "competitive_points_rate": 0.633,
-            "competitive_goal_diff": 0.5,
-            "competitive_opponent_elo": 1868.1,
-            "competitive_adjustment": 28.0,
-            "world_cup_points_rate": 0.417,
-            "world_cup_goal_diff": 0.19,
-            "world_cup_adjustment": 0.9,
-            "world_cup_stage_adjustment": -8.4,
-            "world_cup_stage_points_rate": 0.345,
-            "world_cup_stage_goal_diff": -0.21,
-            "world_cup_local_matches": 27,
-            "world_cup_knockout_matches": 5,
-            "world_cup_knockout_win_rate": 0.0,
+          "Sweden": {
+            "team": "Sweden",
+            "elo": 1731.6,
+            "matches": 1102,
+            "recent_points_rate": 0.3,
+            "recent_goal_diff": -0.7,
+            "recent_opponent_elo": 1764.1,
+            "form_adjustment": -20.0,
+            "attack": 1.314,
+            "defense": 0.991,
+            "competitive_points_rate": 0.467,
+            "competitive_goal_diff": 0.2,
+            "competitive_opponent_elo": 1722.2,
+            "competitive_adjustment": 7.4,
+            "world_cup_points_rate": 0.479,
+            "world_cup_goal_diff": 0.25,
+            "world_cup_adjustment": 5.2,
+            "world_cup_stage_adjustment": 14.3,
+            "world_cup_stage_points_rate": 0.414,
+            "world_cup_stage_goal_diff": 0.11,
+            "world_cup_local_matches": 46,
+            "world_cup_knockout_matches": 13,
+            "world_cup_knockout_win_rate": 0.325,
             "home_continent_adjustment": 0.0,
-            "goldman_adjustment": 9.3,
-            "mandatory_attack": 0.968,
-            "mandatory_defense": 0.599,
-            "goldman_attack": 0.909,
-            "goldman_defense": 0.698
+            "goldman_adjustment": 18.5,
+            "mandatory_attack": 1.152,
+            "mandatory_defense": 1.152,
+            "goldman_attack": 1.236,
+            "goldman_defense": 1.056
           }
         },
         "scoreline_distribution": [
           {
-            "score": "1-0",
-            "probability": 13.9
-          },
-          {
-            "score": "2-0",
-            "probability": 13.5
-          },
-          {
-            "score": "1-1",
+            "score": "3-0",
             "probability": 9.7
           },
           {
+            "score": "2-0",
+            "probability": 8.8
+          },
+          {
+            "score": "3-1",
+            "probability": 8.1
+          },
+          {
+            "score": "4-0",
+            "probability": 8.1
+          },
+          {
             "score": "2-1",
-            "probability": 9.4
+            "probability": 7.3
           },
           {
-            "score": "3-0",
-            "probability": 8.7
-          },
-          {
-            "score": "0-0",
-            "probability": 7.1
+            "score": "4-1",
+            "probability": 6.8
           }
         ],
         "betting_analysis": {
@@ -48290,22 +50090,22 @@
             "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
           },
           "model_probabilities": {
-            "team1_win": 66.9,
-            "draw": 20.6,
-            "team2_win": 12.5
+            "team1_win": 84.0,
+            "draw": 10.2,
+            "team2_win": 5.9
           },
           "fair_odds": {
-            "team1_win": 1.49,
-            "draw": 4.85,
-            "team2_win": 8.0
+            "team1_win": 1.19,
+            "draw": 9.8,
+            "team2_win": 16.95
           },
           "value_threshold_odds": {
-            "team1_win": 1.57,
-            "draw": 5.1,
-            "team2_win": 8.4
+            "team1_win": 1.25,
+            "draw": 10.29,
+            "team2_win": 17.8
           },
           "favorite": "team1_win",
-          "suggestion": "参考中国体彩胜平负口径：若France公开赔率高于 1.57，才进入价值观察区。",
+          "suggestion": "参考中国体彩胜平负口径：若France公开赔率高于 1.25，才进入价值观察区。",
           "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
         }
       },
@@ -49340,65 +51140,65 @@
         "slot_team1": "1D",
         "slot_team2": "3B/E/F/I/J",
         "team1": "United States",
-        "team2": "Algeria",
-        "winner": "Algeria",
+        "team2": "Bosnia & Herzegovina",
+        "winner": "United States",
         "advance_probabilities": {
-          "team1": 33.2,
-          "team2": 66.8,
+          "team1": 72.9,
+          "team2": 27.1,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         },
         "teams_confirmed": true,
         "probabilities": {
-          "team1_win": 21.4,
-          "draw": 23.4,
-          "team2_win": 55.2
+          "team1_win": 55.5,
+          "draw": 22.0,
+          "team2_win": 22.5
         },
-        "favorite": "Algeria",
-        "predicted_score": "1-2",
-        "confidence": 0.317,
+        "favorite": "United States",
+        "predicted_score": "2-1",
+        "confidence": 0.329,
         "confidence_label": "高",
         "expected_goals": {
-          "team1": 1.0,
-          "team2": 1.76
+          "team1": 1.95,
+          "team2": 1.17
         },
         "score_summary": {
-          "representative_score": "1-2",
+          "representative_score": "2-1",
           "modal_score": "1-1",
-          "expected_total_goals": 2.77,
-          "over_2_5": 52.3,
-          "over_3_5": 30.1,
-          "both_teams_score": 52.5
+          "expected_total_goals": 3.11,
+          "over_2_5": 60.1,
+          "over_3_5": 37.7,
+          "both_teams_score": 59.0
         },
         "technical_indicators": {
           "available": true,
           "source": "model_estimate",
           "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
           "team1": {
-            "xg": 1.0,
-            "possession_pct": 49.6,
-            "shots": 9.9,
-            "shots_on_target": 3.3,
-            "corners": 3.9,
-            "tackles": 18.6,
-            "yellow_cards": 1.8,
-            "red_cards": 0.09,
-            "substitutions": 4.3
-          },
-          "team2": {
-            "xg": 1.76,
-            "possession_pct": 50.4,
-            "shots": 13.7,
-            "shots_on_target": 5.3,
-            "corners": 4.7,
-            "tackles": 19.2,
+            "xg": 1.95,
+            "possession_pct": 57.6,
+            "shots": 14.8,
+            "shots_on_target": 5.8,
+            "corners": 5.3,
+            "tackles": 17.5,
             "yellow_cards": 1.8,
             "red_cards": 0.09,
             "substitutions": 4.5
+          },
+          "team2": {
+            "xg": 1.17,
+            "possession_pct": 42.4,
+            "shots": 10.0,
+            "shots_on_target": 3.6,
+            "corners": 3.6,
+            "tackles": 19.6,
+            "yellow_cards": 2.0,
+            "red_cards": 0.1,
+            "substitutions": 4.4
           }
         },
         "effective_ratings": {
           "team1": 1892.8,
-          "team2": 1889.4
+          "team2": 1658.5
         },
         "market": {
           "team1": {
@@ -49429,13 +51229,13 @@
             "available": true
           },
           "team2": {
-            "mentions": 16,
-            "odds_count": 88,
-            "best_decimal_odds": 400.0,
-            "implied_probability": 0.25,
+            "mentions": 56,
+            "odds_count": 212,
+            "best_decimal_odds": 50.0,
+            "implied_probability": 2.0,
             "keyword_hits": 3089,
-            "index": 0.003,
-            "adjustment": 0.1,
+            "index": 0.024,
+            "adjustment": 0.8,
             "available": true
           },
           "available": true
@@ -49474,7 +51274,7 @@
         },
         "rule_adaptation": {
           "team1": 2.8,
-          "team2": 9.4
+          "team2": 2.7
         },
         "fifa_ranking": {
           "team1": null,
@@ -49483,22 +51283,22 @@
         "contributors": [
           {
             "name": "基础 Elo 差",
-            "value": -38.3,
-            "description": "United States 与 Algeria 的长期实力差。"
+            "value": 175.7,
+            "description": "United States 与 Bosnia & Herzegovina 的长期实力差。"
           },
           {
             "name": "近期状态差",
-            "value": -31.2,
+            "value": -6.9,
             "description": "最近 10 场的积分率、净胜球和对手强度。"
           },
           {
             "name": "高盛式特征修正",
-            "value": 9.6,
+            "value": -3.8,
             "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
           },
           {
             "name": "世界杯阶段经验",
-            "value": 6.2,
+            "value": -14.5,
             "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
           },
           {
@@ -49513,7 +51313,7 @@
           },
           {
             "name": "博彩盘口修正",
-            "value": 34.9,
+            "value": 34.2,
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
           },
           {
@@ -49528,7 +51328,7 @@
           },
           {
             "name": "新规则适应性",
-            "value": -6.6,
+            "value": 0.1,
             "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
           },
           {
@@ -49538,9 +51338,9 @@
           }
         ],
         "explanation": [
-          "United States 有效评分 1893，Algeria 有效评分 1889。",
-          "模型预计进球均值为 United States 1.00，Algeria 1.76。",
-          "代表比分为 1-2，精确众数比分为 1-1，预测置信度为高。"
+          "United States 有效评分 1893，Bosnia & Herzegovina 有效评分 1659。",
+          "模型预计进球均值为 United States 1.95，Bosnia & Herzegovina 1.17。",
+          "代表比分为 2-1，精确众数比分为 1-1，预测置信度为高。"
         ],
         "team_metrics": {
           "United States": {
@@ -49573,61 +51373,61 @@
             "goldman_attack": 1.097,
             "goldman_defense": 1.0
           },
-          "Algeria": {
-            "team": "Algeria",
-            "elo": 1837.9,
-            "matches": 617,
-            "recent_points_rate": 0.767,
-            "recent_goal_diff": 1.7,
-            "recent_opponent_elo": 1681.8,
-            "form_adjustment": 45.0,
-            "attack": 1.337,
-            "defense": 0.599,
-            "competitive_points_rate": 0.767,
-            "competitive_goal_diff": 1.2,
-            "competitive_opponent_elo": 1598.3,
-            "competitive_adjustment": 44.1,
-            "world_cup_points_rate": 0.308,
-            "world_cup_goal_diff": -0.46,
-            "world_cup_adjustment": -12.9,
-            "world_cup_stage_adjustment": -20.7,
-            "world_cup_stage_points_rate": 0.242,
-            "world_cup_stage_goal_diff": -0.48,
-            "world_cup_local_matches": 14,
-            "world_cup_knockout_matches": 2,
+          "Bosnia & Herzegovina": {
+            "team": "Bosnia & Herzegovina",
+            "elo": 1623.9,
+            "matches": 283,
+            "recent_points_rate": 0.5,
+            "recent_goal_diff": 1.0,
+            "recent_opponent_elo": 1608.0,
+            "form_adjustment": 20.7,
+            "attack": 0.991,
+            "defense": 1.014,
+            "competitive_points_rate": 0.633,
+            "competitive_goal_diff": 1.0,
+            "competitive_opponent_elo": 1541.7,
+            "competitive_adjustment": 29.8,
+            "world_cup_points_rate": 0.333,
+            "world_cup_goal_diff": 0.0,
+            "world_cup_adjustment": -6.0,
+            "world_cup_stage_adjustment": 0.0,
+            "world_cup_stage_points_rate": 0.0,
+            "world_cup_stage_goal_diff": 0.0,
+            "world_cup_local_matches": 0,
+            "world_cup_knockout_matches": 0,
             "world_cup_knockout_win_rate": 0.0,
             "home_continent_adjustment": 0.0,
-            "goldman_adjustment": -3.0,
-            "mandatory_attack": 1.152,
-            "mandatory_defense": 0.599,
-            "goldman_attack": 1.224,
-            "goldman_defense": 0.647
+            "goldman_adjustment": 10.4,
+            "mandatory_attack": 1.198,
+            "mandatory_defense": 0.876,
+            "goldman_attack": 1.062,
+            "goldman_defense": 0.96
           }
         },
         "scoreline_distribution": [
           {
             "score": "1-1",
-            "probability": 11.1
+            "probability": 10.1
           },
           {
-            "score": "0-1",
-            "probability": 11.1
-          },
-          {
-            "score": "1-2",
-            "probability": 9.8
-          },
-          {
-            "score": "0-2",
+            "score": "2-1",
             "probability": 9.8
           },
           {
             "score": "1-0",
-            "probability": 6.3
+            "probability": 8.7
           },
           {
-            "score": "0-0",
-            "probability": 6.3
+            "score": "2-0",
+            "probability": 8.4
+          },
+          {
+            "score": "3-1",
+            "probability": 6.4
+          },
+          {
+            "score": "1-2",
+            "probability": 5.9
           }
         ],
         "betting_analysis": {
@@ -49646,22 +51446,22 @@
             "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
           },
           "model_probabilities": {
-            "team1_win": 21.4,
-            "draw": 23.4,
-            "team2_win": 55.2
+            "team1_win": 55.5,
+            "draw": 22.0,
+            "team2_win": 22.5
           },
           "fair_odds": {
-            "team1_win": 4.67,
-            "draw": 4.27,
-            "team2_win": 1.81
+            "team1_win": 1.8,
+            "draw": 4.55,
+            "team2_win": 4.44
           },
           "value_threshold_odds": {
-            "team1_win": 4.91,
-            "draw": 4.49,
-            "team2_win": 1.9
+            "team1_win": 1.89,
+            "draw": 4.77,
+            "team2_win": 4.67
           },
-          "favorite": "team2_win",
-          "suggestion": "参考中国体彩胜平负口径：若Algeria公开赔率高于 1.9，才进入价值观察区。",
+          "favorite": "team1_win",
+          "suggestion": "参考中国体彩胜平负口径：若United States公开赔率高于 1.89，才进入价值观察区。",
           "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
         }
       },
@@ -50688,65 +52488,65 @@
         "slot_team1": "1B",
         "slot_team2": "3E/F/G/I/J",
         "team1": "Switzerland",
-        "team2": "Sweden",
+        "team2": "Algeria",
         "winner": "Switzerland",
         "advance_probabilities": {
-          "team1": 78.6,
-          "team2": 21.4,
+          "team1": 50.5,
+          "team2": 49.5,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         },
         "teams_confirmed": true,
         "probabilities": {
-          "team1_win": 63.9,
-          "draw": 19.1,
-          "team2_win": 17.1
+          "team1_win": 34.1,
+          "draw": 27.1,
+          "team2_win": 38.8
         },
-        "favorite": "Switzerland",
-        "predicted_score": "2-1",
-        "confidence": 0.448,
-        "confidence_label": "高",
+        "favorite": "Algeria",
+        "predicted_score": "1-2",
+        "confidence": 0.047,
+        "confidence_label": "低",
         "expected_goals": {
-          "team1": 2.28,
-          "team2": 1.1
+          "team1": 1.19,
+          "team2": 1.29
         },
         "score_summary": {
-          "representative_score": "2-1",
-          "modal_score": "2-1",
-          "expected_total_goals": 3.38,
-          "over_2_5": 65.6,
-          "over_3_5": 43.6,
-          "both_teams_score": 59.9
+          "representative_score": "1-2",
+          "modal_score": "1-1",
+          "expected_total_goals": 2.48,
+          "over_2_5": 45.1,
+          "over_3_5": 23.8,
+          "both_teams_score": 50.4
         },
         "technical_indicators": {
           "available": true,
           "source": "model_estimate",
           "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
           "team1": {
-            "xg": 2.28,
-            "possession_pct": 56.7,
-            "shots": 16.5,
-            "shots_on_target": 6.6,
-            "corners": 5.6,
-            "tackles": 18.1,
+            "xg": 1.19,
+            "possession_pct": 52.5,
+            "shots": 11.2,
+            "shots_on_target": 3.8,
+            "corners": 4.3,
+            "tackles": 18.6,
             "yellow_cards": 1.8,
             "red_cards": 0.09,
-            "substitutions": 4.6
+            "substitutions": 4.4
           },
           "team2": {
-            "xg": 1.1,
-            "possession_pct": 43.3,
-            "shots": 10.2,
-            "shots_on_target": 3.5,
-            "corners": 3.7,
-            "tackles": 19.2,
-            "yellow_cards": 2.0,
-            "red_cards": 0.1,
-            "substitutions": 4.3
+            "xg": 1.29,
+            "possession_pct": 47.5,
+            "shots": 11.3,
+            "shots_on_target": 4.0,
+            "corners": 4.1,
+            "tackles": 19.6,
+            "yellow_cards": 1.9,
+            "red_cards": 0.09,
+            "substitutions": 4.4
           }
         },
         "effective_ratings": {
           "team1": 1963.5,
-          "team2": 1753.0
+          "team2": 1889.4
         },
         "market": {
           "team1": {
@@ -50777,13 +52577,13 @@
             "available": true
           },
           "team2": {
-            "mentions": 88,
-            "odds_count": 112,
-            "best_decimal_odds": 2.0,
-            "implied_probability": 50.0,
+            "mentions": 16,
+            "odds_count": 88,
+            "best_decimal_odds": 400.0,
+            "implied_probability": 0.25,
             "keyword_hits": 3089,
-            "index": 0.6,
-            "adjustment": 21.0,
+            "index": 0.003,
+            "adjustment": 0.1,
             "available": true
           },
           "available": true
@@ -50822,7 +52622,7 @@
         },
         "rule_adaptation": {
           "team1": 4.8,
-          "team2": 1.9
+          "team2": 9.4
         },
         "fifa_ranking": {
           "team1": null,
@@ -50831,22 +52631,22 @@
         "contributors": [
           {
             "name": "基础 Elo 差",
-            "value": 144.5,
-            "description": "Switzerland 与 Sweden 的长期实力差。"
+            "value": 38.2,
+            "description": "Switzerland 与 Algeria 的长期实力差。"
           },
           {
             "name": "近期状态差",
-            "value": 61.0,
+            "value": -4.0,
             "description": "最近 10 场的积分率、净胜球和对手强度。"
           },
           {
             "name": "高盛式特征修正",
-            "value": -11.9,
+            "value": 9.6,
             "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
           },
           {
             "name": "世界杯阶段经验",
-            "value": -22.4,
+            "value": 12.6,
             "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
           },
           {
@@ -50861,7 +52661,7 @@
           },
           {
             "name": "博彩盘口修正",
-            "value": 14.0,
+            "value": 34.9,
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
           },
           {
@@ -50876,7 +52676,7 @@
           },
           {
             "name": "新规则适应性",
-            "value": 2.9,
+            "value": -4.6,
             "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
           },
           {
@@ -50886,9 +52686,9 @@
           }
         ],
         "explanation": [
-          "Switzerland 有效评分 1963，Sweden 有效评分 1753。",
-          "模型预计进球均值为 Switzerland 2.28，Sweden 1.10。",
-          "代表比分为 2-1，精确众数比分为 2-1，预测置信度为高。"
+          "Switzerland 有效评分 1963，Algeria 有效评分 1889。",
+          "模型预计进球均值为 Switzerland 1.19，Algeria 1.29。",
+          "代表比分为 1-2，精确众数比分为 1-1，预测置信度为低。"
         ],
         "team_metrics": {
           "Switzerland": {
@@ -50921,61 +52721,61 @@
             "goldman_attack": 1.195,
             "goldman_defense": 0.793
           },
-          "Sweden": {
-            "team": "Sweden",
-            "elo": 1731.6,
-            "matches": 1102,
-            "recent_points_rate": 0.3,
-            "recent_goal_diff": -0.7,
-            "recent_opponent_elo": 1764.1,
-            "form_adjustment": -20.0,
-            "attack": 1.314,
-            "defense": 0.991,
-            "competitive_points_rate": 0.467,
-            "competitive_goal_diff": 0.2,
-            "competitive_opponent_elo": 1722.2,
-            "competitive_adjustment": 7.4,
-            "world_cup_points_rate": 0.479,
-            "world_cup_goal_diff": 0.25,
-            "world_cup_adjustment": 5.2,
-            "world_cup_stage_adjustment": 14.3,
-            "world_cup_stage_points_rate": 0.414,
-            "world_cup_stage_goal_diff": 0.11,
-            "world_cup_local_matches": 46,
-            "world_cup_knockout_matches": 13,
-            "world_cup_knockout_win_rate": 0.325,
+          "Algeria": {
+            "team": "Algeria",
+            "elo": 1837.9,
+            "matches": 617,
+            "recent_points_rate": 0.767,
+            "recent_goal_diff": 1.7,
+            "recent_opponent_elo": 1681.8,
+            "form_adjustment": 45.0,
+            "attack": 1.337,
+            "defense": 0.599,
+            "competitive_points_rate": 0.767,
+            "competitive_goal_diff": 1.2,
+            "competitive_opponent_elo": 1598.3,
+            "competitive_adjustment": 44.1,
+            "world_cup_points_rate": 0.308,
+            "world_cup_goal_diff": -0.46,
+            "world_cup_adjustment": -12.9,
+            "world_cup_stage_adjustment": -20.7,
+            "world_cup_stage_points_rate": 0.242,
+            "world_cup_stage_goal_diff": -0.48,
+            "world_cup_local_matches": 14,
+            "world_cup_knockout_matches": 2,
+            "world_cup_knockout_win_rate": 0.0,
             "home_continent_adjustment": 0.0,
-            "goldman_adjustment": 18.5,
+            "goldman_adjustment": -3.0,
             "mandatory_attack": 1.152,
-            "mandatory_defense": 1.152,
-            "goldman_attack": 1.236,
-            "goldman_defense": 1.056
+            "mandatory_defense": 0.599,
+            "goldman_attack": 1.224,
+            "goldman_defense": 0.647
           }
         },
         "scoreline_distribution": [
           {
-            "score": "2-1",
-            "probability": 9.8
-          },
-          {
-            "score": "2-0",
-            "probability": 8.9
-          },
-          {
             "score": "1-1",
-            "probability": 8.5
+            "probability": 12.9
+          },
+          {
+            "score": "0-1",
+            "probability": 10.8
           },
           {
             "score": "1-0",
-            "probability": 7.8
+            "probability": 10.0
           },
           {
-            "score": "3-1",
-            "probability": 7.4
+            "score": "0-0",
+            "probability": 8.4
           },
           {
-            "score": "3-0",
-            "probability": 6.8
+            "score": "1-2",
+            "probability": 8.3
+          },
+          {
+            "score": "2-1",
+            "probability": 7.6
           }
         ],
         "betting_analysis": {
@@ -50994,22 +52794,22 @@
             "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
           },
           "model_probabilities": {
-            "team1_win": 63.9,
-            "draw": 19.1,
-            "team2_win": 17.1
+            "team1_win": 34.1,
+            "draw": 27.1,
+            "team2_win": 38.8
           },
           "fair_odds": {
-            "team1_win": 1.56,
-            "draw": 5.24,
-            "team2_win": 5.85
+            "team1_win": 2.93,
+            "draw": 3.69,
+            "team2_win": 2.58
           },
           "value_threshold_odds": {
-            "team1_win": 1.64,
-            "draw": 5.5,
-            "team2_win": 6.14
+            "team1_win": 3.08,
+            "draw": 3.87,
+            "team2_win": 2.71
           },
-          "favorite": "team1_win",
-          "suggestion": "参考中国体彩胜平负口径：若Switzerland公开赔率高于 1.64，才进入价值观察区。",
+          "favorite": "team2_win",
+          "suggestion": "参考中国体彩胜平负口径：若Algeria公开赔率高于 2.71，才进入价值观察区。",
           "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
         }
       },
@@ -53728,65 +55528,65 @@
         "ground": "Seattle",
         "slot_team1": "W81",
         "slot_team2": "W82",
-        "team1": "Algeria",
+        "team1": "United States",
         "team2": "Belgium",
         "winner": "Belgium",
         "advance_probabilities": {
-          "team1": 33.2,
-          "team2": 66.8,
+          "team1": 17.3,
+          "team2": 82.7,
           "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。"
         },
         "teams_confirmed": true,
         "probabilities": {
-          "team1_win": 25.6,
-          "draw": 24.0,
-          "team2_win": 50.3
+          "team1_win": 12.2,
+          "draw": 15.9,
+          "team2_win": 71.9
         },
         "favorite": "Belgium",
-        "predicted_score": "1-2",
-        "confidence": 0.247,
+        "predicted_score": "1-3",
+        "confidence": 0.56,
         "confidence_label": "高",
         "expected_goals": {
-          "team1": 1.14,
-          "team2": 1.7
+          "team1": 1.01,
+          "team2": 2.64
         },
         "score_summary": {
-          "representative_score": "1-2",
-          "modal_score": "1-1",
-          "expected_total_goals": 2.84,
-          "over_2_5": 53.9,
-          "over_3_5": 31.6,
-          "both_teams_score": 55.6
+          "representative_score": "1-3",
+          "modal_score": "1-2",
+          "expected_total_goals": 3.65,
+          "over_2_5": 70.4,
+          "over_3_5": 49.2,
+          "both_teams_score": 59.0
         },
         "technical_indicators": {
           "available": true,
           "source": "model_estimate",
           "source_note": "赛前技术统计为模型估算；赛后若公开技术统计可用，会自动用真实控球率、射门、角球、牌和换人数据校准后续比赛。",
           "team1": {
-            "xg": 1.14,
-            "possession_pct": 44.0,
-            "shots": 10.4,
-            "shots_on_target": 3.6,
-            "corners": 3.7,
-            "tackles": 20.1,
+            "xg": 1.01,
+            "possession_pct": 43.6,
+            "shots": 9.5,
+            "shots_on_target": 3.2,
+            "corners": 3.5,
+            "tackles": 19.3,
             "yellow_cards": 2.0,
             "red_cards": 0.1,
-            "substitutions": 4.4
+            "substitutions": 4.3
           },
           "team2": {
-            "xg": 1.7,
-            "possession_pct": 56.0,
-            "shots": 14.7,
-            "shots_on_target": 5.3,
-            "corners": 5.2,
+            "xg": 2.64,
+            "possession_pct": 56.4,
+            "shots": 18.9,
+            "shots_on_target": 7.7,
+            "corners": 6.1,
             "tackles": 18.2,
             "yellow_cards": 1.8,
             "red_cards": 0.09,
-            "substitutions": 4.5
+            "substitutions": 4.6
           }
         },
         "effective_ratings": {
-          "team1": 1889.4,
+          "team1": 1892.8,
           "team2": 2024.1
         },
         "market": {
@@ -53808,13 +55608,13 @@
         },
         "betting_market": {
           "team1": {
-            "mentions": 16,
-            "odds_count": 88,
-            "best_decimal_odds": 400.0,
-            "implied_probability": 0.25,
+            "mentions": 40,
+            "odds_count": 152,
+            "best_decimal_odds": 1.2,
+            "implied_probability": 83.33,
             "keyword_hits": 3089,
-            "index": 0.003,
-            "adjustment": 0.1,
+            "index": 1.0,
+            "adjustment": 35.0,
             "available": true
           },
           "team2": {
@@ -53862,7 +55662,7 @@
           "available": false
         },
         "rule_adaptation": {
-          "team1": 9.4,
+          "team1": 2.8,
           "team2": 11.6
         },
         "fifa_ranking": {
@@ -53872,27 +55672,27 @@
         "contributors": [
           {
             "name": "基础 Elo 差",
-            "value": -58.0,
-            "description": "Algeria 与 Belgium 的长期实力差。"
+            "value": -96.3,
+            "description": "United States 与 Belgium 的长期实力差。"
           },
           {
             "name": "近期状态差",
-            "value": 0.0,
+            "value": -31.2,
             "description": "最近 10 场的积分率、净胜球和对手强度。"
           },
           {
             "name": "高盛式特征修正",
-            "value": -53.6,
+            "value": -44.0,
             "description": "正式比赛近期攻防、世界杯正赛历史表现、阶段经验和主大陆因素。"
           },
           {
             "name": "世界杯阶段经验",
-            "value": -31.9,
+            "value": -25.7,
             "description": "来自本地历届世界杯 CSV 的正赛阶段、淘汰赛和半决赛/决赛经验。"
           },
           {
             "name": "主办国修正",
-            "value": 0.0,
+            "value": 35.0,
             "description": "美国、墨西哥、加拿大作为东道主的小幅修正。"
           },
           {
@@ -53902,7 +55702,7 @@
           },
           {
             "name": "博彩盘口修正",
-            "value": -20.9,
+            "value": 14.0,
             "description": "公开赔率对比页中的冠军赔率、盘口页面提及度和隐含概率。"
           },
           {
@@ -53917,7 +55717,7 @@
           },
           {
             "name": "新规则适应性",
-            "value": -2.2,
+            "value": -8.8,
             "description": "补水暂停、门将持球限制、界外球/门球倒计时等规则下的攻防适应性。"
           },
           {
@@ -53927,40 +55727,40 @@
           }
         ],
         "explanation": [
-          "Algeria 有效评分 1889，Belgium 有效评分 2024。",
-          "模型预计进球均值为 Algeria 1.14，Belgium 1.70。",
-          "代表比分为 1-2，精确众数比分为 1-1，预测置信度为高。"
+          "United States 有效评分 1893，Belgium 有效评分 2024。",
+          "模型预计进球均值为 United States 1.01，Belgium 2.64。",
+          "代表比分为 1-3，精确众数比分为 1-2，预测置信度为高。"
         ],
         "team_metrics": {
-          "Algeria": {
-            "team": "Algeria",
-            "elo": 1837.9,
-            "matches": 617,
-            "recent_points_rate": 0.767,
-            "recent_goal_diff": 1.7,
-            "recent_opponent_elo": 1681.8,
-            "form_adjustment": 45.0,
-            "attack": 1.337,
-            "defense": 0.599,
-            "competitive_points_rate": 0.767,
-            "competitive_goal_diff": 1.2,
-            "competitive_opponent_elo": 1598.3,
-            "competitive_adjustment": 44.1,
-            "world_cup_points_rate": 0.308,
-            "world_cup_goal_diff": -0.46,
-            "world_cup_adjustment": -12.9,
-            "world_cup_stage_adjustment": -20.7,
-            "world_cup_stage_points_rate": 0.242,
-            "world_cup_stage_goal_diff": -0.48,
-            "world_cup_local_matches": 14,
-            "world_cup_knockout_matches": 2,
-            "world_cup_knockout_win_rate": 0.0,
-            "home_continent_adjustment": 0.0,
-            "goldman_adjustment": -3.0,
-            "mandatory_attack": 1.152,
-            "mandatory_defense": 0.599,
-            "goldman_attack": 1.224,
-            "goldman_defense": 0.647
+          "United States": {
+            "team": "United States",
+            "elo": 1799.6,
+            "matches": 790,
+            "recent_points_rate": 0.533,
+            "recent_goal_diff": 0.1,
+            "recent_opponent_elo": 1888.0,
+            "form_adjustment": 13.8,
+            "attack": 1.083,
+            "defense": 1.06,
+            "competitive_points_rate": 0.633,
+            "competitive_goal_diff": 0.8,
+            "competitive_opponent_elo": 1704.4,
+            "competitive_adjustment": 29.9,
+            "world_cup_points_rate": 0.312,
+            "world_cup_goal_diff": -0.44,
+            "world_cup_adjustment": -12.4,
+            "world_cup_stage_adjustment": -14.5,
+            "world_cup_stage_points_rate": 0.262,
+            "world_cup_stage_goal_diff": -0.67,
+            "world_cup_local_matches": 34,
+            "world_cup_knockout_matches": 7,
+            "world_cup_knockout_win_rate": 0.126,
+            "home_continent_adjustment": 12.0,
+            "goldman_adjustment": 6.6,
+            "mandatory_attack": 1.198,
+            "mandatory_defense": 0.876,
+            "goldman_attack": 1.097,
+            "goldman_defense": 1.0
           },
           "Belgium": {
             "team": "Belgium",
@@ -53995,28 +55795,28 @@
         },
         "scoreline_distribution": [
           {
-            "score": "1-1",
-            "probability": 11.3
-          },
-          {
-            "score": "0-1",
-            "probability": 9.9
-          },
-          {
             "score": "1-2",
-            "probability": 9.6
+            "probability": 9.2
           },
           {
             "score": "0-2",
-            "probability": 8.4
+            "probability": 9.1
           },
           {
-            "score": "1-0",
-            "probability": 6.7
+            "score": "1-3",
+            "probability": 8.1
           },
           {
-            "score": "2-1",
-            "probability": 6.5
+            "score": "0-3",
+            "probability": 8.0
+          },
+          {
+            "score": "1-1",
+            "probability": 7.0
+          },
+          {
+            "score": "0-1",
+            "probability": 6.9
           }
         ],
         "betting_analysis": {
@@ -54035,22 +55835,22 @@
             "note": "当前价值计算先按胜平负三项口径；让球、比分、总进球数可结合比分分布和总进球期望参考。"
           },
           "model_probabilities": {
-            "team1_win": 25.6,
-            "draw": 24.0,
-            "team2_win": 50.3
+            "team1_win": 12.2,
+            "draw": 15.9,
+            "team2_win": 71.9
           },
           "fair_odds": {
-            "team1_win": 3.91,
-            "draw": 4.17,
-            "team2_win": 1.99
+            "team1_win": 8.2,
+            "draw": 6.29,
+            "team2_win": 1.39
           },
           "value_threshold_odds": {
-            "team1_win": 4.1,
-            "draw": 4.38,
-            "team2_win": 2.09
+            "team1_win": 8.61,
+            "draw": 6.6,
+            "team2_win": 1.46
           },
           "favorite": "team2_win",
-          "suggestion": "参考中国体彩胜平负口径：若Belgium公开赔率高于 2.09，才进入价值观察区。",
+          "suggestion": "参考中国体彩胜平负口径：若Belgium公开赔率高于 1.46，才进入价值观察区。",
           "risk_note": "赔率价值不是命中保证；体彩固定赔率、销售截止、限额和临场信息会改变期望值。"
         }
       },
@@ -57470,9 +59270,9 @@
             "id": "wc2026-074",
             "index": 74,
             "team1": "Germany",
-            "team2": "Bosnia & Herzegovina",
+            "team2": "Paraguay",
             "winner": "Germany",
-            "predicted_score": "4-0",
+            "predicted_score": "2-1",
             "confidence_label": "高",
             "ground": "Boston (Foxborough)",
             "starts_at": "2026-06-29T20:30:00+00:00"
@@ -57503,9 +59303,9 @@
             "id": "wc2026-077",
             "index": 77,
             "team1": "France",
-            "team2": "Paraguay",
+            "team2": "Sweden",
             "winner": "France",
-            "predicted_score": "2-1",
+            "predicted_score": "3-1",
             "confidence_label": "高",
             "ground": "New York/New Jersey (East Rutherford)",
             "starts_at": "2026-06-30T21:00:00+00:00"
@@ -57547,9 +59347,9 @@
             "id": "wc2026-081",
             "index": 81,
             "team1": "United States",
-            "team2": "Algeria",
-            "winner": "Algeria",
-            "predicted_score": "1-2",
+            "team2": "Bosnia & Herzegovina",
+            "winner": "United States",
+            "predicted_score": "2-1",
             "confidence_label": "高",
             "ground": "San Francisco Bay Area (Santa Clara)",
             "starts_at": "2026-07-02T00:00:00+00:00"
@@ -57591,10 +59391,10 @@
             "id": "wc2026-085",
             "index": 85,
             "team1": "Switzerland",
-            "team2": "Sweden",
+            "team2": "Algeria",
             "winner": "Switzerland",
-            "predicted_score": "2-1",
-            "confidence_label": "高",
+            "predicted_score": "1-2",
+            "confidence_label": "低",
             "ground": "Vancouver",
             "starts_at": "2026-07-03T03:00:00+00:00"
           },
@@ -57696,10 +59496,10 @@
           {
             "id": "wc2026-094",
             "index": 94,
-            "team1": "Algeria",
+            "team1": "United States",
             "team2": "Belgium",
             "winner": "Belgium",
-            "predicted_score": "1-2",
+            "predicted_score": "1-3",
             "confidence_label": "高",
             "ground": "Seattle",
             "starts_at": "2026-07-07T00:00:00+00:00"
@@ -60858,8 +62658,8 @@
     "post_match_calibration_sample_size": 72,
     "technical_stat_match_count": 72,
     "technical_stat_team_count": 48,
-    "live_result_synced_at": "2026-06-28T04:56:28+00:00",
-    "tournament_synced_at": "2026-06-28T04:56:28+00:00"
+    "live_result_synced_at": "2026-06-28T05:14:17+00:00",
+    "tournament_synced_at": "2026-06-28T05:14:17+00:00"
   },
   "error": null,
   "post_match_calibration": {

@@ -43,6 +43,12 @@ PROJECTED_KNOCKOUT_FIELDS = (
     "betting_analysis",
 )
 
+OFFICIAL_THIRD_PLACE_SLOT_TABLE: Dict[str, Dict[str, str]] = {
+    # Qualified third-place groups B/D/E/F/I/J/K/L.
+    # Columns are winner groups A/B/D/E/G/I/K/L in the official third-place allocation table.
+    "BDEFIJKL": {"A": "E", "B": "J", "D": "B", "E": "D", "G": "I", "I": "F", "K": "L", "L": "K"},
+}
+
 OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
     "England": [
         {
@@ -2595,6 +2601,15 @@ def third_slot_groups(slot: str) -> Optional[List[str]]:
     return upper[1:].split("/")
 
 
+def first_place_group_for_match(match: Dict[str, Any]) -> Optional[str]:
+    for side in ("team1", "team2"):
+        slot = str(match.get(f"slot_{side}") or match.get(side) or "").strip().upper()
+        parsed = re.fullmatch(r"1([A-L])", slot)
+        if parsed:
+            return parsed.group(1)
+    return None
+
+
 def assign_third_place_slots(knockout_matches: Sequence[Dict[str, Any]], position_map: Dict[str, str]) -> Dict[Tuple[int, str], str]:
     slots: List[Dict[str, Any]] = []
     for match in sorted(knockout_matches, key=lambda item: item.get("index") or 0):
@@ -2605,10 +2620,26 @@ def assign_third_place_slots(knockout_matches: Sequence[Dict[str, Any]], positio
                 continue
             candidates = [group for group in allowed if f"3{group}" in position_map]
             if candidates:
-                slots.append({"key": (int(match.get("index") or 0), side), "candidates": candidates})
+                slots.append({"key": (int(match.get("index") or 0), side), "candidates": candidates, "winner_group": first_place_group_for_match(match)})
 
     if not slots:
         return {}
+
+    qualified_third_groups = "".join(
+        sorted(key[1:] for key in position_map if re.fullmatch(r"3[A-L]", key))
+    )
+    official_map = OFFICIAL_THIRD_PLACE_SLOT_TABLE.get(qualified_third_groups)
+    if official_map:
+        official_assignment: Dict[Tuple[int, str], str] = {}
+        for slot in slots:
+            group = official_map.get(slot.get("winner_group"))
+            if group and group in slot["candidates"] and f"3{group}" in position_map:
+                official_assignment[slot["key"]] = group
+        if len(official_assignment) == len(slots):
+            return {
+                key: position_map[f"3{group}"]
+                for key, group in official_assignment.items()
+            }
 
     ordered_slots = sorted(slots, key=lambda item: (len(item["candidates"]), item["key"]))
     assignment: Dict[Tuple[int, str], str] = {}

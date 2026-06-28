@@ -246,6 +246,14 @@ def test_third_place_slots_are_assigned_without_duplicates():
     assert len(teams) == 8
     assert len(set(teams)) == 8
     assert set(teams) == set(position_map.values())
+    assert assignment[(74, "team2")] == "Paraguay"
+    assert assignment[(77, "team2")] == "Sweden"
+    assert assignment[(79, "team2")] == "Ecuador"
+    assert assignment[(80, "team2")] == "DR Congo"
+    assert assignment[(81, "team2")] == "Bosnia & Herzegovina"
+    assert assignment[(82, "team2")] == "Senegal"
+    assert assignment[(85, "team2")] == "Algeria"
+    assert assignment[(87, "team2")] == "Ghana"
 
 
 def test_projected_knockout_matches_fill_main_schedule_and_preserve_slots():

@@ -11,6 +11,8 @@ from app.model import (
     context_attack_multiplier,
     context_defense_multiplier,
     apply_post_match_calibration,
+    apply_projected_knockout_matches,
+    assign_third_place_slots,
     expected_group_tables,
     off_field_signal,
     rule_adaptation_adjustment,
@@ -216,6 +218,69 @@ def test_group_table_uses_actual_scores_before_expected_points():
     assert rows[0]["gf"] == 2.0
     assert rows[1]["team"] == "South Africa"
     assert rows[1]["points"] == 0.0
+
+
+def test_third_place_slots_are_assigned_without_duplicates():
+    position_map = {
+        "3B": "Bosnia & Herzegovina",
+        "3D": "Paraguay",
+        "3E": "Ecuador",
+        "3F": "Sweden",
+        "3I": "Senegal",
+        "3J": "Algeria",
+        "3K": "DR Congo",
+        "3L": "Ghana",
+    }
+    knockout_matches = [
+        {"index": 74, "team1": "1E", "team2": "3A/B/C/D/F"},
+        {"index": 77, "team1": "1I", "team2": "3C/D/F/G/H"},
+        {"index": 79, "team1": "1A", "team2": "3C/E/F/H/I"},
+        {"index": 80, "team1": "1L", "team2": "3E/H/I/J/K"},
+        {"index": 81, "team1": "1D", "team2": "3B/E/F/I/J"},
+        {"index": 82, "team1": "1G", "team2": "3A/E/H/I/J"},
+        {"index": 85, "team1": "1B", "team2": "3E/F/G/I/J"},
+        {"index": 87, "team1": "1K", "team2": "3D/E/I/J/L"},
+    ]
+    assignment = assign_third_place_slots(knockout_matches, position_map)
+    teams = list(assignment.values())
+    assert len(teams) == 8
+    assert len(set(teams)) == 8
+    assert set(teams) == set(position_map.values())
+
+
+def test_projected_knockout_matches_fill_main_schedule_and_preserve_slots():
+    matches = [
+        {
+            "id": "r32",
+            "index": 73,
+            "round": "Round of 32",
+            "team1": "1A",
+            "team2": "2B",
+            "starts_at": "2026-06-28T19:00:00+00:00",
+            "is_knockout": True,
+            "teams_confirmed": False,
+        }
+    ]
+    tournament = {
+        "projected_matches": [
+            {
+                "id": "r32",
+                "team1": "Mexico",
+                "team2": "Canada",
+                "probabilities": {"team1_win": 52.0, "draw": 27.0, "team2_win": 21.0},
+                "predicted_score": "2-1",
+                "confidence_label": "中",
+                "advance_probabilities": {"team1": 58.0, "team2": 42.0},
+            }
+        ]
+    }
+    apply_projected_knockout_matches(matches, tournament)
+    assert matches[0]["team1"] == "Mexico"
+    assert matches[0]["team2"] == "Canada"
+    assert matches[0]["teams_confirmed"] is True
+    assert matches[0]["slot_team1"] == "1A"
+    assert matches[0]["slot_team2"] == "2B"
+    assert matches[0]["predicted_score"] == "2-1"
 
 
 def test_context_adjustments_are_bounded_and_explainable():

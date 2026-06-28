@@ -6,6 +6,7 @@ import random
 import re
 import unicodedata
 from collections import Counter, defaultdict, deque
+from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
 from io import StringIO
 from pathlib import Path
@@ -16,6 +17,31 @@ from .config import ACTUAL_RESULTS_FILE, MODEL_VERSION, TOURNAMENT_SIMULATIONS
 
 
 HOST_TEAMS = {"United States", "Mexico", "Canada"}
+
+PROJECTED_KNOCKOUT_FIELDS = (
+    "teams_confirmed",
+    "probabilities",
+    "favorite",
+    "predicted_score",
+    "confidence",
+    "confidence_label",
+    "expected_goals",
+    "score_summary",
+    "technical_indicators",
+    "effective_ratings",
+    "market",
+    "betting_market",
+    "match_context",
+    "off_field",
+    "rule_adaptation",
+    "fifa_ranking",
+    "contributors",
+    "explanation",
+    "team_metrics",
+    "scoreline_distribution",
+    "advance_probabilities",
+    "betting_analysis",
+)
 
 OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
     "England": [
@@ -2562,6 +2588,64 @@ def qualified_from_tables(tables: Dict[str, List[Dict[str, Any]]]) -> Tuple[List
     return qualified, position_map, third_map
 
 
+def third_slot_groups(slot: str) -> Optional[List[str]]:
+    upper = (slot or "").strip().upper()
+    if not re.fullmatch(r"3[A-L](?:/[A-L])+", upper):
+        return None
+    return upper[1:].split("/")
+
+
+def assign_third_place_slots(knockout_matches: Sequence[Dict[str, Any]], position_map: Dict[str, str]) -> Dict[Tuple[int, str], str]:
+    slots: List[Dict[str, Any]] = []
+    for match in sorted(knockout_matches, key=lambda item: item.get("index") or 0):
+        for side in ("team1", "team2"):
+            slot = match.get(f"slot_{side}") or match.get(side) or ""
+            allowed = third_slot_groups(str(slot))
+            if not allowed:
+                continue
+            candidates = [group for group in allowed if f"3{group}" in position_map]
+            if candidates:
+                slots.append({"key": (int(match.get("index") or 0), side), "candidates": candidates})
+
+    if not slots:
+        return {}
+
+    ordered_slots = sorted(slots, key=lambda item: (len(item["candidates"]), item["key"]))
+    assignment: Dict[Tuple[int, str], str] = {}
+    used_groups: set = set()
+
+    def backtrack(index: int) -> bool:
+        if index >= len(ordered_slots):
+            return True
+        slot = ordered_slots[index]
+        for group in slot["candidates"]:
+            if group in used_groups:
+                continue
+            used_groups.add(group)
+            assignment[slot["key"]] = group
+            if backtrack(index + 1):
+                return True
+            assignment.pop(slot["key"], None)
+            used_groups.remove(group)
+        return False
+
+    if not backtrack(0):
+        assignment.clear()
+        used_groups.clear()
+        for slot in slots:
+            for group in slot["candidates"]:
+                if group not in used_groups:
+                    assignment[slot["key"]] = group
+                    used_groups.add(group)
+                    break
+
+    return {
+        key: position_map[f"3{group}"]
+        for key, group in assignment.items()
+        if f"3{group}" in position_map
+    }
+
+
 def resolve_slot(
     slot: str,
     position_map: Dict[str, str],
@@ -2594,6 +2678,44 @@ def resolve_slot(
     if is_placeholder_team(slot):
         return None
     return canonicalize_team(slot)
+
+
+def prediction_projection_fields(prediction: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        key: deepcopy(prediction[key])
+        for key in PROJECTED_KNOCKOUT_FIELDS
+        if key in prediction
+    }
+
+
+def apply_projected_knockout_matches(matches: List[Dict[str, Any]], tournament: Dict[str, Any]) -> None:
+    projected_by_id = {
+        str(match.get("id")): match
+        for match in tournament.get("projected_matches", [])
+        if match.get("id")
+    }
+    for match in matches:
+        if not match.get("is_knockout"):
+            continue
+        projected = projected_by_id.get(str(match.get("id")))
+        if not projected:
+            continue
+        team1 = projected.get("team1")
+        team2 = projected.get("team2")
+        if not team1 or not team2 or is_placeholder_team(team1) or is_placeholder_team(team2):
+            continue
+        if not match.get("slot_team1") and is_placeholder_team(str(match.get("team1") or "")):
+            match["slot_team1"] = match.get("team1")
+        if not match.get("slot_team2") and is_placeholder_team(str(match.get("team2") or "")):
+            match["slot_team2"] = match.get("team2")
+        match["team1"] = team1
+        match["team2"] = team2
+        match["teams_confirmed"] = True
+        match["projected_from_knockout_path"] = True
+        match["status"] = match_status(match.get("starts_at"))
+        for key in PROJECTED_KNOCKOUT_FIELDS:
+            if key in projected:
+                match[key] = deepcopy(projected[key])
 
 
 def virtual_prediction(
@@ -2629,6 +2751,7 @@ def deterministic_bracket_projection(
     winners: Dict[int, str] = {}
     losers: Dict[int, str] = {}
     used_third_groups: set = set()
+    third_slot_assignment = assign_third_place_slots(knockout_matches, position_map)
     projected_matches: List[Dict[str, Any]] = []
     stage_teams: Dict[str, List[str]] = {
         "round_of_32": qualified,
@@ -2640,15 +2763,23 @@ def deterministic_bracket_projection(
     }
 
     for match in sorted(knockout_matches, key=lambda item: item["index"]):
-        team1 = resolve_slot(match["team1"], position_map, winners, losers, used_third_groups)
-        team2 = resolve_slot(match["team2"], position_map, winners, losers, used_third_groups)
+        slot1 = match.get("slot_team1") or match["team1"]
+        slot2 = match.get("slot_team2") or match["team2"]
+        team1 = third_slot_assignment.get((int(match["index"]), "team1")) or resolve_slot(slot1, position_map, winners, losers, used_third_groups)
+        team2 = third_slot_assignment.get((int(match["index"]), "team2")) or resolve_slot(slot2, position_map, winners, losers, used_third_groups)
         current_stage = stage_key(match.get("round", ""))
         if not team1 or not team2:
             projected_matches.append({**match, "team1": team1 or match["team1"], "team2": team2 or match["team2"], "winner": "待定"})
             continue
         prediction = virtual_prediction(team1, team2, team_stats, market_scores, betting_scores, rankings, context_scores, match)
         advance = prediction.get("advance_probabilities") or {"team1": 50.0, "team2": 50.0}
-        if float(advance["team1"]) >= float(advance["team2"]):
+        actual = actual_goals(match)
+        if actual and actual[0] != actual[1]:
+            if actual[0] > actual[1]:
+                winner, loser = team1, team2
+            else:
+                winner, loser = team2, team1
+        elif float(advance["team1"]) >= float(advance["team2"]):
             winner, loser = team1, team2
         else:
             winner, loser = team2, team1
@@ -2664,24 +2795,25 @@ def deterministic_bracket_projection(
             stage_teams["final"].append(winner)
         elif current_stage == "final":
             stage_teams["champion"].append(winner)
-        projected_matches.append(
-            {
-                "id": match["id"],
-                "index": match["index"],
-                "round": match["round"],
-                "stage_key": current_stage,
-                "stage_label": stage_label(current_stage),
-                "date": match["date"],
-                "starts_at": match["starts_at"],
-                "ground": match["ground"],
-                "team1": team1,
-                "team2": team2,
-                "winner": winner,
-                "predicted_score": prediction.get("predicted_score"),
-                "confidence_label": prediction.get("confidence_label"),
-                "advance_probabilities": advance,
-            }
-        )
+        projected = {
+            "id": match["id"],
+            "index": match["index"],
+            "round": match["round"],
+            "stage_key": current_stage,
+            "stage_label": stage_label(current_stage),
+            "date": match["date"],
+            "starts_at": match["starts_at"],
+            "ground": match["ground"],
+            "slot_team1": slot1,
+            "slot_team2": slot2,
+            "team1": team1,
+            "team2": team2,
+            "winner": winner,
+            "advance_probabilities": advance,
+        }
+        projected.update(prediction_projection_fields(prediction))
+        projected["advance_probabilities"] = advance
+        projected_matches.append(projected)
 
     predicted_stages = [
         {"key": key, "label": stage_label(key), "teams": teams}
@@ -2833,9 +2965,12 @@ def simulated_stage_probabilities(
         winners: Dict[int, str] = {}
         losers: Dict[int, str] = {}
         used_third_groups: set = set()
+        third_slot_assignment = assign_third_place_slots(knockout_matches, position_map)
         for match in knockout_matches:
-            team1 = resolve_slot(match["team1"], position_map, winners, losers, used_third_groups)
-            team2 = resolve_slot(match["team2"], position_map, winners, losers, used_third_groups)
+            slot1 = match.get("slot_team1") or match["team1"]
+            slot2 = match.get("slot_team2") or match["team2"]
+            team1 = third_slot_assignment.get((int(match["index"]), "team1")) or resolve_slot(slot1, position_map, winners, losers, used_third_groups)
+            team2 = third_slot_assignment.get((int(match["index"]), "team2")) or resolve_slot(slot2, position_map, winners, losers, used_third_groups)
             if not team1 or not team2:
                 continue
             if rng.random() < fast_advance_probability(team1, team2):
@@ -2937,6 +3072,7 @@ def build_predictions(raw_payloads: Dict[str, str], source_statuses: List[Dict[s
     apply_actual_results(matches, load_actual_results())
     performance = build_prediction_performance(matches)
     tournament = build_tournament_projection(matches, schedule_teams, team_stats, market_scores, betting_scores, rankings, context_scores)
+    apply_projected_knockout_matches(matches, tournament)
     filters = {
         "rounds": sorted({match["round"] for match in matches if match.get("round")}),
         "teams": schedule_teams,

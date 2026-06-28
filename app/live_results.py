@@ -9,6 +9,7 @@ from .config import MODEL_VERSION
 from .model import (
     apply_actual_results,
     apply_post_match_calibration,
+    apply_projected_knockout_matches,
     apply_technical_calibration,
     build_technical_profiles,
     build_prediction_performance,
@@ -96,7 +97,7 @@ def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -
     betting_scores = collect_signal_scores(matches, "betting_market")
     context_scores = collect_signal_scores(matches, "match_context")
     rankings = collect_rankings(matches)
-    payload["tournament"] = build_tournament_projection(
+    tournament = build_tournament_projection(
         matches,
         teams,
         team_stats,
@@ -105,6 +106,8 @@ def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -
         rankings,
         context_scores,
     )
+    apply_projected_knockout_matches(matches, tournament)
+    payload["tournament"] = tournament
 
 
 def collect_signal_scores(matches: List[Dict[str, Any]], field: str) -> Dict[str, Dict[str, Any]]:

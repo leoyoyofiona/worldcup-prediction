@@ -30,21 +30,13 @@
 
 ## 程序界面
 
-<p align="center">
-  <img src="docs/ui-gallery/01-dashboard.png" alt="LEO 世界杯预测总览" width="760">
-</p>
+| 预测总览 | 32 强对阵 |
+| --- | --- |
+| ![LEO 世界杯预测总览](https://raw.githubusercontent.com/leoyoyofiona/worldcup-prediction/main/docs/ui-gallery/01-dashboard.png) | ![32强对阵预测](https://raw.githubusercontent.com/leoyoyofiona/worldcup-prediction/main/docs/ui-gallery/02-round32.png) |
 
-<p align="center">
-  <img src="docs/ui-gallery/02-round32.png" alt="32强对阵预测" width="760">
-</p>
-
-<p align="center">
-  <img src="docs/ui-gallery/03-daily-analysis.png" alt="当日比赛分析预测" width="760">
-</p>
-
-<p align="center">
-  <img src="docs/ui-gallery/04-mobile.png" alt="手机端中文体验" width="760">
-</p>
+| 当日分析 | 手机端体验 |
+| --- | --- |
+| ![当日比赛分析预测](https://raw.githubusercontent.com/leoyoyofiona/worldcup-prediction/main/docs/ui-gallery/03-daily-analysis.png) | ![手机端中文体验](https://raw.githubusercontent.com/leoyoyofiona/worldcup-prediction/main/docs/ui-gallery/04-mobile.png) |
 
 ## 模型预测能力
 

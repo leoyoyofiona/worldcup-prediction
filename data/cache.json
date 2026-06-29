@@ -1,16 +1,16 @@
 {
-  "model_version": "0.3.2",
-  "generated_at": "2026-06-28T05:14:17+00:00",
+  "model_version": "0.3.3",
+  "generated_at": "2026-06-29T15:15:12+00:00",
   "sources": [
     {
       "id": "espn_live_results",
       "name": "ESPN 世界杯实时比分/技术统计",
-      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260629",
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260630",
       "ok": true,
       "using_cache": false,
-      "fetched_at": "2026-06-28T05:14:04+00:00",
-      "bytes": 868493,
-      "message": "已同步 72 场已完赛比分，72 场技术统计"
+      "fetched_at": "2026-06-29T15:15:00+00:00",
+      "bytes": 904517,
+      "message": "已同步 73 场已完赛比分，73 场技术统计"
     },
     {
       "id": "schedule_openfootball",
@@ -656,7 +656,7 @@
           "xg_proxy": 0.56
         },
         "referee": "Wilton Pereira Sampaio",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       }
     },
     {
@@ -1049,7 +1049,7 @@
           "xg_proxy": 1.26
         },
         "referee": "Amin Omar",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       }
     },
     {
@@ -1551,7 +1551,7 @@
           "xg_proxy": 1.96
         },
         "referee": "Tori Penso",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -2060,7 +2060,7 @@
           "xg_proxy": 1.0
         },
         "referee": "Gustavo Tejera",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -2589,7 +2589,7 @@
           "xg_proxy": 1.59
         },
         "referee": "Yael Falcón Pérez",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -3130,7 +3130,7 @@
           "xg_proxy": 1.19
         },
         "referee": "Facundo Tello",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -3523,7 +3523,7 @@
           "xg_proxy": 1.14
         },
         "referee": "Facundo Tello",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -3916,7 +3916,7 @@
           "xg_proxy": 3.19
         },
         "referee": "Martínez, Héctor",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -4425,7 +4425,7 @@
           "xg_proxy": 0.91
         },
         "referee": "João Pinheiro",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -4934,7 +4934,7 @@
           "xg_proxy": 0.17
         },
         "referee": "Cristián Garay",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -5463,7 +5463,7 @@
           "xg_proxy": 2.21
         },
         "referee": "Ramon Abatti Abel",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -6004,7 +6004,7 @@
           "xg_proxy": 1.24
         },
         "referee": "Jesús Valenzuela",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -6397,7 +6397,7 @@
           "xg_proxy": 1.51
         },
         "referee": "Slavko Vincici",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -6790,7 +6790,7 @@
           "xg_proxy": 1.03
         },
         "referee": "Mustapha Ghorbal",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -7299,7 +7299,7 @@
           "xg_proxy": 1.29
         },
         "referee": "Ilgiz Tantashev",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -7808,7 +7808,7 @@
           "xg_proxy": 1.07
         },
         "referee": "Alejandro José Hernández Hernández",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -8349,7 +8349,7 @@
           "xg_proxy": 3.08
         },
         "referee": "César Arturo Ramos Palazuelos",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -8890,7 +8890,7 @@
           "xg_proxy": 0.98
         },
         "referee": "Danny Makkelie",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -9283,7 +9283,7 @@
           "xg_proxy": 0.82
         },
         "referee": "Danny Makkelie",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -9786,7 +9786,7 @@
           "xg_proxy": 3.58
         },
         "referee": "Jesús Valenzuela",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -10279,7 +10279,7 @@
           "xg_proxy": 0.77
         },
         "referee": "Felix Zwayer",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -10788,7 +10788,7 @@
           "xg_proxy": 0.81
         },
         "referee": "Iván Arcides Barton Cisneros",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -11329,7 +11329,7 @@
           "xg_proxy": 2.61
         },
         "referee": "Mustapha Ghorbal",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -11864,7 +11864,7 @@
           "xg_proxy": 1.72
         },
         "referee": "Clément Turpin",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -12257,7 +12257,7 @@
           "xg_proxy": 0.91
         },
         "referee": "Jalal Jayed",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -12650,7 +12650,7 @@
           "xg_proxy": 1.15
         },
         "referee": "Francois Letexier",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -13159,7 +13159,7 @@
           "xg_proxy": 1.03
         },
         "referee": "Juan Gabriel Benítez",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -13668,7 +13668,7 @@
           "xg_proxy": 1.18
         },
         "referee": "Ma Ning",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -14209,7 +14209,7 @@
           "xg_proxy": 1.12
         },
         "referee": "Glenn Nyberg",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -14738,7 +14738,7 @@
           "xg_proxy": 1.3
         },
         "referee": "Tori Penso",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -15131,7 +15131,7 @@
           "xg_proxy": 1.28
         },
         "referee": "Ismail Elfath",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -15524,7 +15524,7 @@
           "xg_proxy": 0.79
         },
         "referee": "Yael Falcón Pérez",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -16033,7 +16033,7 @@
           "xg_proxy": 2.53
         },
         "referee": "Michael Oliver",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -16542,7 +16542,7 @@
           "xg_proxy": 1.7
         },
         "referee": "Istvan Kovacs",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -17083,7 +17083,7 @@
           "xg_proxy": 1.77
         },
         "referee": "Iván Arcides Barton Cisneros",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -17624,7 +17624,7 @@
           "xg_proxy": 2.67
         },
         "referee": "Katia Itzel García",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -18017,7 +18017,7 @@
           "xg_proxy": 1.64
         },
         "referee": "Ramon Abatti Abel",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -18418,7 +18418,7 @@
           "xg_proxy": 2.29
         },
         "referee": "César Arturo Ramos Palazuelos",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -18935,7 +18935,7 @@
           "xg_proxy": 1.02
         },
         "referee": "Dario Herrera",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -19444,7 +19444,7 @@
           "xg_proxy": 2.55
         },
         "referee": "Omar Al Ali",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -19987,7 +19987,7 @@
           "xg_proxy": 1.6
         },
         "referee": "Szymon Marciniak",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -20528,7 +20528,7 @@
           "xg_proxy": 4.25
         },
         "referee": "Adham Mohammad",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -20921,7 +20921,7 @@
           "xg_proxy": 0.61
         },
         "referee": "Adham Mohammad",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:02+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -21314,7 +21314,7 @@
           "xg_proxy": 3.84
         },
         "referee": "Maurizio Mariani",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -21823,7 +21823,7 @@
           "xg_proxy": 0.4
         },
         "referee": "Raphael Claus",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -22332,7 +22332,7 @@
           "xg_proxy": 1.58
         },
         "referee": "Espen Eskas",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -22873,7 +22873,7 @@
           "xg_proxy": 1.02
         },
         "referee": "Francois Letexier",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -23353,7 +23353,7 @@
           "xg_proxy": 0.73
         },
         "referee": "Ismail Elfath",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -23746,7 +23746,7 @@
           "xg_proxy": 0.84
         },
         "referee": "Alireza Faghani",
-        "synced_at": "2026-06-28T05:14:07+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -24139,7 +24139,7 @@
           "xg_proxy": 1.77
         },
         "referee": "Pierre Atcho",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -24680,7 +24680,7 @@
           "xg_proxy": 0.33
         },
         "referee": "Drew Fischer",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -25221,7 +25221,7 @@
           "xg_proxy": 1.86
         },
         "referee": "Wilton Pereira Sampaio",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -25762,7 +25762,7 @@
           "xg_proxy": 2.83
         },
         "referee": "Michael Oliver",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -26303,7 +26303,7 @@
           "xg_proxy": 0.66
         },
         "referee": "Anthony Taylor",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -26696,7 +26696,7 @@
           "xg_proxy": 0.7
         },
         "referee": "Szymon Marciniak",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -27089,7 +27089,7 @@
           "xg_proxy": 1.49
         },
         "referee": "Beida Damane",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -27630,7 +27630,7 @@
           "xg_proxy": 0.66
         },
         "referee": "Amin Omar",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -28171,7 +28171,7 @@
           "xg_proxy": 2.72
         },
         "referee": "Slavko Vincici",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -28696,15 +28696,15 @@
           "offsides": 1.0,
           "corners": 0.0,
           "saves": 1.0,
-          "possession_pct": 65.1,
+          "possession_pct": 65.0,
           "shots": 12.0,
           "shots_on_target": 5.0,
           "accurate_passes": 706.0,
-          "passes": 755.0,
+          "passes": 754.0,
           "blocked_shots": 2.0,
-          "effective_tackles": 6.0,
-          "tackles": 12.0,
-          "interceptions": 3.0,
+          "effective_tackles": 5.0,
+          "tackles": 11.0,
+          "interceptions": 4.0,
           "substitutions": 4,
           "xg_proxy": 1.64
         },
@@ -28715,20 +28715,20 @@
           "offsides": 3.0,
           "corners": 3.0,
           "saves": 2.0,
-          "possession_pct": 34.9,
+          "possession_pct": 35.0,
           "shots": 10.0,
           "shots_on_target": 3.0,
           "accurate_passes": 346.0,
           "passes": 396.0,
           "blocked_shots": 1.0,
           "effective_tackles": 4.0,
-          "tackles": 10.0,
+          "tackles": 11.0,
           "interceptions": 10.0,
           "substitutions": 5,
           "xg_proxy": 1.26
         },
         "referee": "Ilgiz Tantashev",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -29275,8 +29275,8 @@
           "possession_pct": 73.3,
           "shots": 12.0,
           "shots_on_target": 4.0,
-          "accurate_passes": 736.0,
-          "passes": 800.0,
+          "accurate_passes": 737.0,
+          "passes": 801.0,
           "blocked_shots": 1.0,
           "effective_tackles": 5.0,
           "tackles": 14.0,
@@ -29285,7 +29285,7 @@
           "xg_proxy": 1.63
         },
         "referee": "Istvan Kovacs",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -29678,7 +29678,7 @@
           "xg_proxy": 0.98
         },
         "referee": "Abdulrahman Al-Jassim",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -30071,7 +30071,7 @@
           "xg_proxy": 1.79
         },
         "referee": "Anthony Taylor",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -30551,7 +30551,7 @@
           "xg_proxy": 0.86
         },
         "referee": "Jalal Jayed",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -31092,7 +31092,7 @@
           "xg_proxy": 0.75
         },
         "referee": "Maurizio Mariani",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -31649,7 +31649,7 @@
           "xg_proxy": 1.28
         },
         "referee": "Alireza Faghani",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -32139,7 +32139,7 @@
           "xg_proxy": 0.47
         },
         "referee": "Felix Zwayer",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -32540,7 +32540,7 @@
           "xg_proxy": 1.55
         },
         "referee": "Clément Turpin",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -32933,7 +32933,7 @@
           "xg_proxy": 1.46
         },
         "referee": "Glenn Nyberg",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:03+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -33482,7 +33482,7 @@
           "xg_proxy": 0.35
         },
         "referee": "Martínez, Héctor",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "draw",
@@ -34023,7 +34023,7 @@
           "xg_proxy": 0.79
         },
         "referee": "Pierre Atcho",
-        "synced_at": "2026-06-28T05:14:08+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -34588,7 +34588,7 @@
           "xg_proxy": 2.33
         },
         "referee": "Abdulrahman Al-Jassim",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team2_win",
@@ -35145,7 +35145,7 @@
           "xg_proxy": 0.63
         },
         "referee": "Drew Fischer",
-        "synced_at": "2026-06-28T05:14:09+00:00"
+        "synced_at": "2026-06-29T15:15:04+00:00"
       },
       "prediction_result": {
         "actual_outcome": "team1_win",
@@ -35167,9 +35167,16 @@
       "team1": "South Africa",
       "team2": "Canada",
       "ground": "Los Angeles (Inglewood)",
-      "status": "未开赛",
+      "status": "已结束",
       "is_knockout": true,
-      "actual_score": null,
+      "actual_score": {
+        "team1": 0,
+        "team2": 1,
+        "score": "0-1",
+        "source_name": "ESPN 世界杯实时比分/技术统计",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260628",
+        "verified_at": "2026-06-29T15:15:02+00:00"
+      },
       "teams_confirmed": true,
       "probabilities": {
         "team1_win": 15.8,
@@ -35563,6 +35570,58 @@
         },
         "delta": -23.54,
         "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
+      },
+      "technical_stats": {
+        "available": true,
+        "source_name": "ESPN 世界杯实时比分/技术统计",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260628",
+        "team1": {
+          "fouls": 10.0,
+          "yellow_cards": 0.0,
+          "red_cards": 0.0,
+          "offsides": 1.0,
+          "corners": 1.0,
+          "saves": 5.0,
+          "possession_pct": 58.4,
+          "shots": 6.0,
+          "shots_on_target": 1.0,
+          "accurate_passes": 466.0,
+          "passes": 554.0,
+          "blocked_shots": 1.0,
+          "effective_tackles": 13.0,
+          "tackles": 22.0,
+          "interceptions": 15.0,
+          "substitutions": 3,
+          "xg_proxy": 0.61
+        },
+        "team2": {
+          "fouls": 16.0,
+          "yellow_cards": 2.0,
+          "red_cards": 0.0,
+          "offsides": 0.0,
+          "corners": 4.0,
+          "saves": 1.0,
+          "possession_pct": 41.6,
+          "shots": 12.0,
+          "shots_on_target": 7.0,
+          "accurate_passes": 298.0,
+          "passes": 379.0,
+          "blocked_shots": 0.0,
+          "effective_tackles": 15.0,
+          "tackles": 20.0,
+          "interceptions": 8.0,
+          "substitutions": 5,
+          "xg_proxy": 2.06
+        },
+        "referee": "João Pinheiro",
+        "synced_at": "2026-06-29T15:15:04+00:00"
+      },
+      "prediction_result": {
+        "actual_outcome": "team2_win",
+        "predicted_outcome": "team2_win",
+        "outcome_hit": true,
+        "exact_score_hit": true,
+        "goal_error": 0
       }
     },
     {
@@ -35907,21 +35966,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -35956,22 +36015,22 @@
           "available": true,
           "sample_size": 3,
           "averages": {
-            "xg_proxy": 1.32,
-            "possession_pct": 43.67,
-            "shots": 9.0,
-            "shots_on_target": 3.67,
-            "corners": 4.0,
-            "tackles": 14.33,
-            "yellow_cards": 2.0,
+            "xg_proxy": 0.82,
+            "possession_pct": 33.4,
+            "shots": 7.67,
+            "shots_on_target": 1.67,
+            "corners": 0.67,
+            "tackles": 23.33,
+            "yellow_cards": 2.33,
             "red_cards": 0.33,
             "substitutions": 5.0
           },
-          "attack_index": -0.9,
-          "discipline_drag": 3.2,
-          "technical_adjustment": -4.3,
+          "attack_index": -12.76,
+          "discipline_drag": 3.66,
+          "technical_adjustment": -14.64,
           "source": "ESPN 世界杯实时比分/技术统计"
         },
-        "delta": 22.3,
+        "delta": 24.0,
         "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
@@ -36317,21 +36376,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -36684,21 +36743,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -37094,21 +37153,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -37143,22 +37202,22 @@
           "available": true,
           "sample_size": 3,
           "averages": {
-            "xg_proxy": 0.82,
-            "possession_pct": 33.4,
-            "shots": 7.67,
-            "shots_on_target": 1.67,
-            "corners": 0.67,
-            "tackles": 23.33,
-            "yellow_cards": 2.33,
-            "red_cards": 0.33,
+            "xg_proxy": 2.14,
+            "possession_pct": 48.5,
+            "shots": 13.33,
+            "shots_on_target": 6.67,
+            "corners": 5.67,
+            "tackles": 13.0,
+            "yellow_cards": 1.67,
+            "red_cards": 0.0,
             "substitutions": 5.0
           },
-          "attack_index": -12.76,
-          "discipline_drag": 3.66,
-          "technical_adjustment": -14.64,
+          "attack_index": 16.45,
+          "discipline_drag": 0.1,
+          "technical_adjustment": 15.87,
           "source": "ESPN 世界杯实时比分/技术统计"
         },
-        "delta": 24.0,
+        "delta": 2.13,
         "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
@@ -37504,21 +37563,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -37914,21 +37973,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -38332,21 +38391,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -38742,21 +38801,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -38791,22 +38850,22 @@
           "available": true,
           "sample_size": 3,
           "averages": {
-            "xg_proxy": 1.69,
-            "possession_pct": 63.13,
-            "shots": 12.0,
-            "shots_on_target": 4.67,
+            "xg_proxy": 1.32,
+            "possession_pct": 43.67,
+            "shots": 9.0,
+            "shots_on_target": 3.67,
             "corners": 4.0,
-            "tackles": 18.0,
-            "yellow_cards": 0.33,
-            "red_cards": 0.0,
-            "substitutions": 4.67
+            "tackles": 14.33,
+            "yellow_cards": 2.0,
+            "red_cards": 0.33,
+            "substitutions": 5.0
           },
-          "attack_index": 8.89,
-          "discipline_drag": 0.0,
-          "technical_adjustment": 9.39,
+          "attack_index": -0.9,
+          "discipline_drag": 3.2,
+          "technical_adjustment": -4.3,
           "source": "ESPN 世界杯实时比分/技术统计"
         },
-        "delta": 5.39,
+        "delta": 19.08,
         "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
@@ -39152,21 +39211,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -39519,21 +39578,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -39929,21 +39988,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -39979,21 +40038,21 @@
           "sample_size": 3,
           "averages": {
             "xg_proxy": 1.14,
-            "possession_pct": 48.17,
+            "possession_pct": 48.2,
             "shots": 9.0,
             "shots_on_target": 2.67,
             "corners": 3.33,
-            "tackles": 13.0,
+            "tackles": 13.33,
             "yellow_cards": 1.33,
             "red_cards": 0.0,
             "substitutions": 5.0
           },
           "attack_index": -3.97,
           "discipline_drag": 0.0,
-          "technical_adjustment": -4.46,
+          "technical_adjustment": -4.38,
           "source": "ESPN 世界杯实时比分/技术统计"
         },
-        "delta": 22.46,
+        "delta": 22.38,
         "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
@@ -40339,21 +40398,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -40362,6 +40421,49 @@
           "瑞典或东道主大胜这类样本会反馈到总进球和主办国进攻校准。",
           "近期热门偏差样本：Canada 1-1 Bosnia & Herzegovina，赛前倾向 Canada；Qatar 1-1 Switzerland，赛前倾向 Switzerland；Australia 2-0 Turkey，赛前倾向 Turkey；Ecuador 0-0 Curacao，赛前倾向 Ecuador；Japan 1-1 Sweden，赛前倾向 Japan"
         ]
+      },
+      "technical_profile": {
+        "available": true,
+        "team1": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 2.17,
+            "possession_pct": 61.87,
+            "shots": 15.0,
+            "shots_on_target": 6.0,
+            "corners": 6.33,
+            "tackles": 14.33,
+            "yellow_cards": 1.0,
+            "red_cards": 0.0,
+            "substitutions": 5.0
+          },
+          "attack_index": 18.96,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 18.0,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "team2": {
+          "available": true,
+          "sample_size": 3,
+          "averages": {
+            "xg_proxy": 1.69,
+            "possession_pct": 63.1,
+            "shots": 12.0,
+            "shots_on_target": 4.67,
+            "corners": 4.0,
+            "tackles": 17.67,
+            "yellow_cards": 0.33,
+            "red_cards": 0.0,
+            "substitutions": 4.67
+          },
+          "attack_index": 8.89,
+          "discipline_drag": 0.0,
+          "technical_adjustment": 9.31,
+          "source": "ESPN 世界杯实时比分/技术统计"
+        },
+        "delta": 8.69,
+        "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
     {
@@ -40706,21 +40808,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -41116,21 +41218,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -41526,21 +41628,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -41936,21 +42038,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -42303,21 +42405,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -42670,21 +42772,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -43088,21 +43190,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -43498,21 +43600,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -43908,21 +44010,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -43938,19 +44040,19 @@
           "available": true,
           "sample_size": 3,
           "averages": {
-            "xg_proxy": 1.69,
-            "possession_pct": 63.13,
-            "shots": 12.0,
-            "shots_on_target": 4.67,
-            "corners": 4.0,
-            "tackles": 18.0,
-            "yellow_cards": 0.33,
+            "xg_proxy": 1.99,
+            "possession_pct": 59.93,
+            "shots": 14.67,
+            "shots_on_target": 5.0,
+            "corners": 6.33,
+            "tackles": 14.33,
+            "yellow_cards": 1.67,
             "red_cards": 0.0,
             "substitutions": 4.67
           },
-          "attack_index": 8.89,
-          "discipline_drag": 0.0,
-          "technical_adjustment": 9.39,
+          "attack_index": 15.19,
+          "discipline_drag": 0.1,
+          "technical_adjustment": 14.78,
           "source": "ESPN 世界杯实时比分/技术统计"
         },
         "team2": {
@@ -43972,7 +44074,7 @@
           "technical_adjustment": 18.0,
           "source": "ESPN 世界杯实时比分/技术统计"
         },
-        "delta": -8.61,
+        "delta": -3.22,
         "description": "用已完赛真实控球率、射门、射正、角球、抢断、红黄牌和换人数据，对后续比赛 xG 做小幅校准。"
       }
     },
@@ -44318,21 +44420,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -44728,21 +44830,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -45095,21 +45197,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -45462,21 +45564,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -45837,21 +45939,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -46247,21 +46349,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -46657,21 +46759,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -47032,21 +47134,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -47450,21 +47552,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -47817,21 +47919,21 @@
       },
       "post_match_calibration": {
         "available": true,
-        "sample_size": 72,
+        "sample_size": 73,
         "goal_multiplier": 0.9,
-        "draw_multiplier": 1.133,
+        "draw_multiplier": 1.126,
         "high_total_multiplier": 1.0,
-        "host_attack_multiplier": 1.083,
+        "host_attack_multiplier": 1.05,
         "favorite_compression": 0.979,
         "diagnostics": {
-          "actual_avg_goals": 2.99,
-          "predicted_avg_goals": 3.32,
-          "actual_draw_rate": 27.8,
+          "actual_avg_goals": 2.96,
+          "predicted_avg_goals": 3.31,
+          "actual_draw_rate": 27.4,
           "predicted_draw_rate": 19.5,
-          "actual_high_total_rate": 22.2,
-          "predicted_high_total_rate": 24.6,
+          "actual_high_total_rate": 21.9,
+          "predicted_high_total_rate": 24.3,
           "high_favorite_miss_rate": 25.6,
-          "host_samples": 9
+          "host_samples": 10
         },
         "notes": [
           "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",
@@ -60091,12 +60193,12 @@
     ]
   },
   "performance": {
-    "sample_size": 72,
-    "outcome_hits": 43,
-    "exact_score_hits": 8,
-    "outcome_accuracy": 59.7,
-    "exact_score_accuracy": 11.1,
-    "average_goal_error": 1.82,
+    "sample_size": 73,
+    "outcome_hits": 44,
+    "exact_score_hits": 9,
+    "outcome_accuracy": 60.3,
+    "exact_score_accuracy": 12.3,
+    "average_goal_error": 1.79,
     "completed_matches": [
       {
         "id": "wc2026-001",
@@ -61105,6 +61207,20 @@
         "goal_error": 1,
         "source_name": "ESPN 世界杯实时比分/技术统计",
         "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260627"
+      },
+      {
+        "id": "wc2026-073",
+        "date": "2026-06-28",
+        "starts_at": "2026-06-28T19:00:00+00:00",
+        "team1": "South Africa",
+        "team2": "Canada",
+        "predicted_score": "0-1",
+        "actual_score": "0-1",
+        "outcome_hit": true,
+        "exact_score_hit": true,
+        "goal_error": 0,
+        "source_name": "ESPN 世界杯实时比分/技术统计",
+        "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260628"
       }
     ],
     "note": "早期样本较小，命中率会随更多真实赛果持续更新。"
@@ -62649,36 +62765,36 @@
     "context_signal_available": false,
     "tournament_simulations": 50000,
     "fifa_rankings_used": 0,
-    "actual_result_count": 72,
-    "outcome_accuracy": 59.7,
-    "exact_score_accuracy": 11.1,
+    "actual_result_count": 73,
+    "outcome_accuracy": 60.3,
+    "exact_score_accuracy": 12.3,
     "local_model_recalculated_at": "2026-06-18T12:47:44+00:00",
-    "finished_match_count": 72,
+    "finished_match_count": 73,
     "post_match_calibration_available": true,
-    "post_match_calibration_sample_size": 72,
-    "technical_stat_match_count": 72,
+    "post_match_calibration_sample_size": 73,
+    "technical_stat_match_count": 73,
     "technical_stat_team_count": 48,
-    "live_result_synced_at": "2026-06-28T05:14:17+00:00",
-    "tournament_synced_at": "2026-06-28T05:14:17+00:00"
+    "live_result_synced_at": "2026-06-29T15:15:12+00:00",
+    "tournament_synced_at": "2026-06-29T15:15:12+00:00"
   },
   "error": null,
   "post_match_calibration": {
     "available": true,
-    "sample_size": 72,
+    "sample_size": 73,
     "goal_multiplier": 0.9,
-    "draw_multiplier": 1.133,
+    "draw_multiplier": 1.126,
     "high_total_multiplier": 1.0,
-    "host_attack_multiplier": 1.083,
+    "host_attack_multiplier": 1.05,
     "favorite_compression": 0.979,
     "diagnostics": {
-      "actual_avg_goals": 2.99,
-      "predicted_avg_goals": 3.32,
-      "actual_draw_rate": 27.8,
+      "actual_avg_goals": 2.96,
+      "predicted_avg_goals": 3.31,
+      "actual_draw_rate": 27.4,
       "predicted_draw_rate": 19.5,
-      "actual_high_total_rate": 22.2,
-      "predicted_high_total_rate": 24.6,
+      "actual_high_total_rate": 21.9,
+      "predicted_high_total_rate": 24.3,
       "high_favorite_miss_rate": 25.6,
-      "host_samples": 9
+      "host_samples": 10
     },
     "notes": [
       "赛后复盘会把已完赛比分偏差反馈给未赛场次，但不会改写已完赛场次的原始预测。",

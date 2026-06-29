@@ -74,6 +74,21 @@ button.primary:hover {
   backdrop-filter: blur(12px);
 }
 
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(31, 122, 76, 0.18);
+}
+
 .topbar h1 {
   margin: 0;
   font-size: 22px;

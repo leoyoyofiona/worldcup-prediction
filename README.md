@@ -30,7 +30,21 @@
 
 ## 程序界面
 
-![真实页面截图](docs/app-screenshot.png)
+<p align="center">
+  <img src="docs/ui-gallery/01-dashboard.png" alt="LEO 世界杯预测总览" width="760">
+</p>
+
+<p align="center">
+  <img src="docs/ui-gallery/02-round32.png" alt="32强对阵预测" width="760">
+</p>
+
+<p align="center">
+  <img src="docs/ui-gallery/03-daily-analysis.png" alt="当日比赛分析预测" width="760">
+</p>
+
+<p align="center">
+  <img src="docs/ui-gallery/04-mobile.png" alt="手机端中文体验" width="760">
+</p>
 
 ## 模型预测能力
 

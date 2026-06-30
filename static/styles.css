@@ -108,6 +108,41 @@ button.primary:hover {
   gap: 8px;
 }
 
+.legal-disclaimer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  margin: 14px 28px 0;
+  padding: 13px 16px;
+  border: 2px solid #b54545;
+  border-left-width: 8px;
+  border-radius: 8px;
+  background: #fff1d6;
+  color: #5c1f18;
+  box-shadow: 0 12px 28px rgba(181, 69, 69, 0.12);
+}
+
+.legal-disclaimer strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #b54545;
+  color: #fff;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.legal-disclaimer span {
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
 .shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 390px;
@@ -902,6 +937,12 @@ button.primary:hover {
 
   .shell {
     padding: 14px;
+  }
+
+  .legal-disclaimer {
+    grid-template-columns: 1fr;
+    margin: 12px 14px 0;
+    padding: 12px;
   }
 
   .filters {

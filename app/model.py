@@ -2843,6 +2843,18 @@ def apply_projected_knockout_matches(matches: List[Dict[str, Any]], tournament: 
         team1 = projected.get("team1")
         team2 = projected.get("team2")
         if not team1 or not team2 or is_placeholder_team(team1) or is_placeholder_team(team2):
+            if match.get("slot_team1") or match.get("slot_team2"):
+                match["team1"] = match.get("slot_team1") or match.get("team1")
+                match["team2"] = match.get("slot_team2") or match.get("team2")
+                match["teams_confirmed"] = False
+                match["projected_from_knockout_path"] = False
+                match["probabilities"] = None
+                match["favorite"] = "待定"
+                match["predicted_score"] = "待定"
+                match["confidence"] = 0.0
+                match["confidence_label"] = "待定"
+                match["advance_probabilities"] = None
+                match["knockout_score_projection"] = None
             continue
         if not match.get("slot_team1") and is_placeholder_team(str(match.get("team1") or "")):
             match["slot_team1"] = match.get("team1")
@@ -2916,22 +2928,21 @@ def deterministic_bracket_projection(
         actual_result = actual_knockout_result(match, team1, team2)
         if actual_result:
             winner, loser = actual_result
-        elif float(advance["team1"]) >= float(advance["team2"]):
-            winner, loser = team1, team2
         else:
-            winner, loser = team2, team1
-        winners[match["index"]] = winner
-        losers[match["index"]] = loser
-        if current_stage == "round_of_32":
-            stage_teams["round_of_16"].append(winner)
-        elif current_stage == "round_of_16":
-            stage_teams["quarter_final"].append(winner)
-        elif current_stage == "quarter_final":
-            stage_teams["semi_final"].append(winner)
-        elif current_stage == "semi_final":
-            stage_teams["final"].append(winner)
-        elif current_stage == "final":
-            stage_teams["champion"].append(winner)
+            winner, loser = "待定", "待定"
+        if actual_result:
+            winners[match["index"]] = winner
+            losers[match["index"]] = loser
+            if current_stage == "round_of_32":
+                stage_teams["round_of_16"].append(winner)
+            elif current_stage == "round_of_16":
+                stage_teams["quarter_final"].append(winner)
+            elif current_stage == "quarter_final":
+                stage_teams["semi_final"].append(winner)
+            elif current_stage == "semi_final":
+                stage_teams["final"].append(winner)
+            elif current_stage == "final":
+                stage_teams["champion"].append(winner)
         projected = {
             "id": match["id"],
             "index": match["index"],

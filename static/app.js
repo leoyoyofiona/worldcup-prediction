@@ -190,7 +190,15 @@ const teamNamesZh = {
 
 function teamName(value) {
   if (!value) return "待定";
+  if (isPlaceholderTeamName(value)) return "待定";
   return teamNamesZh[value] || value;
+}
+
+function isPlaceholderTeamName(value) {
+  const text = String(value || "").trim();
+  return /^(W|L)\d{2,3}$/i.test(text)
+    || /^[123][A-L](\/[A-L])*$/.test(text)
+    || /winner|runner-up|runner up|tbd|to be decided|third/i.test(text);
 }
 
 function localizeTeamText(value) {

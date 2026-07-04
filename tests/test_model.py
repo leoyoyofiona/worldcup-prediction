@@ -362,6 +362,41 @@ def test_projected_knockout_matches_fill_main_schedule_and_preserve_slots():
     assert matches[0]["predicted_score"] == "2-1"
 
 
+def test_projected_knockout_matches_reset_unconfirmed_future_round_slots():
+    matches = [
+        {
+            "id": "qf",
+            "index": 97,
+            "round": "Quarter-final",
+            "team1": "Canada",
+            "team2": "Netherlands",
+            "slot_team1": "W89",
+            "slot_team2": "W90",
+            "is_knockout": True,
+            "teams_confirmed": True,
+            "predicted_score": "1-0",
+            "confidence_label": "中",
+            "probabilities": {"team1_win": 45.0, "draw": 30.0, "team2_win": 25.0},
+        }
+    ]
+    tournament = {
+        "projected_matches": [
+            {
+                "id": "qf",
+                "team1": "W89",
+                "team2": "W90",
+                "winner": "待定",
+            }
+        ]
+    }
+    apply_projected_knockout_matches(matches, tournament)
+    assert matches[0]["team1"] == "W89"
+    assert matches[0]["team2"] == "W90"
+    assert matches[0]["teams_confirmed"] is False
+    assert matches[0]["predicted_score"] == "待定"
+    assert matches[0]["probabilities"] is None
+
+
 def test_context_adjustments_are_bounded_and_explainable():
     iran = off_field_signal("Iran")
     assert iran["available"] is True

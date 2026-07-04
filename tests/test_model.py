@@ -1,6 +1,7 @@
 from app.model import (
     build_betting_scores,
     build_betting_analysis,
+    build_knockout_score_projection,
     build_market_scores,
     build_context_scores,
     build_post_match_calibration,
@@ -135,6 +136,19 @@ def test_prediction_contains_probabilities():
     assert prediction["probabilities"]["team1_win"] > 0
     assert prediction["predicted_score"] != "待定"
     assert prediction["contributors"]
+
+
+def test_knockout_prediction_splits_regular_extra_and_penalties():
+    projection = build_knockout_score_projection(
+        "Brazil",
+        "Canada",
+        "1-1",
+        {"team1": 57.0, "team2": 43.0},
+    )
+    assert projection["regular_time_score"] == "1-1"
+    assert "90分钟" in projection["regular_time_note"]
+    assert projection["extra_time_score"] == "2-1"
+    assert projection["penalty_score"] == "4-3"
 
 
 def test_world_cup_local_csv_builds_stage_profile():

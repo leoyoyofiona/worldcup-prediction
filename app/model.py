@@ -40,6 +40,7 @@ PROJECTED_KNOCKOUT_FIELDS = (
     "team_metrics",
     "scoreline_distribution",
     "advance_probabilities",
+    "knockout_score_projection",
     "betting_analysis",
 )
 
@@ -1261,6 +1262,70 @@ def select_representative_score(
     return candidates[0][1]
 
 
+def scoreline_goals(score: str) -> Optional[Tuple[int, int]]:
+    match = re.search(r"(\d+)\s*-\s*(\d+)", score or "")
+    if not match:
+        return None
+    return int(match.group(1)), int(match.group(2))
+
+
+def build_knockout_score_projection(
+    team1: str,
+    team2: str,
+    regular_time_score: str,
+    advance_probabilities: Optional[Dict[str, Any]],
+) -> Dict[str, Any]:
+    goals = scoreline_goals(regular_time_score)
+    team1_advance = float((advance_probabilities or {}).get("team1") or 50.0)
+    team2_advance = float((advance_probabilities or {}).get("team2") or 50.0)
+    favored_team_key = "team1" if team1_advance >= team2_advance else "team2"
+    favored_team = team1 if favored_team_key == "team1" else team2
+
+    projection = {
+        "regular_time_label": "90分钟正赛预测",
+        "regular_time_score": regular_time_score or "待定",
+        "regular_time_note": "90分钟正赛比分，不含加时赛和点球大战。",
+        "extra_time_label": "加时赛参考",
+        "extra_time_score": "待定",
+        "extra_time_note": "仅在90分钟打平时参考。",
+        "penalty_label": "点球大战参考",
+        "penalty_score": "待定",
+        "penalty_note": "点球波动极高，只按晋级倾向给出方向性参考。",
+        "favored_after_tiebreak": favored_team,
+    }
+    if goals is None:
+        return projection
+
+    goals1, goals2 = goals
+    if goals1 != goals2:
+        projection.update(
+            {
+                "extra_time_score": "不适用",
+                "extra_time_note": "模型判断90分钟已分胜负，预计不进入加时。",
+                "penalty_score": "不适用",
+                "penalty_note": "模型判断90分钟已分胜负，预计不进入点球大战。",
+                "favored_after_tiebreak": team1 if goals1 > goals2 else team2,
+            }
+        )
+        return projection
+
+    if abs(team1_advance - team2_advance) >= 8.0:
+        if favored_team_key == "team1":
+            projection["extra_time_score"] = f"{goals1 + 1}-{goals2}"
+            projection["penalty_score"] = "4-3"
+        else:
+            projection["extra_time_score"] = f"{goals1}-{goals2 + 1}"
+            projection["penalty_score"] = "3-4"
+        projection["extra_time_note"] = f"90分钟打平后，倾向{favored_team}在加时阶段解决比赛。"
+        projection["penalty_note"] = f"若加时仍平，点球方向倾向{favored_team}。"
+    else:
+        projection["extra_time_score"] = regular_time_score
+        projection["extra_time_note"] = "双方晋级倾向接近，模型认为加时后仍可能持平。"
+        projection["penalty_score"] = "4-3" if favored_team_key == "team1" else "3-4"
+        projection["penalty_note"] = f"若进入点球，轻微倾向{favored_team}。"
+    return projection
+
+
 def score_distribution_summary(distribution: Sequence[Dict[str, Any]]) -> Dict[str, float]:
     over_2_5 = 0.0
     over_3_5 = 0.0
@@ -1653,8 +1718,14 @@ def apply_post_match_calibration(matches: List[Dict[str, Any]], calibration: Dic
             match["advance_probabilities"] = {
                 "team1": pct(advance1 / total if total else 0.5),
                 "team2": pct(advance2 / total if total else 0.5),
-                "note": "淘汰赛晋级倾向包含常规时间胜负、点球不确定性和赛后复盘校准。",
+                "note": "胜平负和代表比分均为90分钟正赛口径；晋级倾向在90分钟基础上加入加时、点球和赛后复盘校准近似。",
             }
+            match["knockout_score_projection"] = build_knockout_score_projection(
+                str(match.get("team1") or ""),
+                str(match.get("team2") or ""),
+                predicted_score,
+                match["advance_probabilities"],
+            )
 
         contributors = list(match.get("contributors") or [])
         contributors.append(
@@ -1967,6 +2038,7 @@ def predict_match(
                 "team_metrics": {},
                 "scoreline_distribution": [],
                 "advance_probabilities": None,
+                "knockout_score_projection": None,
             }
         )
         return base
@@ -2019,7 +2091,7 @@ def predict_match(
         advance_probabilities = {
             "team1": pct(advance1 / total if total else 0.5),
             "team2": pct(advance2 / total if total else 0.5),
-            "note": "淘汰赛晋级倾向包含常规时间胜负和点球不确定性近似。",
+            "note": "胜平负和代表比分均为90分钟正赛口径；晋级倾向在90分钟基础上加入加时和点球近似。",
         }
 
     top_scores = [
@@ -2035,6 +2107,11 @@ def predict_match(
         "expected_total_goals": round(expected_total, 2),
         **score_distribution_summary(distribution),
     }
+    knockout_score_projection = (
+        build_knockout_score_projection(team1, team2, predicted_score, advance_probabilities)
+        if match.get("is_knockout")
+        else None
+    )
     technical_indicators = estimate_match_technical_stats(team1, team2, lambda1, lambda2, rating1, rating2, stat1, stat2)
     contributors = [
         {
@@ -2138,6 +2215,7 @@ def predict_match(
             "team_metrics": {team1: stat1, team2: stat2},
             "scoreline_distribution": top_scores,
             "advance_probabilities": advance_probabilities,
+            "knockout_score_projection": knockout_score_projection,
         }
     )
     base["betting_analysis"] = build_betting_analysis(base)
@@ -2204,6 +2282,7 @@ def match_summary(match: Dict[str, Any]) -> Dict[str, Any]:
         "technical_stats",
         "technical_profile",
         "advance_probabilities",
+        "knockout_score_projection",
         "actual_score",
         "prediction_result",
         "off_field",
@@ -2433,6 +2512,7 @@ def build_matchup_rounds(
                 "team2": match.get("team2"),
                 "winner": match.get("winner"),
                 "predicted_score": match.get("predicted_score"),
+                "knockout_score_projection": match.get("knockout_score_projection"),
                 "confidence_label": match.get("confidence_label"),
                 "ground": match.get("ground"),
                 "starts_at": match.get("starts_at"),

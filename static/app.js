@@ -107,6 +107,9 @@ const translations = {
     homeWin: "主胜",
     awayWin: "客胜",
     representativeScore: "代表比分",
+    regularTimeScore: "90分钟预测比分",
+    extraTimeScore: "加时比分参考",
+    penaltyScore: "点球比分参考",
     modalScore: "精确众数比分",
     favorite: "预测倾向",
     expectedGoals: "预期进球 xG",
@@ -725,11 +728,68 @@ function renderMatchupRound(round) {
         <div class="bracket-match">
           <span class="matchup-line">${escapeHtml(teamName(match.team1))} <em>vs</em> ${escapeHtml(teamName(match.team2))}</span>
           <strong>${escapeHtml(teamName(match.winner))}</strong>
-          <small>${escapeHtml(match.predicted_score || "")} · ${escapeHtml(match.confidence_label || "")}</small>
+          ${renderBracketScoreProjection(match)}
         </div>
       `).join("") || `<div class="empty-line">待定</div>`}
     </section>
   `;
+}
+
+function renderBracketScoreProjection(match = {}) {
+  if (!match.is_knockout && !match.knockout_score_projection && !match.predicted_score) {
+    return `<small>${escapeHtml(match.confidence_label || "")}</small>`;
+  }
+  const projection = knockoutProjection(match);
+  return `
+    <small>90分钟 ${escapeHtml(projection.regular_time_score || "待定")} · ${escapeHtml(match.confidence_label || "")}</small>
+    <small>加时 ${escapeHtml(projection.extra_time_score || "待定")} · 点球 ${escapeHtml(projection.penalty_score || "待定")}</small>
+  `;
+}
+
+function knockoutProjection(match = {}) {
+  if (match.knockout_score_projection) return match.knockout_score_projection;
+  const regular = match.predicted_score || "待定";
+  const goals = parseScore(regular);
+  const advance = match.advance_probabilities || {};
+  const team1Advance = Number(advance.team1 || 50);
+  const team2Advance = Number(advance.team2 || 50);
+  const team1Favored = team1Advance >= team2Advance;
+  if (!goals) {
+    return {
+      regular_time_score: regular,
+      regular_time_note: "90分钟正赛比分，不含加时赛和点球大战。",
+      extra_time_score: "待定",
+      extra_time_note: "仅在90分钟打平时参考。",
+      penalty_score: "待定",
+      penalty_note: "点球波动极高，只按晋级倾向给出方向性参考。",
+    };
+  }
+  if (goals[0] !== goals[1]) {
+    return {
+      regular_time_score: regular,
+      regular_time_note: "90分钟正赛比分，不含加时赛和点球大战。",
+      extra_time_score: "不适用",
+      extra_time_note: "模型判断90分钟已分胜负，预计不进入加时。",
+      penalty_score: "不适用",
+      penalty_note: "模型判断90分钟已分胜负，预计不进入点球大战。",
+    };
+  }
+  const extra = Math.abs(team1Advance - team2Advance) >= 8
+    ? team1Favored ? `${goals[0] + 1}-${goals[1]}` : `${goals[0]}-${goals[1] + 1}`
+    : regular;
+  return {
+    regular_time_score: regular,
+    regular_time_note: "90分钟正赛比分，不含加时赛和点球大战。",
+    extra_time_score: extra,
+    extra_time_note: "仅在90分钟打平时参考。",
+    penalty_score: team1Favored ? "4-3" : "3-4",
+    penalty_note: `若进入点球，轻微倾向${teamName(team1Favored ? match.team1 : match.team2)}。`,
+  };
+}
+
+function parseScore(score) {
+  const match = String(score || "").match(/(\d+)\s*-\s*(\d+)/);
+  return match ? [Number(match[1]), Number(match[2])] : null;
 }
 
 function fillSelect(select, values, allLabel) {
@@ -792,6 +852,11 @@ function renderMatchRow(match) {
   const drawProb = probs ? probs.draw : null;
   const team2Prob = probs ? probs.team2_win : null;
   const actual = match.actual_score;
+  const scoreLabel = actual
+    ? `完赛 ${actual.score}`
+    : match.is_knockout
+      ? `90分钟 ${match.predicted_score || "待定"}`
+      : match.predicted_score || "待定";
   return `
     <button class="match-row ${state.selectedId === match.id ? "active" : ""}" data-id="${escapeHtml(match.id)}">
       <div class="match-meta">
@@ -816,7 +881,7 @@ function renderMatchRow(match) {
         ${bar(t("awayWin"), team2Prob, "away")}
       </div>
       <div class="prediction-cell">
-        <span class="score">${escapeHtml(actual ? `完赛 ${actual.score}` : match.predicted_score || "待定")}</span>
+        <span class="score">${escapeHtml(scoreLabel)}</span>
         ${actual ? `<span class="badge">真实赛果</span>` : ""}
         <span class="badge ${confidenceClass(match.confidence_label)}">${escapeHtml(confidenceText(match.confidence_label))}</span>
         ${renderContextBadges(match)}
@@ -962,7 +1027,7 @@ function renderDetail(match) {
       ${probBox(teamName(match.team2), probs.team2_win)}
     </div>
     <div class="kv-list">
-      <div class="kv"><span>${escapeHtml(t("representativeScore"))}</span><strong>${escapeHtml(match.predicted_score)}</strong></div>
+      <div class="kv"><span>${escapeHtml(match.is_knockout ? t("regularTimeScore") : t("representativeScore"))}</span><strong>${escapeHtml(match.predicted_score)}</strong></div>
       ${match.actual_score ? `<div class="kv"><span>真实赛果</span><strong>${escapeHtml(match.actual_score.score || "")}</strong></div>` : ""}
       <div class="kv"><span>${escapeHtml(t("modalScore"))}</span><strong>${escapeHtml((match.score_summary || {}).modal_score || match.predicted_score)}</strong></div>
       <div class="kv"><span>${escapeHtml(t("favorite"))}</span><strong>${escapeHtml(teamName(match.favorite))}</strong></div>
@@ -972,6 +1037,7 @@ function renderDetail(match) {
       <div class="kv"><span>${escapeHtml(t("over25"))}</span><strong>${percent((match.score_summary || {}).over_2_5)}</strong></div>
       <div class="kv"><span>${escapeHtml(t("bothScore"))}</span><strong>${percent((match.score_summary || {}).both_teams_score)}</strong></div>
     </div>
+    ${renderKnockoutScoreProjection(match)}
     ${renderAdvance(match)}
     ${renderTechnicalIndicators(match)}
     ${renderBettingAnalysis(match)}
@@ -1134,6 +1200,28 @@ function renderTeamMetric(team, metric = {}, market = {}, betting = {}) {
   `;
 }
 
+function renderKnockoutScoreProjection(match) {
+  if (!match.is_knockout) return "";
+  const projection = knockoutProjection(match);
+  return `
+    <h3 class="section-title">淘汰赛比分口径</h3>
+    <div class="kv-list">
+      <div class="kv">
+        <span>${escapeHtml(t("regularTimeScore"))}<small>${escapeHtml(localizeTeamText(projection.regular_time_note || "90分钟正赛比分，不含加时赛和点球大战。"))}</small></span>
+        <strong>${escapeHtml(projection.regular_time_score || match.predicted_score || "待定")}</strong>
+      </div>
+      <div class="kv">
+        <span>${escapeHtml(t("extraTimeScore"))}<small>${escapeHtml(localizeTeamText(projection.extra_time_note || "仅在90分钟打平时参考。"))}</small></span>
+        <strong>${escapeHtml(projection.extra_time_score || "待定")}</strong>
+      </div>
+      <div class="kv">
+        <span>${escapeHtml(t("penaltyScore"))}<small>${escapeHtml(localizeTeamText(projection.penalty_note || "点球波动极高，只按晋级倾向给出方向性参考。"))}</small></span>
+        <strong>${escapeHtml(projection.penalty_score || "待定")}</strong>
+      </div>
+    </div>
+  `;
+}
+
 function renderAdvance(match) {
   if (!match.advance_probabilities) return "";
   return `
@@ -1141,7 +1229,7 @@ function renderAdvance(match) {
     <div class="kv-list">
       <div class="kv"><span>${escapeHtml(teamName(match.team1))}</span><strong>${percent(match.advance_probabilities.team1)}</strong></div>
       <div class="kv"><span>${escapeHtml(teamName(match.team2))}</span><strong>${percent(match.advance_probabilities.team2)}</strong></div>
-      <div class="kv"><span>${escapeHtml(match.advance_probabilities.note)}</span></div>
+      <div class="kv"><span>${escapeHtml(localizeTeamText(match.advance_probabilities.note || ""))}</span></div>
     </div>
   `;
 }

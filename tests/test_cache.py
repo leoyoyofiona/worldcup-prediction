@@ -19,7 +19,8 @@ def test_auto_sync_returns_cache_and_finishes_in_background(monkeypatch):
     old_cache = {"matches": [{"id": "wc2026-001"}], "summary": {}, "generated_at": "old"}
     saved = []
 
-    def fake_sync(cache):
+    def fake_sync(cache, include_technical=True):
+        assert include_technical is False
         time.sleep(0.02)
         updated = dict(cache)
         updated["generated_at"] = "new"
@@ -51,7 +52,8 @@ def test_force_sync_starts_even_when_cache_is_fresh(monkeypatch):
     }
     saved = []
 
-    def fake_sync(cache):
+    def fake_sync(cache, include_technical=True):
+        assert include_technical is False
         updated = dict(cache)
         updated["generated_at"] = "forced"
         return updated

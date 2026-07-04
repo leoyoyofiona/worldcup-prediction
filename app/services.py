@@ -212,7 +212,7 @@ class PredictionService:
         thread.start()
 
     def _auto_sync_job(self, cache: Dict[str, Any]) -> None:
-        save_cache(sync_live_results(cache))
+        save_cache(sync_live_results(cache, include_technical=False))
 
     def _should_auto_sync(self, cache: Dict[str, Any], force_sync: bool = False) -> bool:
         if not cache.get("matches"):

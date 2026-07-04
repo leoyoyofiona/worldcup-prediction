@@ -44,10 +44,10 @@ TECHNICAL_STAT_MAP = {
 }
 
 
-def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
+def sync_live_results(cache: Dict[str, Any], include_technical: bool = True) -> Dict[str, Any]:
     payload = deepcopy(cache)
     matches = payload.get("matches") or []
-    events, status = fetch_espn_completed_events()
+    events, status = fetch_espn_completed_events(include_technical=include_technical)
     actual_results = build_actual_results(matches, events)
     technical_results = build_technical_results(matches, events)
 
@@ -78,12 +78,17 @@ def sync_live_results(cache: Dict[str, Any]) -> Dict[str, Any]:
     summary["finished_match_count"] = sum(1 for match in matches if match.get("status") == "已结束")
     summary["post_match_calibration_available"] = post_match_calibration.get("available", False)
     summary["post_match_calibration_sample_size"] = post_match_calibration.get("sample_size", 0)
-    summary["technical_stat_match_count"] = len(technical_results)
-    summary["technical_stat_team_count"] = len(technical_profiles)
+    if include_technical or technical_results:
+        summary["technical_stat_match_count"] = len(technical_results)
+        summary["technical_stat_team_count"] = len(technical_profiles)
     summary["live_result_synced_at"] = payload["generated_at"]
     summary["tournament_synced_at"] = payload["generated_at"]
 
-    status["message"] = f"已同步 {len(actual_results)} 场已完赛比分，{len(technical_results)} 场技术统计"
+    status["message"] = (
+        f"已同步 {len(actual_results)} 场已完赛比分，{len(technical_results)} 场技术统计"
+        if include_technical
+        else f"已快速同步 {len(actual_results)} 场已完赛比分"
+    )
     payload["sources"] = upsert_source(payload.get("sources") or [], status)
     return payload
 
@@ -133,7 +138,7 @@ def collect_rankings(matches: List[Dict[str, Any]]) -> Dict[str, int]:
     return rankings
 
 
-def fetch_espn_completed_events() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+def fetch_espn_completed_events(include_technical: bool = True) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     events: List[Dict[str, Any]] = []
     fetched_bytes = 0
     last_url = ESPN_SCOREBOARD_URL
@@ -150,8 +155,8 @@ def fetch_espn_completed_events() -> Tuple[List[Dict[str, Any]], Dict[str, Any]]
             fetched_bytes += len(response.content)
             data = response.json()
             for raw_event in data.get("events") or []:
-                summary = fetch_espn_summary(client, raw_event)
-                technical = parse_espn_technical_event(raw_event, last_url, summary)
+                summary = fetch_espn_summary(client, raw_event) if include_technical else None
+                technical = parse_espn_technical_event(raw_event, last_url, summary) if include_technical else None
                 parsed = parse_espn_event(raw_event, last_url)
                 if parsed:
                     if technical:

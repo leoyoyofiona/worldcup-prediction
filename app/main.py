@@ -21,8 +21,8 @@ def favicon() -> Response:
 
 
 @app.get("/api/status")
-def get_status():
-    return service.status()
+def get_status(force_sync: bool = False):
+    return service.status(force_sync=force_sync)
 
 
 @app.post("/api/update")

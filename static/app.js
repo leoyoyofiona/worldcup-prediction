@@ -934,8 +934,8 @@ function bar(label, value, className) {
   `;
 }
 
-async function loadStatus() {
-  const status = await api("/api/status");
+async function loadStatus(options = {}) {
+  const status = await api(options.forceSync ? "/api/status?force_sync=true" : "/api/status");
   state.lastStatus = status;
   renderSummary(status.summary);
   if (taskRunning(status)) {
@@ -1300,7 +1300,13 @@ async function init() {
   applyLanguage();
   bindEvents();
   try {
-    const status = await loadStatus();
+    const status = await loadStatus({ forceSync: true });
+    if (taskRunning(status)) {
+      setBusy(true, taskMessage(status, "正在自动同步最新赛果并刷新预测。"));
+      await waitForBackgroundTask("正在自动同步最新赛果并刷新预测。");
+      setBusy(false);
+      return;
+    }
     const payload = await loadMatches();
     if (!status.generated_at && !payload.matches.length) {
       await updateData();

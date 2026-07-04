@@ -119,8 +119,8 @@ class PredictionService:
         rebuilt.setdefault("summary", {})["local_model_recalculated_at"] = now_iso()
         save_cache(sync_live_results(rebuilt))
 
-    def status(self) -> Dict[str, Any]:
-        cache = self._cache_with_auto_sync()
+    def status(self, force_sync: bool = False) -> Dict[str, Any]:
+        cache = self._cache_with_auto_sync(force_sync=force_sync)
         return {
             "model_version": cache.get("model_version"),
             "generated_at": cache.get("generated_at"),
@@ -189,9 +189,9 @@ class PredictionService:
         with self._state_lock:
             return deepcopy(self._task_state)
 
-    def _cache_with_auto_sync(self) -> Dict[str, Any]:
+    def _cache_with_auto_sync(self, force_sync: bool = False) -> Dict[str, Any]:
         cache = load_cache()
-        if not self._should_auto_sync(cache):
+        if not self._should_auto_sync(cache, force_sync=force_sync):
             return cache
         if not self._build_lock.acquire(blocking=False):
             return cache
@@ -214,9 +214,11 @@ class PredictionService:
     def _auto_sync_job(self, cache: Dict[str, Any]) -> None:
         save_cache(sync_live_results(cache))
 
-    def _should_auto_sync(self, cache: Dict[str, Any]) -> bool:
+    def _should_auto_sync(self, cache: Dict[str, Any], force_sync: bool = False) -> bool:
         if not cache.get("matches"):
             return False
+        if force_sync:
+            return True
         synced_at = cache.get("summary", {}).get("live_result_synced_at")
         if not synced_at:
             return True

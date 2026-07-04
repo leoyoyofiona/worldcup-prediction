@@ -40,3 +40,31 @@ def test_auto_sync_returns_cache_and_finishes_in_background(monkeypatch):
         time.sleep(0.01)
     assert saved[0]["generated_at"] == "new"
     assert service._task_snapshot()["running"] is False
+
+
+def test_force_sync_starts_even_when_cache_is_fresh(monkeypatch):
+    service = PredictionService()
+    fresh_cache = {
+        "matches": [{"id": "wc2026-001"}],
+        "summary": {"live_result_synced_at": "2999-01-01T00:00:00+00:00"},
+        "generated_at": "fresh",
+    }
+    saved = []
+
+    def fake_sync(cache):
+        updated = dict(cache)
+        updated["generated_at"] = "forced"
+        return updated
+
+    monkeypatch.setattr("app.services.load_cache", lambda: fresh_cache)
+    monkeypatch.setattr("app.services.save_cache", lambda payload: saved.append(payload))
+    monkeypatch.setattr("app.services.sync_live_results", fake_sync)
+
+    returned = service._cache_with_auto_sync(force_sync=True)
+    assert returned is fresh_cache
+
+    for _ in range(20):
+        if saved:
+            break
+        time.sleep(0.01)
+    assert saved[0]["generated_at"] == "forced"

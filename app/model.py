@@ -2855,6 +2855,23 @@ def resolve_slot(
     return canonicalize_team(slot)
 
 
+def knockout_slots_for_match(match: Dict[str, Any]) -> Tuple[str, str]:
+    index = int(match.get("index") or 0)
+    official_slots = OFFICIAL_KNOCKOUT_SLOTS.get(index, (None, None))
+    slot1 = match.get("slot_team1")
+    slot2 = match.get("slot_team2")
+    team1 = str(match.get("team1") or "")
+    team2 = str(match.get("team2") or "")
+    has_concrete_teams = bool(team1 and team2 and not is_placeholder_team(team1) and not is_placeholder_team(team2))
+    if slot1 or slot2:
+        return str(slot1 or team1), str(slot2 or team2)
+    if match.get("actual_score") and has_concrete_teams:
+        return team1, team2
+    if index <= 96 and has_concrete_teams:
+        return team1, team2
+    return str(official_slots[0] or team1), str(official_slots[1] or team2)
+
+
 def prediction_projection_fields(prediction: Dict[str, Any]) -> Dict[str, Any]:
     return {
         key: deepcopy(prediction[key])
@@ -2955,14 +2972,22 @@ def deterministic_bracket_projection(
     }
 
     for match in sorted(knockout_matches, key=lambda item: item["index"]):
-        official_slots = OFFICIAL_KNOCKOUT_SLOTS.get(int(match.get("index") or 0), (None, None))
-        slot1 = match.get("slot_team1") or official_slots[0] or match["team1"]
-        slot2 = match.get("slot_team2") or official_slots[1] or match["team2"]
+        slot1, slot2 = knockout_slots_for_match(match)
         team1 = third_slot_assignment.get((int(match["index"]), "team1")) or resolve_slot(slot1, position_map, winners, losers, used_third_groups)
         team2 = third_slot_assignment.get((int(match["index"]), "team2")) or resolve_slot(slot2, position_map, winners, losers, used_third_groups)
         current_stage = stage_key(match.get("round", ""))
         if not team1 or not team2:
-            projected_matches.append({**match, "team1": team1 or match["team1"], "team2": team2 or match["team2"], "winner": "待定"})
+            projected_matches.append(
+                {
+                    **match,
+                    "slot_team1": slot1,
+                    "slot_team2": slot2,
+                    "team1": team1 or slot1,
+                    "team2": team2 or slot2,
+                    "teams_confirmed": False,
+                    "winner": "待定",
+                }
+            )
             continue
         prediction = virtual_prediction(team1, team2, team_stats, market_scores, betting_scores, rankings, context_scores, match)
         advance = prediction.get("advance_probabilities") or {"team1": 50.0, "team2": 50.0}

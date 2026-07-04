@@ -16,6 +16,7 @@ from app.model import (
     apply_post_match_calibration,
     apply_projected_knockout_matches,
     assign_third_place_slots,
+    deterministic_bracket_projection,
     expected_group_tables,
     off_field_signal,
     rule_adaptation_adjustment,
@@ -395,6 +396,46 @@ def test_projected_knockout_matches_reset_unconfirmed_future_round_slots():
     assert matches[0]["teams_confirmed"] is False
     assert matches[0]["predicted_score"] == "待定"
     assert matches[0]["probabilities"] is None
+
+
+def test_unplayed_round_of_16_keeps_quarterfinal_slots_pending():
+    base = {"date": "", "starts_at": "", "ground": "", "is_knockout": True}
+    matches = [
+        {"id": "m73", "index": 73, "round": "Round of 32", "team1": "South Africa", "team2": "Canada", "actual_score": {"team1": 0, "team2": 1}, **base},
+        {"id": "m75", "index": 75, "round": "Round of 32", "team1": "Netherlands", "team2": "Morocco", "actual_score": {"team1": 1, "team2": 1, "penalty_team1": 4, "penalty_team2": 6}, **base},
+        {"id": "m90", "index": 90, "round": "Round of 16", "team1": "Canada", "team2": "Morocco", **base},
+        {"id": "m97", "index": 97, "round": "Quarter-final", "team1": "France", "team2": "Netherlands", **base},
+    ]
+    teams = ["South Africa", "Canada", "Netherlands", "Morocco", "France"]
+    stats = {
+        team: {
+            "team": team,
+            "elo": 1500,
+            "attack": 1,
+            "defense": 1,
+            "goldman_attack": 1,
+            "goldman_defense": 1,
+            "form_adjustment": 0,
+            "goldman_adjustment": 0,
+            "world_cup_stage_adjustment": 0,
+            "world_cup_knockout_matches": 0,
+            "recent_points_rate": 0,
+            "recent_goal_diff": 0,
+            "recent_opponent_elo": 1500,
+            "competitive_points_rate": 0,
+            "competitive_goal_diff": 0,
+            "competitive_opponent_elo": 1500,
+        }
+        for team in teams
+    }
+    projected = deterministic_bracket_projection(matches, stats, {}, {}, {}, {})["projected_matches"]
+    by_index = {match["index"]: match for match in projected}
+    assert by_index[90]["team1"] == "Canada"
+    assert by_index[90]["team2"] == "Morocco"
+    assert by_index[90]["winner"] == "待定"
+    assert by_index[97]["team1"] == "W89"
+    assert by_index[97]["team2"] == "W90"
+    assert by_index[97]["teams_confirmed"] is False
 
 
 def test_context_adjustments_are_bounded_and_explainable():

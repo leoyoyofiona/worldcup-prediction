@@ -4,6 +4,7 @@ from app.model import (
     build_knockout_score_projection,
     build_market_scores,
     build_context_scores,
+    apply_actual_results,
     build_post_match_calibration,
     build_predictions,
     build_prediction_performance,
@@ -205,8 +206,7 @@ def test_prediction_performance_counts_hits():
             "team2": "Czech Republic",
             "predicted_score": "2-1",
             "is_knockout": True,
-            "knockout_score_projection": {"extra_time_score": "不适用", "penalty_score": "不适用"},
-            "actual_score": {"team1": 2, "team2": 1, "score": "2-1"},
+            "actual_score": {"team1": 3, "team2": 2, "score": "3-2", "regular_time_score": "2-1", "extra_time_score": "1-1"},
             "prediction_result": {"outcome_hit": True, "exact_score_hit": True, "goal_error": 0},
         },
     ]
@@ -215,8 +215,8 @@ def test_prediction_performance_counts_hits():
     assert performance["outcome_accuracy"] == 100.0
     assert performance["exact_score_accuracy"] == 100.0
     assert performance["completed_matches"][1]["actual_90_score"] == "2-1"
-    assert performance["completed_matches"][1]["extra_time_score"] == "不适用"
-    assert performance["completed_matches"][1]["penalty_score"] == "不适用"
+    assert performance["completed_matches"][1]["extra_time_score"] == "1-1"
+    assert performance["completed_matches"][1]["penalty_score"] is None
 
 
 def test_group_table_uses_actual_scores_before_expected_points():
@@ -237,6 +237,42 @@ def test_group_table_uses_actual_scores_before_expected_points():
     assert rows[0]["gf"] == 2.0
     assert rows[1]["team"] == "South Africa"
     assert rows[1]["points"] == 0.0
+
+
+def test_actual_result_comparison_uses_regular_time_score_for_knockout():
+    matches = [
+        {
+            "id": "aet",
+            "team1": "Argentina",
+            "team2": "Cape Verde",
+            "predicted_score": "1-1",
+            "probabilities": {"team1_win": 40.0, "draw": 35.0, "team2_win": 25.0},
+            "is_knockout": True,
+        }
+    ]
+    apply_actual_results(
+        matches,
+        {
+            "aet": {
+                "team1_name": "Argentina",
+                "team2_name": "Cape Verde",
+                "team1": 3,
+                "team2": 2,
+                "score": "3-2",
+                "regular_time_team1": 1,
+                "regular_time_team2": 1,
+                "regular_time_score": "1-1",
+                "extra_time_team1": 2,
+                "extra_time_team2": 1,
+                "extra_time_score": "2-1",
+            }
+        },
+    )
+    assert matches[0]["actual_score"]["score"] == "3-2"
+    assert matches[0]["actual_score"]["regular_time_score"] == "1-1"
+    assert matches[0]["actual_score"]["extra_time_score"] == "2-1"
+    assert matches[0]["prediction_result"]["actual_outcome"] == "draw"
+    assert matches[0]["prediction_result"]["exact_score_hit"] is True
 
 
 def test_third_place_slots_are_assigned_without_duplicates():

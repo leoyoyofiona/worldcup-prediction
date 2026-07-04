@@ -24,9 +24,46 @@ def test_parse_completed_espn_event():
         "away": "Bosnia-Herzegovina",
         "home_score": 1,
         "away_score": 1,
+        "home_regular_score": 1,
+        "away_regular_score": 1,
+        "regular_time_score": "1-1",
+        "home_extra_score": 0,
+        "away_extra_score": 0,
+        "extra_time_score": None,
+        "home_penalty_score": 0,
+        "away_penalty_score": 0,
+        "penalty_score": None,
         "date": "2026-06-12T19:00Z",
         "source_url": "https://example.test",
     }
+
+
+def test_parse_aet_espn_event_splits_regular_and_extra_time():
+    event = {
+        "date": "2026-07-03T22:00Z",
+        "competitions": [
+            {
+                "status": {"type": {"completed": True, "detail": "AET", "shortDetail": "AET", "name": "STATUS_FINAL_AET"}},
+                "competitors": [
+                    {"homeAway": "home", "score": "3", "team": {"id": "202", "displayName": "Argentina"}},
+                    {"homeAway": "away", "score": "2", "team": {"id": "2597", "displayName": "Cape Verde"}},
+                ],
+                "details": [
+                    {"scoringPlay": True, "scoreValue": 1, "team": {"id": "202"}, "clock": {"value": 1682.0}},
+                    {"scoringPlay": True, "scoreValue": 1, "team": {"id": "2597"}, "clock": {"value": 3518.0}},
+                    {"scoringPlay": True, "scoreValue": 1, "team": {"id": "202"}, "clock": {"value": 5517.0}},
+                    {"scoringPlay": True, "scoreValue": 1, "team": {"id": "2597"}, "clock": {"value": 6161.0}},
+                    {"scoringPlay": True, "scoreValue": 1, "team": {"id": "202"}, "clock": {"value": 6631.0}},
+                ],
+            }
+        ],
+    }
+    parsed = parse_espn_event(event, "https://example.test/aet")
+    assert parsed["home_score"] == 3
+    assert parsed["away_score"] == 2
+    assert parsed["regular_time_score"] == "1-1"
+    assert parsed["extra_time_score"] == "2-1"
+    assert parsed["penalty_score"] is None
 
 
 def test_build_actual_results_matches_aliases_and_preserves_schedule_order():

@@ -212,13 +212,70 @@ def parse_espn_event(event: Dict[str, Any], source_url: str) -> Optional[Dict[st
     if home_score is None or away_score is None:
         return None
 
+    breakdown = score_breakdown_from_event(competition, home, away, home_score, away_score)
     return {
         "home": team_name(home),
         "away": team_name(away),
         "home_score": home_score,
         "away_score": away_score,
+        **breakdown,
         "date": event.get("date") or competition.get("date"),
         "source_url": source_url,
+    }
+
+
+def score_breakdown_from_event(
+    competition: Dict[str, Any],
+    home: Dict[str, Any],
+    away: Dict[str, Any],
+    home_score: int,
+    away_score: int,
+) -> Dict[str, Any]:
+    home_id = str((home.get("team") or {}).get("id") or home.get("id") or "")
+    away_id = str((away.get("team") or {}).get("id") or away.get("id") or "")
+    regular = {"home": 0, "away": 0}
+    extra = {"home": 0, "away": 0}
+    shootout = {
+        "home": safe_score(home.get("shootoutScore") or home.get("shootout_score")) or 0,
+        "away": safe_score(away.get("shootoutScore") or away.get("shootout_score")) or 0,
+    }
+    saw_goal_details = False
+
+    for detail in competition.get("details") or []:
+        if not detail.get("scoringPlay"):
+            continue
+        value = safe_score(detail.get("scoreValue"))
+        if not value:
+            continue
+        team_id = str((detail.get("team") or {}).get("id") or "")
+        side = "home" if team_id == home_id else "away" if team_id == away_id else None
+        if not side:
+            continue
+        saw_goal_details = True
+        if detail.get("shootout"):
+            shootout[side] += value
+            continue
+        clock_value = float((detail.get("clock") or {}).get("value") or 0.0)
+        if clock_value and clock_value > 90 * 60:
+            extra[side] += value
+        else:
+            regular[side] += value
+
+    status = (competition.get("status") or {}).get("type") or {}
+    is_after_extra = "AET" in {str(status.get("detail") or ""), str(status.get("shortDetail") or "")} or "EXTRA" in str(status.get("name") or "").upper()
+    if not saw_goal_details:
+        regular = {"home": home_score, "away": away_score}
+        extra = {"home": 0, "away": 0}
+    return {
+        "home_regular_score": regular["home"],
+        "away_regular_score": regular["away"],
+        "regular_time_score": f"{regular['home']}-{regular['away']}",
+        "home_extra_score": extra["home"],
+        "away_extra_score": extra["away"],
+        "extra_time_score": f"{extra['home']}-{extra['away']}" if is_after_extra or extra["home"] or extra["away"] else None,
+        "home_penalty_score": shootout["home"],
+        "away_penalty_score": shootout["away"],
+        "penalty_score": f"{shootout['home']}-{shootout['away']}" if shootout["home"] or shootout["away"] else None,
     }
 
 
@@ -356,17 +413,44 @@ def build_actual_results(matches: List[Dict[str, Any]], events: List[Dict[str, A
         if not matched:
             continue
         match, team1_goals, team2_goals = matched
+        team1_is_home = canonicalize_team(match.get("team1", ""), known_teams) == canonicalize_team(event.get("home", ""), known_teams)
+        regular_team1, regular_team2 = score_pair_for_schedule(event, "regular", team1_is_home, team1_goals, team2_goals)
+        extra_team1, extra_team2 = score_pair_for_schedule(event, "extra", team1_is_home, 0, 0)
+        penalty_team1, penalty_team2 = score_pair_for_schedule(event, "penalty", team1_is_home, 0, 0)
         actual_results[str(match["id"])] = {
             "team1_name": match.get("team1"),
             "team2_name": match.get("team2"),
             "team1": team1_goals,
             "team2": team2_goals,
             "score": f"{team1_goals}-{team2_goals}",
+            "regular_time_team1": regular_team1,
+            "regular_time_team2": regular_team2,
+            "regular_time_score": f"{regular_team1}-{regular_team2}",
+            "extra_time_team1": extra_team1,
+            "extra_time_team2": extra_team2,
+            "extra_time_score": f"{extra_team1}-{extra_team2}" if event.get("extra_time_score") else None,
+            "penalty_team1": penalty_team1,
+            "penalty_team2": penalty_team2,
+            "penalty_score": f"{penalty_team1}-{penalty_team2}" if event.get("penalty_score") else None,
             "source_name": SOURCE_NAME,
             "source_url": event.get("source_url") or ESPN_SCOREBOARD_URL,
             "verified_at": now_iso(),
         }
     return actual_results
+
+
+def score_pair_for_schedule(
+    event: Dict[str, Any],
+    prefix: str,
+    team1_is_home: bool,
+    fallback_team1: int,
+    fallback_team2: int,
+) -> Tuple[int, int]:
+    home_value = safe_score(event.get(f"home_{prefix}_score"))
+    away_value = safe_score(event.get(f"away_{prefix}_score"))
+    if home_value is None or away_value is None:
+        return fallback_team1, fallback_team2
+    return (home_value, away_value) if team1_is_home else (away_value, home_value)
 
 
 def build_technical_results(matches: List[Dict[str, Any]], events: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:

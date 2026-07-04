@@ -359,9 +359,8 @@ function renderPerformance(performance = {}) {
 }
 
 function renderPerformanceRow(row) {
-  const projection = knockoutProjection(row);
-  const extraTimeScore = row.is_knockout ? (row.extra_time_score || projection.extra_time_score || "待定") : "不适用";
-  const penaltyScore = row.is_knockout ? (row.penalty_score || projection.penalty_score || "待定") : "不适用";
+  const extraTimeScore = row.extra_time_score || "不适用";
+  const penaltyScore = row.penalty_score || "不适用";
   return `
     <div class="comparison-row">
       <span>${escapeHtml(matchupName(row.team1, row.team2))}<small>${escapeHtml(formatBeijingDateTime(row.starts_at))} 北京时间</small></span>

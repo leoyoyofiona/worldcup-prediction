@@ -2366,22 +2366,35 @@ def apply_actual_results(matches: List[Dict[str, Any]], actual_results: Dict[str
         goals2 = safe_int_value(actual.get("team2"))
         if goals1 is None or goals2 is None:
             continue
+        regular_goals1 = safe_int_value(actual.get("regular_time_team1"))
+        regular_goals2 = safe_int_value(actual.get("regular_time_team2"))
+        if regular_goals1 is None or regular_goals2 is None:
+            regular_goals1, regular_goals2 = goals1, goals2
 
         actual_score = {
             "team1": goals1,
             "team2": goals2,
             "score": f"{goals1}-{goals2}",
+            "regular_time_team1": regular_goals1,
+            "regular_time_team2": regular_goals2,
+            "regular_time_score": actual.get("regular_time_score") or f"{regular_goals1}-{regular_goals2}",
+            "extra_time_team1": actual.get("extra_time_team1"),
+            "extra_time_team2": actual.get("extra_time_team2"),
+            "extra_time_score": actual.get("extra_time_score"),
+            "penalty_team1": actual.get("penalty_team1"),
+            "penalty_team2": actual.get("penalty_team2"),
+            "penalty_score": actual.get("penalty_score"),
             "source_name": actual.get("source_name") or "公开赛果",
             "source_url": actual.get("source_url") or "",
             "verified_at": actual.get("verified_at"),
         }
-        actual_outcome = score_outcome(goals1, goals2)
+        actual_outcome = score_outcome(regular_goals1, regular_goals2)
         predicted = predicted_outcome(match)
         predicted_score = parse_scoreline(match.get("predicted_score", ""))
-        exact_score_hit = bool(predicted_score and predicted_score == (goals1, goals2))
+        exact_score_hit = bool(predicted_score and predicted_score == (regular_goals1, regular_goals2))
         goal_error = None
         if predicted_score:
-            goal_error = abs(predicted_score[0] - goals1) + abs(predicted_score[1] - goals2)
+            goal_error = abs(predicted_score[0] - regular_goals1) + abs(predicted_score[1] - regular_goals2)
 
         match["actual_score"] = actual_score
         match["prediction_result"] = {
@@ -2419,7 +2432,6 @@ def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str,
     for match in completed:
         actual = match["actual_score"]
         result = match["prediction_result"]
-        knockout_projection = match.get("knockout_score_projection") or {}
         rows.append(
             {
                 "id": match.get("id"),
@@ -2429,10 +2441,9 @@ def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str,
                 "team2": match.get("team2"),
                 "is_knockout": match.get("is_knockout"),
                 "predicted_score": match.get("predicted_score"),
-                "knockout_score_projection": knockout_projection,
                 "actual_90_score": actual.get("regular_time_score") or actual.get("score"),
-                "extra_time_score": knockout_projection.get("extra_time_score"),
-                "penalty_score": knockout_projection.get("penalty_score"),
+                "extra_time_score": actual.get("extra_time_score"),
+                "penalty_score": actual.get("penalty_score"),
                 "actual_score": actual.get("score"),
                 "outcome_hit": result.get("outcome_hit"),
                 "exact_score_hit": result.get("exact_score_hit"),

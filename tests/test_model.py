@@ -370,8 +370,6 @@ def test_projected_knockout_matches_reset_unconfirmed_future_round_slots():
             "round": "Quarter-final",
             "team1": "Canada",
             "team2": "Netherlands",
-            "slot_team1": "W89",
-            "slot_team2": "W90",
             "is_knockout": True,
             "teams_confirmed": True,
             "predicted_score": "1-0",
@@ -390,6 +388,8 @@ def test_projected_knockout_matches_reset_unconfirmed_future_round_slots():
         ]
     }
     apply_projected_knockout_matches(matches, tournament)
+    assert matches[0]["slot_team1"] == "W89"
+    assert matches[0]["slot_team2"] == "W90"
     assert matches[0]["team1"] == "W89"
     assert matches[0]["team2"] == "W90"
     assert matches[0]["teams_confirmed"] is False

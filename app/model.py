@@ -50,6 +50,41 @@ OFFICIAL_THIRD_PLACE_SLOT_TABLE: Dict[str, Dict[str, str]] = {
     "BDEFIJKL": {"A": "E", "B": "J", "D": "B", "E": "D", "G": "I", "I": "F", "K": "L", "L": "K"},
 }
 
+OFFICIAL_KNOCKOUT_SLOTS: Dict[int, Tuple[str, str]] = {
+    73: ("2A", "2B"),
+    74: ("1E", "3A/B/C/D/F"),
+    75: ("1F", "2C"),
+    76: ("1C", "2F"),
+    77: ("1I", "3C/D/F/G/H"),
+    78: ("2E", "2I"),
+    79: ("1A", "3C/E/F/H/I"),
+    80: ("1L", "3E/H/I/J/K"),
+    81: ("1D", "3B/E/F/I/J"),
+    82: ("1G", "3A/E/H/I/J"),
+    83: ("2K", "2L"),
+    84: ("1H", "2J"),
+    85: ("1B", "3E/F/G/I/J"),
+    86: ("1J", "2H"),
+    87: ("1K", "3D/E/I/J/L"),
+    88: ("2D", "2G"),
+    89: ("W74", "W77"),
+    90: ("W73", "W75"),
+    91: ("W76", "W78"),
+    92: ("W79", "W80"),
+    93: ("W83", "W84"),
+    94: ("W81", "W82"),
+    95: ("W86", "W88"),
+    96: ("W85", "W87"),
+    97: ("W89", "W90"),
+    98: ("W93", "W94"),
+    99: ("W91", "W92"),
+    100: ("W95", "W96"),
+    101: ("W97", "W98"),
+    102: ("W99", "W100"),
+    103: ("L101", "L102"),
+    104: ("W101", "W102"),
+}
+
 OFF_FIELD_FACTORS: Dict[str, Sequence[Dict[str, Any]]] = {
     "England": [
         {
@@ -2843,9 +2878,14 @@ def apply_projected_knockout_matches(matches: List[Dict[str, Any]], tournament: 
         team1 = projected.get("team1")
         team2 = projected.get("team2")
         if not team1 or not team2 or is_placeholder_team(team1) or is_placeholder_team(team2):
-            if match.get("slot_team1") or match.get("slot_team2"):
-                match["team1"] = match.get("slot_team1") or match.get("team1")
-                match["team2"] = match.get("slot_team2") or match.get("team2")
+            official_slots = OFFICIAL_KNOCKOUT_SLOTS.get(int(match.get("index") or 0), (None, None))
+            slot_team1 = match.get("slot_team1") or official_slots[0]
+            slot_team2 = match.get("slot_team2") or official_slots[1]
+            if slot_team1 or slot_team2:
+                match["slot_team1"] = slot_team1
+                match["slot_team2"] = slot_team2
+                match["team1"] = slot_team1 or match.get("team1")
+                match["team2"] = slot_team2 or match.get("team2")
                 match["teams_confirmed"] = False
                 match["projected_from_knockout_path"] = False
                 match["probabilities"] = None
@@ -2915,8 +2955,9 @@ def deterministic_bracket_projection(
     }
 
     for match in sorted(knockout_matches, key=lambda item: item["index"]):
-        slot1 = match.get("slot_team1") or match["team1"]
-        slot2 = match.get("slot_team2") or match["team2"]
+        official_slots = OFFICIAL_KNOCKOUT_SLOTS.get(int(match.get("index") or 0), (None, None))
+        slot1 = match.get("slot_team1") or official_slots[0] or match["team1"]
+        slot2 = match.get("slot_team2") or official_slots[1] or match["team2"]
         team1 = third_slot_assignment.get((int(match["index"]), "team1")) or resolve_slot(slot1, position_map, winners, losers, used_third_groups)
         team2 = third_slot_assignment.get((int(match["index"]), "team2")) or resolve_slot(slot2, position_map, winners, losers, used_third_groups)
         current_stage = stage_key(match.get("round", ""))

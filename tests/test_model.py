@@ -2,6 +2,7 @@ from app.model import (
     build_betting_scores,
     build_betting_analysis,
     build_knockout_score_projection,
+    actual_knockout_result,
     build_market_scores,
     build_context_scores,
     apply_actual_results,
@@ -273,6 +274,21 @@ def test_actual_result_comparison_uses_regular_time_score_for_knockout():
     assert matches[0]["actual_score"]["extra_time_score"] == "2-1"
     assert matches[0]["prediction_result"]["actual_outcome"] == "draw"
     assert matches[0]["prediction_result"]["exact_score_hit"] is True
+
+
+def test_actual_knockout_result_uses_penalties_after_draw():
+    match = {
+        "actual_score": {
+            "team1": 1,
+            "team2": 1,
+            "score": "1-1",
+            "regular_time_score": "1-1",
+            "penalty_team1": 4,
+            "penalty_team2": 6,
+            "penalty_score": "4-6",
+        }
+    }
+    assert actual_knockout_result(match, "Netherlands", "Morocco") == ("Morocco", "Netherlands")
 
 
 def test_third_place_slots_are_assigned_without_duplicates():

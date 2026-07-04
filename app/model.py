@@ -2579,6 +2579,18 @@ def actual_goals(match: Dict[str, Any]) -> Optional[Tuple[int, int]]:
     return goals1, goals2
 
 
+def actual_knockout_result(match: Dict[str, Any], team1: str, team2: str) -> Optional[Tuple[str, str]]:
+    actual = match.get("actual_score") or {}
+    goals = actual_goals(match)
+    if goals and goals[0] != goals[1]:
+        return (team1, team2) if goals[0] > goals[1] else (team2, team1)
+    penalties1 = safe_int_value(actual.get("penalty_team1"))
+    penalties2 = safe_int_value(actual.get("penalty_team2"))
+    if penalties1 is not None and penalties2 is not None and penalties1 != penalties2:
+        return (team1, team2) if penalties1 > penalties2 else (team2, team1)
+    return None
+
+
 def points_from_goals(goals1: int, goals2: int) -> Tuple[float, float]:
     if goals1 > goals2:
         return 3.0, 0.0
@@ -2901,12 +2913,9 @@ def deterministic_bracket_projection(
             continue
         prediction = virtual_prediction(team1, team2, team_stats, market_scores, betting_scores, rankings, context_scores, match)
         advance = prediction.get("advance_probabilities") or {"team1": 50.0, "team2": 50.0}
-        actual = actual_goals(match)
-        if actual and actual[0] != actual[1]:
-            if actual[0] > actual[1]:
-                winner, loser = team1, team2
-            else:
-                winner, loser = team2, team1
+        actual_result = actual_knockout_result(match, team1, team2)
+        if actual_result:
+            winner, loser = actual_result
         elif float(advance["team1"]) >= float(advance["team2"]):
             winner, loser = team1, team2
         else:

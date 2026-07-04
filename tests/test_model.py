@@ -214,6 +214,7 @@ def test_prediction_performance_counts_hits():
     assert performance["sample_size"] == 2
     assert performance["outcome_accuracy"] == 100.0
     assert performance["exact_score_accuracy"] == 100.0
+    assert performance["completed_matches"][1]["actual_90_score"] == "2-1"
     assert performance["completed_matches"][1]["extra_time_score"] == "不适用"
     assert performance["completed_matches"][1]["penalty_score"] == "不适用"
 

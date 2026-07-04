@@ -2419,6 +2419,7 @@ def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str,
     for match in completed:
         actual = match["actual_score"]
         result = match["prediction_result"]
+        knockout_projection = match.get("knockout_score_projection") or {}
         rows.append(
             {
                 "id": match.get("id"),
@@ -2426,7 +2427,11 @@ def build_prediction_performance(matches: Sequence[Dict[str, Any]]) -> Dict[str,
                 "starts_at": match.get("starts_at"),
                 "team1": match.get("team1"),
                 "team2": match.get("team2"),
+                "is_knockout": match.get("is_knockout"),
                 "predicted_score": match.get("predicted_score"),
+                "knockout_score_projection": knockout_projection,
+                "extra_time_score": knockout_projection.get("extra_time_score"),
+                "penalty_score": knockout_projection.get("penalty_score"),
                 "actual_score": actual.get("score"),
                 "outcome_hit": result.get("outcome_hit"),
                 "exact_score_hit": result.get("exact_score_hit"),

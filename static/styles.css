@@ -258,7 +258,7 @@ button.primary:hover {
 .comparison-head,
 .comparison-row {
   display: grid;
-  grid-template-columns: minmax(180px, 1.5fr) minmax(90px, 0.7fr) minmax(90px, 0.7fr) minmax(110px, 0.7fr);
+  grid-template-columns: minmax(180px, 1.5fr) repeat(4, minmax(76px, 0.65fr)) minmax(110px, 0.75fr);
   gap: 10px;
   align-items: center;
 }

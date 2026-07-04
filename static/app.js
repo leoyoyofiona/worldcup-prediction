@@ -79,6 +79,9 @@ const translations = {
     averageGoalError: "平均进球误差",
     completedComparison: "已完赛对比",
     prediction: "模型预测",
+    regularTimePrediction: "90分钟预测",
+    extraTimePrediction: "加时比分",
+    penaltyPrediction: "点球比分",
     actual: "真实赛果",
     result: "结果",
     source: "来源",
@@ -344,20 +347,31 @@ function renderPerformance(performance = {}) {
     <div class="comparison-note">${escapeHtml(performance.note || t("earlySampleNote"))}</div>
     <div class="comparison-head">
       <span>${escapeHtml(t("completedComparison"))}</span>
-      <span>${escapeHtml(t("prediction"))}</span>
+      <span>${escapeHtml(t("regularTimePrediction"))}</span>
+      <span>${escapeHtml(t("extraTimePrediction"))}</span>
+      <span>${escapeHtml(t("penaltyPrediction"))}</span>
       <span>${escapeHtml(t("actual"))}</span>
       <span>${escapeHtml(t("result"))}</span>
     </div>
-    ${rows.map((row) => `
-      <div class="comparison-row">
-        <span>${escapeHtml(matchupName(row.team1, row.team2))}<small>${escapeHtml(formatBeijingDateTime(row.starts_at))} 北京时间</small></span>
-        <strong>${escapeHtml(row.predicted_score || "--")}</strong>
-        <strong>${escapeHtml(row.actual_score || "--")}</strong>
-        <span class="${row.exact_score_hit ? "hit" : row.outcome_hit ? "partial-hit" : "miss"}">
-          ${escapeHtml(row.exact_score_hit ? t("exactHit") : row.outcome_hit ? t("outcomeHit") : t("miss"))}
-        </span>
-      </div>
-    `).join("")}
+    ${rows.map(renderPerformanceRow).join("")}
+  `;
+}
+
+function renderPerformanceRow(row) {
+  const projection = knockoutProjection(row);
+  const extraTimeScore = row.is_knockout ? (row.extra_time_score || projection.extra_time_score || "待定") : "不适用";
+  const penaltyScore = row.is_knockout ? (row.penalty_score || projection.penalty_score || "待定") : "不适用";
+  return `
+    <div class="comparison-row">
+      <span>${escapeHtml(matchupName(row.team1, row.team2))}<small>${escapeHtml(formatBeijingDateTime(row.starts_at))} 北京时间</small></span>
+      <strong>${escapeHtml(row.predicted_score || "--")}</strong>
+      <strong>${escapeHtml(extraTimeScore)}</strong>
+      <strong>${escapeHtml(penaltyScore)}</strong>
+      <strong>${escapeHtml(row.actual_score || "--")}</strong>
+      <span class="${row.exact_score_hit ? "hit" : row.outcome_hit ? "partial-hit" : "miss"}">
+        ${escapeHtml(row.exact_score_hit ? t("exactHit") : row.outcome_hit ? t("outcomeHit") : t("miss"))}
+      </span>
+    </div>
   `;
 }
 

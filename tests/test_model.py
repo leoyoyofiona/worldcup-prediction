@@ -204,6 +204,8 @@ def test_prediction_performance_counts_hits():
             "team1": "South Korea",
             "team2": "Czech Republic",
             "predicted_score": "2-1",
+            "is_knockout": True,
+            "knockout_score_projection": {"extra_time_score": "不适用", "penalty_score": "不适用"},
             "actual_score": {"team1": 2, "team2": 1, "score": "2-1"},
             "prediction_result": {"outcome_hit": True, "exact_score_hit": True, "goal_error": 0},
         },
@@ -212,6 +214,8 @@ def test_prediction_performance_counts_hits():
     assert performance["sample_size"] == 2
     assert performance["outcome_accuracy"] == 100.0
     assert performance["exact_score_accuracy"] == 100.0
+    assert performance["completed_matches"][1]["extra_time_score"] == "不适用"
+    assert performance["completed_matches"][1]["penalty_score"] == "不适用"
 
 
 def test_group_table_uses_actual_scores_before_expected_points():

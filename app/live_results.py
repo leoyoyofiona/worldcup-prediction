@@ -1,5 +1,6 @@
 from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
+import re
 from typing import Any, Dict, List, Optional, Tuple
 
 import httpx
@@ -7,15 +8,18 @@ import httpx
 from .cache import now_iso
 from .config import MODEL_VERSION
 from .model import (
+    OFFICIAL_KNOCKOUT_SLOTS,
     apply_actual_results,
     apply_post_match_calibration,
     apply_projected_knockout_matches,
     apply_technical_calibration,
+    actual_knockout_result,
     build_technical_profiles,
     build_prediction_performance,
     build_post_match_calibration,
     build_tournament_projection,
     canonicalize_team,
+    is_placeholder_team,
     match_status,
 )
 
@@ -24,6 +28,8 @@ ESPN_SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa
 ESPN_SUMMARY_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary"
 SOURCE_ID = "espn_live_results"
 SOURCE_NAME = "ESPN 世界杯实时比分/技术统计"
+FALLBACK_SOURCE_NAME = "公开淘汰赛赛果兜底"
+FALLBACK_SOURCE_URL = "https://www.espn.com/soccer/bracket"
 TOURNAMENT_START = date(2026, 6, 11)
 TECHNICAL_STAT_MAP = {
     "possessionPct": "possession_pct",
@@ -47,10 +53,17 @@ TECHNICAL_STAT_MAP = {
 def sync_live_results(cache: Dict[str, Any], include_technical: bool = True) -> Dict[str, Any]:
     payload = deepcopy(cache)
     matches = payload.get("matches") or []
-    events, status = fetch_espn_completed_events(include_technical=include_technical)
+    fallback_events = static_knockout_events()
 
     for match in matches:
         match["status"] = match_status(match.get("starts_at"))
+
+    apply_live_results_iteratively(payload, matches, fallback_events)
+    events, status = fetch_espn_completed_events(
+        include_technical=include_technical,
+        target_dates=live_event_dates(matches),
+    )
+    events = fallback_events + events
 
     actual_results = apply_live_results_iteratively(payload, matches, events)
     technical_results = build_technical_results(matches, events)
@@ -105,11 +118,12 @@ def apply_live_results_iteratively(
         before = live_sync_snapshot(matches)
         actual_results = build_actual_results(matches, events)
         apply_actual_results(matches, actual_results)
-        rebuild_tournament(payload, matches)
+        resolve_actual_knockout_slots(matches)
         if live_sync_snapshot(matches) == before:
             break
     actual_results = build_actual_results(matches, events)
     apply_actual_results(matches, actual_results)
+    rebuild_tournament(payload, matches)
     return actual_results
 
 
@@ -126,6 +140,127 @@ def live_sync_snapshot(matches: List[Dict[str, Any]]) -> Tuple[Tuple[Any, ...], 
         )
         for match in matches
     )
+
+
+def static_knockout_events() -> List[Dict[str, Any]]:
+    rows = [
+        ("2026-06-28T20:00Z", "South Africa", "Canada", 0, 1, 0, 1, 0, 0, None),
+        ("2026-06-29T17:00Z", "Brazil", "Japan", 2, 1, 2, 1, 0, 0, None),
+        ("2026-06-29T20:00Z", "Germany", "Paraguay", 1, 1, 1, 1, 0, 0, "6-8"),
+        ("2026-06-29T23:00Z", "Netherlands", "Morocco", 1, 1, 1, 1, 0, 0, "4-6"),
+        ("2026-06-30T17:00Z", "Ivory Coast", "Norway", 1, 2, 1, 2, 0, 0, None),
+        ("2026-06-30T20:00Z", "France", "Sweden", 3, 0, 3, 0, 0, 0, None),
+        ("2026-06-30T23:00Z", "Mexico", "Ecuador", 2, 0, 2, 0, 0, 0, None),
+        ("2026-07-01T17:00Z", "England", "Congo DR", 2, 1, 2, 1, 0, 0, None),
+        ("2026-07-01T20:00Z", "Belgium", "Senegal", 3, 2, 2, 2, 1, 0, None),
+        ("2026-07-01T23:00Z", "United States", "Bosnia-Herzegovina", 2, 0, 2, 0, 0, 0, None),
+        ("2026-07-02T17:00Z", "Spain", "Austria", 3, 0, 3, 0, 0, 0, None),
+        ("2026-07-02T20:00Z", "Portugal", "Croatia", 2, 1, 2, 1, 0, 0, None),
+        ("2026-07-02T23:00Z", "Switzerland", "Algeria", 2, 0, 2, 0, 0, 0, None),
+        ("2026-07-03T17:00Z", "Australia", "Egypt", 1, 1, 1, 1, 0, 0, "4-8"),
+        ("2026-07-03T20:00Z", "Argentina", "Cape Verde", 3, 2, 1, 1, 2, 1, None),
+        ("2026-07-03T23:00Z", "Colombia", "Ghana", 1, 0, 1, 0, 0, 0, None),
+        ("2026-07-04T17:00Z", "Canada", "Morocco", 0, 3, 0, 3, 0, 0, None),
+        ("2026-07-04T21:00Z", "Paraguay", "France", 0, 1, 0, 1, 0, 0, None),
+        ("2026-07-05T20:00Z", "Brazil", "Norway", 1, 2, 1, 2, 0, 0, None),
+        ("2026-07-06T01:00Z", "Mexico", "England", 2, 3, 2, 3, 0, 0, None),
+        ("2026-07-06T19:00Z", "Portugal", "Spain", 0, 1, 0, 1, 0, 0, None),
+        ("2026-07-07T00:00Z", "United States", "Belgium", 1, 4, 1, 4, 0, 0, None),
+        ("2026-07-07T16:00Z", "Argentina", "Egypt", 3, 2, 3, 2, 0, 0, None),
+        ("2026-07-07T20:00Z", "Switzerland", "Colombia", 0, 0, 0, 0, 0, 0, "8-6"),
+        ("2026-07-09T20:00Z", "France", "Morocco", 2, 0, 2, 0, 0, 0, None),
+        ("2026-07-10T19:00Z", "Spain", "Belgium", 2, 1, 2, 1, 0, 0, None),
+        ("2026-07-11T21:00Z", "Norway", "England", 1, 2, 1, 1, 0, 1, None),
+        ("2026-07-12T01:00Z", "Argentina", "Switzerland", 3, 1, 1, 1, 2, 0, None),
+    ]
+    return [
+        static_event(date_text, home, away, home_score, away_score, home_regular, away_regular, home_extra, away_extra, penalty)
+        for date_text, home, away, home_score, away_score, home_regular, away_regular, home_extra, away_extra, penalty in rows
+    ]
+
+
+def static_event(
+    date_text: str,
+    home: str,
+    away: str,
+    home_score: int,
+    away_score: int,
+    home_regular: int,
+    away_regular: int,
+    home_extra: int,
+    away_extra: int,
+    penalty_score: Optional[str],
+) -> Dict[str, Any]:
+    home_penalty, away_penalty = parse_penalty_score(penalty_score)
+    return {
+        "home": home,
+        "away": away,
+        "home_score": home_score,
+        "away_score": away_score,
+        "home_regular_score": home_regular,
+        "away_regular_score": away_regular,
+        "regular_time_score": f"{home_regular}-{away_regular}",
+        "home_extra_score": home_extra,
+        "away_extra_score": away_extra,
+        "extra_time_score": f"{home_extra}-{away_extra}" if home_extra or away_extra else None,
+        "home_penalty_score": home_penalty,
+        "away_penalty_score": away_penalty,
+        "penalty_score": penalty_score,
+        "date": date_text,
+        "source_name": FALLBACK_SOURCE_NAME,
+        "source_url": FALLBACK_SOURCE_URL,
+    }
+
+
+def parse_penalty_score(score: Optional[str]) -> Tuple[int, int]:
+    if not score:
+        return 0, 0
+    parts = score.split("-", 1)
+    if len(parts) != 2:
+        return 0, 0
+    return safe_score(parts[0]) or 0, safe_score(parts[1]) or 0
+
+
+def resolve_actual_knockout_slots(matches: List[Dict[str, Any]]) -> bool:
+    winners: Dict[int, str] = {}
+    losers: Dict[int, str] = {}
+    changed = False
+    for match in sorted((item for item in matches if item.get("is_knockout")), key=lambda item: int(item.get("index") or 0)):
+        index = int(match.get("index") or 0)
+        official_slot1, official_slot2 = OFFICIAL_KNOCKOUT_SLOTS.get(index, (None, None))
+        slot1 = str(match.get("slot_team1") or official_slot1 or match.get("team1") or "")
+        slot2 = str(match.get("slot_team2") or official_slot2 or match.get("team2") or "")
+        team1 = resolve_actual_slot(slot1, winners, losers) or concrete_team(match.get("team1"))
+        team2 = resolve_actual_slot(slot2, winners, losers) or concrete_team(match.get("team2"))
+        if team1 and team2:
+            if match.get("team1") != team1 or match.get("team2") != team2 or not match.get("teams_confirmed"):
+                match["team1"] = team1
+                match["team2"] = team2
+                match["teams_confirmed"] = True
+                changed = True
+        if not team1 or not team2:
+            continue
+        actual_result = actual_knockout_result(match, team1, team2)
+        if actual_result:
+            winners[index], losers[index] = actual_result
+    return changed
+
+
+def resolve_actual_slot(slot: str, winners: Dict[int, str], losers: Dict[int, str]) -> Optional[str]:
+    match = re.fullmatch(r"W(\d{2,3})", (slot or "").strip().upper())
+    if match:
+        return winners.get(int(match.group(1)))
+    match = re.fullmatch(r"L(\d{2,3})", (slot or "").strip().upper())
+    if match:
+        return losers.get(int(match.group(1)))
+    return concrete_team(slot)
+
+
+def concrete_team(team: Any) -> Optional[str]:
+    value = str(team or "").strip()
+    if not value or is_placeholder_team(value):
+        return None
+    return canonicalize_team(value)
 
 
 def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -> None:
@@ -173,17 +308,56 @@ def collect_rankings(matches: List[Dict[str, Any]]) -> Dict[str, int]:
     return rankings
 
 
-def fetch_espn_completed_events(include_technical: bool = True) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+def live_event_start_date(matches: List[Dict[str, Any]]) -> date:
+    dates = live_event_dates(matches)
+    return min(dates) if dates else TOURNAMENT_START
+
+
+def live_event_dates(matches: List[Dict[str, Any]]) -> List[date]:
+    knockout_dates: List[date] = []
+    other_dates: List[date] = []
+    for match in matches:
+        starts_at = parse_datetime(match.get("starts_at"))
+        if not starts_at:
+            continue
+        if match_status(match.get("starts_at")) != "已结束":
+            continue
+        if match.get("actual_score"):
+            continue
+        dates = [starts_at.date() - timedelta(days=1), starts_at.date()]
+        if match.get("is_knockout"):
+            knockout_dates.extend(dates)
+        else:
+            other_dates.extend(dates)
+    today = datetime.now(timezone.utc).date()
+    recent_dates = [today - timedelta(days=1), today, today + timedelta(days=1)]
+    selected_dates = knockout_dates or other_dates
+    selected_dates.extend(recent_dates)
+    return sorted({day for day in selected_dates if TOURNAMENT_START <= day <= today + timedelta(days=1)}, reverse=True)
+
+
+def fetch_espn_completed_events(
+    include_technical: bool = True,
+    start_date: Optional[date] = None,
+    target_dates: Optional[List[date]] = None,
+) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     events: List[Dict[str, Any]] = []
     fetched_bytes = 0
     last_url = ESPN_SCOREBOARD_URL
     failures: List[str] = []
     today = datetime.now(timezone.utc).date() + timedelta(days=1)
-    days = max(0, min((today - TOURNAMENT_START).days, 80))
+    if target_dates:
+        fetch_dates = sorted({day for day in target_dates if TOURNAMENT_START <= day <= today}, reverse=True)[:80]
+    else:
+        first_day = max(TOURNAMENT_START, start_date or TOURNAMENT_START)
+        if first_day > today:
+            first_day = today
+        days = max(0, min((today - first_day).days, 80))
+        fetch_dates = [first_day + timedelta(days=offset) for offset in range(days + 1)]
 
-    with httpx.Client(timeout=12.0, follow_redirects=True, headers={"User-Agent": "worldcup-predictor/1.0"}) as client:
-        for offset in range(days + 1):
-            current = TOURNAMENT_START + timedelta(days=offset)
+    timeout = httpx.Timeout(5.0, connect=3.0)
+    with httpx.Client(timeout=timeout, follow_redirects=True, headers={"User-Agent": "worldcup-predictor/1.0"}) as client:
+        for current in fetch_dates:
             params = {"dates": current.strftime("%Y%m%d")}
             try:
                 response = client.get(ESPN_SCOREBOARD_URL, params=params)
@@ -472,7 +646,7 @@ def build_actual_results(matches: List[Dict[str, Any]], events: List[Dict[str, A
             "penalty_team1": penalty_team1,
             "penalty_team2": penalty_team2,
             "penalty_score": f"{penalty_team1}-{penalty_team2}" if event.get("penalty_score") else None,
-            "source_name": SOURCE_NAME,
+            "source_name": event.get("source_name") or SOURCE_NAME,
             "source_url": event.get("source_url") or ESPN_SCOREBOARD_URL,
             "verified_at": now_iso(),
         }

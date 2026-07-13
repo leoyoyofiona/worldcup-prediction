@@ -195,8 +195,38 @@ class PredictionService:
             return cache
         if not self._build_lock.acquire(blocking=False):
             return cache
+        if force_sync:
+            return self._run_inline_auto_sync(cache)
         self._start_auto_sync_task(cache)
         return cache
+
+    def _run_inline_auto_sync(self, cache: Dict[str, Any]) -> Dict[str, Any]:
+        with self._state_lock:
+            self._task_state = {
+                "running": True,
+                "kind": "auto_sync",
+                "message": "正在自动同步最新赛果并刷新预测。",
+                "started_at": now_iso(),
+                "finished_at": None,
+                "error": None,
+            }
+        try:
+            updated = sync_live_results(cache, include_technical=False)
+            save_cache(updated)
+            error = None
+            return updated
+        except Exception as exc:
+            error = str(exc)
+            cache["error"] = f"自动同步失败，继续使用旧预测：{exc}"
+            save_cache(cache)
+            return cache
+        finally:
+            with self._state_lock:
+                self._task_state["running"] = False
+                self._task_state["message"] = "后台任务已完成" if error is None else "后台任务失败"
+                self._task_state["finished_at"] = now_iso()
+                self._task_state["error"] = error
+            self._build_lock.release()
 
     def _start_auto_sync_task(self, cache: Dict[str, Any]) -> None:
         with self._state_lock:

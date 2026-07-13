@@ -48,16 +48,17 @@ def sync_live_results(cache: Dict[str, Any], include_technical: bool = True) -> 
     payload = deepcopy(cache)
     matches = payload.get("matches") or []
     events, status = fetch_espn_completed_events(include_technical=include_technical)
-    actual_results = build_actual_results(matches, events)
-    technical_results = build_technical_results(matches, events)
 
     for match in matches:
         match["status"] = match_status(match.get("starts_at"))
+
+    actual_results = apply_live_results_iteratively(payload, matches, events)
+    technical_results = build_technical_results(matches, events)
+    for match in matches:
         technical = technical_results.get(str(match.get("id")))
         if technical:
             match["technical_stats"] = technical
 
-    apply_actual_results(matches, actual_results)
     performance = build_prediction_performance(matches)
     post_match_calibration = build_post_match_calibration(matches)
     apply_post_match_calibration(matches, post_match_calibration)
@@ -91,6 +92,40 @@ def sync_live_results(cache: Dict[str, Any], include_technical: bool = True) -> 
     )
     payload["sources"] = upsert_source(payload.get("sources") or [], status)
     return payload
+
+
+def apply_live_results_iteratively(
+    payload: Dict[str, Any],
+    matches: List[Dict[str, Any]],
+    events: List[Dict[str, Any]],
+    max_passes: int = 6,
+) -> Dict[str, Dict[str, Any]]:
+    actual_results: Dict[str, Dict[str, Any]] = {}
+    for _ in range(max_passes):
+        before = live_sync_snapshot(matches)
+        actual_results = build_actual_results(matches, events)
+        apply_actual_results(matches, actual_results)
+        rebuild_tournament(payload, matches)
+        if live_sync_snapshot(matches) == before:
+            break
+    actual_results = build_actual_results(matches, events)
+    apply_actual_results(matches, actual_results)
+    return actual_results
+
+
+def live_sync_snapshot(matches: List[Dict[str, Any]]) -> Tuple[Tuple[Any, ...], ...]:
+    return tuple(
+        (
+            match.get("id"),
+            match.get("team1"),
+            match.get("team2"),
+            (match.get("actual_score") or {}).get("score"),
+            (match.get("actual_score") or {}).get("regular_time_score"),
+            (match.get("actual_score") or {}).get("extra_time_score"),
+            (match.get("actual_score") or {}).get("penalty_score"),
+        )
+        for match in matches
+    )
 
 
 def rebuild_tournament(payload: Dict[str, Any], matches: List[Dict[str, Any]]) -> None:
@@ -142,6 +177,7 @@ def fetch_espn_completed_events(include_technical: bool = True) -> Tuple[List[Di
     events: List[Dict[str, Any]] = []
     fetched_bytes = 0
     last_url = ESPN_SCOREBOARD_URL
+    failures: List[str] = []
     today = datetime.now(timezone.utc).date() + timedelta(days=1)
     days = max(0, min((today - TOURNAMENT_START).days, 80))
 
@@ -149,11 +185,15 @@ def fetch_espn_completed_events(include_technical: bool = True) -> Tuple[List[Di
         for offset in range(days + 1):
             current = TOURNAMENT_START + timedelta(days=offset)
             params = {"dates": current.strftime("%Y%m%d")}
-            response = client.get(ESPN_SCOREBOARD_URL, params=params)
-            last_url = str(response.url)
-            response.raise_for_status()
-            fetched_bytes += len(response.content)
-            data = response.json()
+            try:
+                response = client.get(ESPN_SCOREBOARD_URL, params=params)
+                last_url = str(response.url)
+                response.raise_for_status()
+                fetched_bytes += len(response.content)
+                data = response.json()
+            except Exception as exc:
+                failures.append(f"{current.isoformat()} {type(exc).__name__}")
+                continue
             for raw_event in data.get("events") or []:
                 summary = fetch_espn_summary(client, raw_event) if include_technical else None
                 technical = parse_espn_technical_event(raw_event, last_url, summary) if include_technical else None
@@ -170,11 +210,11 @@ def fetch_espn_completed_events(include_technical: bool = True) -> Tuple[List[Di
         "id": SOURCE_ID,
         "name": SOURCE_NAME,
         "url": last_url,
-        "ok": True,
+        "ok": bool(events),
         "using_cache": False,
         "fetched_at": now_iso(),
         "bytes": fetched_bytes,
-        "message": "",
+        "message": "；".join(failures[:3]) if failures else "",
     }
 
 

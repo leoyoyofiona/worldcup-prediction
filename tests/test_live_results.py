@@ -1,4 +1,10 @@
-from app.live_results import build_actual_results, build_technical_results, parse_espn_event, parse_espn_technical_event
+from app.live_results import (
+    apply_live_results_iteratively,
+    build_actual_results,
+    build_technical_results,
+    parse_espn_event,
+    parse_espn_technical_event,
+)
 from datetime import datetime, timezone
 
 from app.model import apply_technical_calibration, build_technical_profiles
@@ -127,6 +133,64 @@ def test_build_actual_results_matches_turkiye_alias():
     actuals = build_actual_results(matches, events)
     assert actuals["wc2026-022"]["score"] == "0-1"
     assert actuals["wc2026-022"]["team1_name"] == "Turkey"
+
+
+def test_live_result_sync_resolves_knockout_placeholders_before_matching_later_round(monkeypatch):
+    matches = [
+        {
+            "id": "m89",
+            "index": 89,
+            "round": "Round of 16",
+            "is_knockout": True,
+            "team1": "Paraguay",
+            "team2": "France",
+            "actual_score": {"team1": 0, "team2": 1, "score": "0-1"},
+        },
+        {
+            "id": "m90",
+            "index": 90,
+            "round": "Round of 16",
+            "is_knockout": True,
+            "team1": "Canada",
+            "team2": "Morocco",
+            "actual_score": {"team1": 0, "team2": 3, "score": "0-3"},
+        },
+        {
+            "id": "m97",
+            "index": 97,
+            "round": "Quarter-final",
+            "is_knockout": True,
+            "team1": "W89",
+            "team2": "W90",
+            "slot_team1": "W89",
+            "slot_team2": "W90",
+            "starts_at": "2026-07-09T20:00:00+00:00",
+        },
+    ]
+    events = [
+        {
+            "home": "France",
+            "away": "Morocco",
+            "home_score": 2,
+            "away_score": 0,
+            "date": "2026-07-09T20:00Z",
+            "source_url": "https://example.test/qf",
+        }
+    ]
+
+    def fake_rebuild_tournament(payload, current_matches):
+        for match in current_matches:
+            if match.get("index") == 97:
+                match["team1"] = "France"
+                match["team2"] = "Morocco"
+                match["teams_confirmed"] = True
+
+    monkeypatch.setattr("app.live_results.rebuild_tournament", fake_rebuild_tournament)
+
+    actuals = apply_live_results_iteratively({}, matches, events)
+
+    assert actuals["m97"]["score"] == "2-0"
+    assert matches[2]["actual_score"]["score"] == "2-0"
 
 
 def test_parse_espn_technical_event_includes_match_stats_and_substitutions():

@@ -154,7 +154,7 @@ button.primary:hover {
 
 .visitor-card {
   display: grid;
-  grid-template-columns: 40px auto auto;
+  grid-template-columns: 30px auto auto;
   gap: 12px;
   align-items: center;
   min-width: 0;
@@ -178,8 +178,8 @@ button.primary:hover {
 }
 
 .visitor-card svg {
-  width: 34px;
-  height: 34px;
+  width: 26px;
+  height: 26px;
   stroke: #24334a;
   stroke-width: 1.9;
   stroke-linecap: round;
@@ -1033,7 +1033,12 @@ button.primary:hover {
     min-width: 0;
     height: 74px;
     padding: 0 18px;
-    grid-template-columns: 34px auto auto;
+    grid-template-columns: 28px auto auto;
+  }
+
+  .visitor-card svg {
+    width: 24px;
+    height: 24px;
   }
 
   .visitor-card span {

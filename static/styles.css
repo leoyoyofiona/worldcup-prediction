@@ -144,41 +144,80 @@ button.primary:hover {
 }
 
 .visitor-counter {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr) minmax(220px, 1.4fr);
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
   align-items: center;
   margin: 12px 28px 0;
-  padding: 14px 16px;
-  border: 1px solid #c9ddbd;
-  border-left: 8px solid var(--green);
-  border-radius: 8px;
-  background: #eff8e9;
-  box-shadow: 0 14px 30px rgba(31, 122, 76, 0.12);
+  padding: 0;
 }
 
-.visitor-counter div {
+.visitor-card {
+  display: grid;
+  grid-template-columns: 40px auto auto;
+  gap: 12px;
+  align-items: center;
   min-width: 0;
+  height: 80px;
+  padding: 0 26px;
+  border: 2px solid #d9e2ef;
+  border-radius: 12px;
+  background: #fbfdff;
+  box-shadow: 0 16px 34px rgba(90, 105, 120, 0.08);
 }
 
-.visitor-counter span {
-  display: block;
-  color: #42604e;
-  font-size: 12px;
-  font-weight: 700;
+.visitor-card-primary {
+  min-width: 300px;
+  border-color: #f6b548;
+  background: #fff4d9;
+  box-shadow: 0 18px 34px rgba(180, 84, 18, 0.10);
 }
 
-.visitor-counter strong {
-  display: block;
-  margin-top: 2px;
-  color: var(--green-dark);
-  font-size: 28px;
+.visitor-card-secondary {
+  min-width: 230px;
+}
+
+.visitor-card svg {
+  width: 34px;
+  height: 34px;
+  stroke: #24334a;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.visitor-card-primary svg {
+  stroke: #8c2f12;
+}
+
+.visitor-card span {
+  color: #26334b;
+  font-size: 23px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.visitor-card-primary span {
+  color: #8c2f12;
+}
+
+.visitor-card strong {
+  color: #24334a;
+  font-size: 34px;
+  font-weight: 850;
   line-height: 1.1;
+  white-space: nowrap;
+}
+
+.visitor-card-primary strong {
+  color: #b94f0f;
 }
 
 .visitor-counter p {
+  flex: 1 1 260px;
   margin: 0;
-  color: #42604e;
+  color: var(--muted);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -986,13 +1025,23 @@ button.primary:hover {
   }
 
   .visitor-counter {
-    grid-template-columns: 1fr 1fr;
     margin: 12px 14px 0;
-    padding: 12px;
   }
 
-  .visitor-counter p {
-    grid-column: 1 / -1;
+  .visitor-card {
+    flex: 1 1 260px;
+    min-width: 0;
+    height: 74px;
+    padding: 0 18px;
+    grid-template-columns: 34px auto auto;
+  }
+
+  .visitor-card span {
+    font-size: 20px;
+  }
+
+  .visitor-card strong {
+    font-size: 30px;
   }
 
   .filters {
@@ -1036,11 +1085,20 @@ button.primary:hover {
   }
 
   .visitor-counter {
+    display: grid;
     grid-template-columns: 1fr;
   }
 
-  .visitor-counter p {
-    grid-column: auto;
+  .visitor-card {
+    width: 100%;
+  }
+
+  .visitor-card span {
+    font-size: 19px;
+  }
+
+  .visitor-card strong {
+    font-size: 28px;
   }
 
   .xg-strip {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>2026 男足世界杯预测</title>
     <link rel="icon" href="static/assets/leo-logo.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="static/styles.css?v=20260704-performance-tiebreak" />
+    <link rel="stylesheet" href="static/styles.css?v=20260715-visitor-card" />
   </head>
   <body>
     <header class="topbar">
@@ -28,11 +28,23 @@
     </section>
 
     <section class="visitor-counter" aria-label="访问统计">
-      <div>
-        <span>累计访问次数</span>
+      <div class="visitor-card visitor-card-primary">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        <span>累计访问</span>
         <strong id="visitorTotal">--</strong>
       </div>
-      <div>
+      <div class="visitor-card visitor-card-secondary">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <path d="M16 2v4" />
+          <path d="M8 2v4" />
+          <path d="M3 10h18" />
+        </svg>
         <span>今日访问</span>
         <strong id="visitorToday">--</strong>
       </div>
@@ -140,6 +152,6 @@
       </section>
     </div>
 
-    <script src="static/app.js?v=20260704-pending-knockout-slots"></script>
+    <script src="static/app.js?v=20260715-visitor-card"></script>
   </body>
 </html>

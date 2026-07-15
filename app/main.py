@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .config import STATIC_DIR
 from .services import service
+from .visitors import record_visit, visitor_stats
 
 
 app = FastAPI(title="2026 男足世界杯预测模型", version="0.1.0")
@@ -23,6 +24,16 @@ def favicon() -> Response:
 @app.get("/api/status")
 def get_status(force_sync: bool = False):
     return service.status(force_sync=force_sync)
+
+
+@app.get("/api/visits")
+def get_visits():
+    return visitor_stats()
+
+
+@app.post("/api/visits")
+def post_visit():
+    return record_visit()
 
 
 @app.post("/api/update")

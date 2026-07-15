@@ -143,6 +143,46 @@ button.primary:hover {
   line-height: 1.5;
 }
 
+.visitor-counter {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr) minmax(220px, 1.4fr);
+  gap: 12px;
+  align-items: center;
+  margin: 12px 28px 0;
+  padding: 14px 16px;
+  border: 1px solid #c9ddbd;
+  border-left: 8px solid var(--green);
+  border-radius: 8px;
+  background: #eff8e9;
+  box-shadow: 0 14px 30px rgba(31, 122, 76, 0.12);
+}
+
+.visitor-counter div {
+  min-width: 0;
+}
+
+.visitor-counter span {
+  display: block;
+  color: #42604e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.visitor-counter strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--green-dark);
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.visitor-counter p {
+  margin: 0;
+  color: #42604e;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .shell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 390px;
@@ -945,6 +985,16 @@ button.primary:hover {
     padding: 12px;
   }
 
+  .visitor-counter {
+    grid-template-columns: 1fr 1fr;
+    margin: 12px 14px 0;
+    padding: 12px;
+  }
+
+  .visitor-counter p {
+    grid-column: 1 / -1;
+  }
+
   .filters {
     grid-template-columns: 1fr 1fr;
   }
@@ -983,6 +1033,14 @@ button.primary:hover {
   .filters,
   .prob-grid {
     grid-template-columns: 1fr;
+  }
+
+  .visitor-counter {
+    grid-template-columns: 1fr;
+  }
+
+  .visitor-counter p {
+    grid-column: auto;
   }
 
   .xg-strip {

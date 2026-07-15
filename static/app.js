@@ -11,6 +11,9 @@ const state = {
 
 const els = {
   statusLine: document.querySelector("#statusLine"),
+  visitorTotal: document.querySelector("#visitorTotal"),
+  visitorToday: document.querySelector("#visitorToday"),
+  visitorNote: document.querySelector("#visitorNote"),
   updateBtn: document.querySelector("#updateBtn"),
   sourcesBtn: document.querySelector("#sourcesBtn"),
   summaryGrid: document.querySelector("#summaryGrid"),
@@ -134,6 +137,8 @@ const translations = {
     available: "可用",
     failed: "失败",
     usingCache: "使用缓存",
+    visitorNote: "访问次数按页面打开计数，不记录个人身份信息。",
+    visitorBaseline: "其中历史基数 {count} 次，当前程序已统计 {tracked} 次。",
   },
 };
 
@@ -282,6 +287,11 @@ function percent(value) {
   return `${Number(value).toFixed(1)}%`;
 }
 
+function formatInteger(value) {
+  const number = Number(value || 0);
+  return new Intl.NumberFormat("zh-CN").format(number);
+}
+
 function confidenceClass(label) {
   if (label === "低") return "low";
   if (label === "待定") return "pending";
@@ -332,6 +342,29 @@ function renderSummary(summary = {}) {
   els.summaryGrid.innerHTML = items
     .map(([label, value]) => `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`)
     .join("");
+}
+
+function renderVisitorStats(stats = {}) {
+  if (!els.visitorTotal || !els.visitorToday || !els.visitorNote) return;
+  els.visitorTotal.textContent = formatInteger(stats.total_visits);
+  els.visitorToday.textContent = formatInteger(stats.today_visits);
+  const baseline = Number(stats.baseline_count || 0);
+  const tracked = Number(stats.tracked_visits || 0);
+  els.visitorNote.textContent = baseline > 0
+    ? t("visitorBaseline", { count: formatInteger(baseline), tracked: formatInteger(tracked) })
+    : (stats.note || t("visitorNote"));
+}
+
+async function recordVisit() {
+  try {
+    renderVisitorStats(await api("/api/visits", { method: "POST" }));
+  } catch (error) {
+    try {
+      renderVisitorStats(await api("/api/visits"));
+    } catch (_) {
+      if (els.visitorNote) els.visitorNote.textContent = "访问统计暂时不可用。";
+    }
+  }
 }
 
 function renderPerformance(performance = {}) {
@@ -1306,6 +1339,7 @@ function bindEvents() {
 async function init() {
   applyLanguage();
   bindEvents();
+  recordVisit();
   try {
     const status = await loadStatus({ forceSync: true });
     if (taskRunning(status)) {

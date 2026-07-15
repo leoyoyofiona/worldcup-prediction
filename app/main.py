@@ -1,14 +1,19 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 
 from .config import STATIC_DIR
 from .services import service
-from .visitors import record_visit, visitor_stats
+from .visitors import ensure_minimum_total, record_visit, visitor_stats
 
 
 app = FastAPI(title="2026 男足世界杯预测模型", version="0.1.0")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+class VisitSyncPayload(BaseModel):
+    min_total: int
 
 
 @app.get("/")
@@ -34,6 +39,11 @@ def get_visits():
 @app.post("/api/visits")
 def post_visit():
     return record_visit()
+
+
+@app.post("/api/visits/sync")
+def sync_visits(payload: VisitSyncPayload):
+    return ensure_minimum_total(payload.min_total)
 
 
 @app.post("/api/update")

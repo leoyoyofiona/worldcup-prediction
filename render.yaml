@@ -8,3 +8,7 @@ services:
     envVars:
       - key: TOURNAMENT_SIMULATIONS
         value: "300"
+      - key: VISITOR_BASELINE_COUNT
+        value: "10"
+      - key: VISITOR_COUNTER_BACKEND
+        value: "local"

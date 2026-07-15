@@ -40,6 +40,8 @@ const els = {
   sourceList: document.querySelector("#sourceList"),
 };
 
+const VISITOR_HIGH_WATER_KEY = "worldcupPredictorVisitorTotal";
+
 const translations = {
   zh: {
     appTitle: "2026 男足世界杯预测",
@@ -346,6 +348,7 @@ function renderSummary(summary = {}) {
 
 function renderVisitorStats(stats = {}) {
   if (!els.visitorTotal || !els.visitorToday || !els.visitorNote) return;
+  rememberVisitorTotal(stats.total_visits);
   els.visitorTotal.textContent = formatInteger(stats.total_visits);
   els.visitorToday.textContent = formatInteger(stats.today_visits);
   const baseline = Number(stats.baseline_count || 0);
@@ -357,7 +360,9 @@ function renderVisitorStats(stats = {}) {
 
 async function recordVisit() {
   try {
-    renderVisitorStats(await api("/api/visits", { method: "POST" }));
+    const stats = await api("/api/visits", { method: "POST" });
+    const restored = await restoreVisitorTotalIfNeeded(stats);
+    renderVisitorStats(restored);
   } catch (error) {
     try {
       renderVisitorStats(await api("/api/visits"));
@@ -365,6 +370,36 @@ async function recordVisit() {
       if (els.visitorNote) els.visitorNote.textContent = "访问统计暂时不可用。";
     }
   }
+}
+
+async function restoreVisitorTotalIfNeeded(stats = {}) {
+  const remembered = rememberedVisitorTotal();
+  const total = Number(stats.total_visits || 0);
+  if (remembered <= total) return stats;
+  try {
+    return await api("/api/visits/sync", {
+      method: "POST",
+      body: JSON.stringify({ min_total: remembered + 1 }),
+    });
+  } catch (_) {
+    return { ...stats, total_visits: remembered + 1 };
+  }
+}
+
+function rememberedVisitorTotal() {
+  try {
+    return Number(localStorage.getItem(VISITOR_HIGH_WATER_KEY) || 0);
+  } catch (_) {
+    return 0;
+  }
+}
+
+function rememberVisitorTotal(value) {
+  const total = Number(value || 0);
+  if (!Number.isFinite(total) || total <= rememberedVisitorTotal()) return;
+  try {
+    localStorage.setItem(VISITOR_HIGH_WATER_KEY, String(Math.floor(total)));
+  } catch (_) {}
 }
 
 function renderPerformance(performance = {}) {

@@ -15,8 +15,15 @@ const els = {
   visitorToday: document.querySelector("#visitorToday"),
   visitorNote: document.querySelector("#visitorNote"),
   updateBtn: document.querySelector("#updateBtn"),
+  reviewBtn: document.querySelector("#reviewBtn"),
   sourcesBtn: document.querySelector("#sourcesBtn"),
   summaryGrid: document.querySelector("#summaryGrid"),
+  reviewPanel: document.querySelector("#reviewPanel"),
+  reviewTag: document.querySelector("#reviewTag"),
+  reviewSummary: document.querySelector("#reviewSummary"),
+  reviewMetrics: document.querySelector("#reviewMetrics"),
+  reviewCharts: document.querySelector("#reviewCharts"),
+  reviewStageTable: document.querySelector("#reviewStageTable"),
   performanceTag: document.querySelector("#performanceTag"),
   performanceGrid: document.querySelector("#performanceGrid"),
   resultComparison: document.querySelector("#resultComparison"),
@@ -47,7 +54,9 @@ const translations = {
     appTitle: "2026 男足世界杯预测",
     loadingStatus: "正在读取模型状态...",
     updateData: "更新数据并重算",
+    reviewButton: "统计回顾",
     sourceStatus: "来源状态",
+    reviewTitle: "统计回顾",
     performanceTitle: "真实赛果对比",
     tournamentTitle: "淘汰赛推演",
     bettingValueTitle: "当日比赛分析预测",
@@ -449,6 +458,208 @@ function renderPerformanceRow(row) {
       </span>
     </div>
   `;
+}
+
+function toggleReviewPanel() {
+  if (!els.reviewPanel) return;
+  els.reviewPanel.classList.toggle("hidden");
+  if (!els.reviewPanel.classList.contains("hidden")) {
+    renderReviewPanel();
+    els.reviewPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function renderReviewPanel() {
+  const review = buildReviewStats(state.matches, state.performance);
+  els.reviewTag.textContent = review.finished ? "已完赛 · 全量复盘" : "进行中 · 动态复盘";
+  els.reviewSummary.textContent = review.summaryText;
+  els.reviewMetrics.innerHTML = review.metrics
+    .map((item) => `
+      <div class="review-metric">
+        <span>${escapeHtml(item.label)}</span>
+        <strong>${escapeHtml(item.value)}</strong>
+        <small>${escapeHtml(item.note)}</small>
+      </div>
+    `).join("");
+  els.reviewCharts.innerHTML = `
+    ${renderReviewBarChart("预测命中率", review.accuracyBars)}
+    ${renderReviewBarChart("阶段表现", review.stageBars)}
+    ${renderReviewBarChart("预测倾向分布", review.outcomeBars)}
+  `;
+  els.reviewStageTable.innerHTML = renderReviewStageTable(review.stageRows);
+}
+
+function buildReviewStats(matches = [], performance = {}) {
+  const completed = matches.filter((match) => match.actual_score && match.prediction_result);
+  const sampleSize = completed.length || Number(performance.sample_size || 0);
+  const outcomeHits = completed.filter((match) => (match.prediction_result || {}).outcome_hit).length;
+  const exactHits = completed.filter((match) => (match.prediction_result || {}).exact_score_hit).length;
+  const errors = completed
+    .map((match) => Number((match.prediction_result || {}).goal_error))
+    .filter((value) => Number.isFinite(value));
+  const knockout = completed.filter((match) => match.is_knockout);
+  const highConfidence = completed.filter((match) => match.confidence_label === "高");
+  const finished = matches.length > 0 && matches.every((match) => match.actual_score || match.status === "已结束");
+  const outcomeAccuracy = sampleSize ? outcomeHits / sampleSize * 100 : 0;
+  const exactAccuracy = sampleSize ? exactHits / sampleSize * 100 : 0;
+  const highConfidenceHits = highConfidence.filter((match) => (match.prediction_result || {}).outcome_hit).length;
+  const highConfidenceAccuracy = highConfidence.length ? highConfidenceHits / highConfidence.length * 100 : 0;
+  const averageError = errors.length ? errors.reduce((sum, value) => sum + value, 0) / errors.length : 0;
+  const biggestMisses = [...completed]
+    .filter((match) => Number.isFinite(Number((match.prediction_result || {}).goal_error)))
+    .sort((a, b) => Number((b.prediction_result || {}).goal_error) - Number((a.prediction_result || {}).goal_error))
+    .slice(0, 3);
+  const stageRows = buildReviewStageRows(completed);
+  const stageBars = stageRows.map((row) => ({ label: row.stage, value: row.outcomeAccuracy, detail: `${row.outcomeHits}/${row.count}` }));
+  const predictedOutcomes = countBy(completed, (match) => (match.prediction_result || {}).predicted_outcome || "unknown");
+  const outcomeBars = [
+    { label: "主胜", value: percentOf(predictedOutcomes.team1_win || 0, sampleSize), detail: `${predictedOutcomes.team1_win || 0}场` },
+    { label: "平局", value: percentOf(predictedOutcomes.draw || 0, sampleSize), detail: `${predictedOutcomes.draw || 0}场` },
+    { label: "客胜", value: percentOf(predictedOutcomes.team2_win || 0, sampleSize), detail: `${predictedOutcomes.team2_win || 0}场` },
+  ];
+  const bestStage = [...stageRows].sort((a, b) => b.outcomeAccuracy - a.outcomeAccuracy)[0];
+  const finalMatch = completed.find((match) => /^Final$/i.test(String(match.round || "").trim()));
+  const champion = finalMatch ? actualWinnerName(finalMatch) : "待定";
+  const runnerUp = finalMatch ? actualLoserName(finalMatch) : "待定";
+  const topProjectedChampion = (state.tournament.stage_probabilities || [])[0]?.team || "";
+  const championHit = champion !== "待定" && topProjectedChampion && canonicalTeamName(champion) === canonicalTeamName(topProjectedChampion);
+  const missText = biggestMisses.length
+    ? `偏差最大的场次是 ${biggestMisses.map((match) => `${teamName(match.team1)}vs${teamName(match.team2)}(${(match.prediction_result || {}).goal_error}球误差)`).join("、")}。`
+    : "暂无明显异常场次。";
+  return {
+    finished,
+    summaryText: sampleSize
+      ? `共复盘 ${sampleSize} 场比赛，方向命中 ${formatPercent(outcomeAccuracy)}，比分命中 ${formatPercent(exactAccuracy)}，平均进球误差 ${averageError.toFixed(2)}。${bestStage ? `表现最好的阶段是${bestStage.stage}。` : ""}${missText}`
+      : "暂无可复盘的完赛数据，请先更新赛果。",
+    metrics: [
+      { label: "复盘比赛", value: `${sampleSize}场`, note: finished ? "已覆盖全届世界杯" : "随赛果继续更新" },
+      { label: "冠军结果", value: champion, note: runnerUp !== "待定" ? `亚军 ${runnerUp}${topProjectedChampion ? ` · 赛前冠军倾向 ${teamName(topProjectedChampion)}${championHit ? "命中" : "未命中"}` : ""}` : "等待决赛结果" },
+      { label: "方向命中", value: formatPercent(outcomeAccuracy), note: `${outcomeHits}/${sampleSize} 场胜平负方向正确` },
+      { label: "比分命中", value: formatPercent(exactAccuracy), note: `${exactHits}/${sampleSize} 场精确比分正确` },
+      { label: "平均误差", value: averageError.toFixed(2), note: "预测比分与90分钟真实比分的总进球差" },
+      { label: "淘汰赛样本", value: `${knockout.length}场`, note: "按90分钟口径复盘，另列加时/点球" },
+      { label: "高置信命中", value: highConfidence.length ? formatPercent(highConfidenceAccuracy) : "--", note: `${highConfidenceHits}/${highConfidence.length} 场` },
+    ],
+    accuracyBars: [
+      { label: "方向命中", value: outcomeAccuracy, detail: `${outcomeHits}/${sampleSize}` },
+      { label: "比分命中", value: exactAccuracy, detail: `${exactHits}/${sampleSize}` },
+      { label: "高置信方向", value: highConfidenceAccuracy, detail: `${highConfidenceHits}/${highConfidence.length}` },
+    ],
+    stageBars,
+    outcomeBars,
+    stageRows,
+  };
+}
+
+function buildReviewStageRows(matches = []) {
+  const groups = new Map();
+  matches.forEach((match) => {
+    const stage = stageLabelForReview(match);
+    if (!groups.has(stage)) groups.set(stage, []);
+    groups.get(stage).push(match);
+  });
+  return Array.from(groups.entries()).map(([stage, rows]) => {
+    const outcomeHits = rows.filter((match) => (match.prediction_result || {}).outcome_hit).length;
+    const exactHits = rows.filter((match) => (match.prediction_result || {}).exact_score_hit).length;
+    const errors = rows.map((match) => Number((match.prediction_result || {}).goal_error)).filter((value) => Number.isFinite(value));
+    return {
+      stage,
+      count: rows.length,
+      outcomeHits,
+      exactHits,
+      outcomeAccuracy: percentOf(outcomeHits, rows.length),
+      exactAccuracy: percentOf(exactHits, rows.length),
+      averageError: errors.length ? errors.reduce((sum, value) => sum + value, 0) / errors.length : 0,
+    };
+  }).sort((a, b) => reviewStageOrder(a.stage) - reviewStageOrder(b.stage));
+}
+
+function renderReviewBarChart(title, rows = []) {
+  return `
+    <section class="review-chart-card">
+      <h3>${escapeHtml(title)}</h3>
+      ${rows.map((row) => `
+        <div class="review-bar-row">
+          <span>${escapeHtml(row.label)}</span>
+          <div class="review-bar"><i style="width:${Math.max(0, Math.min(100, Number(row.value || 0)))}%"></i></div>
+          <strong>${formatPercent(row.value)}</strong>
+          <small>${escapeHtml(row.detail || "")}</small>
+        </div>
+      `).join("") || `<div class="empty-line">暂无数据</div>`}
+    </section>
+  `;
+}
+
+function renderReviewStageTable(rows = []) {
+  return `
+    <div class="review-table-head">
+      <span>阶段</span><span>场次</span><span>方向命中</span><span>比分命中</span><span>平均误差</span>
+    </div>
+    ${rows.map((row) => `
+      <div class="review-table-row">
+        <span>${escapeHtml(row.stage)}</span>
+        <strong>${row.count}</strong>
+        <strong>${formatPercent(row.outcomeAccuracy)}</strong>
+        <strong>${formatPercent(row.exactAccuracy)}</strong>
+        <strong>${row.averageError.toFixed(2)}</strong>
+      </div>
+    `).join("") || `<div class="empty-line">暂无阶段复盘数据</div>`}
+  `;
+}
+
+function stageLabelForReview(match = {}) {
+  const round = String(match.round || match.stage || "");
+  if (/Group/i.test(round) || match.group) return "小组赛";
+  if (/Round of 32/i.test(round)) return "32强";
+  if (/Round of 16/i.test(round)) return "16强";
+  if (/Quarter/i.test(round)) return "8强";
+  if (/Semi/i.test(round)) return "半决赛";
+  if (/third/i.test(round)) return "三四名";
+  if (/Final/i.test(round)) return "决赛";
+  return round || "其他";
+}
+
+function reviewStageOrder(stage) {
+  const index = ["小组赛", "32强", "16强", "8强", "半决赛", "三四名", "决赛", "其他"].indexOf(stage);
+  return index < 0 ? 99 : index;
+}
+
+function countBy(rows, getter) {
+  return rows.reduce((acc, row) => {
+    const key = getter(row);
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function percentOf(count, total) {
+  return total ? count / total * 100 : 0;
+}
+
+function formatPercent(value) {
+  if (value === null || value === undefined || !Number.isFinite(Number(value))) return "--";
+  return `${Number(value).toFixed(1)}%`;
+}
+
+function actualWinnerName(match = {}) {
+  const actual = match.actual_score || {};
+  const team1 = Number(actual.team1);
+  const team2 = Number(actual.team2);
+  const penalty1 = Number(actual.penalty_team1);
+  const penalty2 = Number(actual.penalty_team2);
+  if (Number.isFinite(team1) && Number.isFinite(team2) && team1 !== team2) return team1 > team2 ? teamName(match.team1) : teamName(match.team2);
+  if (Number.isFinite(penalty1) && Number.isFinite(penalty2) && penalty1 !== penalty2) return penalty1 > penalty2 ? teamName(match.team1) : teamName(match.team2);
+  return "待定";
+}
+
+function actualLoserName(match = {}) {
+  const winner = actualWinnerName(match);
+  if (winner === "待定") return "待定";
+  return winner === teamName(match.team1) ? teamName(match.team2) : teamName(match.team1);
+}
+
+function canonicalTeamName(value) {
+  return String(teamName(value) || value || "").trim().toLowerCase();
 }
 
 function renderTournament(tournament = {}) {
@@ -1039,6 +1250,9 @@ async function loadMatches() {
   renderTournament(state.tournament);
   await loadBettingDaily();
   renderMatches();
+  if (els.reviewPanel && !els.reviewPanel.classList.contains("hidden")) {
+    renderReviewPanel();
+  }
   if (payload.generated_at) {
     els.statusLine.textContent = t("modelUpdated", {
       version: payload.model_version || (state.lastStatus || {}).model_version || "--",
@@ -1364,6 +1578,7 @@ function escapeHtml(value) {
 
 function bindEvents() {
   els.updateBtn.addEventListener("click", updateData);
+  els.reviewBtn.addEventListener("click", toggleReviewPanel);
   els.sourcesBtn.addEventListener("click", openSources);
   els.closeDrawerBtn.addEventListener("click", closeSources);
   els.drawerBackdrop.addEventListener("click", closeSources);

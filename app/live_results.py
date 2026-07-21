@@ -172,6 +172,10 @@ def static_knockout_events() -> List[Dict[str, Any]]:
         ("2026-07-10T19:00Z", "Spain", "Belgium", 2, 1, 2, 1, 0, 0, None),
         ("2026-07-11T21:00Z", "Norway", "England", 1, 2, 1, 1, 0, 1, None),
         ("2026-07-12T01:00Z", "Argentina", "Switzerland", 3, 1, 1, 1, 2, 0, None),
+        ("2026-07-14T19:00Z", "France", "Spain", 0, 2, 0, 2, 0, 0, None),
+        ("2026-07-15T19:00Z", "England", "Argentina", 1, 2, 1, 2, 0, 0, None),
+        ("2026-07-18T21:00Z", "France", "England", 4, 6, 4, 6, 0, 0, None),
+        ("2026-07-19T19:00Z", "Spain", "Argentina", 1, 0, 0, 0, 1, 0, None),
     ]
     return [
         static_event(date_text, home, away, home_score, away_score, home_regular, away_regular, home_extra, away_extra, penalty)

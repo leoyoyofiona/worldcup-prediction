@@ -18,6 +18,7 @@
       </div>
       <div class="toolbar">
         <button id="updateBtn" class="primary" data-i18n="updateData">更新数据并重算</button>
+        <button id="reviewBtn" data-i18n="reviewButton">统计回顾</button>
         <button id="sourcesBtn" data-i18n="sourceStatus">来源状态</button>
       </div>
     </header>
@@ -59,6 +60,17 @@
           <div class="metric"><span>历史样本</span><strong>--</strong></div>
           <div class="metric"><span>市场热度</span><strong>--</strong></div>
         </div>
+
+        <section class="review-panel hidden" id="reviewPanel">
+          <div class="panel-head">
+            <h2 data-i18n="reviewTitle">统计回顾</h2>
+            <span id="reviewTag">--</span>
+          </div>
+          <p id="reviewSummary" class="review-summary">世界杯结束后，这里会汇总全部预测表现。</p>
+          <div id="reviewMetrics" class="review-metrics"></div>
+          <div id="reviewCharts" class="review-charts"></div>
+          <div id="reviewStageTable" class="review-stage-table"></div>
+        </section>
 
         <section class="performance-panel">
           <div class="panel-head">
@@ -152,6 +164,6 @@
       </section>
     </div>
 
-    <script src="static/app.js?v=20260715-visitor-persist"></script>
+    <script src="static/app.js?v=20260721-review-panel"></script>
   </body>
 </html>

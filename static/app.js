@@ -482,6 +482,7 @@ function renderReviewPanel() {
       </div>
     `).join("");
   els.reviewCharts.innerHTML = `
+    ${renderReviewVisualDashboard(review)}
     ${renderReviewBarChart("预测命中率", review.accuracyBars)}
     ${renderReviewBarChart("阶段表现", review.stageBars)}
     ${renderReviewBarChart("预测倾向分布", review.outcomeBars)}
@@ -548,6 +549,10 @@ function buildReviewStats(matches = [], performance = {}) {
     stageBars,
     outcomeBars,
     stageRows,
+    outcomeAccuracy,
+    exactAccuracy,
+    highConfidenceAccuracy,
+    averageError,
   };
 }
 
@@ -587,6 +592,71 @@ function renderReviewBarChart(title, rows = []) {
         </div>
       `).join("") || `<div class="empty-line">暂无数据</div>`}
     </section>
+  `;
+}
+
+function renderReviewVisualDashboard(review = {}) {
+  const stageColumns = (review.stageBars || []).map((row) => ({
+    ...row,
+    height: Math.max(8, Math.min(100, Number(row.value || 0))),
+  }));
+  return `
+    <section class="review-visual-dashboard" aria-label="统计回顾可视化图表">
+      ${renderReviewDonut("方向命中", review.outcomeAccuracy, "#1f7a4c", "胜平负预测")}
+      ${renderReviewDonut("比分命中", review.exactAccuracy, "#b94f0f", "精确比分")}
+      <div class="review-column-card">
+        <div class="review-viz-head">
+          <span>阶段命中率</span>
+          <strong>按赛程阶段</strong>
+        </div>
+        <div class="review-column-chart">
+          ${stageColumns.map((row) => `
+            <div class="review-column">
+              <i style="height:${row.height}%"></i>
+              <span>${escapeHtml(row.label)}</span>
+              <strong>${formatPercent(row.value)}</strong>
+            </div>
+          `).join("") || `<div class="empty-line">暂无阶段数据</div>`}
+        </div>
+      </div>
+      <div class="review-pie-card">
+        <div class="review-viz-head">
+          <span>预测倾向分布</span>
+          <strong>胜 / 平 / 负</strong>
+        </div>
+        <div class="review-stack-chart">
+          ${(review.outcomeBars || []).map((row, index) => `
+            <i class="segment-${index}" style="width:${Math.max(0, Math.min(100, Number(row.value || 0)))}%">
+              ${Number(row.value || 0) >= 12 ? escapeHtml(row.label) : ""}
+            </i>
+          `).join("")}
+        </div>
+        <div class="review-legend">
+          ${(review.outcomeBars || []).map((row, index) => `
+            <span><i class="segment-${index}"></i>${escapeHtml(row.label)} ${formatPercent(row.value)}</span>
+          `).join("")}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderReviewDonut(label, value, color, note) {
+  const normalized = Math.max(0, Math.min(100, Number(value || 0)));
+  const radius = 44;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - normalized / 100);
+  return `
+    <div class="review-donut-card">
+      <svg class="review-donut" viewBox="0 0 120 120" role="img" aria-label="${escapeHtml(label)} ${formatPercent(normalized)}">
+        <circle class="donut-track" cx="60" cy="60" r="${radius}"></circle>
+        <circle class="donut-value" cx="60" cy="60" r="${radius}" stroke="${color}" stroke-dasharray="${circumference.toFixed(2)}" stroke-dashoffset="${offset.toFixed(2)}"></circle>
+        <text x="60" y="55" text-anchor="middle">${normalized.toFixed(1)}%</text>
+        <text x="60" y="74" text-anchor="middle">${escapeHtml(label)}</text>
+      </svg>
+      <strong>${escapeHtml(label)}</strong>
+      <span>${escapeHtml(note)}</span>
+    </div>
   `;
 }
 
